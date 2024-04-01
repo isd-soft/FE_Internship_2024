@@ -7,7 +7,6 @@ import { RouterLink, RouterView } from 'vue-router'
   <header>
   </header>
 
-  <button></button>
   <!-- <RouterView /> -->
 
   <footer>
