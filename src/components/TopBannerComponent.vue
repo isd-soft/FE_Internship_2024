@@ -1,46 +1,90 @@
-<template>
-    <section class='top-banner'>
-        <div class='top-banner__card'>
-            <p class='top-banner__card__text-new'>New Arrival</p>
-            <p class='top-banner__card__text-discover'>Discover Our New Collection</p>
-            <p class='top-banner__card__text-description'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis.</p>
-            <RouterLink to='shop'>Buy Now</RouterLink>
-        </div>
-    </section>
+<script setup></script>
 
+<template>
+  <section class="top-banner">
+    <div class="top-banner__card">
+      <div class="top-banner__card__flexbox">
+        <p class="top-banner__card__flexbox__text--new">New Arrival</p>
+        <p class="top-banner__card__flexbox__text--discover">Discover Our New Collection</p>
+        <p class="top-banner__card__flexbox__text--description">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec
+          ullamcorper mattis.
+        </p>
+        <button class="top-banner__card__flexbox__link__button" @click="$router.push('shop')">
+          BUY NOW
+        </button>
+      </div>
+    </div>
+  </section>
 </template>
 
-<script setup>
-import { RouterLink } from 'vue-router';
-</script>
-
-<style lang='scss' scoped>
-
-.top-banner{
-    background-image: url('public/background_top_banner.png');
-    background-size: cover;
-    background-position: center bottom;
-    background-repeat: no-repeat;
-    height: clamp(40vh, 96vh, 80vw);
-    display: flex;
-    align-items: center;
-    justify-content: end;
+<style lang="scss" scoped>
+p{
+    margin: 0;
 }
+.top-banner {
+  background-image: url('public/background_top_banner.png');
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  height: clamp(70vh, 96vh, 80vw);
+  display: flex;
+  align-items: center;
+  justify-content: end;
 
-.top-banner__card{
+  &__card {
     box-sizing: border-box;
-    background-color: #FFF3E3;
+    background-color: #fff3e3;
     // padding: 8.5vh 8.9vh 5vh 5vh ;
     width: clamp(30vw, 91vh, 100vw);
-    height: clamp(10vw, 62%, 50vw);
+    // width:  clamp(30vw, 40%, 100vw);
+    height: clamp(50vh, 62%, 120vw);
     border-radius: 10px;
-    margin-right: 7.95vh;
+    margin: 0 clamp(10%, 4%, 80%);
+    
+    &__flexbox {
+        height: 100%;
+        width: 100%;
+        position: relative;
+        margin-left: 5.4vh; //Change to like 7-10% in media screen for mobile
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        
+        &_text--new {
+            font-size: calc(0.5vw + 0.5rem);;
+            font-weight: 500;
+            margin-top: 9.6%;
+            margin-bottom: 1%;
+        }
+
+        &__text--discover {
+            font-weight: 700;
+            max-width: clamp(20vw, 60vh, 60vw);
+            font-size: calc(1.54vw + 1.75rem);
+            margin-bottom: 0px;
+            margin-top: 0;
+            color: #b88e2f;
+        }
+
+        &__text--description {
+            font-size: 1.125rem;
+            margin-top: 2.5%;
+            font-weight: 300;
+            max-width: clamp(20vw, 82%, 80vw);
+        }
+
+        button {
+            color: white;
+            margin-top: 10.8%;
+            border: none;
+            font-weight: 800;
+            font-size: calc(0.5vw + 0.5rem);
+            background-color: #b88e2f;
+            padding: 3.56vmin 10.68vmin;
+      }
+    }
+  }
 }
-
-.top-banner__card *{
-    max-width: clamp(20vw, 76.8vh, 80vw);
-    margin-left: 5.4vh;
-}
-
-
 </style>
