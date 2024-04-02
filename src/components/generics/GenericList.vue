@@ -14,9 +14,23 @@ defineProps({
 </script>
 
 <template>
-    <component :is="listTag" :class="{'list-vertical': isVertical, 'list-horizontal': !isVertical }">
+    <component :is="listTag" class="list" :class="{ 'list-vertical': isVertical, 'list-horizontal': !isVertical }">
         <li v-for="(item, index) in items" :key="index">
             <slot :item="item"></slot>
         </li>
     </component>
 </template>
+
+<style lang="scss" scoped>
+.list {
+    display: flex;
+
+    &-horizontal {
+        flex-direction: row;
+    }
+
+    &-vertical {
+        flex-direction: column;
+    }
+}
+</style>
