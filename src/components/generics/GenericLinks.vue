@@ -32,22 +32,22 @@ export default {
   </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
+$link-group-padding: '0 35px';
+
 .link-group {
-    display: flex;
-    align-items: center;
-}
-
-.link-group--row {
+  display: flex;
+  align-items: center;
+  &--row {
     flex-direction: row;
-}
-
-.link-group--column {
+  }
+  &--column {
     flex-direction: column;
-}
-
-.link-group__item {
+  }
+  &__item {
     text-decoration: none;
     color: var(--color-black);
+    padding: $link-group-padding;
+  }
 }
 </style>

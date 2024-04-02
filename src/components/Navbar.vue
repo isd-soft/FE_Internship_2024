@@ -28,7 +28,7 @@ export default {
       <div class="navigation__logo">
           <a href="#">
               <Logo />
-              <span class = "navigation__logo-naming">Furniro</span>
+              <span class="navigation__logo-naming">Furniro</span>
           </a>
       </div>
       <div class="navigation__links">
@@ -45,7 +45,7 @@ export default {
   </nav>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 .navigation {
@@ -56,33 +56,34 @@ export default {
     justify-content: space-around;
     margin: 0 auto;
     align-items: center;
-}
 
-.navigation a {
-    text-decoration: none;
-    color: var(--color-black);
-}
+    a {
+        text-decoration: none;
+        color: var(--color-black);
 
-.navigation__logo a{
-    display: inline-flex;
-    align-items: center;
-    font-size: 34px;
-    font-family: "Montserrat", sans-serif;
-    font-weight: 700;
+        &.navigation__cart-user-item {
+            padding: 0 12.5px;
+        }
+    }
 
-}
+    &__logo {
+        a {
+            display: inline-flex;
+            align-items: center;
+            font-size: 34px;
+            font-family: "Montserrat", sans-serif;
+            font-weight: 700;
+        }
+        
+        &-naming {
+            padding-left: 5px;
+        }
+    }
 
-.navigation__logo-naming{
-    padding: 0 0 0 5px;
-}
-
-.navigation__links-item {
-    padding: 0 35px 0 35px;
-    font-size: 16px;
-    font-weight: 500;
-}
-
-.navigation__cart-user-item {
-    padding: 0 12.5px 0 12.5px;
+    &__links-item {
+        padding: 0 35px;
+        font-size: 16px;
+        font-weight: 500;
+    }
 }
 </style>
