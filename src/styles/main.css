@@ -56,4 +56,7 @@
 
     --color-blue: #816DFA;
     /* Lavender Blue */
+    a{
+        text-decoration: none;
+    }
 }
