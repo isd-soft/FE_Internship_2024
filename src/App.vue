@@ -8,7 +8,6 @@ import Advantages from "@/components/Advantages.vue"
 <template>
   <header>
     <Navbar />
-    <Advantages/>
   </header>
   <!-- <RouterView /> -->
 
