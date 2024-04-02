@@ -2,7 +2,7 @@
     <footer class="footer">
         <div class="footer__content">
             <div class="footer__info">
-                <span >Funiro.</span>
+                <span >Furniro.</span>
                 <p >400 University Drive Suite 200 Coral <br>
                     Gables,<br>
                     FL 33134 USA</p>
@@ -33,7 +33,7 @@
         </div>
         <div class="footer__bottom">
             <hr>
-            <p>2024 funiro. All rights reserved</p>
+            <p>2024 furniro. All rights reserved</p>
         </div>
     </footer>
 </template>
