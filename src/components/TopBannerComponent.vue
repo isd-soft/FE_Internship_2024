@@ -44,27 +44,26 @@ p {
     margin: 0 clamp(10%, 4%, 80%) 0 clamp(30%, 4%, 80%); //For mobile in media screen make clamp(10%, 4%, 80%) both of them
 
     &__flexbox {
-      height: 100%;
+      height: 70%;
       width: calc(100% - 5.4vh);
       margin-left: 5.4vh; //Change to like 7-10% in media screen for mobile
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: flex-start;
+      margin-top: 14%;
 
       &_text--new {
         font-size: calc(0.5vw + 0.5rem);
         font-weight: 500;
-        margin-top: 9.6%;
-        margin-bottom: 1%;
       }
 
       &__text--discover {
         font-weight: 700;
         max-width: clamp(20vw, 70vh, 60vw);
-        font-size: calc(1.14vw + 1.75rem);
+        font-size: calc(1.13vw + 1.75rem);
         margin-bottom: 0px;
-        margin-top: 0;
+        margin-top: 0.65%;
         color: #b88e2f;
       }
 
@@ -72,7 +71,7 @@ p {
         font-size: 1.125rem;
         margin-top: 2.5%;
         font-weight: 300;
-        max-width: clamp(20vw, 85%, 80vw);
+        max-width: clamp(20vw, 87%, 80vw);
       }
 
       button {
