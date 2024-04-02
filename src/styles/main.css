@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    font-family: 'Poppins';
+    font-style: normal;
+}
+
+:root {
+    --color-black: #000000;
+    /* Black */
+
+    --color-gray-1: #333333;
+    /* Midnight Black */
+
+    --color-gray-2: #3A3A3A;
+    /* Charcoal */
+
+    --color-gray-3: #898989;
+    /* Ash Gray */
+
+    --color-gray-4: #9F9F9F;
+    /* Granite */
+
+    --color-gray-5: #B0B0B0;
+    /* Steel Gray */
+
+    --color-gray-6: #D8D8D8;
+    /* Light Silver */
+
+    --color-ghost-white: #F4F5F7;
+    /* Ghost White */
+
+    --color-white: #FFFFFF;
+    /* White */
+
+    --color-bronze: #B88E2F;
+    /* Bronze */
+
+    --color-alabaster: #FFF3E3;
+    /* Alabaster */
+
+    --color-pink: #E97171;
+    /* Coral Pink */
+
+    --color-marine: #2EC1AC;
+    /* Aqua Marine */
+
+    --color-linen: #FAF3EA;
+    /* Linen */
+
+    --color-ivory: #FCF8F3;
+    /* Ivory */
+
+    --color-yellow: #FFC700;
+    /* Sunshine Yellow */
+
+    --color-blue: #816DFA;
+    /* Lavender Blue */
+}
