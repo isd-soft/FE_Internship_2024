@@ -10,17 +10,17 @@
             <div class="footer__links">
                 <h1>Links</h1>
                 <ul>
-                    <li>Home</li>
-                    <li>Shop</li>
-                    <li>Contact</li>
+                    <li><generic-link href="#" text-content="Home" container-class="navigation__links-item"></generic-link></li>
+                    <li><generic-link href="#" text-content="Shop" container-class="navigation__links-item"></generic-link></li>
+                    <li><generic-link href="#" text-content="Contact" container-class="navigation__links-item"></generic-link></li>
                 </ul>
             </div>
             <div class="footer__help">
                 <h1>Help</h1>
                 <ul>
-                    <li>Payment Options</li>
-                    <li>Returns</li>
-                    <li>Privacy Policies</li>
+                    <li><generic-link href="#" text-content="Payment Options" container-class="navigation__links-item"></generic-link></li>
+                    <li><generic-link href="#" text-content="Returns" container-class="navigation__links-item"></generic-link></li>
+                    <li><generic-link href="#" text-content="Privacy Policies" container-class="navigation__links-item"></generic-link></li>
                 </ul>
             </div>
             <div class="footer__newsLetter">
@@ -39,8 +39,11 @@
 </template>
 
 <script>
+import GenericLink from '@/components/generics/GenericLink.vue'
     export default {
-        
+        components: {
+        GenericLink
+    } 
     }
 </script>
 
@@ -162,5 +165,8 @@
             padding-bottom: 2.5rem;
         }
     }       
+}
+.navigation__links-item{
+    color: black;
 }
 </style>
