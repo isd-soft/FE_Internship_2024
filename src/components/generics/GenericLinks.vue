@@ -32,6 +32,24 @@ export default {
   </div>
 </template>
 
+<!-- use define props instead of export default
+
+Text-content
+children
+href
+container
+text-first
+text-class
+базовая конфигурация для линка
+
+GenericList
+tag = ol/ul/div
+is_vertical flag
+class
+items
+базовая конфигурация для списков -->
+
+
 <style lang="scss" scoped>
 $link-group-padding: '0 35px';
 
