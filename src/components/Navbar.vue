@@ -1,8 +1,22 @@
+<script>
+import Logo from '@/assets/logo.svg'
+import Cart from '@/assets/cart.svg'
+import User from '@/assets/user.svg'
+
+export default {
+    components: {
+        Logo,
+        Cart,
+        User
+    }
+}
+</script>
+
 <template> 
   <nav class="navigation">
       <div class="navigation__logo">
           <a href="#">
-              <img src="@/assets/Frame_168.svg" alt="logo">
+              <Logo />
           </a>
       </div>
       <div class="navigation__links">
@@ -12,10 +26,10 @@
       </div>
       <div class="navigation__cart-user">
           <a href="#" class="navigation__cart-user-item">
-              <img src="@/assets/cart.svg" alt="">
+              <Cart />
           </a>
           <a href="#" class="navigation__cart-user-item">
-              <img src="@/assets/user.svg" alt="">
+              <User />
           </a>
       </div>
   </nav>
