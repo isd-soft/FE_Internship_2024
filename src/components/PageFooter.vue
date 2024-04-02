@@ -1,3 +1,13 @@
+
+
+<script>
+import GenericLink from '@/components/generics/GenericLink.vue'
+    export default {
+        components: {
+        GenericLink
+    } 
+    }
+</script>
 <template>
     <footer class="footer">
         <div class="footer__content">
@@ -37,16 +47,6 @@
         </div>
     </footer>
 </template>
-
-<script>
-import GenericLink from '@/components/generics/GenericLink.vue'
-    export default {
-        components: {
-        GenericLink
-    } 
-    }
-</script>
-
 <style lang="scss" scoped>
 .footer{
     --tw-border-opacity: 1;
@@ -91,6 +91,7 @@ import GenericLink from '@/components/generics/GenericLink.vue'
             color: rgb(159 159 159);
             --tw-text-opacity: 1;
             font-weight: 500;
+            font-size: 20px;
             margin: 0;
         }     
     }        
@@ -113,6 +114,7 @@ import GenericLink from '@/components/generics/GenericLink.vue'
             color: rgb(159 159 159);
             --tw-text-opacity: 1;
             font-weight: 500;
+            font-size: 20px;
             margin: 0;
         }          
     }
@@ -124,6 +126,7 @@ import GenericLink from '@/components/generics/GenericLink.vue'
             --tw-text-opacity: 1;
             color: rgb(159 159 159);
             font-weight: 500;
+            font-size: 20px;
             margin: 0;
         }
         form{

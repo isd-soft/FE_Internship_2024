@@ -8,10 +8,8 @@ import Footer from "@/components/PageFooter.vue"
   <header>
     <Navbar />
   </header>
-
-  <RouterView />
-
-<Footer/>
+  <RouterView /> 
+  <Footer/>
 </template>
 
 <style lang="scss">
