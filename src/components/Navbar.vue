@@ -2,12 +2,23 @@
 import Logo from '@/assets/icons/Furniro_logo.svg'
 import Cart from '@/assets/icons/Cart.svg'
 import User from '@/assets/icons/User.svg'
+import GenericLinks from '@/components/generics/GenericLinks.vue'
 
 export default {
     components: {
         Logo,
         Cart,
-        User
+        User, 
+        GenericLinks
+    }, 
+    data() {
+        return {
+            links: [
+                { text: 'Home', url: '#' },
+                { text: 'Shop', url: '#' },
+                { text: 'Contact', url: '#' }
+            ]
+        }
     }
 }
 </script>
@@ -21,9 +32,7 @@ export default {
           </a>
       </div>
       <div class="navigation__links">
-          <a href="#" class="navigation__links-item">Home</a>
-          <a href="#" class="navigation__links-item">Shop</a>
-          <a href="#" class="navigation__links-item">Contact</a>
+            <GenericLinks :links="links" direction="row" padding="0 35px"></GenericLinks>
       </div>
       <div class="navigation__cart-user">
           <a href="#" class="navigation__cart-user-item">
@@ -51,7 +60,7 @@ export default {
 
 .navigation a {
     text-decoration: none;
-    color: #000;
+    color: var(--color-black);
 }
 
 .navigation__logo a{
