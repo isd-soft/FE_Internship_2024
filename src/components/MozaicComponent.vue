@@ -3,7 +3,7 @@
 </script>
 
 <template>
-    <h1>Mozaic</h1>
+    <div class=""></div>
 </template>
 
 <style>
