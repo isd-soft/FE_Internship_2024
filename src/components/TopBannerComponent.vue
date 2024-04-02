@@ -1,18 +1,16 @@
 <script setup></script>
 
 <template>
-  <section class="top-banner">
-    <div class="top-banner__card">
-      <div class="top-banner__card__flexbox">
-        <p class="top-banner__card__flexbox__text--new">New Arrival</p>
-        <p class="top-banner__card__flexbox__text--discover">Discover Our New Collection</p>
-        <p class="top-banner__card__flexbox__text--description">
+  <section class="main__section section hero-section">
+    <div class="hero-section__container">
+      <div class="hero-section__wrapper">
+        <p class="hero-section__label">New Arrival</p>
+        <h1 class="hero-section__title">Discover Our New Collection</h1>
+        <p class="hero-section__description">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec
           ullamcorper mattis.
         </p>
-        <button class="top-banner__card__flexbox__link__button" @click="$router.push('shop')">
-          BUY NOW
-        </button>
+        <button class="hero-section__button" @click="$router.push('shop')">BUY NOW</button>
       </div>
     </div>
   </section>
@@ -22,7 +20,7 @@
 p {
   margin: 0;
 }
-.top-banner {
+.hero-section {
   background-image: url('public/background_top_banner.png');
   background-size: cover;
   background-position: center bottom;
@@ -33,7 +31,7 @@ p {
   align-items: center;
   justify-content: end;
 
-  &__card {
+  &__container {
     box-sizing: border-box;
     background-color: #fff3e3;
     // padding: 8.5vh 8.9vh 5vh 5vh ;
@@ -42,8 +40,8 @@ p {
     height: clamp(50vh, 62%, 120vw);
     border-radius: 10px;
     margin: 0 clamp(10%, 4%, 80%) 0 clamp(30%, 4%, 80%); //For mobile in media screen make clamp(10%, 4%, 80%) both of them
-
-    &__flexbox {
+  }
+    &__wrapper {
       height: 70%;
       width: calc(100% - 5.4vh);
       margin-left: 5.4vh; //Change to like 7-10% in media screen for mobile
@@ -52,13 +50,13 @@ p {
       justify-content: center;
       align-items: flex-start;
       margin-top: 14%;
-
-      &_text--new {
+    }
+      &__label {
         font-size: calc(0.5vw + 0.5rem);
         font-weight: 500;
       }
 
-      &__text--discover {
+      &__title {
         font-weight: 700;
         max-width: clamp(20vw, 70vh, 60vw);
         font-size: calc(1.13vw + 1.75rem);
@@ -67,14 +65,14 @@ p {
         color: #b88e2f;
       }
 
-      &__text--description {
+      &__description {
         font-size: 1.125rem;
         margin-top: 2.5%;
         font-weight: 300;
         max-width: clamp(20vw, 87%, 80vw);
       }
 
-      button {
+      &__button {
         color: white;
         margin-top: 10.8%;
         border: none;
@@ -84,6 +82,5 @@ p {
         padding: 3.56vmin 10.68vmin;
       }
     }
-  }
-}
+
 </style>
