@@ -10,11 +10,11 @@ const links = [
         href: "/",
         textContent: "Home",
         containerClass: "navigation__links-item"
-    },{
+    }, {
         href: "shop",
         textContent: "Shop",
         containerClass: "navigation__links-item"
-    },{
+    }, {
         href: "contact",
         textContent: "Contact",
         containerClass: "navigation__links-item"
@@ -23,27 +23,28 @@ const links = [
 </script>
 
 
-<template> 
-  <nav class="navigation">
-      <div class="navigation__logo">
-          <generic-link href="#" container-class="navigation__logo-link text-2xl" text-content="Furniro" :text-first="false">
-            <Logo />
-          </generic-link>
-      </div>
-    <GenericList :items = "links" keyProp = "text-content" customClass = "navigation__links text-sm">
-        <template v-slot = "{item}">
-            <GenericLink v-bind = "item"></GenericLink>
-        </template>
-    </GenericList>
-      <div class="navigation__cart-user">
-        <generic-link href="#" container-class="navigation__cart-user-item">
-            <Cart />
-        </generic-link>
-        <generic-link href="#" container-class="navigation__cart-user-item">
-            <User />
-        </generic-link>
-      </div>
-  </nav>
+<template>
+    <nav class="navigation">
+        <div class="navigation__logo">
+            <generic-link href="#" container-class="navigation__logo-link text-2xl" text-content="Furniro"
+                :text-first="false">
+                <Logo />
+            </generic-link>
+        </div>
+        <GenericList :items="links" keyProp="text-content" customClass="navigation__links text-sm">
+            <template v-slot="{ item }">
+                <GenericLink v-bind="item"></GenericLink>
+            </template>
+        </GenericList>
+        <div class="navigation__cart-user">
+            <generic-link href="#" container-class="navigation__cart-user-item">
+                <Cart />
+            </generic-link>
+            <generic-link href="#" container-class="navigation__cart-user-item">
+                <User />
+            </generic-link>
+        </div>
+    </nav>
 </template>
 
 <style lang="scss" scoped>
@@ -77,7 +78,7 @@ const links = [
         }
     }
 
-    &__links{
+    &__links {
         list-style: none;
         display: inline-flex;
     }
