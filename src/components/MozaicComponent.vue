@@ -1,6 +1,6 @@
 <script setup>
 import { mozaicImagesUrls } from '../utils/mozaicImagesUrls.js'
-import { getImageUrl } from '../utils/getImageUrl.js'
+import { getUrlFromString } from '../utils/getUrlFromString.js'
 
 const urls = mozaicImagesUrls
 </script>
@@ -12,7 +12,7 @@ const urls = mozaicImagesUrls
                 Share your setup with
                 <h1>#FuniroFurniture</h1>
             </div>
-            <div v-for="(url, index) in urls" :key="index" :style="{backgroundImage: `url(${getImageUrl(url.url)})`}"></div>
+            <div v-for="(url, index) in urls" :key="index" :style="{backgroundImage: `url(${getUrlFromString(url.url)})`}"></div>
         </div>
     </div>
 </template>
