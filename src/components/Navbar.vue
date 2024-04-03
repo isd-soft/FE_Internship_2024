@@ -7,15 +7,15 @@ import GenericList from '@/components/generics/GenericList.vue'
 
 const links = [
     {
-        href: "#",
+        href: "/",
         textContent: "Home",
         containerClass: "navigation__links-item"
     },{
-        href: "#",
+        href: "shop",
         textContent: "Shop",
         containerClass: "navigation__links-item"
     },{
-        href: "#",
+        href: "contact",
         textContent: "Contact",
         containerClass: "navigation__links-item"
     }
@@ -30,11 +30,6 @@ const links = [
             <Logo />
           </generic-link>
       </div>
-    <!-- //   <div class="navigation__links">
-    //         <generic-link href="#" text-content="Home" container-class="navigation__links-item"></generic-link>
-    //         <generic-link href="#" text-content="Shop" container-class="navigation__links-item"></generic-link>
-    //         <generic-link href="#" text-content="Contact" container-class="navigation__links-item"></generic-link>
-    //   </div> -->
     <GenericList :items = "links" keyProp = "text-content" customClass = "navigation__links">
         <template v-slot = "{item}">
             <GenericLink v-bind = "item"></GenericLink>
