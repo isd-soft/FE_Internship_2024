@@ -71,6 +71,7 @@
 
 .text-3xl {
     font-size: 4rem;
+    line-height: 120%;
 }
 
 .text-4xl {
