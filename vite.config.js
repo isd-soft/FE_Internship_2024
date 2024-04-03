@@ -12,6 +12,9 @@ export default defineConfig({
     svgLoader(),
     vueJsx(),
   ],
+  server: {
+    host: '0.0.0.0'
+  },
   css:{
     preprocessorOptions:{
       scss: {

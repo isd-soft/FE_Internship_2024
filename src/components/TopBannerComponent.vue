@@ -21,7 +21,7 @@ p {
   margin: 0;
 }
 .hero-section {
-  background-image: url('public/background_top_banner.png');
+  background-image: url('/background_top_banner.png');
   background-size: cover;
   background-position: center bottom;
   background-repeat: no-repeat;
