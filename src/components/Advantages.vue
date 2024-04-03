@@ -22,6 +22,6 @@
     padding-left: 3.35rem;
     padding-right: 3.35rem;
     background-color: var(--color-linen);
-    gap: .5rem;
+    gap: 48px;
 }
 </style>

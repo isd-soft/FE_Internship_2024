@@ -1,12 +1,42 @@
 
 
-<script>
+<script setup>
 import GenericLink from '@/components/generics/GenericLink.vue'
-    export default {
-        components: {
-        GenericLink
-    } 
-    }
+import GenericList from '@/components/generics/GenericList.vue'
+    const links=[
+        {
+            href:"#" ,
+            textContent:"Home",
+            containerClass:"navigation__links-item"  
+        },
+        {
+            href:"#" ,
+            textContent:"Shop",
+            containerClass:"navigation__links-item"  
+        },
+        {
+            href:"#" ,
+            textContent:"Contact",
+            containerClass:"navigation__links-item"  
+        }
+    ]
+    const helpLinks=[
+    {
+            href:"#" ,
+            textContent:"Payment Options",
+            containerClass:"navigation__links-item"  
+        },
+        {
+            href:"#" ,
+            textContent:"Returns",
+            containerClass:"navigation__links-item"  
+        },
+        {
+            href:"#" ,
+            textContent:"Privacy Policies",
+            containerClass:"navigation__links-item"  
+        }
+    ]
 </script>
 <template>
     <footer class="footer">
@@ -18,20 +48,20 @@ import GenericLink from '@/components/generics/GenericLink.vue'
                     FL 33134 USA</p>
             </div>
             <div class="footer__links">
-                <h1 class="text-md">Links</h1>
-                <ul>
-                    <li><generic-link href="#" text-content="Home" container-class="navigation__links-item"></generic-link></li>
-                    <li><generic-link href="#" text-content="Shop" container-class="navigation__links-item"></generic-link></li>
-                    <li><generic-link href="#" text-content="Contact" container-class="navigation__links-item"></generic-link></li>
-                </ul>
+                <h1 class="text-md>Links</h1>
+                <GenericList :items="links" customClass="footer__link-list">
+                    <template v-slot="{ item }">
+                        <GenericLink v-bind="item"/>
+                    </template>
+                </GenericList>
             </div>
             <div class="footer__help">
                 <h1>Help</h1>
-                <ul>
-                    <li><generic-link href="#" text-content="Payment Options" container-class="navigation__links-item"></generic-link></li>
-                    <li><generic-link href="#" text-content="Returns" container-class="navigation__links-item"></generic-link></li>
-                    <li><generic-link href="#" text-content="Privacy Policies" container-class="navigation__links-item"></generic-link></li>
-                </ul>
+                <GenericList :items="helpLinks" customClass="footer__link-list">
+                    <template v-slot="{ item }">
+                        <GenericLink v-bind="item"/>
+                    </template>
+                </GenericList>
             </div>
             <div class="footer__newsLetter">
                 <h1 class="text-md">Newsletter</h1>
@@ -51,7 +81,7 @@ import GenericLink from '@/components/generics/GenericLink.vue'
 .footer{
     --tw-border-opacity: 1;
     &__content{
-        padding: 5rem;
+        padding: 38px 100px 118px 100px;
         display: grid;
         grid-template-columns: repeat(4, minmax(0, 1fr));
         gap: 2rem;
@@ -75,17 +105,6 @@ import GenericLink from '@/components/generics/GenericLink.vue'
         display: flex;
         flex-direction: column;
         gap: 3rem;
-        ul{
-            display: flex;
-            flex-direction: column;
-            gap: 3rem;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-        li{
-            list-style: none;
-        }
         h1{
             color: var(--color-quick-silver);
             --tw-text-opacity: 1;
@@ -97,23 +116,20 @@ import GenericLink from '@/components/generics/GenericLink.vue'
         display: flex;
         flex-direction: column;
         gap: 3rem;
-        ul{
-            display: flex;
-            flex-direction: column;
-            gap: 3rem;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-        li{
-            list-style: none;
-        }
         h1{
             color: var(--color-quick-silver);
             --tw-text-opacity: 1;
             font-weight: 500;
             margin: 0;
         }          
+    }
+    &__link-list{
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
+        list-style: none;
+        margin: 0;
+        padding: 0;
     }
     &__newsLetter{
         display: flex;
@@ -156,11 +172,9 @@ import GenericLink from '@/components/generics/GenericLink.vue'
         }
     }
     &__bottom{
-        margin-left: 5rem;
-        margin-right: 5rem;
+        margin: 0 100px;
         p{
-            padding-top: 2.5rem;
-            padding-bottom: 2.5rem;
+            padding: 38px 0;
         }
     }       
 }

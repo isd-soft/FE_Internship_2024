@@ -20,7 +20,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <a :href="props.href" :class="props.containerClass">
+  <a :href="props.href" :class="props.containerClass" @click = "$router.push(props.href)">
     <template v-if="props.textFirst">
       {{ props.textContent }}
       <slot></slot>
@@ -35,6 +35,7 @@ const props = defineProps({
 <style lang="scss" scoped>
   a{
     text-decoration: none;
+    color: black;
   }
 </style>
 

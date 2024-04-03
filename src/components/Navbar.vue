@@ -1,18 +1,27 @@
-<script>
+<script setup>
 import Logo from '@/assets/icons/Furniro_logo.svg'
 import Cart from '@/assets/icons/Cart.svg'
 import User from '@/assets/icons/User.svg'
 import GenericLink from '@/components/generics/GenericLink.vue'
+import GenericList from '@/components/generics/GenericList.vue'
 
-export default {
-    components: {
-        Logo,
-        Cart,
-        User, 
-        GenericLink
-    } 
-}
+const links = [
+    {
+        href: "/",
+        textContent: "Home",
+        containerClass: "navigation__links-item"
+    },{
+        href: "shop",
+        textContent: "Shop",
+        containerClass: "navigation__links-item"
+    },{
+        href: "contact",
+        textContent: "Contact",
+        containerClass: "navigation__links-item"
+    }
+]
 </script>
+
 
 <template> 
   <nav class="navigation">
@@ -21,11 +30,11 @@ export default {
             <Logo />
           </generic-link>
       </div>
-      <div class="navigation__links">
-            <generic-link href="#" text-content="Home" container-class="navigation__links-item text-sm"></generic-link>
-            <generic-link href="#" text-content="Shop" container-class="navigation__links-item text-sm"></generic-link>
-            <generic-link href="#" text-content="Contact" container-class="navigation__links-item text-sm"></generic-link>
-      </div>
+    <GenericList :items = "links" keyProp = "text-content" customClass = "navigation__links text-sm">
+        <template v-slot = "{item}">
+            <GenericLink v-bind = "item"></GenericLink>
+        </template>
+    </GenericList>
       <div class="navigation__cart-user">
         <generic-link href="#" container-class="navigation__cart-user-item">
             <Cart />
@@ -66,6 +75,11 @@ export default {
             font-weight: 700;
             gap: 5px;
         }
+    }
+
+    &__links{
+        list-style: none;
+        display: inline-flex;
     }
 
     &__links-item {
