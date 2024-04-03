@@ -23,8 +23,8 @@ const props=defineProps({
     <div class="AdvantagesCard">
         <img :src="props.src" :alt="props.alt">
         <div class="AdvantagesCard__text">
-        <h1>{{ props.name }}</h1>
-        <p>{{ props.description }}</p>   
+        <h1 class="text-lg">{{ props.name }}</h1>
+        <p class="text-md">{{ props.description }}</p>   
         </div>
     </div>
 </template>
@@ -40,10 +40,9 @@ const props=defineProps({
             margin:0;
         }
         p{
-            font-size: 20px;
             font-weight: 500;
             margin: 0;
-            color: var(--color-gray-3);
+            color: var(--color-taupe-gray);
         }
     }
 }

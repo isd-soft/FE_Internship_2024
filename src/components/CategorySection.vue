@@ -1,11 +1,11 @@
 <template>
     <section class="main__section section category-section">
         <div class="category-section__container container">
-            <h2 class="category-section__title">
+            <h2 class="category-section__title text-xl">
                 Browse the range
             </h2>
 
-            <p class="category-section__paragraph">
+            <p class="category-section__paragraph text-md">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
             </p>
 
@@ -41,16 +41,14 @@ const categories = [
 
     &__title {
         font-weight: 700;
-        font-size: 32px;
         line-height: 48px;
-        color: #333333;
+        color: var(--color-dark-charcoal);
     }
 
     &__paragraph {
         font-weight: 400;
-        font-size: 20px;
         line-height: 30px;
-        color: #666666;
+        color: var(--color-granite-gray);
         margin-bottom: 62.29px;
     }
 
