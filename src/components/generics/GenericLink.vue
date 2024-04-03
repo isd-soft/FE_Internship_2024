@@ -32,12 +32,6 @@ const props = defineProps({
   </a>
 </template>
 
-<style lang="scss" scoped>
-  a{
-    text-decoration: none;
-  }
-</style>
-
 <!-- use define props instead of export default
 
 Text-content
