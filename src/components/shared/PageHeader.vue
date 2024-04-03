@@ -1,9 +1,9 @@
 <script setup>
 import HeaderLogo from './HeaderLogo.vue'
 import HeaderNavigation from './HeaderNavigation.vue';
-import GenericLink from './generics/GenericLink.vue';
-import CartIcon from '../assets/icons/CartIcon.svg';
-import UserIcon from '../assets/icons/UserIcon.svg';
+import GenericLink from '../generics/GenericLink.vue';
+import CartIcon from '../../assets/icons/CartIcon.svg';
+import UserIcon from '../../assets/icons/UserIcon.svg';
 </script>
 
 <template>

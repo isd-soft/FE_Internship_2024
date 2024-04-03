@@ -1,6 +1,6 @@
 <script setup>
-import GenericLink from './generics/GenericLink.vue';
-import LogoIcon from '../assets/icons/LogoIcon.svg';
+import GenericLink from '../generics/GenericLink.vue';
+import LogoIcon from '../../assets/icons/LogoIcon.svg';
 </script>
 
 <template>

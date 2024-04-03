@@ -1,6 +1,6 @@
 <script setup>
-import GenericList from './generics/GenericList.vue';
-import GenericLink from './generics/GenericLink.vue';
+import GenericList from '../generics/GenericList.vue';
+import GenericLink from '../generics/GenericLink.vue';
 
 const linkList = [
     { href: '#', textContent: 'Home', containerClass: 'navigation__link' },

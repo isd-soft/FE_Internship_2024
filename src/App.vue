@@ -1,19 +1,24 @@
 <script setup>
-import Header from '@/components/Header.vue';
-import HeroSection from './components/HeroSection.vue';
-import CategorySection from './components/CategorySection.vue';
-import ProductListSection from './components/ProductListSection.vue';
-import MozaicComponent from './components/MozaicComponent.vue';
-
+import PageHeader from './components/shared/PageHeader.vue'
+import HeroSection from './components/home/HeroSection.vue'
+import CategorySection from './components/home/CategorySection.vue'
+import ProductSection from './components/home/ProductSection.vue'
+import MozaicComponent from './components/home/MozaicComponent.vue'
+import PageFooter from './components/shared/PageFooter.vue'
 </script>
+
+<!-- TEMPORARY RENDER IN THE APP COMPONENT. -->
+
+<!-- TODO: SET THE COMPONENTS IN THE CORESPONDING VIEWS. APPLY THE ROUTER IN THE APP COMPONENT AFTER THAT. -->
 
 <template>
   <div>
-    <Header />
+    <PageHeader />
     <HeroSection />
     <CategorySection />
-    <ProductListSection />
+    <ProductSection />
     <MozaicComponent />
+    <PageFooter />
   </div>
 </template>
 
