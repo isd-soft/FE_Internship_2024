@@ -1,5 +1,3 @@
-
-
 <script setup>
 import GenericLink from '@/components/generics/GenericLink.vue'
 import GenericList from '@/components/generics/GenericList.vue'
@@ -38,6 +36,7 @@ import GenericList from '@/components/generics/GenericList.vue'
         }
     ]
 </script>
+
 <template>
     <footer class="footer">
         <div class="footer__content">
@@ -48,7 +47,7 @@ import GenericList from '@/components/generics/GenericList.vue'
                     FL 33134 USA</p>
             </div>
             <div class="footer__links">
-                <h1 class="text-md>Links</h1>
+                <h1 class="text-md">Links</h1>
                 <GenericList :items="links" customClass="footer__link-list">
                     <template v-slot="{ item }">
                         <GenericLink v-bind="item"/>
@@ -77,6 +76,7 @@ import GenericList from '@/components/generics/GenericList.vue'
         </div>
     </footer>
 </template>
+
 <style lang="scss" scoped>
 .footer{
     --tw-border-opacity: 1;
