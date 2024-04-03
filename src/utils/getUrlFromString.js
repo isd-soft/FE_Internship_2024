@@ -1,1 +1,0 @@
-export const getUrlFromString = (url) => new URL(url, import.meta.url).href
