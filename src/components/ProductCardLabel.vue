@@ -2,7 +2,7 @@
 const props = defineProps({
     type: {
         type: String,
-        validator: (value) => ['discount', 'stock', 'new'].includes(value) 
+        validator: (value) => ['discount', 'stock', 'new'].includes(value)
     },
     value: {
         type: Number,
@@ -26,6 +26,9 @@ const props = defineProps({
 
 <style scoped>
 .product-card-label {
+    position: absolute;
+    top: 24px;
+    right: 24px;
     width: 48px;
     height: 48px;
     border-radius: 100%;
@@ -34,10 +37,10 @@ const props = defineProps({
     justify-content: center;
     flex-direction: column;
     color: var(--color-white);
+}
 
-    span {
-        font-size: 0.45rem;
-    }
+.product-card-label span {
+    font-size: 0.45rem;
 }
 
 .product-card-label--new {

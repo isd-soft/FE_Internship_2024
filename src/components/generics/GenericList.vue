@@ -1,36 +1,56 @@
-<script setup>
-defineProps({
-    listTag: {
-        type: String,
-        validator: (value) => ['ul', 'ol'].includes(value),
-        default: 'ul'
-    },
-    isVertical: Boolean,
-    items: {
-        type: Array,
-        default: () => []
-    }
-})
-</script>
-
 <template>
-    <component :is="listTag" class="list" :class="{ 'list-vertical': isVertical, 'list-horizontal': !isVertical }">
-        <li v-for="(item, index) in items" :key="index">
+    <component :is="tag" :class="customClass" :style="customStyle">
+        <li v-for="item in items" :key="getKey(item)">
             <slot :item="item"></slot>
         </li>
+        <li v-if="items.length === 0 && emptyStateMessage">{{ emptyStateMessage }}</li>
     </component>
 </template>
 
-<style lang="scss" scoped>
-.list {
-    display: flex;
-
-    &-horizontal {
-        flex-direction: row;
+<script setup>
+const props = defineProps({
+    items: {
+        type: Array,
+        required: true
+    },
+    tag: {
+        type: String,
+        default: 'ul',
+        validator: value => ['ul', 'ol'].includes(value)
+    },
+    keyProp: {
+        type: String,
+        default: null
+    },
+    customClass: {
+        type: String,
+        default: ''
+    },
+    customStyle: {
+        type: Object,
+        default: () => ({})
+    },
+    emptyStateMessage: {
+        type: String,
+        default: ''
+    },
+    sortBy: {
+        type: String,
+        default: ''
+    },
+    filterBy: {
+        type: String,
+        default: ''
+    },
+    loading: {
+        type: Boolean,
+        default: false
+    },
+    virtualScrolling: {
+        type: Boolean,
+        default: false
     }
+})
 
-    &-vertical {
-        flex-direction: column;
-    }
-}
-</style>
+const getKey = (item) => props.keyProp ? item[props.keyProp] : item;
+</script>
