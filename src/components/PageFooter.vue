@@ -149,7 +149,6 @@ import GenericList from '@/components/generics/GenericList.vue'
             gap: 1rem;
         }
         input{
-            width: 13rem;
             --tw-border-opacity: 1;
             border: none; 
             border-bottom: 1px solid var(--color-black); 
@@ -162,7 +161,6 @@ import GenericList from '@/components/generics/GenericList.vue'
         button{
             font-weight: 500;
             cursor: pointer;
-            width: fit-content;
             --tw-border-opacity: 1;
             border: none; 
             border-bottom: 1px solid var(--color-black);
