@@ -5,7 +5,7 @@
 
 <template>
     <div>
-        <ImageNavCard namName="Contact"/>
+        <ImageNavCard navName="Contact"/>
         <Advantages/>
     </div>
 </template>

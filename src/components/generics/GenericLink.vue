@@ -35,6 +35,7 @@ const props = defineProps({
 <style lang="scss" scoped>
   a{
     text-decoration: none;
+    color: black;
   }
 </style>
 
