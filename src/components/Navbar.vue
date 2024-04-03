@@ -26,11 +26,11 @@ const links = [
 <template> 
   <nav class="navigation">
       <div class="navigation__logo">
-          <generic-link href="#" container-class="navigation__logo-link" text-content="Furniro" :text-first="false">
+          <generic-link href="#" container-class="navigation__logo-link text-2xl" text-content="Furniro" :text-first="false">
             <Logo />
           </generic-link>
       </div>
-    <GenericList :items = "links" keyProp = "text-content" customClass = "navigation__links">
+    <GenericList :items = "links" keyProp = "text-content" customClass = "navigation__links text-sm">
         <template v-slot = "{item}">
             <GenericLink v-bind = "item"></GenericLink>
         </template>
@@ -71,7 +71,6 @@ const links = [
         a {
             display: inline-flex;
             align-items: center;
-            font-size: 34px;
             font-family: "Montserrat", sans-serif;
             font-weight: 700;
             gap: 5px;
@@ -85,7 +84,6 @@ const links = [
 
     &__links-item {
         padding: 0 35px;
-        font-size: 16px;
         font-weight: 500;
     }
 }

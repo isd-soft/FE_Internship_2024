@@ -42,13 +42,13 @@ import GenericList from '@/components/generics/GenericList.vue'
     <footer class="footer">
         <div class="footer__content">
             <div class="footer__info">
-                <span >Furniro.</span>
+                <span class="text-lg" >Furniro.</span>
                 <p >400 University Drive Suite 200 Coral <br>
                     Gables,<br>
                     FL 33134 USA</p>
             </div>
             <div class="footer__links">
-                <h1>Links</h1>
+                <h1 class="text-md>Links</h1>
                 <GenericList :items="links" customClass="footer__link-list">
                     <template v-slot="{ item }">
                         <GenericLink v-bind="item"/>
@@ -64,8 +64,8 @@ import GenericList from '@/components/generics/GenericList.vue'
                 </GenericList>
             </div>
             <div class="footer__newsLetter">
-                <h1>Newsletter</h1>
-                <form action="submit">
+                <h1 class="text-md">Newsletter</h1>
+                <form action="submit" class="text-sm">
                     <input type="text" placeholder="Enter your Email Address"/>
                     <button type="submit">SUBSCRIBE</button>  
                 </form>
@@ -92,14 +92,13 @@ import GenericList from '@/components/generics/GenericList.vue'
         gap: 3rem;
         span{
             font-weight: 700;
-            font-size: 1.5rem;
             line-height: 2rem;
             margin: 0;
         }  
     }        
     p{
         margin: 0;
-        color: rgb(159 159 159)
+        color: var(--color-quick-silver)
     }
         
     &__links{
@@ -107,10 +106,9 @@ import GenericList from '@/components/generics/GenericList.vue'
         flex-direction: column;
         gap: 3rem;
         h1{
-            color: rgb(159 159 159);
+            color: var(--color-quick-silver);
             --tw-text-opacity: 1;
             font-weight: 500;
-            font-size: 20px;
             margin: 0;
         }     
     }        
@@ -119,10 +117,9 @@ import GenericList from '@/components/generics/GenericList.vue'
         flex-direction: column;
         gap: 3rem;
         h1{
-            color: rgb(159 159 159);
+            color: var(--color-quick-silver);
             --tw-text-opacity: 1;
             font-weight: 500;
-            font-size: 20px;
             margin: 0;
         }          
     }
@@ -140,13 +137,11 @@ import GenericList from '@/components/generics/GenericList.vue'
         gap: 3rem;
         h1{
             --tw-text-opacity: 1;
-            color: rgb(159 159 159);
+            color: var(--color-quick-silver);
             font-weight: 500;
-            font-size: 20px;
             margin: 0;
         }
         form{
-            font-size: .875rem;
             line-height: 1.25rem;
             width: 100%;
             display: flex;
@@ -157,11 +152,11 @@ import GenericList from '@/components/generics/GenericList.vue'
             width: 13rem;
             --tw-border-opacity: 1;
             border: none; 
-            border-bottom: 1px solid black; 
+            border-bottom: 1px solid var(--color-black); 
             &:focus{
                 --tw-border-opacity: 1;
                 outline: none; 
-                border-bottom: 1px solid black; 
+                border-bottom: 1px solid var(--color-black); 
             }
         }
         button{
@@ -170,7 +165,7 @@ import GenericList from '@/components/generics/GenericList.vue'
             width: fit-content;
             --tw-border-opacity: 1;
             border: none; 
-            border-bottom: 1px solid black;
+            border-bottom: 1px solid var(--color-black);
             background-color: transparent;
             background-image: none;
             text-transform: none;
