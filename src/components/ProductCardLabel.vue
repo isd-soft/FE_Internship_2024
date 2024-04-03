@@ -12,19 +12,19 @@ const props = defineProps({
 </script>
 
 <template>
-    <div v-if="props.type === 'discount'" class="product-card-label product-card-label--discount">
+    <div v-if="props.type === 'discount'" class="product-card-label product-card-label__discount">
         -{{ props.value }}%
     </div>
-    <div v-else-if="props.type === 'new'" class="product-card-label product-card-label--new">
+    <div v-else-if="props.type === 'new'" class="product-card-label product-card-label__new">
         New
     </div>
-    <div v-else class="product-card-label product-card-label--stock">
+    <div v-else class="product-card-label product-card-label__stock">
         {{ props.value }}
         <span>Available</span>
     </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
 .product-card-label {
     position: absolute;
     top: 24px;
@@ -37,21 +37,21 @@ const props = defineProps({
     justify-content: center;
     flex-direction: column;
     color: var(--color-white);
-}
 
-.product-card-label span {
-    font-size: 0.45rem;
-}
+    span {
+        font-size: 0.7rem;
+    }
 
-.product-card-label--new {
-    background-color: var(--color-marine);
-}
+    &__new {
+        background-color: var(--color-blue-green);
+    }
 
-.product-card-label--discount {
-    background-color: var(--color-pink);
-}
+    &__discount {
+        background-color: var(--color-candy-pink);
+    }
 
-.product-card-label--stock {
-    background-color: var(--color-gray-3);
+    &__stock {
+        background-color: var(--color-granite-gray);
+    }
 }
 </style>

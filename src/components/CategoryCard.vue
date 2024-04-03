@@ -1,7 +1,7 @@
 <template>
     <div class="category-section__card category-card">
         <img class="category-card__image" :src="imageSrc" :alt="categoryTitle">
-        <h3 class="category-card__title">
+        <h3 class="category-card__title text-lg">
             {{ categoryTitle }}
         </h3>
     </div>
@@ -33,9 +33,8 @@ const props = defineProps({
 
     &__title {
         font-weight: 600;
-        font-size: 24px;
         line-height: 36px;
-        color: #333333;
+        color: var(--color-dark-charcoal);
     }
 }
 </style>

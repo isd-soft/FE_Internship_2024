@@ -17,14 +17,14 @@ export default {
 <template> 
   <nav class="navigation">
       <div class="navigation__logo">
-          <generic-link href="#" container-class="navigation__logo-link" text-content="Furniro" :text-first="false">
+          <generic-link href="#" container-class="navigation__logo-link text-2xl" text-content="Furniro" :text-first="false">
             <Logo />
           </generic-link>
       </div>
       <div class="navigation__links">
-            <generic-link href="#" text-content="Home" container-class="navigation__links-item"></generic-link>
-            <generic-link href="#" text-content="Shop" container-class="navigation__links-item"></generic-link>
-            <generic-link href="#" text-content="Contact" container-class="navigation__links-item"></generic-link>
+            <generic-link href="#" text-content="Home" container-class="navigation__links-item text-sm"></generic-link>
+            <generic-link href="#" text-content="Shop" container-class="navigation__links-item text-sm"></generic-link>
+            <generic-link href="#" text-content="Contact" container-class="navigation__links-item text-sm"></generic-link>
       </div>
       <div class="navigation__cart-user">
         <generic-link href="#" container-class="navigation__cart-user-item">
@@ -62,7 +62,6 @@ export default {
         a {
             display: inline-flex;
             align-items: center;
-            font-size: 34px;
             font-family: "Montserrat", sans-serif;
             font-weight: 700;
             gap: 5px;
@@ -71,7 +70,6 @@ export default {
 
     &__links-item {
         padding: 0 35px;
-        font-size: 16px;
         font-weight: 500;
     }
 }

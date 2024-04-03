@@ -11,11 +11,11 @@
         </span>
 
         <div class="product-card__price-wrapper">
-            <span class="product-card__price">
+            <span class="product-card__price text-md">
                 {{ convertPrice(price) }}
             </span>
 
-            <span class="product-card__old-price">
+            <span class="product-card__old-price text-sm">
                 {{ convertPrice(oldPrice) }}
             </span>
         </div>
@@ -23,7 +23,7 @@
         <ProductCardLabel :type="productType" />
 
         <div v-show="hoverFlag" class="product-card__overlay">
-            <button class="product-card__button">Add to cart</button>
+            <button class="product-card__button text-sm">Add to cart</button>
         </div>
     </div>
 </template>
@@ -58,7 +58,7 @@ const convertPrice = (value) => value ? "Rp " + value.toLocaleString('en-US').re
     display: flex;
     flex-direction: column;
     width: calc((100% - 96px) / 4);
-    background-color: var(--color-ghost-white);
+    background-color: var(--color-cultured);
 
     &__image {
         width: 100%;
@@ -70,14 +70,14 @@ const convertPrice = (value) => value ? "Rp " + value.toLocaleString('en-US').re
         font-weight: 600;
         font-size: 24px;
         line-height: 120%;
-        color: var(--color-gray-2);
+        color: var(--color-granite-gray);
     }
 
     &__description {
         font-weight: 500;
         font-size: 16px;
         line-height: 150%;
-        color: var(--color-gray-3);
+        color: var(--color-taupe-gray);
     }
 
     &__price-wrapper {
@@ -88,17 +88,15 @@ const convertPrice = (value) => value ? "Rp " + value.toLocaleString('en-US').re
 
     &__price {
         font-weight: 600;
-        font-size: 20px;
         line-height: 150%;
-        color: var(--color-gray-2);
+        color: var(--color-dark-charcoal);
     }
 
     &__old-price {
         font-weight: 400;
-        font-size: 16px;
         line-height: 150%;
         text-decoration-line: line-through;
-        color: var(--color-gray-5);
+        color: var(--color-silver-foil);
     }
 
     &__overlay {
@@ -111,15 +109,14 @@ const convertPrice = (value) => value ? "Rp " + value.toLocaleString('en-US').re
         justify-content: center;
         width: 100%;
         height: 100%;
-        background-color: var(--color-gray-3);
+        background-color: var(--color-taupe-gray);
         opacity: 72%;
     }
 
     &__button {
         font-weight: 600;
-        font-size: 16px;
         line-height: 150%;
-        color: var(--color-bronze);
+        color: var(--color-uc-gold);
         padding: 12px 52px 12px 59px;
         background-color: var(--color-white);
     }

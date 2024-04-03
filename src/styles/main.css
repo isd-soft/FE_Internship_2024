@@ -5,6 +5,10 @@
     font-style: normal;
 }
 
+html {
+    font-size: 10px;
+}
+
 :root {
     --color-black: #000000;
 
@@ -37,8 +41,6 @@
     --color-candy-pink: #E97171;
 
     --color-blue-green: #2EC1AC;
-
-    font-size: 10px;
 
     a{
         text-decoration: none;
