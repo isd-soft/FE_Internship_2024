@@ -2,22 +2,24 @@
     <div class="product-list-section__card product-card" @mouseenter="hoverFlag = true" @mouseleave="hoverFlag = false">
         <img :src="imageSrc" :alt="title">
 
-        <h3 class="product-card__title">
-            {{ title }}
-        </h3>
+        <div class="product-card__text-wrapper">
+            <h3 class="product-card__title">
+                {{ title }}
+            </h3>
 
-        <span class="product-card__descpription">
-            {{ description }}
-        </span>
-
-        <div class="product-card__price-wrapper">
-            <span class="product-card__price">
-                {{ convertPrice(price) }}
+            <span class="product-card__descpription">
+                {{ description }}
             </span>
 
-            <span class="product-card__old-price">
-                {{ convertPrice(oldPrice) }}
-            </span>
+            <div class="product-card__price-wrapper">
+                <span class="product-card__price">
+                    {{ convertPrice(price) }}
+                </span>
+
+                <span class="product-card__old-price">
+                    {{ convertPrice(oldPrice) }}
+                </span>
+            </div>
         </div>
 
         <ProductCardLabel :type="productType" />
@@ -57,13 +59,21 @@ const convertPrice = (value) => value ? "Rp " + value.toLocaleString('en-US').re
     position: relative;
     display: flex;
     flex-direction: column;
-    width: calc((100% - 96px) / 4);
-    background-color: var(--color-ghost-white);
+    width: 100%;
 
     &__image {
         width: 100%;
         height: 301px;
         margin-bottom: 16px;
+    }
+
+    &__text-wrapper {
+        display: flex;
+        flex-direction: column;
+        row-gap: 8px;
+        padding: 16px;
+        padding-bottom: 30px;
+        background-color: var(--color-ghost-white);
     }
 
     &__title {

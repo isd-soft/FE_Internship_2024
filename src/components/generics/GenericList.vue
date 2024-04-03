@@ -1,6 +1,6 @@
 <template>
     <component :is="tag" :class="customClass" :style="customStyle">
-        <li v-for="item in items" :key="getKey(item)">
+        <li v-for="item in items" :key="getKey(item)" :class="itemClass">
             <slot :item="item"></slot>
         </li>
         <li v-if="items.length === 0 && emptyStateMessage">{{ emptyStateMessage }}</li>
@@ -23,6 +23,10 @@ const props = defineProps({
         default: null
     },
     customClass: {
+        type: String,
+        default: ''
+    },
+    itemClass: {
         type: String,
         default: ''
     },
