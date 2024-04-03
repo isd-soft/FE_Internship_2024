@@ -1,7 +1,6 @@
 <template>
-
     <TopBannerComponent/>
-    </template>
+</template>
     
 <script setup>
     import TopBannerComponent from "../components/TopBannerComponent.vue"
