@@ -3,36 +3,36 @@ import GenericLink from '@/components/generics/GenericLink.vue'
 import GenericList from '@/components/generics/GenericList.vue'
     const links=[
         {
-            href:"#" ,
+            href:"/" ,
             textContent:"Home",
-            containerClass:"navigation__links-item"  
+            containerClass:"navigation__links-item text-sm "  
         },
         {
-            href:"#" ,
+            href:"/shop" ,
             textContent:"Shop",
-            containerClass:"navigation__links-item"  
+            containerClass:"navigation__links-item text-sm "  
         },
         {
-            href:"#" ,
+            href:"/contact" ,
             textContent:"Contact",
-            containerClass:"navigation__links-item"  
+            containerClass:"navigation__links-item text-sm "  
         }
     ]
     const helpLinks=[
     {
             href:"#" ,
             textContent:"Payment Options",
-            containerClass:"navigation__links-item"  
+            containerClass:"navigation__links-item text-sm "  
         },
         {
             href:"#" ,
             textContent:"Returns",
-            containerClass:"navigation__links-item"  
+            containerClass:"navigation__links-item text-sm "  
         },
         {
             href:"#" ,
             textContent:"Privacy Policies",
-            containerClass:"navigation__links-item"  
+            containerClass:"navigation__links-item text-sm "  
         }
     ]
 </script>
