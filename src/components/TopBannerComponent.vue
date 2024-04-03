@@ -25,7 +25,8 @@ p {
   background-size: cover;
   background-position: center bottom;
   background-repeat: no-repeat;
-  height: clamp(70vh, 98vh, 80vw);
+  // height: clamp(70vh, 98vh, 80vw);
+  height: clamp(20vh, 88.2vh, 80vw);
   // height: 716.83px;
   display: flex;
   align-items: center;
@@ -33,54 +34,53 @@ p {
 
   &__container {
     box-sizing: border-box;
-    background-color: #fff3e3;
+    background-color:var(--color-alabaster);
     // padding: 8.5vh 8.9vh 5vh 5vh ;
-    width: clamp(30vw, 90vh, 100vw);
+    width: clamp(30vw, 44.7%, 100vw);
     // width:  clamp(30vw, 40%, 100vw);
-    height: clamp(50vh, 62%, 120vw);
+    height: clamp(10vmin, 61.9%, 80vh);
     border-radius: 10px;
-    margin: 0 clamp(10%, 4%, 80%) 0 clamp(30%, 4%, 80%); //For mobile in media screen make clamp(10%, 4%, 80%) both of them
+    margin: 0 clamp(4vmin, 4%, 80%) 0 clamp(4vmin, 4%, 80%); //For mobile in media screen make clamp(10%, 4%, 80%) both of them
   }
-    &__wrapper {
-      height: 70%;
-      width: calc(100% - 5.4vh);
-      margin-left: 5.4vh; //Change to like 7-10% in media screen for mobile
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: flex-start;
-      margin-top: 14%;
-    }
-      &__label {
-        font-size: calc(0.5vw + 0.5rem);
-        font-weight: 500;
-      }
+  &__wrapper {
+    height: 75%;
+    width: calc(100% - 5.4vh);
+    margin-left: 6%; //Change to like 7-10% in media screen for mobile
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 9.7%;
+  }
+  &__label {
+    font-size: calc(0.8vw + 0.3rem);
+    font-weight: 500;
+  }
 
-      &__title {
-        font-weight: 700;
-        max-width: clamp(20vw, 70vh, 60vw);
-        font-size: calc(1.13vw + 1.75rem);
-        margin-bottom: 0px;
-        margin-top: 0.65%;
-        color: #b88e2f;
-      }
+  &__title {
+    font-weight: 700;
+    max-width: clamp(10vw, 70%, 60vw);
+    font-size: calc(3.05vw + 0.5rem);
+    margin-bottom: 0px;
+    margin-top: 0.65%;
+    color: var(--color-bronze);
+  }
 
-      &__description {
-        font-size: 1.125rem;
-        margin-top: 2.5%;
-        font-weight: 300;
-        max-width: clamp(20vw, 87%, 80vw);
-      }
+  &__description {
+    font-size: calc(0.8vw + 0.4rem);
+    margin-top: 2.9%;
+    font-weight: 300;
+    max-width: clamp(40vw, 86%, 60vw);
+  }
 
-      &__button {
-        color: white;
-        margin-top: 10.8%;
-        border: none;
-        font-weight: 800;
-        font-size: calc(0.5vw + 0.5rem);
-        background-color: #b88e2f;
-        padding: 3.56vmin 10.68vmin;
-      }
-    }
-
+  &__button {
+    color: var(--color-white);
+    margin-top: 7.7%;
+    border: none;
+    font-weight: 800;
+    font-size: calc(0.8vw + 0.3rem);
+    background-color: var(--color-bronze);
+    padding: 3.1vmin 9.25vmin;
+  }
+}
 </style>
