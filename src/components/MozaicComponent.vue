@@ -20,7 +20,7 @@ const urls = mozaicImagesUrls
 <style lang="scss" scoped>
 .mozaic {
     height: calc(100vh - 120px);
-    width: 100vw;
+    width: 100%;
     overflow-x: hidden;
     display: flex;
     justify-content: center;
