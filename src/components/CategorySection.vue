@@ -36,13 +36,13 @@ const categories = [
         width: 100%;
         max-width: 1183px;
         margin: 0 auto;
-        outline: 1px solid red;
     }
 
     &__title {
         font-weight: 700;
         line-height: 48px;
         color: var(--color-dark-charcoal);
+        margin: 0;
     }
 
     &__paragraph {

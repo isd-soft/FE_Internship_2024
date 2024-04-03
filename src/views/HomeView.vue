@@ -1,9 +1,15 @@
 <script setup>
-    import TopBannerComponent from "../components/TopBannerComponent.vue"
-    
+import HeroSection from "../components/HeroSection.vue"
+import CategorySection from '../components/CategorySection.vue'
+import ProductListSection from '../components/ProductListSection.vue'
 </script>
 
 <template>
-    <TopBannerComponent/>
-
+    <main class="main">
+        <HeroSection />
+        <CategorySection />
+        <ProductListSection />
+        <!-- Slider Section WIP -->
+        <!-- Gallery Section WIP (Mozaic Ready) -->
+    </main>
 </template>

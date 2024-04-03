@@ -1,24 +1,20 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import Navbar from '@/components/Navbar.vue'
-import Footer from "@/components/PageFooter.vue"
-import {ModalsContainer} from 'vue-final-modal'
-import MozaicComponent from "@/components/MozaicComponent.vue"
+import Header from '@/components/Header.vue';
+import HeroSection from './components/HeroSection.vue';
+import CategorySection from './components/CategorySection.vue';
+import ProductListSection from './components/ProductListSection.vue';
+import MozaicComponent from './components/MozaicComponent.vue';
 
 </script>
 
 <template>
-  <header>
-    <Navbar />
-  </header>
-  <RouterView /> 
-
-  <MozaicComponent />
-
-  <Footer/>
-  <ModalsContainer />
+  <div>
+    <Header />
+    <HeroSection />
+    <CategorySection />
+    <ProductListSection />
+    <MozaicComponent />
+  </div>
 </template>
 
-<style lang="scss">
-
-</style>
+<style lang="scss"></style>

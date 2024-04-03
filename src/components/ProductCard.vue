@@ -57,7 +57,7 @@ const convertPrice = (value) => value ? "Rp " + value.toLocaleString('en-US').re
     position: relative;
     display: flex;
     flex-direction: column;
-    width: calc((100% - 96px) / 4);
+    width: 100%;
     background-color: var(--color-cultured);
 
     &__image {
