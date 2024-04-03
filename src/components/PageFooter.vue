@@ -81,7 +81,7 @@ import GenericList from '@/components/generics/GenericList.vue'
 .footer{
     --tw-border-opacity: 1;
     &__content{
-        padding: 5rem;
+        padding: 38px 100px 118px 100px;
         display: grid;
         grid-template-columns: repeat(4, minmax(0, 1fr));
         gap: 2rem;
@@ -177,11 +177,9 @@ import GenericList from '@/components/generics/GenericList.vue'
         }
     }
     &__bottom{
-        margin-left: 5rem;
-        margin-right: 5rem;
+        margin: 0 100px;
         p{
-            padding-top: 2.5rem;
-            padding-bottom: 2.5rem;
+            padding: 38px 0;
         }
     }       
 }
