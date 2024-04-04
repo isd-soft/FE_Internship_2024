@@ -1,5 +1,7 @@
 <script setup>
 import { VueFinalModal } from 'vue-final-modal'
+import { ref } from 'vue'
+import Counter from './Counter.vue';
 
 const props = defineProps({
   id: {
@@ -11,7 +13,7 @@ const props = defineProps({
     required: true
   },
   price: {
-    type: Number,
+    type: String,
     required: true
   },
   description: {
@@ -37,6 +39,7 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['close'])
+
 </script>
 
 <template>
@@ -47,6 +50,7 @@ const emit = defineEmits(['close'])
     content-transition="vfm-fade"
     @clickOutside="emit('close')"
   >
+    <!-- <div class="product-modal__photo" :style="`background-image: url('${getUrlFromString(imgSrc)}');`"></div>   -->
     <img :src="imgSrc" class="product-modal__photo" alt="Product Image"/>
     <div class="product-modal__details">
         <div class="product-modal__header text-3xl part">{{ header }}</div>
@@ -59,7 +63,16 @@ const emit = defineEmits(['close'])
         </div>
         <div class="secondary-color text-sm part">Availability</div>
         <div class="product-modal__product-type text-sm part">{{ productType }}</div>
-        
+        <div class="secondary-color text-sm part">Colors</div>
+        <div class="product-modal__colors part-x2">
+            <div class="product-modal__colors--item"></div>
+            <div class="product-modal__colors--item"></div>
+            <div class="product-modal__colors--item"></div>
+        </div>
+        <div class="product-modal__bottom-section part">
+            <Counter />
+            <button class="product-modal__bottom-section--cartadding text-md">Add to cart</button>
+        </div>
     </div>
   </VueFinalModal>
 </template>
@@ -84,6 +97,8 @@ const emit = defineEmits(['close'])
     }
 
     &__photo {
+        background-size: cover;
+        background-position: center;
         max-height: 35vw;
         aspect-ratio: 1/1;
         object-fit: cover;
@@ -101,6 +116,48 @@ const emit = defineEmits(['close'])
             background-color: var(--color-taupe-gray);
         }
     }
+
+    &__colors{
+        display: flex;
+        column-gap: 1.1vw;
+
+        &--item{
+            width: 2.1vw;
+            height: 2.1vw;
+            border-radius: 100%;
+            cursor: pointer;
+        }
+
+        &--item:nth-child(1){
+            background-color: var(--color-violet-blue);
+        }
+
+        &--item:nth-child(2){
+            background-color: var(--color-black);
+        }
+
+        &--item:nth-child(3){
+            background-color: var(--color-uc-gold);
+        }
+    }
+
+    &__bottom-section{
+        display: flex;
+        column-gap: 1.4vw;
+
+        &--cartadding{
+            border:1px solid var(--color-black);
+            border-radius: 1vw;
+            padding: 1.2vw 3.3vw;
+            cursor: pointer;
+        }
+
+        &--cartadding:hover{
+            color: var(--color-white);
+            background-color: var(--color-black);
+            transition: 0.25s ease-in-out;
+        }
+    }
 }
 
 .secondary-color{
@@ -110,14 +167,8 @@ const emit = defineEmits(['close'])
 .part{
     margin-bottom: 15px;
 }
+
+.part-x2{
+    margin-bottom: 30px;
+}
 </style>
-<!-- 
-    id
-    child
-    header - text-3xl
-    price - text-lg
-    description - text-sm
-    rating - 
-    reviews - text-xs
-    availability - text-sm
- -->

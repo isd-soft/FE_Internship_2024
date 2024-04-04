@@ -76,7 +76,8 @@ const convertPrice = (value) =>
     description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     rating: 4.95,
     reviews: 10,
-    productType: props.productType,
+    // productType: props.productType,
+    productType: "Available",
     // imgSrc: props.imageSrc,
     imgSrc: "https://media.istockphoto.com/id/1293762741/photo/modern-living-room-interior-3d-render.webp?s=2048x2048&w=is&k=20&c=y5qtIaTcN6mnSb3bxBBhnBycfmNK48g6xawyfXHB5lw="
   }
