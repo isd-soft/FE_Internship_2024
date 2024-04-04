@@ -122,12 +122,12 @@ const productList = [
     list-style: none;
 
     @media (max-width: 768px) {
-      grid-template-columns: repeat(2, calc((100% - 64px) / 2));
-      gap: 64px;
+      grid-template-columns: repeat(2, calc((100% - 32px) / 2));
+      gap: 32px;
       grid-template-rows: repeat(4, 1fr);
     }
 
-    @media (max-width: 375px) {
+    @media (max-width: 376px) {
       grid-template-columns: 100%;
       grid-template-rows: repeat(8, 1fr);
     }
