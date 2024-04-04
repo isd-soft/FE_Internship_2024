@@ -14,15 +14,15 @@ const urls = mozaicImagesUrls
         <div class="gallery-section__container container">
             <div class="gallery-section__text-wrapper">
                 <span class="text-md gallery-section__overline">Share your setup with</span>
-                <h2 class="text-3xl gallery-section__title">#FuniroFurniture</h2>
+                <h2 class="text-3xl gallery-section__title">#FurniroFurniture</h2>
             </div>
             <div class="gallery-section__image-wrapper" v-for="(url, index) in urls" :key="index" :style="{backgroundImage: `url(${getUrlFromString(url.url)})`}"></div>
         </div>
     </section> -->
     <section class="main_section section gallery-section-mobile">
         <div class="gallery-section-mobile__text-wrapper">
-                <span class="text-xl gallery-section-mobile__overline">Share your setup with</span>
-                <h2 class="text-5xl gallery-section-mobile__title">#FuniroFurniture</h2>
+                <span class="text-3xl gallery-section-mobile__overline">Share your setup with</span>
+                <h2 class="text-12xl gallery-section-mobile__title">#FurniroFurniture</h2>
         </div>
         <swiper 
         class="gallery-section-mobile__container container"
