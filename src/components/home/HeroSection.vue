@@ -2,9 +2,9 @@
 
 <template>
   <section class="main__section section hero-section">
-    <div class="hero-section__container">
+    <div class="container hero-section__container">
       <div class="hero-section__wrapper">
-        <p class="hero-section__label">New Arrival</p>
+        <span class="hero-section__label">New Arrival</span>
         <h1 class="hero-section__title">Discover Our New Collection</h1>
         <p class="hero-section__description">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec
@@ -20,6 +20,7 @@
 p {
   margin: 0;
 }
+
 .hero-section {
   background-image: url('/background_top_banner.png');
   background-size: cover;
@@ -34,7 +35,7 @@ p {
 
   &__container {
     box-sizing: border-box;
-    background-color:var(--color-alabaster);
+    background-color: var(--color-old-lace);
     // padding: 8.5vh 8.9vh 5vh 5vh ;
     width: clamp(30vw, 44.7%, 100vw);
     // width:  clamp(30vw, 40%, 100vw);
@@ -42,6 +43,7 @@ p {
     border-radius: 10px;
     margin: 0 clamp(4vmin, 4%, 80%) 0 clamp(4vmin, 4%, 80%); //For mobile in media screen make clamp(10%, 4%, 80%) both of them
   }
+
   &__wrapper {
     height: 75%;
     width: calc(100% - 5.4vh);
@@ -52,6 +54,7 @@ p {
     align-items: flex-start;
     margin-top: 9.7%;
   }
+
   &__label {
     font-size: calc(0.8vw + 0.3rem);
     font-weight: 500;
@@ -63,14 +66,14 @@ p {
     font-size: calc(3.05vw + 0.5rem);
     margin-bottom: 0px;
     margin-top: 0.65%;
-    color: var(--color-bronze);
+    color: var(--color-uc-gold);
   }
 
   &__description {
     font-size: calc(0.8vw + 0.4rem);
     margin-top: 2.9%;
     font-weight: 300;
-    max-width: clamp(40vw, 86%, 60vw);
+    max-width: clamp(30vw, 86%, 60vw);
   }
 
   &__button {
@@ -79,7 +82,7 @@ p {
     border: none;
     font-weight: 800;
     font-size: calc(0.8vw + 0.3rem);
-    background-color: var(--color-bronze);
+    background-color: var(--color-uc-gold);
     padding: 3.1vmin 9.25vmin;
   }
 }

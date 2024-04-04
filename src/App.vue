@@ -1,24 +1,25 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import Navbar from '@/components/Navbar.vue'
-import Footer from "@/components/PageFooter.vue"
-import {ModalsContainer} from 'vue-final-modal'
-import MozaicComponent from "@/components/MozaicComponent.vue"
-
+import PageHeader from './components/shared/PageHeader.vue'
+import HeroSection from './components/home/HeroSection.vue'
+import CategorySection from './components/home/CategorySection.vue'
+import ProductSection from './components/home/ProductSection.vue'
+import MozaicComponent from './components/home/MozaicComponent.vue'
+import PageFooter from './components/shared/PageFooter.vue'
 </script>
 
+<!-- TEMPORARY RENDER IN THE APP COMPONENT. -->
+
+<!-- TODO: SET THE COMPONENTS IN THE CORESPONDING VIEWS. APPLY THE ROUTER IN THE APP COMPONENT AFTER THAT. -->
+
 <template>
-  <header>
-    <Navbar />
-  </header>
-  <RouterView /> 
-
-  <MozaicComponent />
-
-  <Footer/>
-  <ModalsContainer />
+  <div>
+    <PageHeader />
+    <HeroSection />
+    <CategorySection />
+    <ProductSection />
+    <MozaicComponent />
+    <PageFooter />
+  </div>
 </template>
 
-<style lang="scss">
-
-</style>
+<style lang="scss"></style>

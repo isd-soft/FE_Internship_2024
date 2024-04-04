@@ -14,7 +14,7 @@ const props = defineProps({
   },
   textFirst: {
     type: Boolean,
-    default: true,
+    default: false,
   },
 });
 </script>

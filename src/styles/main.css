@@ -1,62 +1,119 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 * {
-    font-family: 'Poppins',sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-style: normal;
+}
+
+html {
+    font-size: 10px;
+}
+
+a {
+    text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+    margin: 0;
+}
+
+ul,
+ol {
+    margin: 0;
+    padding: 0;
+}
+
+ul {
+    list-style: none;
 }
 
 :root {
     --color-black: #000000;
-    /* Black */
 
-    --color-gray-1: #333333;
-    /* Midnight Black */
+    --color-raisin-black: #242424;
 
-    --color-gray-2: #3A3A3A;
-    /* Charcoal */
+    --color-dark-charcoal: #333333;
+    /* --color-gray-1*/
 
-    --color-gray-3: #898989;
-    /* Ash Gray */
+    --color-granite-gray: #666666;
 
-    --color-gray-4: #9F9F9F;
-    /* Granite */
+    --color-taupe-gray: #898989;
+    /* --color-gray-3 */
 
-    --color-gray-5: #B0B0B0;
-    /* Steel Gray */
+    --color-quick-silver: #9F9F9F;
+    /* --color-gray-4 */
 
-    --color-gray-6: #D8D8D8;
-    /* Light Silver */
+    --color-silver-foil: #B0B0B0;
+    /* --color-gray-5 */
 
-    --color-ghost-white: #F4F5F7;
-    /* Ghost White */
+    --color-light-silver: #D9D9D9;
+    /* --color-gray-6 */
+
+    --color-cultured: #F4F5F7;
+    /* --color-ghost-white */
 
     --color-white: #FFFFFF;
-    /* White */
 
-    --color-bronze: #B88E2F;
-    /* Bronze */
+    --color-uc-gold: #B88E2F;
+    /* --color-bronze */
 
-    --color-alabaster: #FFF3E3;
-    /* Alabaster */
+    --color-ph-yellow: #FFC700;
+    /* --color-yellow */
 
-    --color-pink: #E97171;
-    /* Coral Pink */
+    --color-linen: #F9F1E7;
 
-    --color-marine: #2EC1AC;
-    /* Aqua Marine */
+    --color-violet-blue: #816DFA;
 
-    --color-linen: #FAF3EA;
-    /* Linen */
+    --color-candy-pink: #E97171;
 
-    --color-ivory: #FCF8F3;
-    /* Ivory */
+    --color-blue-green: #2EC1AC;
 
-    --color-yellow: #FFC700;
-    /* Sunshine Yellow */
+    --color-old-lace: #FFF3E3;
+}
 
-    --color-blue: #816DFA;
-    /* Lavender Blue */
-    a{
-        text-decoration: none;
-    }
+.section {
+    margin-bottom: 60px;
+}
+
+.text-xs {
+    font-size: 0.8rem;
+}
+
+.text-sm {
+    font-size: 1.6rem;
+}
+
+.text-md {
+    font-size: 2rem;
+}
+
+.text-lg {
+    font-size: 2.4rem;
+}
+
+.text-xl {
+    font-size: 3.2rem;
+}
+
+.text-2xl {
+    font-size: 3.6rem;
+}
+
+.text-3xl {
+    font-size: 4rem;
+    line-height: 120%;
+}
+
+.text-4xl {
+    font-size: 4.8rem;
+}
+
+.text-5xl {
+    font-size: 5.2rem;
 }
