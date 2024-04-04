@@ -25,7 +25,7 @@ const props = defineProps({
 
   &__image {
     width: 100%;
-    height: 480px;
+    height: 88%;
     border-radius: 10px;
     overflow: hidden;
   }

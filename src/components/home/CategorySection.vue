@@ -7,11 +7,7 @@
         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
       </p>
 
-      <GenericList
-        :items="categoryList"
-        customClass="category-section__list"
-        itemClass="category-section__list-item"
-      >
+      <GenericList :items="categoryList" customClass="category-section__list" itemClass="category-section__list-item">
         <template v-slot="{ item }">
           <CategoryCard v-bind="item" />
         </template>
@@ -47,8 +43,8 @@ const categoryList = [
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
-    max-width: 1183px;
+    width: 82%;
+    max-width: 1440px;
     margin: 0 auto;
   }
 
