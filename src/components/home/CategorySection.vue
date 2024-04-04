@@ -58,7 +58,7 @@ const categoryList = [
     font-weight: 400;
     line-height: 30px;
     color: var(--color-granite-gray);
-    margin-bottom: 62.29px;
+    margin-bottom: 5%;
   }
 
   &__list {
@@ -67,7 +67,7 @@ const categoryList = [
     width: 100%;
 
     & :deep(.category-section__list-item) {
-      width: calc((100% - 40px) / 3);
+      width: 32%;
     }
   }
 }

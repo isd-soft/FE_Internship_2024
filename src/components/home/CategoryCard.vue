@@ -20,14 +20,14 @@ const props = defineProps({
   display: flex;
   flex-direction: column;
   align-items: center;
-  row-gap: 30px;
   width: 100%;
 
   &__image {
     width: 100%;
-    height: 88%;
+    height: 87%;
     border-radius: 10px;
     overflow: hidden;
+    margin-bottom: 6%;
   }
 
   &__title {

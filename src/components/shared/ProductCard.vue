@@ -1,17 +1,13 @@
 <template>
-  <div
-    class="product-list-section__card product-card"
-    @mouseenter="hoverFlag = true"
-    @mouseleave="hoverFlag = false"
-  >
+  <div class="product-list-section__card product-card" @mouseenter="hoverFlag = true" @mouseleave="hoverFlag = false">
     <img :src="imageSrc" :alt="title" />
 
     <div class="product-card__text-wrapper">
-      <h3 class="product-card__title">
+      <h3 class="product-card__title text-lg">
         {{ title }}
       </h3>
 
-      <span class="product-card__description">
+      <span class="product-card__description text-sm">
         {{ description }}
       </span>
 
@@ -66,11 +62,10 @@ const convertPrice = (value) =>
   position: relative;
   display: flex;
   flex-direction: column;
-  width: 100%;
 
   &__image {
     width: 100%;
-    height: 301px;
+    height: 67%;
   }
 
   &__text-wrapper {
@@ -80,39 +75,55 @@ const convertPrice = (value) =>
     padding: 16px;
     padding-bottom: 30px;
     background-color: var(--color-cultured);
+
+    @media (max-width: 768px) {
+      padding: 6%;
+      padding-top: 3%;
+    }
   }
 
   &__title {
     font-weight: 600;
-    font-size: 24px;
-    line-height: 120%;
     color: var(--color-granite-gray);
+
+    @media (max-width: 768px) {
+      font-size: 3.6rem;
+    }
   }
 
   &__description {
     font-weight: 500;
-    font-size: 16px;
-    line-height: 150%;
     color: var(--color-taupe-gray);
+
+    @media (max-width: 768px) {
+      font-size: 2.4rem;
+    }
   }
 
   &__price-wrapper {
     display: flex;
     align-items: center;
-    column-gap: 16px;
+    flex-wrap: wrap;
   }
 
   &__price {
     font-weight: 600;
-    line-height: 150%;
     color: var(--color-dark-charcoal);
+    margin-right: 6%;
+
+    @media (max-width: 768px) {
+      font-size: 3.2rem;
+    }
   }
 
   &__old-price {
     font-weight: 400;
-    line-height: 150%;
     text-decoration-line: line-through;
     color: var(--color-silver-foil);
+
+    @media (max-width: 768px) {
+      font-size: 2.4rem;
+    }
   }
 
   &__overlay {
