@@ -85,6 +85,14 @@ p {
     font-size: calc(0.9vw + 0.3rem);
     background-color: var(--color-uc-gold);
     padding: 3.1vmin 9.25vmin;
+
+    &:hover{
+      color:var(--color-uc-gold);
+      background-color:  var(--color-white);
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+    }
   }
 }
 

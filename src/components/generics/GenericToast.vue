@@ -5,7 +5,7 @@ import 'vue-toast-notification/dist/theme-default.css'
 
 function createToast(duration, message, position, type) {
   const $toast = useToast()
-  let instance = $toast.open({
+  $toast.open({
     message: message,
     duration: duration,
     position: "bottom-right",
