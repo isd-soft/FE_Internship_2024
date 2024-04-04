@@ -2,7 +2,7 @@
 import HeroSection from '../components/home/HeroSection.vue'
 import CategorySection from '../components/home/CategorySection.vue'
 import ProductSection from '../components/home/ProductSection.vue'
-import MozaicComponent from '../components/home/MozaicComponent.vue'
+import GallerySection from '../components/home/GallerySection.vue'
 </script>
 
 <template>
@@ -10,6 +10,6 @@ import MozaicComponent from '../components/home/MozaicComponent.vue'
         <HeroSection />
         <CategorySection />
         <ProductSection />
-        <MozaicComponent />
+        <GallerySection />
     </main>
 </template>
