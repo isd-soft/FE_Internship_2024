@@ -1,6 +1,6 @@
 <script setup>
-import { mozaicImagesUrls } from '../utils/mozaicImagesUrls.js'
-import { getUrlFromString } from '../utils/getUrlFromString.js'
+import { mozaicImagesUrls } from '../../utils/mozaicImagesUrls'
+import { getUrlFromString } from '../../utils/getUrlFromString'
 
 const urls = mozaicImagesUrls
 </script>
@@ -8,9 +8,9 @@ const urls = mozaicImagesUrls
 <template>
     <div class="mozaic">
         <div class="mozaic__wrapper">
-            <div>
+            <div class="text-md">
                 Share your setup with
-                <h1>#FuniroFurniture</h1>
+                <h1 class="text-3xl">#FuniroFurniture</h1>
             </div>
             <div v-for="(url, index) in urls" :key="index" :style="{backgroundImage: `url(${getUrlFromString(url.url)})`}"></div>
         </div>
@@ -44,14 +44,12 @@ const urls = mozaicImagesUrls
                 grid-column: 5 / span 4;
                 grid-row: 1 / span 2;
                 text-align: center;
-                color: var(--color-gray-2);
-                font-size: 1.25rem;
+                color: var(--color-granite-gray);
 
 
                 h1 {
-                    font-size: 2.5rem;
                     margin: 8px 0 0;
-                    color: var(--color-gray-2);
+                    color: var(--color-dark-charcoal);
                 }
             }
 

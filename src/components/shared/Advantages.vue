@@ -21,7 +21,7 @@
     padding-bottom: 6.25rem;
     padding-left: 3.35rem;
     padding-right: 3.35rem;
-    background-color:var(--color-alabaster);
-    gap: .5rem;
+    background-color: var(--color-linen);
+    gap: 48px;
 }
 </style>
