@@ -93,10 +93,11 @@ const helpLinkList = [
   &__container {
     display: flex;
     flex-direction: column;
-    width: 100%;
-    max-width: 1280px;
+    width: calc(100% - 140px);
+    max-width: 1440px;
     margin: 0 auto;
-  }
+  } 
+  
 
   &__top-line {
     width: 100%;
@@ -105,11 +106,24 @@ const helpLinkList = [
     justify-content: space-between;
     padding: 38px 0 48px 0;
   }
+  @media screen and (max-width: 768px)  {
+      &__top-line {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 40px;
+      }
+    }
 
   &__adress-wrapper{
     display: flex;
     flex-direction: column;
     row-gap: 50px;
+  }
+  @media  screen and (max-width: 768px) {
+    &__adress-wrapper{
+      row-gap: 25px;
+    }
+    
   }
 
   &__adress-title {
@@ -126,6 +140,11 @@ const helpLinkList = [
     flex-direction: column;
     gap: 55px;
   }
+  @media screen and (max-width: 768px){
+    &__navigation{
+      gap: 25px
+    }
+  }
   
   &__list-title {
     font-weight: 500;
@@ -136,6 +155,12 @@ const helpLinkList = [
     display: flex;
     flex-direction: column;
     gap: 44px;
+  }
+  @media screen and (max-width: 768px) {
+    &__list{
+      gap: 22px;
+    }
+    
   }
 
   &__link {
@@ -148,6 +173,12 @@ const helpLinkList = [
     flex-direction: column;
     gap: 51px;
   }
+  @media screen and (max-width: 768px) {
+    &__news-wrapper{
+      gap: 25px;
+    }
+    
+  }
 
   &__list-title{
     color: var(--color-quick-silver);
@@ -156,6 +187,14 @@ const helpLinkList = [
     display: flex;
     gap: 11px;
   }
+  
+  @media screen and (max-width: 768px) {
+    &__form{
+      flex-direction: column;
+    }
+    
+  }
+
   &__input{
     border: none; 
     border-bottom: 1px solid var(--color-black); 
@@ -163,12 +202,24 @@ const helpLinkList = [
       border-bottom: 1px solid var(--color-black); 
       }
   }
+  @media screen and (max-width: 768px) {
+    &__input{
+      width: 210px;
+    }
+    
+  }
   &__button{
     border: none; 
     border-bottom: 1px solid var(--color-black);
     color: var(--color-black);
     background-color: transparent;
     font-weight: 500;
+  }
+  @media screen and (max-width: 768px) {
+    &__button{
+      width: 100px;
+    }
+    
   }
   &__bottom-line{
     padding: 35px 0 38px 0;
