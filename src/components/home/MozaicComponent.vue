@@ -126,7 +126,7 @@ const urls = mozaicImagesUrls
 }
 
 .gallery-section-mobile {
-    width: 90vw;
+    width: 100%;
     height: 100vh;
     padding: 20px;
     display: flex;
@@ -153,6 +153,7 @@ const urls = mozaicImagesUrls
         text-align: center;
         gap: 8px;
         height: 60px;
+        // outline: 1px solid deepskyblue;
     }
 
     &__overline {
