@@ -1,9 +1,5 @@
 <script setup>
 import PageHeader from './components/shared/PageHeader.vue'
-import HeroSection from './components/home/HeroSection.vue'
-import CategorySection from './components/home/CategorySection.vue'
-import ProductSection from './components/home/ProductSection.vue'
-import MozaicComponent from './components/home/MozaicComponent.vue'
 import PageFooter from './components/shared/PageFooter.vue'
 </script>
 
@@ -14,10 +10,7 @@ import PageFooter from './components/shared/PageFooter.vue'
 <template>
   <div>
     <PageHeader />
-    <HeroSection />
-    <CategorySection />
-    <ProductSection />
-    <MozaicComponent />
+    <RouterView />
     <PageFooter />
   </div>
 </template>
