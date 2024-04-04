@@ -6,27 +6,26 @@ const urls = mozaicImagesUrls
 </script>
 
 <template>
-    <div class="mozaic">
-        <div class="mozaic__wrapper">
-            <div class="text-md">
-                Share your setup with
-                <h1 class="text-3xl">#FuniroFurniture</h1>
+    <section class="main__section section gallery-section">
+        <div class="gallery-section__container container">
+            <div class="gallery-section__text-wrapper">
+                <span class="text-md gallery-section__overline">Share your setup with</span>
+                <h2 class="text-3xl gallery-section__title">#FuniroFurniture</h2>
             </div>
-            <div v-for="(url, index) in urls" :key="index" :style="{backgroundImage: `url(${getUrlFromString(url.url)})`}"></div>
+            <div class="gallery-section__image-wrapper" v-for="(url, index) in urls" :key="index" :style="{backgroundImage: `url(${getUrlFromString(url.url)})`}"></div>
         </div>
-    </div>
+    </section>
 </template>
 
 <style lang="scss" scoped>
-.mozaic {
+.gallery-section {
     height: calc(100vh - 120px);
     width: 100%;
     overflow-x: hidden;
     display: flex;
     justify-content: center;
-    padding: 60px 0;
 
-    &__wrapper {
+    &__container {
         flex: 0 0 auto;
         /* width: 1800px; */
         width: 120%;
@@ -35,68 +34,73 @@ const urls = mozaicImagesUrls
         grid-template-columns: repeat(12, 1fr);
         grid-template-rows: repeat(12, 1fr);
         gap: 16px;
+    }
 
-        div {
-            background-size: cover;
-            background-position: center;
+    &__text-wrapper {
+        grid-column: 5 / span 4;
+        grid-row: 1 / span 2;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
 
-            &:nth-child(1) {
-                grid-column: 5 / span 4;
-                grid-row: 1 / span 2;
-                text-align: center;
-                color: var(--color-granite-gray);
+    &__overline {
+        font-weight: 500;
+        color: var(--color-granite-gray);
+    }
 
+    &__title {
+        color: var(--color-dark-charcoal);
+    }
 
-                h1 {
-                    margin: 8px 0 0;
-                    color: var(--color-dark-charcoal);
-                }
-            }
+    &__image-wrapper {
+        background-size: cover;
+        background-position: center;
 
-            &:nth-child(2) {
-                grid-column: 1 / span 2;
-                grid-row: 2 / span 6;
-            }
+        &:nth-of-type(2) {
+            grid-column: 1 / span 2;
+            grid-row: 2 / span 6;
+        }
 
-            &:nth-child(3) {
-                grid-column: 3 / span 3;
-                grid-row: 3 / span 5;
-            }
+        &:nth-of-type(3) {
+            grid-column: 3 / span 3;
+            grid-row: 3 / span 5;
+        }
 
-            &:nth-child(4) {
-                grid-column: 1 / span 3;
-                grid-row: 8 / span 5;
-            }
+        &:nth-of-type(4) {
+            grid-column: 1 / span 3;
+            grid-row: 8 / span 5;
+        }
 
-            &:nth-child(5) {
-                grid-column: 4 / span 2;
-                grid-row: 8 / span 4;
-            }
+        &:nth-of-type(5) {
+            grid-column: 4 / span 2;
+            grid-row: 8 / span 4;
+        }
 
-            &:nth-child(6) {
-                grid-column: 6 / span 2;
-                grid-row: 4 / span 6;
-            }
+        &:nth-of-type(6) {
+            grid-column: 6 / span 2;
+            grid-row: 4 / span 6;
+        }
 
-            &:nth-child(7) {
-                grid-column: 8 / span 2;
-                grid-row: 3 / span 6;
-            }
+        &:nth-of-type(7) {
+            grid-column: 8 / span 2;
+            grid-row: 3 / span 6;
+        }
 
-            &:nth-child(8) {
-                grid-column: 10 / span 3;
-                grid-row: 2 / span 7;
-            }
+        &:nth-of-type(8) {
+            grid-column: 10 / span 3;
+            grid-row: 2 / span 7;
+        }
 
-            &:nth-child(9) {
-                grid-column: 8 / span 1;
-                grid-row: 9 / span 4;
-            }
+        &:nth-of-type(9) {
+            grid-column: 8 / span 1;
+            grid-row: 9 / span 4;
+        }
 
-            &:nth-child(10) {
-                grid-column: 9 / span 2;
-                grid-row: 9 / span 3;
-            }
+        &:nth-of-type(10) {
+            grid-column: 9 / span 2;
+            grid-row: 9 / span 3;
         }
     }
 }
