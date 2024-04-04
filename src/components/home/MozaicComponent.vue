@@ -132,7 +132,6 @@ const urls = mozaicImagesUrls
     display: flex;
     flex-direction: column;
     margin: 0;
-    box-sizing: border-box;
 
     &__container {
         border: 1px solid deeppink;
