@@ -6,7 +6,7 @@
 }
 
 html {
-    font-size: 10px;
+    font-size: clamp(6px, 10px, 14px);
 }
 
 a {
