@@ -1,6 +1,8 @@
 import './styles/main.css'
 import "normalize.css"
 import 'vue-final-modal/style.css'
+import ToastPlugin from 'vue-toast-notification';
+
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
@@ -15,5 +17,6 @@ const vfm = createVfm()
 app.use(createPinia())
 app.use(router)
 app.use(vfm)
+app.use(ToastPlugin);
 
 app.mount('#app')
