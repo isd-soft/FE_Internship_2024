@@ -1,17 +1,11 @@
 <script setup>
 import {onMounted, onUnmounted, ref, computed} from 'vue';
+import {mediaFlag, isMenuVisible, updateMediaFlag} from '../../utils/pageHeaderHelperFuncs.js'
 import HeaderLogo from './HeaderLogo.vue'
 import HeaderNavigation from './HeaderNavigation.vue';
 import GenericLink from '../generics/GenericLink.vue';
 import CartIcon from '../../assets/icons/CartIcon.svg';
 import UserIcon from '../../assets/icons/UserIcon.svg';
-
-const mediaFlag = ref(window.innerWidth);
-const isMenuVisible = computed(() => mediaFlag.value >= 768);
-
-const updateMediaFlag = () => {
-  mediaFlag.value = window.innerWidth;
-};
 
 onMounted(() => {
   window.addEventListener('resize', updateMediaFlag);
