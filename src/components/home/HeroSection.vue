@@ -37,13 +37,12 @@ p {
   padding: 0 4% 8% 4%;
 
   &__wrapper {
-    margin-top: 157px;
     background-color: var(--color-old-lace);
     padding: 4.36% 3% 0% 2.72%;;
     border-radius: 10px;
     width: 44.7vw;
     aspect-ratio: 643 / 443;
-    // margin-top: auto;
+    margin-top: auto;
   }
   &__label {
     font-weight: 500;
@@ -81,6 +80,8 @@ p {
   .hero-section {
     &__wrapper {
       width: 60vw;
+      margin-top: 0;
+      align-items: center;
 
     }
 
