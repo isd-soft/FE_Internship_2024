@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 * {
-    font-family: 'Poppins',sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-style: normal;
 }
 
@@ -9,30 +9,62 @@ html {
     font-size: 10px;
 }
 
+a {
+    text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+    margin: 0;
+}
+
+ul,
+ol {
+    margin: 0;
+    padding: 0;
+}
+
+ul {
+    list-style: none;
+}
+
 :root {
     --color-black: #000000;
 
     --color-raisin-black: #242424;
 
-    --color-dark-charcoal: #333333; /* --color-gray-1*/
+    --color-dark-charcoal: #333333;
+    /* --color-gray-1*/
 
     --color-granite-gray: #666666;
 
-    --color-taupe-gray: #898989; /* --color-gray-3 */
+    --color-taupe-gray: #898989;
+    /* --color-gray-3 */
 
-    --color-quick-silver: #9F9F9F; /* --color-gray-4 */
+    --color-quick-silver: #9F9F9F;
+    /* --color-gray-4 */
 
-    --color-silver-foil: #B0B0B0; /* --color-gray-5 */
+    --color-silver-foil: #B0B0B0;
+    /* --color-gray-5 */
 
-    --color-light-silver: #D9D9D9; /* --color-gray-6 */
+    --color-light-silver: #D9D9D9;
+    /* --color-gray-6 */
 
-    --color-cultured: #F4F5F7; /* --color-ghost-white */
+    --color-cultured: #F4F5F7;
+    /* --color-ghost-white */
 
     --color-white: #FFFFFF;
 
-    --color-uc-gold: #B88E2F;  /* --color-bronze */
+    --color-uc-gold: #B88E2F;
+    /* --color-bronze */
 
-    --color-ph-yellow: #FFC700; /* --color-yellow */
+    --color-ph-yellow: #FFC700;
+    /* --color-yellow */
 
     --color-linen: #F9F1E7;
 
@@ -42,13 +74,15 @@ html {
 
     --color-blue-green: #2EC1AC;
 
-    a{
-        text-decoration: none;
-    }
+    --color-old-lace: #FFF3E3;
 }
 
 .section {
     margin-bottom: 60px;
+}
+
+.text-xs {
+    font-size: 0.8rem;
 }
 
 .text-sm {

@@ -79,7 +79,6 @@ import GenericList from '@/components/generics/GenericList.vue'
 
 <style lang="scss" scoped>
 .footer{
-    --tw-border-opacity: 1;
     &__content{
         padding: 38px 100px 118px 100px;
         display: grid;
