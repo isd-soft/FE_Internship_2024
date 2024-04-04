@@ -8,24 +8,23 @@ const props=defineProps({
         type: String,
         default: ''
     },
-    addressName:{
-        type: String,
-        default: ''
-    },
-    address:{
-        type: String,
-        default: ''
-    },
 
-})
+    infoName:{
+        type: String,
+        default: ''
+    },
+    info:{
+        type: String,
+        default: ''
+    }})
 </script>
 
 <template>
     <div class="infoCard">
         <img :src="props.src" :alt="props.alt">
         <div >
-            <h1>Address</h1>
-            <p>236 5th SE Avenue, <br>New York NY10000, United States</p>
+            <h1>{{ props.infoName }}</h1>
+            <p>{{ props.info }}</p>
         </div>
     </div>
 </template>
