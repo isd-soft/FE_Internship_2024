@@ -1,10 +1,28 @@
 <script setup>
+const props=defineProps({
+    alt:{
+        type: String,
+        default: ''  
+    },
+    src:{
+        type: String,
+        default: ''
+    },
+    addressName:{
+        type: String,
+        default: ''
+    },
+    address:{
+        type: String,
+        default: ''
+    },
 
+})
 </script>
 
 <template>
     <div class="infoCard">
-        <img src="../assets/icons/Vector (1).svg" alt="icon">
+        <img :src="props.src" :alt="props.alt">
         <div >
             <h1>Address</h1>
             <p>236 5th SE Avenue, <br>New York NY10000, United States</p>
