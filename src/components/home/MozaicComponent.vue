@@ -134,10 +134,9 @@ const urls = mozaicImagesUrls
     margin: 0;
 
     &__container {
-        border: 1px solid deeppink;
-        padding: 20px;
-        width: 200px;
-        height: 400px;
+        width: 100%;
+        height: 100%;
+        // border: 1px solid deeppink;
     }
 
     &__image-wrapper {
