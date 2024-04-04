@@ -10,9 +10,9 @@ import PageFooter from './components/shared/PageFooter.vue'
 
 <template>
   <div>
-    <PageHeader />
+    <!-- <PageHeader /> -->
     <RouterView />
-    <PageFooter />
+    <!-- <PageFooter /> -->
   </div> 
 </template>
 
