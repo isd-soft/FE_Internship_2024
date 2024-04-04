@@ -1,6 +1,6 @@
 <script setup>
-import { mozaicImagesUrls } from '../utils/mozaicImagesUrls.js'
-import { getUrlFromString } from '../utils/getUrlFromString.js'
+import { mozaicImagesUrls } from '../../utils/mozaicImagesUrls'
+import { getUrlFromString } from '../../utils/getUrlFromString'
 
 const urls = mozaicImagesUrls
 </script>

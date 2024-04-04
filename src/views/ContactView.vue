@@ -1,7 +1,7 @@
 <script setup>
-    import Advantages from "@/components/Advantages.vue"
-    import ImageNavCard from "@/components/ImageNavCard.vue"
-    import ContactInfoCard from "@/components/ContactInfoCard.vue"
+    import Advantages from "@/components/shared/Advantages.vue";
+    import ImageNavCard from "@/components/shared/ImageNavCard.vue"
+    import ContactInfoCard from "@/components/shared/ContactInfoCard.vue"
 </script>
 
 <template>

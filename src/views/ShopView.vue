@@ -1,11 +1,8 @@
 <script setup>
-    import Advantages from "@/components/Advantages.vue"
 </script>
 
 <template>
-    <div>
-        <Advantages/>
-    </div>
+    <div></div>
 </template>
 
 <style lang="scss" scoped>

@@ -1,5 +1,5 @@
 <script setup>
-    import Advantages from "@/components/Advantages.vue"
+    import Advantages from "../components/shared/Advantages.vue"
 </script>
 
 <template>
