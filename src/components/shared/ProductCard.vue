@@ -30,7 +30,7 @@
 
     <div v-show="hoverFlag" class="product-card__overlay">
       <button class="product-card__button text-sm">Add to cart</button>
-      <button class="product-card__button text-sm">Details</button>
+      <button class="product-card__button text-sm" @click = "openModal">Details</button>
     </div>
   </div>
 </template>
@@ -38,8 +38,11 @@
 <script setup>
 import { ref } from 'vue'
 import ProductLabel from './ProductLabel.vue'
+import { useModal } from 'vue-final-modal'
+import ModalProduct from './ModalProduct.vue'
 
 const hoverFlag = ref(false)
+const showModal = ref(false)
 
 // eslint-disable-next-line no-unused-vars
 const props = defineProps({
@@ -56,6 +59,23 @@ const props = defineProps({
     validator: (value) => ['discount', 'stock', 'new'].includes(value)
   }
 })
+
+const { open } = useModal({
+  component: ModalProduct,
+  attrs: {
+    id: 1,
+    header: props.title,
+    price: props.price,
+    description: props.description,
+    rating: 4.95,
+    reviews: 10,
+    productType: props.productType
+  }
+})
+
+const openModal = () => {
+  open()
+}
 
 const convertPrice = (value) =>
   value ? 'Rp ' + value.toLocaleString('en-US').replace(/,/g, '.') : ''
