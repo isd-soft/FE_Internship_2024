@@ -2,15 +2,18 @@
 import { mozaicImagesUrls } from '../../utils/mozaicImagesUrls'
 import { getUrlFromString } from '../../utils/getUrlFromString'
 import { Swiper, SwiperSlide } from 'swiper/vue'
-import 'swiper/css'
 import { EffectCards } from 'swiper/modules'
+import 'swiper/css'
 import 'swiper/css/effect-cards'
+import { useWindowSize } from '@vueuse/core'
+
+const { width } = useWindowSize()
 
 const urls = mozaicImagesUrls
 </script>
 
 <template>
-    <!-- <section class="main__section section gallery-section">
+    <section v-if="width > 375" class="main__section section gallery-section">
         <div class="gallery-section__container container">
             <div class="gallery-section__text-wrapper">
                 <span class="text-md gallery-section__overline">Share your setup with</span>
@@ -18,8 +21,8 @@ const urls = mozaicImagesUrls
             </div>
             <div class="gallery-section__image-wrapper" v-for="(url, index) in urls" :key="index" :style="{backgroundImage: `url(${getUrlFromString(url.url)})`}"></div>
         </div>
-    </section> -->
-    <section class="main_section section gallery-section-mobile">
+    </section>
+    <section v-else class="main_section section gallery-section-mobile">
         <div class="gallery-section-mobile__text-wrapper">
                 <span class="text-3xl gallery-section-mobile__overline">Share your setup with</span>
                 <h2 class="text-12xl gallery-section-mobile__title">#FurniroFurniture</h2>
@@ -129,14 +132,14 @@ const urls = mozaicImagesUrls
     width: 100%;
     height: 100vh;
     padding: 20px;
+    gap: 20px;
     display: flex;
     flex-direction: column;
-    margin: 0;
+    overflow: hidden;
 
     &__container {
         width: 100%;
         height: 100%;
-        // border: 1px solid deeppink;
     }
 
     &__image-wrapper {
@@ -151,8 +154,7 @@ const urls = mozaicImagesUrls
         justify-content: center;
         text-align: center;
         gap: 8px;
-        height: 60px;
-        // outline: 1px solid deepskyblue;
+        height: max-content;
     }
 
     &__overline {
