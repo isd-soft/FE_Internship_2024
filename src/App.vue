@@ -12,7 +12,7 @@ import PageFooter from './components/shared/PageFooter.vue'
     <PageHeader />
     <RouterView />
     <PageFooter />
-  </div>
+  </div> 
 </template>
 
 <style lang="scss"></style>
