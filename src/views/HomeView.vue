@@ -7,9 +7,9 @@ import MozaicComponent from '../components/home/MozaicComponent.vue'
 
 <template>
     <main class="main">
-        <HeroSection />
-        <CategorySection />
-        <ProductSection />
+        <!-- <HeroSection /> -->
+        <!-- <CategorySection /> -->
+        <!-- <ProductSection /> -->
         <MozaicComponent />
     </main>
 </template>
