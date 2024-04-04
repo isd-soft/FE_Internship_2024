@@ -37,36 +37,45 @@ const emit = defineEmits(['close'])
 
 <template>
   <VueFinalModal
-    classes="modal-container"
-    content-class="modal-content"
+    class="product-modal"
+    content-class="product-modal__content"
     overlay-transition="vfm-fade"
     content-transition="vfm-fade"
     @clickOutside="emit('close')"
   >
-    <div class="modal-header">{{ header }}</div>
-    <div class="modal-price">{{ price }}</div>
-    <div class="modal-description">{{ description }}</div>
-    <div class="modal-rating">{{ rating }}</div>
-    <div class="modal-reviews">{{ reviews }}</div>
-    <div class="modal-productType">{{ productType }}</div>
-    <button @click="emit('close')">Close</button>
+    <div class="product-modal__header text-3xl">{{ header }}</div>
+    <div class="product-modal__price text-lg">{{ price }}</div>
+    <div class="product-modal__description text-sm">{{ description }}</div>
+    <div class="product-modal__rating">{{ rating }}</div>
+    <div class="product-modal__reviews text-xs">{{ reviews }}</div>
+    <div class="product-modal__product-type text-sm">{{ productType }}</div>
   </VueFinalModal>
 </template>
 
-<style scoped>
-/* .modal-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+<style lang="scss">
+.product-modal {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    &__content {    
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+        background: #fff;
+        border-radius: 0.5rem;
+    }
+
 }
-.modal-content {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  margin: 0 1rem;
-  padding: 1rem;
-  border: 1px solid #e2e8f0;
-  border-radius: 0.25rem;
-  background: #fff;
-} */
 </style>
+<!-- 
+    id
+    child
+    header - text-3xl
+    price - text-lg
+    description - text-sm
+    rating - 
+    reviews - text-xs
+    availability - text-sm
+ -->

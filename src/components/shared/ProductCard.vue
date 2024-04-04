@@ -42,7 +42,6 @@ import { useModal } from 'vue-final-modal'
 import ModalProduct from './ModalProduct.vue'
 
 const hoverFlag = ref(false)
-const showModal = ref(false)
 
 // eslint-disable-next-line no-unused-vars
 const props = defineProps({
