@@ -204,7 +204,7 @@ const helpLinkList = [
   }
   @media screen and (max-width: 768px) {
     &__input{
-      width: 210px;
+      width: 50%
     }
     
   }
@@ -218,7 +218,7 @@ const helpLinkList = [
   }
   @media screen and (max-width: 768px) {
     &__button{
-      width: 100px;
+      width: 30%;
     }
     
   }
