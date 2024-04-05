@@ -94,23 +94,28 @@ const helpLinkList = [
     display: flex;
     flex-direction: column;
     width: calc(100% - 140px);
-    max-width: 1440px;
     margin: 0 auto;
-  } 
+  }
+  @media screen and (max-width: 768px){
+    &__container{
+      margin: 0 5%;
+      width: calc(100%);
+    } 
+  }
   
 
   &__top-line {
-    width: 100%;
-    max-width: 1135px;
+    width: 80%;
     display: flex;
     justify-content: space-between;
     padding: 38px 0 48px 0;
   }
   @media screen and (max-width: 768px)  {
       &__top-line {
+        width: 100%;
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 40px;
+        gap: 20px;
       }
     }
 
@@ -204,7 +209,7 @@ const helpLinkList = [
   }
   @media screen and (max-width: 768px) {
     &__input{
-      width: 210px;
+      width: 50%
     }
     
   }
@@ -214,10 +219,11 @@ const helpLinkList = [
     color: var(--color-black);
     background-color: transparent;
     font-weight: 500;
+    cursor: pointer;
   }
   @media screen and (max-width: 768px) {
     &__button{
-      width: 100px;
+      width: 30%;
     }
     
   }
