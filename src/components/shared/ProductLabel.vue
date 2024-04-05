@@ -32,14 +32,19 @@ const props = defineProps({
   justify-content: center;
   flex-direction: column;
   position: absolute;
-  top: 24px;
-  right: 24px;
-  width: 48px;
-  height: 48px;
+  top: 2.4rem;
+  right: 2.4rem;
+  width: 4.8rem;
+  height: 4.8rem;
   border-radius: 100%;
 
+  @media only screen and (max-width:768px) {
+    width: 6.4rem;
+    height: 6.4rem;
+  }
+
   &__specification {
-    font-size: 0.7rem;
+    font-size: .8rem;
   }
 
   &__new {
