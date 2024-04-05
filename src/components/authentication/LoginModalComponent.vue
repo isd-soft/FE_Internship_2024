@@ -2,7 +2,7 @@
 import GenericToast from "../generics/GenericToast.vue"
 import { VueFinalModal } from 'vue-final-modal'
 import {ref, computed} from "vue"
-import LoginFormComponent from "./LoginFormComponent.vue"
+// import LoginFormComponent from "./LoginFormComponent.vue"
 
 console.log("Created Modal")
 
@@ -30,7 +30,10 @@ const emit = defineEmits(['close'])
     content-transition="vfm-fade"
     @clickOutside="emit('close')"
   >
-  <LoginFormComponent />
+<slot>
+        <!-- <LoginFormComponent /> -->
+    </slot>
+    
     </VueFinalModal>
 </template>
 
