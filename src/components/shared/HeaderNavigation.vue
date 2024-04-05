@@ -3,9 +3,9 @@ import GenericList from '../generics/GenericList.vue';
 import GenericLink from '../generics/GenericLink.vue';
 
 const linkList = [
-    { href: '#', textContent: 'Home', containerClass: 'navigation__link' },
-    { href: '#', textContent: 'Shop', containerClass: 'navigation__link' },
-    { href: '#', textContent: 'Contact', containerClass: 'navigation__link' },
+    { href: '/', textContent: 'Home', containerClass: 'navigation__link' },
+    { href: 'shop', textContent: 'Shop', containerClass: 'navigation__link' },
+    { href: 'contact', textContent: 'Contact', containerClass: 'navigation__link' },
 ]
 </script>
 

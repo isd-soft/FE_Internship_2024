@@ -5,7 +5,7 @@
 
 <template>
     <div class="advantages">
-        <AdvantagesCard src="/src/assets/icons/trophy%201.svg" alt="High Quality" name="High Quality" description="crafted from top materials"/>
+        <AdvantagesCard src="/src/assets/icons/trophy%201.svg" alt="High Quality" name="High Quality" description="Crafted from top materials"/>
         <AdvantagesCard src="/src/assets/icons/Group.svg" alt="Warranty Protection" name="Warranty Protection" description="Over 2 years"/>
         <AdvantagesCard src="/src/assets/icons/shipping.svg" alt="Free Shipping" name="Free Shipping" description="Order over 150 $"/>
         <AdvantagesCard src="/src/assets/icons/Vector.svg" alt="24 / 7 Support" name="24 / 7 Support" description="Dedicated support"/>
@@ -17,11 +17,15 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    padding-top: 6.25rem;
-    padding-bottom: 6.25rem;
-    padding-left: 3.35rem;
-    padding-right: 3.35rem;
+    padding: 100px 53px 100px 53px;
+
     background-color: var(--color-linen);
     gap: 48px;
+}
+@media screen and (max-width:768px){
+    .advantages{
+        gap: 24px;
+        padding: 40px;  
+    }
 }
 </style>
