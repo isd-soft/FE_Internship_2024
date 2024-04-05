@@ -63,8 +63,17 @@ onUnmounted(() => {
         align-items: center;
         column-gap: 24px;
     }
+    &__link{
+        svg{
+            width: auto;
+            height: 1.73vw;
+        }
+    }
     &__container-toggle{
         display:none;
+        svg{
+            height: 3.5vw;
+        }
     }
     @media (max-width:768px) {
         &__container-toggle{
