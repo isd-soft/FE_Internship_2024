@@ -38,7 +38,7 @@ p {
 
   &__wrapper {
     background-color: var(--color-old-lace);
-    padding: 4.36% 3% 0% 2.72%;;
+    padding: 4.5% 3% 0% 2.72%;;
     border-radius: 10px;
     width: 44.7vw;
     aspect-ratio: 643 / 443;
@@ -51,7 +51,7 @@ p {
 
   &__title {
     color: var(--color-uc-gold);
-    margin: 1.8% 0 3%;
+    margin: 1.8% 0 4%;
   }
 
   &__description{
@@ -64,7 +64,7 @@ p {
     font-weight: 700;
     border: none;
     padding: 4.4% 13.4%;
-    margin-top: 8.1%;
+    margin-top: 9.5%;
 
     &:hover{
       color: var(--color-uc-gold);
