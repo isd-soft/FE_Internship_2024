@@ -7,17 +7,20 @@
         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
       </p>
 
-      <GenericList v-if="width > 375" :items="categoryList" customClass="category-section__list" itemClass="category-section__list-item">
+      <Swiper v-if="width < 376" class="category-section__slider" :grab-cursor="true" :slides-per-group="1"
+        :slides-per-view="1" loop>
+        <SwiperSlide v-for="(category, index) in categoryList" :key="index">
+          <CategoryCard v-bind="category" />
+        </SwiperSlide>
+      </Swiper>
+
+      <GenericList v-else :items="categoryList" customClass="category-section__list"
+        itemClass="category-section__list-item">
         <template v-slot="{ item }">
           <CategoryCard v-bind="item" />
         </template>
       </GenericList>
 
-      <swiper v-else class="category-section__slider" :grab-cursor="true" :slides-per-group="1" :slides-per-view="1">
-            <swiper-slide v-for="(category, index) in categoryList" :key="index">
-              <CategoryCard v-bind="category"/>
-            </swiper-slide>
-      </swiper>
     </div>
   </section>
 </template>
@@ -65,9 +68,6 @@ const categoryList = [
     color: var(--color-dark-charcoal);
     margin: 0;
 
-    @media (max-width: 376px) {
-      font-size: 8rem;
-    }
   }
 
   &__paragraph {
@@ -76,9 +76,6 @@ const categoryList = [
     color: var(--color-granite-gray);
     margin-bottom: 5%;
 
-    @media (max-width: 376px) {
-      font-size: 3.2rem;
-    }
   }
 
   &__list {

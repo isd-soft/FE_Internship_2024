@@ -76,28 +76,16 @@ const convertPrice = (value) =>
     padding-bottom: 30px;
     background-color: var(--color-cultured);
 
-    @media (max-width: 768px) {
-      padding: 6%;
-      padding-top: 3%;
-    }
   }
 
   &__title {
     font-weight: 600;
     color: var(--color-granite-gray);
-
-    @media (max-width: 768px) {
-      font-size: 3.6rem;
-    }
   }
 
   &__description {
     font-weight: 500;
     color: var(--color-taupe-gray);
-
-    @media (max-width: 768px) {
-      font-size: 2.4rem;
-    }
   }
 
   &__price-wrapper {
@@ -110,20 +98,12 @@ const convertPrice = (value) =>
     font-weight: 600;
     color: var(--color-dark-charcoal);
     margin-right: 6%;
-
-    @media (max-width: 768px) {
-      font-size: 3.2rem;
-    }
   }
 
   &__old-price {
     font-weight: 400;
     text-decoration-line: line-through;
     color: var(--color-silver-foil);
-
-    @media (max-width: 768px) {
-      font-size: 2.4rem;
-    }
   }
 
   &__overlay {
@@ -146,8 +126,7 @@ const convertPrice = (value) =>
     font-weight: 600;
     line-height: 150%;
     color: var(--color-uc-gold);
-    width: 100%;
-    max-width: 200px;
+    width: 70%;
     padding: 12px 0;
     background-color: var(--color-white);
   }

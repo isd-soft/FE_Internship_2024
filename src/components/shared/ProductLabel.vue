@@ -32,14 +32,14 @@ const props = defineProps({
   justify-content: center;
   flex-direction: column;
   position: absolute;
-  top: 5%;
-  right: 8%;
-  width: 17%;
-  height: 10%;
+  top: 2.4rem;
+  right: 2.4rem;
+  width: 4.8rem;
+  height: 4.8rem;
   border-radius: 100%;
 
   &__specification {
-    font-size: 0.7rem;
+    font-size: .8rem;
   }
 
   &__new {

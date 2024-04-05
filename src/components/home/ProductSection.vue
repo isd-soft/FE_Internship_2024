@@ -127,7 +127,7 @@ const productList = [
       grid-template-rows: repeat(4, 1fr);
     }
 
-    @media (max-width: 376px) {
+    @media (max-width: 375px) {
       grid-template-columns: 100%;
       grid-template-rows: repeat(8, 1fr);
     }
@@ -140,7 +140,7 @@ const productList = [
   &__button {
     font-weight: 600;
     color: var(--color-uc-gold);
-    padding: 12px 78px;
+    padding: 12px 5%;
     border: 1px solid var(--color-uc-gold);
     background-color: var(--color-white);
   }
