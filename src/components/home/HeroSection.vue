@@ -30,6 +30,7 @@ p {
   background-size: cover;
   background-position: center bottom;
   background-repeat: no-repeat;
+
   height: 88.2vh;
   display: flex;
   justify-content: end;
