@@ -32,8 +32,11 @@ const props = defineProps({
 
   &__title {
     font-weight: 600;
-    line-height: 36px;
     color: var(--color-dark-charcoal);
+    
+    @media (max-width: 376px) {
+      font-size: 5.2rem;
+    }
   }
 }
 </style>

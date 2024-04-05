@@ -7,19 +7,31 @@
         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
       </p>
 
-      <GenericList :items="categoryList" customClass="category-section__list" itemClass="category-section__list-item">
+      <GenericList v-if="width > 375" :items="categoryList" customClass="category-section__list" itemClass="category-section__list-item">
         <template v-slot="{ item }">
           <CategoryCard v-bind="item" />
         </template>
       </GenericList>
+
+      <swiper v-else class="category-section__slider" :grab-cursor="true" :slides-per-group="1" :slides-per-view="1">
+            <swiper-slide v-for="(category, index) in categoryList" :key="index">
+              <CategoryCard v-bind="category"/>
+            </swiper-slide>
+      </swiper>
     </div>
   </section>
 </template>
 
 <script setup>
-import CategoryCard from './CategoryCard.vue';
+import CategoryCard from './CategoryCard.vue'
 import { getUrlFromString } from '../../utils/getUrlFromString.js'
 import GenericList from '../generics/GenericList.vue'
+import { useWindowSize } from '@vueuse/core'
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import 'swiper/css'
+import 'swiper/css/effect-cards'
+
+const { width } = useWindowSize();
 
 const categoryList = [
   {
@@ -52,6 +64,10 @@ const categoryList = [
     font-weight: 700;
     color: var(--color-dark-charcoal);
     margin: 0;
+
+    @media (max-width: 376px) {
+      font-size: 8rem;
+    }
   }
 
   &__paragraph {
@@ -59,6 +75,10 @@ const categoryList = [
     line-height: 30px;
     color: var(--color-granite-gray);
     margin-bottom: 5%;
+
+    @media (max-width: 376px) {
+      font-size: 3.2rem;
+    }
   }
 
   &__list {
@@ -69,6 +89,10 @@ const categoryList = [
     & :deep(.category-section__list-item) {
       width: 32%;
     }
+  }
+
+  &__slider {
+    width: 100%;
   }
 }
 </style>
