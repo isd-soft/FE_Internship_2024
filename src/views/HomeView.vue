@@ -8,10 +8,10 @@ import ExamplesSection from '../components/home/ExamplesSection.vue'
 
 <template>
     <main class="main">
-        <!-- <HeroSection /> -->
-        <!-- <CategorySection /> -->
-        <!-- <ProductSection /> -->
+        <HeroSection />
+        <CategorySection />
+        <ProductSection />
         <ExamplesSection />
-        <!-- <GallerySection /> -->
+        <GallerySection />
     </main>
 </template>

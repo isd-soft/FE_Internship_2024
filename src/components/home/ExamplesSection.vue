@@ -1,4 +1,5 @@
 <script setup>
+import { useWindowSize } from '@vueuse/core'
 import { swiperImagesUrls } from '@/utils/swiperImagesUrls.js'
 import { getUrlFromString } from '@/utils/getUrlFromString';
 import { Swiper, SwiperSlide } from 'swiper/vue'
@@ -8,6 +9,8 @@ import RightChevron from '@/assets/icons/right-chevron.svg'
 import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/navigation'
+
+const { width } = useWindowSize()
 
 const urls = swiperImagesUrls
 </script>
@@ -25,7 +28,7 @@ const urls = swiperImagesUrls
             </button>
             <swiper
             class="examples-section__swiper"
-            :slides-per-view="2"
+            :slides-per-view="width > 768 ? 2 : 1"
             :space-between="24"
             :pagination="{ 
                 clickable: true,
@@ -50,14 +53,15 @@ const urls = swiperImagesUrls
     height: calc(100vh - 100px);
     display: flex;
     align-items: center;
-    gap: 100px;
     background-color: var(--color-linen);
     padding: 9vw 1vw 8vw 7vw;
+    gap: 10rem;
 
     &__text {
-        height: min-content;
+        height: max-content;
         display: flex;
         flex-direction: column;
+        // border: 1px solid deepskyblue;
     }
 
     &__title {
@@ -86,6 +90,7 @@ const urls = swiperImagesUrls
         height: 100%;
         display: flex;
         align-items: center;
+        // border: 1px solid deeppink;
     }
 
     &__swiper {
@@ -136,6 +141,48 @@ const urls = swiperImagesUrls
 .swiper-button-disabled {
     visibility: hidden;
 }
+
+@media only screen and (max-width: 768px) {
+    .examples-section {
+        gap: 2vw;
+
+        &__button-next {
+            display: none;
+        }
+
+        &__button-prev {
+            display: none;
+        }
+    
+        &__image-wrapper {
+            height: 95%;
+        }
+    }
+}
+
+@media only screen and (max-width: 425px) {
+    .examples-section {
+        flex-direction: column-reverse;
+        padding: 20px;
+        gap: 20px;
+        height: 100vh;
+
+        &__container {
+            width: 100%;
+            height: 100%;
+        }
+
+        &__text {
+           align-items: center;
+           text-align: center;
+        }
+
+        &__button {
+            width: 100%;
+            margin: 20px 0 0;
+        }
+    }
+}
 </style>
 
 <style lang="scss">
@@ -145,11 +192,13 @@ const urls = swiperImagesUrls
         width: fit-content;
         display: flex;
         align-items: center;
-        gap: 20px;
+        gap: 2rem;
 
         .swiper-pagination-bullet {
-            width: 11px;
-            height: 11px;
+            // width: 11px;
+            // height: 11px;
+            width: 1.1rem;
+            height: 1.1rem;
             background-color: var(--color-light-silver);
             opacity: 1;
             margin: 0;
@@ -159,18 +208,38 @@ const urls = swiperImagesUrls
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 26px;
-            height: 26px;
+            // width: 26px;
+            // height: 26px;
+            width: 2.6rem;
+            height: 2.6rem;
             background-color: transparent;
             border: 1px solid var(--color-uc-gold);
             
             &::after {
                 content: '';
-                width: 11px;
-                height: 11px;
+                // width: 11px;
+                // height: 11px;
+                width: 1.1rem;
+                height: 1.1rem;
                 background-color: var(--color-uc-gold);
                 border-radius: 50%;
             }
+        }
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .examples-section__swiper {
+        .swiper-pagination {
+            width: 100%;
+        }
+    }
+}
+
+@media only screen and (max-width: 425px) {
+    .examples-section__swiper {
+        .swiper-pagination {
+            justify-content: center;
         }
     }
 }
