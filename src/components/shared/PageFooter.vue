@@ -73,9 +73,9 @@ const helpLinkList = [
           <h3 class="footer__list-title text-sm">Newsletter</h3>
 
           <form class="footer__form text-sm" action="submit">
-            <input class="footer__input" type="text" placeholder="Enter your Email Address" />
+            <input class="footer__input text-sm" type="text" placeholder="Enter your Email Address" />
 
-            <button class="footer__button" type="submit">SUBSCRIBE</button>
+            <button class="footer__button text-sm" type="submit">SUBSCRIBE</button>
           </form>
         </div>
       </div>
@@ -182,6 +182,7 @@ const helpLinkList = [
   @media screen and (max-width: 768px) {
     &__news-wrapper{
       gap: 25px;
+      grid-column: 1 / span 2;
     }
     
   }
@@ -196,7 +197,7 @@ const helpLinkList = [
   
   @media screen and (max-width: 768px) {
     &__form{
-      grid-column: 1 / span 2;
+      //align-items: center;
       flex-direction: column;
     }
     
@@ -209,11 +210,10 @@ const helpLinkList = [
       border-bottom: 1px solid var(--color-black); 
       }
   }
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 768px){
     &__input{
-      width: 50%
+      width: 25rem;
     }
-    
   }
   &__button{
     border: none; 
@@ -223,11 +223,10 @@ const helpLinkList = [
     font-weight: 500;
     cursor: pointer;
   }
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 768px){
     &__button{
-      width: 30%;
+      width: 13rem;
     }
-    
   }
   &__bottom-line{
     padding: 35px 0 38px 0;
