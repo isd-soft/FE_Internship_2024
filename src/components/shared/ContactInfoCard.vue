@@ -8,6 +8,7 @@ const props=defineProps({
         type: String,
         default: ''
     },
+
     infoName:{
         type: String,
         default: ''
@@ -15,8 +16,7 @@ const props=defineProps({
     info:{
         type: String,
         default: ''
-    }
-})
+    }})
 </script>
 
 <template>
