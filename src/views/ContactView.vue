@@ -62,7 +62,7 @@
         }
         &__map{
             width: 100%;
-            height: 260px;
+            height: 520px;
             filter: grayscale(40%);
         }
     }
