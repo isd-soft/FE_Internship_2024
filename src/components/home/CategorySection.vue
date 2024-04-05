@@ -1,30 +1,3 @@
-<template>
-  <section class="main__section section category-section">
-    <div class="category-section__container container">
-      <h2 class="category-section__title text-xl">Browse the range</h2>
-
-      <p class="category-section__paragraph text-md">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-      </p>
-
-      <Swiper v-if="width < 376" class="category-section__slider" :grab-cursor="true" :slides-per-group="1"
-        :slides-per-view="1" loop>
-        <SwiperSlide v-for="(category, index) in categoryList" :key="index">
-          <CategoryCard v-bind="category" />
-        </SwiperSlide>
-      </Swiper>
-
-      <GenericList v-else :items="categoryList" customClass="category-section__list"
-        itemClass="category-section__list-item">
-        <template v-slot="{ item }">
-          <CategoryCard v-bind="item" />
-        </template>
-      </GenericList>
-
-    </div>
-  </section>
-</template>
-
 <script setup>
 import CategoryCard from './CategoryCard.vue'
 import { getUrlFromString } from '../../utils/getUrlFromString.js'
@@ -52,6 +25,34 @@ const categoryList = [
 ]
 </script>
 
+<template>
+  <section class="main__section section category-section">
+    <div class="category-section__container container">
+      <h2 class="category-section__title text-xl">Browse the range</h2>
+
+      <p class="category-section__paragraph text-md">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      </p>
+
+      <Swiper v-if="width < 376" class="category-section__slider" :grab-cursor="true" :slides-per-group="1"
+        :slides-per-view="1" loop>
+        <SwiperSlide v-for="(category, index) in categoryList" :key="index">
+          <CategoryCard v-bind="category" />
+        </SwiperSlide>
+      </Swiper>
+
+      <GenericList v-else :items="categoryList" customClass="category-section__list"
+        itemClass="category-section__list-item">
+        <template v-slot="{ item }">
+          <CategoryCard v-bind="item" />
+        </template>
+      </GenericList>
+
+    </div>
+  </section>
+</template>
+
+
 <style lang="scss" scoped>
 .category-section {
   &__container {
@@ -67,13 +68,13 @@ const categoryList = [
     font-weight: 700;
     color: var(--color-dark-charcoal);
     margin: 0;
-
+    margin-bottom: 5%;
   }
 
   &__paragraph {
     font-weight: 400;
-    line-height: 30px;
     color: var(--color-granite-gray);
+    text-align: center;
     margin-bottom: 5%;
 
   }

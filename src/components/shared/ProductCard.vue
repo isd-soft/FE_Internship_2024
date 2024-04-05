@@ -26,7 +26,7 @@
 
     <div v-show="hoverFlag" class="product-card__overlay">
       <button class="product-card__button text-sm">Add to cart</button>
-      <button class="product-card__button text-sm" @click = "openModal">Details</button>
+      <button class="product-card__button text-sm" @click="openModal">Details</button>
     </div>
   </div>
 </template>
@@ -62,7 +62,7 @@ const openModal = () => {
 const convertPrice = (value) =>
   value ? 'Rp ' + value.toLocaleString('en-US').replace(/,/g, '.') : ''
 
-  const { open } = useModal({
+const { open } = useModal({
   component: ModalProduct,
   attrs: {
     id: 1,
@@ -95,10 +95,13 @@ const convertPrice = (value) =>
     display: flex;
     flex-direction: column;
     row-gap: 8px;
-    padding: 16px;
-    padding-bottom: 30px;
+    padding: 6%;
+    padding-bottom: 7%;
     background-color: var(--color-cultured);
 
+    @media only screen and (max-width: 375px) {
+      align-items: center;
+    }
   }
 
   &__title {
@@ -115,12 +118,12 @@ const convertPrice = (value) =>
     display: flex;
     align-items: center;
     flex-wrap: wrap;
+    column-gap: 16px;
   }
 
   &__price {
     font-weight: 600;
     color: var(--color-dark-charcoal);
-    margin-right: 6%;
   }
 
   &__old-price {

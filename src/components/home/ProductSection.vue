@@ -1,24 +1,6 @@
-<template>
-  <section class="main__section section product-section">
-    <div class="product-section__container container">
-      <h2 class="product-section__title text-3xl">Our Products</h2>
-
-      <GenericList :items="productList" tag="ul" keyProp="id" customClass="product-section__list"
-        itemClass="product-section__item">
-        <template v-slot="{ item }">
-          <ProductCard v-bind="item" />
-        </template>
-      </GenericList>
-
-      <button class="product-section__button text-sm">Show more</button>
-    </div>
-  </section>
-</template>
-
 <script setup>
 import GenericList from '../generics/GenericList.vue'
 import ProductCard from '../shared/ProductCard.vue'
-
 const productList = [
   {
     id: 1,
@@ -95,6 +77,23 @@ const productList = [
 ]
 </script>
 
+<template>
+  <section class="main__section section product-section">
+    <div class="product-section__container container">
+      <h2 class="product-section__title text-3xl">Our Products</h2>
+
+      <GenericList :items="productList" tag="ul" keyProp="id" customClass="product-section__list"
+        itemClass="product-section__item">
+        <template v-slot="{ item }">
+          <ProductCard v-bind="item" />
+        </template>
+      </GenericList>
+
+      <button class="product-section__button text-sm">Show more</button>
+    </div>
+  </section>
+</template>
+
 <style lang="scss" scoped>
 .product-section {
   &__container {
@@ -121,13 +120,13 @@ const productList = [
     margin: 0;
     list-style: none;
 
-    @media (max-width: 768px) {
+    @media only screen and (max-width: 768px) {
       grid-template-columns: repeat(2, calc((100% - 32px) / 2));
       gap: 32px;
       grid-template-rows: repeat(4, 1fr);
     }
 
-    @media (max-width: 375px) {
+    @media only screen and (max-width: 375px) {
       grid-template-columns: 100%;
       grid-template-rows: repeat(8, 1fr);
     }

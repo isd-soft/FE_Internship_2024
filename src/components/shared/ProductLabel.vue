@@ -38,6 +38,11 @@ const props = defineProps({
   height: 4.8rem;
   border-radius: 100%;
 
+  @media only screen and (max-width:768px) {
+    width: 6.4rem;
+    height: 6.4rem;
+  }
+
   &__specification {
     font-size: .8rem;
   }
