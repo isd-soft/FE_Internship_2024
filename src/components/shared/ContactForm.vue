@@ -40,10 +40,7 @@
         font-weight: 500;
     }
     &__input{
-        padding-top: 1rem;
-        padding-bottom: 1rem;
-        padding-left: 2rem;
-        padding-right: 2rem;
+        padding: 20px 35px;
         border-color: var(--color-quick-silver);
         border-width: 1px;
         border-radius: .75rem;
