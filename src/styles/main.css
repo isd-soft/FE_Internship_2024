@@ -3,10 +3,11 @@
 * {
     font-family: 'Poppins', sans-serif;
     font-style: normal;
+    box-sizing: border-box;
 }
 
 html {
-    font-size: 10px;
+    font-size: clamp(3px, 0.7vw, 18px);
 }
 
 a {
@@ -21,6 +22,7 @@ h5,
 h6,
 p {
     margin: 0;
+    padding: 0;
 }
 
 ul,
@@ -75,6 +77,8 @@ ul {
     --color-blue-green: #2EC1AC;
 
     --color-old-lace: #FFF3E3;
+
+    --color-warm-ivory: rgba(226, 219, 209, .48);
 }
 
 .section {
@@ -97,6 +101,10 @@ ul {
     font-size: 2.4rem;
 }
 
+.text-2lg {
+    font-size: 2.8rem;
+}
+
 .text-xl {
     font-size: 3.2rem;
 }
@@ -116,4 +124,32 @@ ul {
 
 .text-5xl {
     font-size: 5.2rem;
+}
+
+.text-6xl {
+    font-size: 5.6rem;
+}
+
+.text-7xl {
+    font-size: 6rem;
+}
+
+.text-8xl {
+    font-size: 6.4rem;
+}
+
+.text-9xl {
+    font-size: 6.8rem;
+}
+
+.text-10xl {
+    font-size: 7.2rem;
+}
+
+.text-11xl {
+    font-size: 7.6rem;
+}
+
+.text-12xl {
+    font-size: 8rem;
 }

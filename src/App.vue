@@ -1,6 +1,8 @@
 <script setup>
 import PageHeader from './components/shared/PageHeader.vue'
 import PageFooter from './components/shared/PageFooter.vue'
+import {ModalsContainer} from 'vue-final-modal'
+
 </script>
 
 <!-- TEMPORARY RENDER IN THE APP COMPONENT. -->
@@ -12,6 +14,7 @@ import PageFooter from './components/shared/PageFooter.vue'
     <PageHeader />
     <RouterView />
     <PageFooter />
+    <ModalsContainer />
   </div> 
 </template>
 
