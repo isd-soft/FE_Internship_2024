@@ -64,7 +64,7 @@ p {
     font-weight: 700;
     border: none;
     padding: 4.4% 13.4%;
-    margin-top: 8.1%;
+    margin-top: 8.5%;
 
     &:hover{
       color: var(--color-uc-gold);

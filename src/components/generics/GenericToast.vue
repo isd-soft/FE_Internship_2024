@@ -20,7 +20,7 @@ onMounted(() => {
 const props = defineProps({
   duration: {
     type: Number,
-    default: 10000
+    default: 3000
   },
   message: {
     type: String,
