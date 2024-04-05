@@ -15,9 +15,9 @@
             </div>
             <div class="contact__session">
                 <div class="contact__info">
-                    <ContactInfoCard/>
-                    <ContactInfoCard/>
-                    <ContactInfoCard/>
+                    <ContactInfoCard src="/src/assets/icons/Vector (1).svg" alt="Adress Icon" infoName="Address" info="236 5th SE Avenue, New York NY10000, United States"/>
+                    <ContactInfoCard src="/src/assets/icons/Vector (2).svg" alt="Phone Icon" infoName="Phone"   info="Mobile: +(84) 546-6789Hotline: +(84) 456-6789"/>
+                    <ContactInfoCard src="/src/assets/icons/bi_clock-fill.svg" alt="Clock Icon" infoName="Working Time" info="Monday-Friday: 9:00 - 22:00Saturday-Sunday: 9:00 - 21:00"/>
                 </div>
                 <form action="">
                     <div>

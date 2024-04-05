@@ -30,7 +30,7 @@
 
     <div v-show="hoverFlag" class="product-card__overlay">
       <button class="product-card__button text-sm">Add to cart</button>
-      <button class="product-card__button text-sm">Details</button>
+      <button class="product-card__button text-sm" @click = "openModal">Details</button>
     </div>
   </div>
 </template>
@@ -38,6 +38,8 @@
 <script setup>
 import { ref } from 'vue'
 import ProductLabel from './ProductLabel.vue'
+import { useModal } from 'vue-final-modal'
+import ModalProduct from './ModalProduct.vue'
 
 const hoverFlag = ref(false)
 
@@ -57,8 +59,29 @@ const props = defineProps({
   }
 })
 
+const openModal = () => {
+  open()
+}
+
 const convertPrice = (value) =>
   value ? 'Rp ' + value.toLocaleString('en-US').replace(/,/g, '.') : ''
+
+  const { open } = useModal({
+  component: ModalProduct,
+  attrs: {
+    id: 1,
+    header: props.title,
+    price: convertPrice(props.price),
+    // description: props.description,
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    rating: 4.95,
+    reviews: 10,
+    // productType: props.productType,
+    productType: "Available",
+    // imgSrc: props.imageSrc,
+    imgSrc: "https://media.istockphoto.com/id/1293762741/photo/modern-living-room-interior-3d-render.webp?s=2048x2048&w=is&k=20&c=y5qtIaTcN6mnSb3bxBBhnBycfmNK48g6xawyfXHB5lw="
+  }
+})
 </script>
 
 <style lang="scss" scoped>

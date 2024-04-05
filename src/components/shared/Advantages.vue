@@ -17,11 +17,15 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    padding-top: 6.25rem;
-    padding-bottom: 6.25rem;
-    padding-left: 3.35rem;
-    padding-right: 3.35rem;
+    padding: 100px 53px 100px 53px;
+
     background-color: var(--color-linen);
     gap: 48px;
+}
+@media screen and (max-width:768px){
+    .advantages{
+        gap: 24px;
+        padding: 40px;  
+    }
 }
 </style>
