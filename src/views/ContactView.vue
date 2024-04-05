@@ -23,6 +23,7 @@
                 <ContactForm/>
             </div>
         </div>
+        <iframe class="contact__map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2720.2304445812615!2d28.835034976908844!3d47.016081471141874!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40c97c2169d23a6f%3A0x8c9cf6c999802fef!2sInther%20Software%20Development!5e0!3m2!1sru!2s!4v1712302064333!5m2!1sru!2s"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         <Advantages/>
     </div>
 </template>
@@ -58,6 +59,11 @@
             flex-direction: column;
             gap: 42px;
 
+        }
+        &__map{
+            width: 100%;
+            height: 260px;
+            filter: grayscale(40%);
         }
     }
 </style>
