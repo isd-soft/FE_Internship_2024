@@ -1,7 +1,7 @@
 <script setup>
 import { VueFinalModal } from 'vue-final-modal'
-import { ref } from 'vue'
 import Counter from './Counter.vue';
+import StarRating from './StarRating.vue';
 
 const props = defineProps({
   id: {
@@ -57,7 +57,7 @@ const emit = defineEmits(['close'])
         <div class="product-modal__price text-lg secondary-color part">{{ price }}</div>
         <div class="product-modal__description text-sm part">{{ description }}</div>
         <div class="product-modal__reviews part">
-            <div class="product-modal__reviews--rating">{{ rating }}</div>
+              <StarRating :ratingStars="Number(rating)" />
             <div class="product-modal__reviews--separator secondary-color"></div>
             <div class="product-modal__reviews--customers text-sm secondary-color">{{ reviews }} Customer Review</div>
         </div>
@@ -82,6 +82,8 @@ const emit = defineEmits(['close'])
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: var(--color-warm-ivory);
+    backdrop-filter: blur(12px);
 
     &__content {    
         display: flex;
@@ -97,8 +99,6 @@ const emit = defineEmits(['close'])
     }
 
     &__photo {
-        background-size: cover;
-        background-position: center;
         max-height: 35vw;
         aspect-ratio: 1/1;
         object-fit: cover;
