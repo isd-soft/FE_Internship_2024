@@ -2,7 +2,7 @@
 import { swiperImagesUrls } from '@/utils/swiperImagesUrls.js'
 import { getUrlFromString } from '@/utils/getUrlFromString';
 import { Swiper, SwiperSlide } from 'swiper/vue'
-import { Pagination, Navigation } from 'swiper/modules';
+import { Pagination, Navigation, Keyboard } from 'swiper/modules';
 import LeftChevron from '@/assets/icons/left-chevron.svg'
 import RightChevron from '@/assets/icons/right-chevron.svg'
 import 'swiper/css'
@@ -31,7 +31,8 @@ const urls = swiperImagesUrls
                 clickable: true,
             }"
             :navigation="{ nextEl: '.examples-section__button-next', prevEl: '.examples-section__button-prev' }"
-            :modules="[Pagination, Navigation]"
+            :keyboard="{ enabled: true }"
+            :modules="[Pagination, Navigation, Keyboard]"
             >
                 <swiper-slide v-for="(url, index) in urls" :key="index" :style="{backgroundImage: `url(${getUrlFromString(url.url)})`}" :class="['examples-section__image-wrapper']">
                 </swiper-slide>
@@ -110,6 +111,10 @@ const urls = swiperImagesUrls
         padding: 0;
         margin-right: -24px;
         z-index: 200;
+
+        &:hover {
+            cursor: pointer;
+        }
     }
 
     &__button-next {
@@ -121,6 +126,10 @@ const urls = swiperImagesUrls
         padding: 0;
         margin-left: -24px;
         z-index: 200;
+
+        &:hover {
+            cursor: pointer;
+        }
     }
 }
 
