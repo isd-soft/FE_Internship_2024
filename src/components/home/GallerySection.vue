@@ -24,8 +24,8 @@ const urls = mozaicImagesUrls
     </section>
     <section v-else class="main_section section gallery-section-mobile">
         <div class="gallery-section-mobile__text-wrapper">
-                <span class="text-3xl gallery-section-mobile__overline">Share your setup with</span>
-                <h2 class="text-12xl gallery-section-mobile__title">#FurniroFurniture</h2>
+                <span class="text-md gallery-section-mobile__overline">Share your setup with</span>
+                <h2 class="text-3xl gallery-section-mobile__title">#FurniroFurniture</h2>
         </div>
         <swiper 
         class="gallery-section-mobile__container container"
@@ -56,11 +56,11 @@ const urls = mozaicImagesUrls
         display: grid;
         grid-template-columns: repeat(12, 1fr);
         grid-template-rows: repeat(12, 1fr);
-        gap: 16px;
+        gap: 1.6rem;
     }
 
     &__text-wrapper {
-        grid-column: 5 / span 4;
+        grid-column: 4 / span 6;
         grid-row: 1 / span 2;
         text-align: center;
         display: flex;
