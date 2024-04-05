@@ -1,17 +1,13 @@
 <template>
-  <div
-    class="product-list-section__card product-card"
-    @mouseenter="hoverFlag = true"
-    @mouseleave="hoverFlag = false"
-  >
+  <div class="product-list-section__card product-card" @mouseenter="hoverFlag = true" @mouseleave="hoverFlag = false">
     <img :src="imageSrc" :alt="title" />
 
     <div class="product-card__text-wrapper">
-      <h3 class="product-card__title">
+      <h3 class="product-card__title text-lg">
         {{ title }}
       </h3>
 
-      <span class="product-card__description">
+      <span class="product-card__description text-sm">
         {{ description }}
       </span>
 
@@ -30,7 +26,7 @@
 
     <div v-show="hoverFlag" class="product-card__overlay">
       <button class="product-card__button text-sm">Add to cart</button>
-      <button class="product-card__button text-sm" @click = "openModal">Details</button>
+      <button class="product-card__button text-sm" @click="openModal">Details</button>
     </div>
   </div>
 </template>
@@ -66,7 +62,7 @@ const openModal = () => {
 const convertPrice = (value) =>
   value ? 'Rp ' + value.toLocaleString('en-US').replace(/,/g, '.') : ''
 
-  const { open } = useModal({
+const { open } = useModal({
   component: ModalProduct,
   attrs: {
     id: 1,
@@ -89,51 +85,49 @@ const convertPrice = (value) =>
   position: relative;
   display: flex;
   flex-direction: column;
-  width: 100%;
 
   &__image {
     width: 100%;
-    height: 301px;
+    height: 67%;
   }
 
   &__text-wrapper {
     display: flex;
     flex-direction: column;
     row-gap: 8px;
-    padding: 16px;
-    padding-bottom: 30px;
+    padding: 6%;
+    padding-bottom: 7%;
     background-color: var(--color-cultured);
+
+    @media only screen and (max-width: 375px) {
+      align-items: center;
+    }
   }
 
   &__title {
     font-weight: 600;
-    font-size: 24px;
-    line-height: 120%;
     color: var(--color-granite-gray);
   }
 
   &__description {
     font-weight: 500;
-    font-size: 16px;
-    line-height: 150%;
     color: var(--color-taupe-gray);
   }
 
   &__price-wrapper {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     column-gap: 16px;
   }
 
   &__price {
     font-weight: 600;
-    line-height: 150%;
     color: var(--color-dark-charcoal);
   }
 
   &__old-price {
     font-weight: 400;
-    line-height: 150%;
     text-decoration-line: line-through;
     color: var(--color-silver-foil);
   }
@@ -158,8 +152,7 @@ const convertPrice = (value) =>
     font-weight: 600;
     line-height: 150%;
     color: var(--color-uc-gold);
-    width: 100%;
-    max-width: 200px;
+    width: 70%;
     padding: 12px 0;
     background-color: var(--color-white);
   }
