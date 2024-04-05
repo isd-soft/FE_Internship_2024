@@ -41,6 +41,8 @@ p {
     padding: 4.5% 3% 0% 2.72%;;
     border-radius: 10px;
     width: 44.7vw;
+    // height: auto;
+    // max-height: 60vh;
     aspect-ratio: 643 / 443;
     margin-top: auto;
   }
@@ -65,6 +67,7 @@ p {
     border: none;
     padding: 4.4% 13.4%;
     margin-top: 9.5%;
+    margin-bottom: 6%;
 
     &:hover{
       color: var(--color-uc-gold);
@@ -109,6 +112,7 @@ p {
 @media screen and (max-width: 375px) {
   .hero-section {
     align-items: center;
+    width: 80vw;
   &__wrapper {
       width: 92vw;
 

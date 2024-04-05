@@ -1,10 +1,10 @@
 <script setup>
-import { useForm, useIsFormValid, useIsFormDirty } from 'vee-validate'
-import * as yup from 'yup'
+import GenericToast from "../generics/GenericToast.vue"
+import { VueFinalModal } from 'vue-final-modal'
 import {ref, computed} from "vue"
-import {useUserStore} from "@/stores"
-import {GenericToast} from "../generics/GenericToast.vue"
+import LoginFormComponent from "./LoginFormComponent.vue"
 
+console.log("Created Modal")
 
 //Toast management
 
@@ -18,75 +18,30 @@ const toastMessage = computed(() => {
 })
 
 
-// Form management
-
-//Disables Button
-const isValid = useIsFormValid();
-const isDirty = useIsFormDirty();
-
-const isDisabled = computed(() => {
-    return !isDirty.value || !isValid.value;
-  });
-
-
-
-
-const schema = yup.object({
-    email: yup.string().email().required(),
-    password: yup.string().min(6).required(),
-});
-
-const { defineField, errors } = useForm({
-    validationSchema: schema,
-})
-
-// const { defineField, errors, handleSubmit } = useForm({
-//   validationSchema: schema,
-// })
-
-const [email, emailAttrs] = defineField('email', {
-    validateOnModelUpdate: false,
-})
-const [password, passwordAttrs] = defineField('password', {
-    validateOnModelUpdate: false,
-})
-
-// const onSubmit = handleSubmit(values => {
-//   const userStore = useUserStore();
-//   alert(JSON.stringify(values, null, 2));
-//   const {email, password} = values
-//   const result = userStore.login(email, password)
-
-// })
-
-async function onSubmit(values){
-    const userStore = useUserStore();
-    alert(JSON.stringify(values, null, 2));
-    const {email, password} = values
-    const result = await userStore.login(email, password)
-    //If result success
-    loginSuccess.value = true
-}
+const emit = defineEmits(['close'])
 </script>
 
 <template>
     <GenericToast v-if="loginFinished" :message="toastMessage" :type="toastType"/>
-
-    <h1>Welcome</h1>
-    <p>Sign in to continue</p>
-  <form @submit="onSubmit">
-    <input v-model="email" v-bind="emailAttrs" name="email" type="email" />
-    <span>{{ errors.email }}</span>
-
-    <input v-model="password" v-bind="passwordAttrs" name="password" type="password" />
-    <span>{{ errors.password }}</span>
-
-    <button :disabled="isDisabled">Log In</button>
-  </form>
-    <!-- Emit towards the parent to open the other auth modal -->
-    <p @click="$emit('changeModal')">Not a user? Sign Up!</p>
+    <VueFinalModal
+    class="login-modal"
+    content-class="login-modal__content"
+    overlay-transition="vfm-fade"
+    content-transition="vfm-fade"
+    @clickOutside="emit('close')"
+  >
+  <LoginFormComponent />
+    </VueFinalModal>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 
+.login-modal{
+    
+    &__content{
+        background-color: black;
+        height: 200px;
+        width: 200px;
+    }
+}
 </style>

@@ -4,6 +4,22 @@ import HeaderNavigation from './HeaderNavigation.vue';
 import GenericLink from '../generics/GenericLink.vue';
 import CartIcon from '../../assets/icons/CartIcon.svg';
 import UserIcon from '../../assets/icons/UserIcon.svg';
+import LoginModalComponent from '../authentication/LoginModalComponent.vue'
+import RegisterModalComponent from '../authentication/RegisterModalComponent.vue'
+import { useModal } from 'vue-final-modal'
+import {ref} from 'vue'
+
+const authModalSelectionToggle = ref(false) // False - Login, True - Register
+
+const openModal = () => {
+   open()
+}
+
+const { open } = useModal({
+  component: LoginModalComponent,
+  attrs: {}})
+
+
 </script>
 
 <template>
@@ -18,9 +34,9 @@ import UserIcon from '../../assets/icons/UserIcon.svg';
                     <CartIcon />
                 </GenericLink>
 
-                <GenericLink href="#" containerClass="header__link">
+                <div @click="openModal" containerClass="header__link">
                     <UserIcon />
-                </GenericLink>
+                </div>
             </div>
         </div>
     </header>
