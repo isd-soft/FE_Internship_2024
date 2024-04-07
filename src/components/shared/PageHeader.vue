@@ -1,7 +1,7 @@
 <script setup>
-import {onMounted, onUnmounted} from 'vue'
-import {isMenuVisible, updateMediaFlag} from '../../utils/pageHeaderHelperFuncs.js'
-import {isHamburgerIconVisible, menuToggle} from '../../utils/menuToggle.js'
+import { onMounted, onUnmounted, ref, nextTick } from 'vue'
+import { isMenuVisible, updateMediaFlag } from '../../utils/pageHeaderHelperFuncs.js'
+import { isHamburgerIconVisible, menuToggle } from '../../utils/menuToggle.js'
 import HeaderLogo from './HeaderLogo.vue'
 import HeaderNavigation from './HeaderNavigation.vue'
 import GenericLink from '../generics/GenericLink.vue'
@@ -11,24 +11,38 @@ import HamburgerMenuIcon from '../../assets/icons/HamburgerMenuIcon.svg'
 import CrossMenuIcon from '../../assets/icons/CrossMenuIcon.svg'
 import HeaderNavigationCollapse from './HeaderNavigationCollapse.vue'
 
+const headerRef = ref(null);
+
+const updateFollowingBlockPadding = () => {
+  nextTick(() => {
+    const header = headerRef.value;
+    if (header) {
+      const nextElement = header.nextElementSibling;
+      if (nextElement) {
+        const headerHeight = header.clientHeight;
+        nextElement.style.paddingTop = `${headerHeight}px`;
+      }
+    }
+  });
+};
+
 onMounted(() => {
   window.addEventListener('resize', updateMediaFlag);
-})
+  window.addEventListener('resize', updateFollowingBlockPadding);
+  updateFollowingBlockPadding(); // Initial update when the component mounts
+});
 
 onUnmounted(() => {
   window.removeEventListener('resize', updateMediaFlag);
-})
+  window.removeEventListener('resize', updateFollowingBlockPadding);
+});
 </script>
 
 <template>
-    <header class="header">
+    <header ref="headerRef" class="header">
         <div class="header__container container">
             <HeaderLogo />
-
-            <!-- ============================== Desktop ========================= -->
-
             <HeaderNavigation v-show="isMenuVisible" />
-
             <div class="header__link-wrapper" v-show="isMenuVisible">
                 <GenericLink href="cart" containerClass="header__link">
                     <CartIcon />
@@ -37,18 +51,14 @@ onUnmounted(() => {
                     <UserIcon />
                 </GenericLink>
             </div>
-
-            <!-- ============================== Smartphone/Laptop ========================= -->
-
             <div class="header__navigation-links--collapse" v-if="!isHamburgerIconVisible">
                 <HeaderNavigationCollapse />
             </div>
-
             <span class="header__container-toggle" id="menuToggle" @click="menuToggle">
                 <HamburgerMenuIcon v-if="isHamburgerIconVisible" />
                 <CrossMenuIcon v-else />
             </span>
-            </div>
+        </div>
     </header>
 </template>
 
