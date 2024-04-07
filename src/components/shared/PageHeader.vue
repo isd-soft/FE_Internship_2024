@@ -13,7 +13,8 @@ import {ref} from 'vue'
 const authModalSelectionToggle = ref(false) // False - Login, True - Register
 
 const openModal = () => {
-   open()
+   console.log("I have opened")
+    open()
 }
 
 const { open } = useModal({
@@ -22,6 +23,7 @@ const { open } = useModal({
   slots: {
     LoginFormComponent
   }})
+
 
 
 </script>
