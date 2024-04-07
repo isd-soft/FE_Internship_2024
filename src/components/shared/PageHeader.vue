@@ -9,6 +9,7 @@ import CartIcon from '../../assets/icons/CartIcon.svg'
 import UserIcon from '../../assets/icons/UserIcon.svg'
 import HamburgerMenuIcon from '../../assets/icons/HamburgerMenuIcon.svg'
 import CrossMenuIcon from '../../assets/icons/CrossMenuIcon.svg'
+import HeaderNavigationCollapse from './HeaderNavigationCollapse.vue'
 
 onMounted(() => {
   window.addEventListener('resize', updateMediaFlag);
@@ -29,7 +30,7 @@ onUnmounted(() => {
             <HeaderNavigation v-show="isMenuVisible" />
 
             <div class="header__link-wrapper" v-show="isMenuVisible">
-                <GenericLink href="/cart" containerClass="header__link">
+                <GenericLink href="cart" containerClass="header__link">
                     <CartIcon />
                 </GenericLink>
                 <GenericLink href="#" containerClass="header__link">
@@ -40,23 +41,23 @@ onUnmounted(() => {
             <!-- ============================== Smartphone/Laptop ========================= -->
 
             <div class="header__navigation-links--collapse" v-if="!isHamburgerIconVisible">
-                <HeaderNavigation />
-                <div class="header__link-wrapper">
-                    <GenericLink href="/cart" containerClass="header__link text-sm" textContent="Cart"/>
-                    <GenericLink href="#" containerClass="header__link text-sm" textContent="Profile"/>
-                </div>
+                <HeaderNavigationCollapse />
             </div>
 
             <span class="header__container-toggle" id="menuToggle" @click="menuToggle">
                 <HamburgerMenuIcon v-if="isHamburgerIconVisible" />
                 <CrossMenuIcon v-else />
             </span>
-        </div>
+            </div>
     </header>
 </template>
 
 <style lang="scss" scoped>
 .header{
+    position: fixed;
+    background-color: var(--color-white);
+    width: 100%;
+    z-index: 999;
     &__container{
         display: flex;
         justify-content: space-between;
@@ -79,7 +80,7 @@ onUnmounted(() => {
             height: 1.73vw;
         }
     }
-    
+
     &__container-toggle{
         display:none;
         svg{
@@ -99,6 +100,19 @@ onUnmounted(() => {
             .cross{
                 height: clamp(24.2px, 3.5vw,33.4px);
                 align-items: center;
+            }
+        }
+
+        &__navigation-links{
+            &--collapse{
+                position: absolute;
+                background-color: var(--color-white);
+                top: clamp(60px,6.95vw,100px);
+                left: 50%;
+                transform: translateX(-50%);
+                width: 100%;
+                padding-bottom: 10px;
+                // height: ;
             }
         }
     }
