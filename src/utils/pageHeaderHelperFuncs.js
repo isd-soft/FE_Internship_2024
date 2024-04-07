@@ -6,7 +6,7 @@ export const isCollapsedMenuOpen = ref(false) // Checks if the collapsible menu 
 
 // Updates the values of the mediaFlag so it doesn't stay the same
 export const updateMediaFlag = () => {
-    mediaFlag.value = window.innerWidth;
+    mediaFlag.value = window.innerWidth
   }
 
 // Changes the value of isCollapsedMenuOpen on the opposite

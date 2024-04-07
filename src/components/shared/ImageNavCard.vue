@@ -1,5 +1,4 @@
 <script setup>
-import Logo from '@/assets/icons/LogoIcon.svg';
 import GenericLink from '@/components/generics/GenericLink.vue'
 import { defineProps } from '@vue/runtime-core'
 
@@ -12,7 +11,7 @@ const props = defineProps({
     <div class="navCard">
         <div class="navCard__items">
             <generic-link href="#" container-class="navigation__logo-link" :text-first="false">
-                <Logo />
+                <img src="/logo_image.png" alt="">
             </generic-link>
             <p class="navCard__name-main">{{ props.navName }}</p>
             <div class="navCard__path">
