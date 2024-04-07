@@ -112,7 +112,11 @@ onUnmounted(() => {
                 transform: translateX(-50%);
                 width: 100%;
                 padding-bottom: 10px;
-                // height: ;
+                animation: expandMenu ease-in-out .5s;
+                max-height: fit-content;
+                // &:nth-child(1){
+                //     animation: expandMenu ease-in-out .5s;
+                // }
             }
         }
     }
