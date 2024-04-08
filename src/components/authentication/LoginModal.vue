@@ -48,8 +48,8 @@ const emit = defineEmits(['close'])
 
 <template>
     <VueFinalModal
-      class="login-modal"
-      content-class="login-modal__content"
+      class="autho-modal"
+      content-class="autho-modal__content"
       overlay-transition="vfm-fade"
       content-transition="vfm-fade"
       @clickOutside="$emit('close')"
@@ -63,7 +63,7 @@ const emit = defineEmits(['close'])
 </template>
 
 <style lang="scss">
-.login-modal {
+.autho-modal {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -71,11 +71,9 @@ const emit = defineEmits(['close'])
   backdrop-filter: blur(12px);
 
   &__content {
-    display: flex;
-    background: #fff;
-    border-radius: 0.5rem;
-    column-gap: 3.5vw;
-    max-width: 70%;
+    background-color:var(--color-old-lace);
+    border-radius: 10px;
+
   }
 }
 </style>

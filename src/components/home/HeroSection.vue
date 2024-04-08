@@ -1,142 +1,125 @@
-<script setup>
-
-</script>
+<script setup></script>
 
 <template>
   <section class="main__section section hero-section">
-      <div class="hero-section__wrapper">
-        <span class="text-sm hero-section__label">New Arrival</span>
-        <h1 class="text-5xl hero-section__title">Discover Our 
-          <br>
-          New Collection</h1>
-        <p class="text-sm hero-section__description">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec
-          ullamcorper mattis.
-        </p>
-        <button class="text-sm hero-section__button" @click="$router.push('shop')">BUY NOW</button>
-      </div>
+    <div class="hero-section__wrapper">
+      <span class="text-sm hero-section__label">New Arrival</span>
+      <h1 class="text-5xl hero-section__title">
+        Discover Our
+        <br />
+        New Collection
+      </h1>
+      <p class="text-sm hero-section__description">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec
+        ullamcorper mattis.
+      </p>
+      <button class="text-sm hero-section__button" @click="$router.push('shop')">BUY NOW</button>
+    </div>
   </section>
 </template>
 
-
-
 <style lang="scss" scoped>
-p {
-  margin: 0;
-}
-
 .hero-section {
   background-image: url('/background_top_banner.png');
   background-size: cover;
   background-position: center bottom;
   background-repeat: no-repeat;
-
-  height: 88.2vh;
+  min-height: calc(100vh - 100px);
   display: flex;
   justify-content: end;
-  align-items: center;
-  padding: 0 4% 8% 4%;
+  align-items: end;
+  padding: 120px 60px;
 
   &__wrapper {
     background-color: var(--color-old-lace);
-    padding: 4.5% 3% 0% 2.72%;;
+    padding: 40px;
     border-radius: 10px;
-    width: 44.7vw;
-    // height: auto;
-    // max-height: 60vh;
-    aspect-ratio: 643 / 443;
-    margin-top: auto;
+    width: 50%;
   }
+
   &__label {
     font-weight: 500;
     letter-spacing: 3px;
+    margin-bottom: 4px;
   }
 
   &__title {
     color: var(--color-uc-gold);
-    margin: 1.8% 0 4%;
+    margin-bottom: 1.6rem;
   }
 
-  &__description{
-    font-size: 1.8rem ;
+  &__description {
+    color: var(--color-dark-charcoal);
+    margin-bottom: 5rem;
   }
 
   &__button {
     background-color: var(--color-uc-gold);
+    border: 1px solid var(--color-uc-gold);
     color: var(--color-white);
     font-weight: 700;
-    border: none;
-    padding: 4.4% 13.4%;
-    margin-top: 9.5%;
-    margin-bottom: 6%;
+    padding: 2.5rem 7.2rem;
 
-    &:hover{
+    &:hover {
       color: var(--color-uc-gold);
-      background-color: var(--color-white) ;
+      background-color: var(--color-white);
       cursor: pointer;
-      border: solid 1px var(--color-uc-gold);
     }
-
   }
 }
 
-@media screen and (max-width: 768px) {
+@media only screen and (max-width: 768px) {
   .hero-section {
-    &__wrapper {
-      width: 60vw;
-      margin-top: 0;
-      align-items: center;
-
-    }
-
-    &__label {
-    font-size: 2.3rem;
-  }
-
-  &__title {
-    font-size: 7rem;
-  }
-
-  &__description{
-    font-size: 2.4rem ;
-  }
-
-  &__button{
-    font-size: 2.3rem;
-  }
-  }
-
-
-}
-
-
-@media screen and (max-width: 375px) {
-  .hero-section {
+    padding: 40px;
+    justify-content: center;
     align-items: center;
-    width: 80vw;
-  &__wrapper {
-      width: 92vw;
 
+    &__wrapper {
+      width: 100%;
+    }
+
+    &__title,
+    &__description,
+    &__button,
+    &__label {
+      display: block;
+      text-align: center;
+    }
+
+    &__description {
+      max-width: 300px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    &__button {
+      margin: 0 auto;
+    }
+  }
+}
+
+@media only screen and (max-width: 375px) {
+  .hero-section {
+    height: calc(100vh - 50px);
+    padding: 20px;
+    width: 100%;
+
+    &__wrapper {
+      width: 100%;
+      padding: 20px;
     }
 
     &__label {
-    font-size: 3.45rem;
-  }
+      margin-bottom: 8px;
+    }
 
-  &__title {
-    font-size: 10.5rem;
-  }
+    &__title {
+      margin-bottom: 24px;
+    }
 
-  &__description{
-    font-size: 3.6rem ;
+    &__button {
+      width: 100%;
+    }
   }
-
-  &__button{
-    font-size: 3.45rem;
-  }
-
 }
-}
-
 </style>
-

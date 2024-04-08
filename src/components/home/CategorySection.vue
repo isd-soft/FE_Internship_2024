@@ -12,15 +12,15 @@ const { width } = useWindowSize();
 const categoryList = [
   {
     title: 'Dining',
-    imageSrc: getUrlFromString('../assets/images/category_image_1.jpg')
+    imageSrc: getUrlFromString('/category_image_1.jpg')
   },
   {
     title: 'Living',
-    imageSrc: getUrlFromString('../assets/images/category_image_2.jpg')
+    imageSrc: getUrlFromString('/category_image_2.jpg')
   },
   {
     title: 'Bedroom',
-    imageSrc: getUrlFromString('../assets/images/category_image_3.jpg')
+    imageSrc: getUrlFromString('/category_image_3.jpg')
   }
 ]
 </script>

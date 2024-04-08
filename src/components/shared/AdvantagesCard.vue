@@ -21,7 +21,6 @@ const props=defineProps({
 </script>
 <template>
     <div class="AdvantagesCard">
-        <img :src="props.src" :alt="props.alt">
         <div class="AdvantagesCard__text">
         <h1 class="text-lg">{{ props.name }}</h1>
         <p class="text-md">{{ props.description }}</p>   

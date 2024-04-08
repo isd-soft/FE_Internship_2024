@@ -23,6 +23,7 @@ export const useUserStore = defineStore('user', () => {
         // Insert Verification to check if result was fetched
         // this.user.value = JSON.parse(result)
         // return success condition
+        return false
     }
 
     return{user, login, register}

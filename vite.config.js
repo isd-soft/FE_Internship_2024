@@ -7,6 +7,7 @@ import svgLoader from 'vite-svg-loader'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: './',
   plugins: [
     vue(),
     svgLoader(),
@@ -15,8 +16,8 @@ export default defineConfig({
   server: {
     host: '0.0.0.0'
   },
-  css:{
-    preprocessorOptions:{
+  css: {
+    preprocessorOptions: {
       scss: {
 
       }
