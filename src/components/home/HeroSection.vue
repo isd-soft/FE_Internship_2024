@@ -1,24 +1,22 @@
-<script setup>
-
-</script>
+<script setup></script>
 
 <template>
   <section class="main__section section hero-section">
-      <div class="hero-section__wrapper">
-        <span class="text-sm hero-section__label">New Arrival</span>
-        <h1 class="text-5xl hero-section__title">Discover Our 
-          <br>
-          New Collection</h1>
-        <p class="text-sm hero-section__description">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec
-          ullamcorper mattis.
-        </p>
-        <button class="text-sm hero-section__button" @click="$router.push('shop')">BUY NOW</button>
-      </div>
+    <div class="hero-section__wrapper">
+      <span class="text-sm hero-section__label">New Arrival</span>
+      <h1 class="text-5xl hero-section__title">
+        Discover Our
+        <br />
+        New Collection
+      </h1>
+      <p class="text-sm hero-section__description">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec
+        ullamcorper mattis.
+      </p>
+      <button class="text-sm hero-section__button" @click="$router.push('shop')">BUY NOW</button>
+    </div>
   </section>
 </template>
-
-
 
 <style lang="scss" scoped>
 .hero-section {
@@ -26,7 +24,7 @@
   background-size: cover;
   background-position: center bottom;
   background-repeat: no-repeat;
-  height: calc(100vh - 100px);
+  min-height: calc(100vh - 100px);
   display: flex;
   justify-content: end;
   align-items: end;
@@ -62,9 +60,9 @@
     font-weight: 700;
     padding: 2.5rem 7.2rem;
 
-    &:hover{
+    &:hover {
       color: var(--color-uc-gold);
-      background-color: var(--color-white) ;
+      background-color: var(--color-white);
       cursor: pointer;
     }
   }
@@ -75,12 +73,15 @@
     padding: 40px;
     justify-content: center;
     align-items: center;
-  
+
     &__wrapper {
       width: 100%;
     }
 
-    &__title, &__description, &__button, &__label {
+    &__title,
+    &__description,
+    &__button,
+    &__label {
       display: block;
       text-align: center;
     }
@@ -121,6 +122,4 @@
     }
   }
 }
-
 </style>
-
