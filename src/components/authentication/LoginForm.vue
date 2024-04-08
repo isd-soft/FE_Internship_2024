@@ -1,16 +1,8 @@
 <script setup>
-import { useForm, useIsFormValid, useIsFormDirty } from 'vee-validate'
+import { useForm} from 'vee-validate'
 import * as yup from 'yup'
 import {ref, computed} from "vue"
 import {useUserStore} from "../../stores/userStore"
-
-const isValid = useIsFormValid();
-const isDirty = useIsFormDirty();
-
-const isDisabled = computed(() => {
-    return !isDirty.value || !isValid.value;
-  });
-
 
 const schema = yup.object({
     email: yup.string().email().required(),
@@ -20,10 +12,6 @@ const schema = yup.object({
 const { defineField, errors, handleSubmit } = useForm({
     validationSchema: schema,
 })
-
-// const { defineField, errors, handleSubmit } = useForm({
-//   validationSchema: schema,
-// })
 
 const [email, emailAttrs] = defineField('email', {
     validateOnModelUpdate: false,
@@ -41,21 +29,12 @@ const onSubmit = handleSubmit(values => {
 
 })
 
-// async function onSubmit(values){
-//     const userStore = useUserStore();
-//     alert(JSON.stringify(values, null, 2));
-//     const {email, password} = values
-//     const result = await userStore.login(email, password)
-//     //If result success
-//     loginSuccess.value = true
-// }
-
-const emit  = defineEmits(['success', 'failure'])
+const emit  = defineEmits(['success', 'failure', 'changeModal'])
 
 </script>
 
 <template>
-<div>
+    <div>
 <h1>Welcome</h1>
     <p>Sign in to continue</p>
   <form @submit="onSubmit">

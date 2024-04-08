@@ -40,6 +40,7 @@ const onSubmit = handleSubmit(values => {
 </script>
 
 <template>
+  <div>
     <h1>Discover</h1>
     <p>Create an account to shop</p>
   <form @submit="onSubmit">
@@ -62,6 +63,7 @@ const onSubmit = handleSubmit(values => {
   </form>
   <!-- Emit towards the parent to open the other auth modal -->
   <p @click="$emit('changeModal')">Already have an account? Log In!</p>
+</div>
 </template>
 
 <style lang="scss" scoped>

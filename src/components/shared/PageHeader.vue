@@ -4,25 +4,20 @@ import HeaderNavigation from './HeaderNavigation.vue';
 import GenericLink from '../generics/GenericLink.vue';
 import CartIcon from '../../assets/icons/CartIcon.svg';
 import UserIcon from '../../assets/icons/UserIcon.svg';
-import LoginModalComponent from '../authentication/LoginModalComponent.vue'
-import LoginFormComponent from '../authentication/LoginFormComponent.vue'
-import RegisterModalComponent from '../authentication/RegisterModalComponent.vue'
+import LoginModal from '../authentication/LoginModal.vue'
 import { useModal } from 'vue-final-modal'
 import {ref} from 'vue'
 
 const authModalSelectionToggle = ref(false) // False - Login, True - Register
 
 const openModal = () => {
-   console.log("I have opened")
     open()
 }
 
 const { open } = useModal({
-  component: LoginModalComponent,
+  component: LoginModal,
   attrs: {}, 
-  slots: {
-    LoginFormComponent
-  }})
+  })
 
 
 

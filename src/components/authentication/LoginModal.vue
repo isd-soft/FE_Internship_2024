@@ -2,10 +2,19 @@
 import GenericToast from '../generics/GenericToast.vue'
 import { VueFinalModal } from 'vue-final-modal'
 import { ref, computed } from 'vue'
-import LoginFormComponent from './LoginFormComponent.vue'
+import LoginForm from './LoginForm.vue'
+import RegisterForm from './RegisterForm.vue'
 // import LoginFormComponent from "./LoginFormComponent.vue"
 
 console.log('Created Modal')
+
+//Form Management
+
+const modalType = ref(false) //False - Login, True - Register
+
+function changeModal(){
+  modalType.value = !modalType.value
+}
 
 //Toast management
 
@@ -19,10 +28,12 @@ const toastMessage = computed(() => {
 })
 
 function finishLoginSuccess(){
-    console.log("Login done")
+    console.log('Login done')
     loginSuccess.value = true
     loginFinished.value =true
+    console.log('Emitting success')
     emit('close')
+    console.log('Emitted close')
 }
 
 function finishLoginFail(){
@@ -32,7 +43,7 @@ function refreshAttempt(){
     loginFinished.value = false
 }
 
-const emit = defineEmits(['close', 'success', 'failure', 'switch'])
+const emit = defineEmits(['close'])
 </script>
 
 <template>
@@ -41,11 +52,12 @@ const emit = defineEmits(['close', 'success', 'failure', 'switch'])
       content-class="login-modal__content"
       overlay-transition="vfm-fade"
       content-transition="vfm-fade"
-      @clickOutside="emit('close')"
+      @clickOutside="$emit('close')"
     >
       <slot>
         <GenericToast v-if="loginFinished" :message="toastMessage" :type="toastType" /> 
-        <LoginFormComponent @changeModal="emit('switch')" @inputStart="refreshAttempt" @success="finishLoginSuccess" @failure="finishLoginFail"/>
+        <LoginForm v-if="!modalType" @changeModal="changeModal" @inputStart="refreshAttempt" @success="finishLoginSuccess" @failure="finishLoginFail"/>
+        <RegisterForm v-if="modalType" @changeModal="changeModal" @inputStart="refreshAttempt" @success="finishLoginSuccess" @failure="finishLoginFail"/>
       </slot>
     </VueFinalModal>
 </template>
