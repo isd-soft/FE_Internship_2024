@@ -28,7 +28,7 @@ const updateOverlayPosition = () => {
   })
 }
 
-let observer; // Declare the MutationObserver outside of any specific method to ensure it's accessible throughout the component lifecycle
+let observer // Declare the MutationObserver outside of any specific method to ensure it's accessible throughout the component lifecycle
 
 const updateFollowingBlockPadding = () => {
   nextTick(() => {
@@ -44,7 +44,7 @@ const updateFollowingBlockPadding = () => {
 }
 
 onMounted(() => {
-  window.addEventListener('resize', updateMediaFlag);
+  window.addEventListener('resize', updateMediaFlag)
   window.addEventListener('resize', updateFollowingBlockPadding)
   window.addEventListener('resize', updateOverlayPosition)
   
