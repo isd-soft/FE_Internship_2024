@@ -183,7 +183,7 @@ const helpLinkList = [
 
     &__top-line {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 50% 50%;
       row-gap: 20px;
     }
 
@@ -196,20 +196,11 @@ const helpLinkList = [
     }
 
     &__navigation {
-      display: flex;
-      flex-direction: column;
-      gap: 5.5rem;
       padding-bottom: 20px;
     }
 
     &__news-wrapper {
-      grid-column: 1 / span 2;
-      display: grid;
-      grid-template-columns: inherit;
-    }
-
-    &__list-title {
-      margin-bottom: 0;
+      gap: 0;
     }
   }
 }
@@ -217,23 +208,6 @@ const helpLinkList = [
 @media only screen and (max-width: 375px) {
   .footer {
     padding: 20px;
-
-    &__top-line {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      padding-bottom: 20px;
-    }
-
-    &__adress-wrapper {
-      display: flex;
-      flex-direction: column;
-    }
-
-    &__news-wrapper {
-      display: flex;
-      flex-direction: column;
-    }
   }
 }
 </style>
