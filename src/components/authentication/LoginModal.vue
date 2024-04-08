@@ -4,15 +4,15 @@ import { VueFinalModal } from 'vue-final-modal'
 import { ref, computed } from 'vue'
 import LoginForm from './LoginForm.vue'
 import RegisterForm from './RegisterForm.vue'
-// import LoginFormComponent from "./LoginFormComponent.vue"
+import { useVfm } from 'vue-final-modal'
 
-console.log('Created Modal')
+const vfm = useVfm()
 
 //Form Management
 
 const modalType = ref(false) //False - Login, True - Register
 
-function changeModal(){
+function changeModal() {
   modalType.value = !modalType.value
 }
 
@@ -27,39 +27,49 @@ const toastMessage = computed(() => {
   return loginSuccess.value ? 'Login Successful' : 'Login Failed'
 })
 
-function finishLoginSuccess(){
-    console.log('Login done')
-    loginSuccess.value = true
-    loginFinished.value =true
-    console.log('Emitting success')
-    emit('close')
-    console.log('Emitted close')
+function finishLoginSuccess() {
+  console.log('Login done')
+  loginSuccess.value = true
+  loginFinished.value = true
+  //Needed to trigger Toast. The toast is not inside the Modal, but its appearance depends on loginFinished becoming true,
+  //So the modal closing is done 100 sec after finish of this function async
+  setTimeout(() => {
+    vfm.closeAll(vfm.openedModals)
+  }, 100)
 }
 
-function finishLoginFail(){
-    loginFinished.value=true
+function finishLoginFail() {
+  loginFinished.value = true
 }
-function refreshAttempt(){
-    loginFinished.value = false
+function refreshAttempt() {
+  loginFinished.value = false
 }
-
-const emit = defineEmits(['close'])
 </script>
 
 <template>
-    <VueFinalModal
-      class="autho-modal"
-      content-class="autho-modal__content"
-      overlay-transition="vfm-fade"
-      content-transition="vfm-fade"
-      @clickOutside="$emit('close')"
-    >
-      <slot>
-        <GenericToast v-if="loginFinished" :message="toastMessage" :type="toastType" /> 
-        <LoginForm v-if="!modalType" @changeModal="changeModal" @inputStart="refreshAttempt" @success="finishLoginSuccess" @failure="finishLoginFail"/>
-        <RegisterForm v-if="modalType" @changeModal="changeModal" @inputStart="refreshAttempt" @success="finishLoginSuccess" @failure="finishLoginFail"/>
-      </slot>
-    </VueFinalModal>
+  <VueFinalModal
+    class="autho-modal"
+    content-class="autho-modal__content"
+    overlay-transition="vfm-fade"
+    content-transition="vfm-fade"
+    @clickOutside="$emit('close')"
+  >
+    <GenericToast v-if="loginFinished" :message="toastMessage" :type="toastType" />
+    <LoginForm
+      v-if="!modalType"
+      @changeModal="changeModal"
+      @inputStart="refreshAttempt"
+      @success="finishLoginSuccess"
+      @failure="finishLoginFail"
+    />
+    <RegisterForm
+      v-if="modalType"
+      @changeModal="changeModal"
+      @inputStart="refreshAttempt"
+      @success="finishLoginSuccess"
+      @failure="finishLoginFail"
+    />
+  </VueFinalModal>
 </template>
 
 <style lang="scss">
@@ -71,9 +81,8 @@ const emit = defineEmits(['close'])
   backdrop-filter: blur(12px);
 
   &__content {
-    background-color:var(--color-old-lace);
+    background-color: var(--color-old-lace);
     border-radius: 10px;
-
   }
 }
 </style>

@@ -22,10 +22,9 @@ const [password, passwordAttrs] = defineField('password', {
 
 const onSubmit = handleSubmit((values) => {
   const userStore = useUserStore()
-  //   alert(JSON.stringify(values, null, 2));
   const { email, password } = values
   const result = userStore.login(email, password)
-  emit('success')
+  result ? emit('success') : emit('failure')
 })
 
 const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
