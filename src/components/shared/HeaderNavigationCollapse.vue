@@ -13,7 +13,7 @@ const linkList = [
 
 <template>
     <nav class="header__navigation navigation">
-        <GenericList :items="linkList" customClass="navigation__list" itemClass="text-lg">
+        <GenericList :items="linkList" customClass="navigation__list" itemClass="text-xl">
             <template v-slot="{ item }">
                 <GenericLink v-bind="item" />
             </template>
