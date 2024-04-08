@@ -18,23 +18,23 @@ const { defineField, errors, handleSubmit } = useForm({
   validationSchema: schema
 })
 
-const [email, emailAttrs] = defineField('email', {
+const [email, emailAttributeList] = defineField('email', {
   validateOnModelUpdate: false
 })
 
-const [firstName, firstNameAttrs] = defineField('firstName', {
+const [firstName, firstNameAttributeList] = defineField('firstName', {
   validateOnModelUpdate: false
 })
 
-const [lastName, lastNameAttrs] = defineField('lastName', {
+const [lastName, lastNameAttributeList] = defineField('lastName', {
   validateOnModelUpdate: false
 })
 
-const [password, passwordAttrs] = defineField('password', {
+const [password, passwordAttributeList] = defineField('password', {
   validateOnModelUpdate: false
 })
 
-const [confirmPassword, confirmPasswordAttrs] = defineField('confirmPassword', {
+const [confirmPassword, confirmPasswordAttributeList] = defineField('confirmPassword', {
   validateOnModelUpdate: false
 })
 
@@ -49,14 +49,14 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
 </script>
 
 <template>
-  <div class="autho-modal__content register-container">
+  <div class="auth-modal__content register-container">
     <h1 class="text-xl register-container__title">Discover</h1>
     <p class="text-sm register-container__description">Create an account to shop</p>
     <form @submit="onSubmit" class="register-container__form register-form">
       <input
         class="register-form__input"
         v-model="email"
-        v-bind="emailAttrs"
+        v-bind="emailAttributeList"
         name="email"
         type="email"
         placeholder="Email"
@@ -67,7 +67,7 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
       <input
         class="register-form__input"
         v-model="firstName"
-        v-bind="firstNameAttrs"
+        v-bind="firstNameAttributeList"
         name="firstName"
         type="text"
         placeholder="First Name"
@@ -78,7 +78,7 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
       <input
         class="register-form__input"
         v-model="lastName"
-        v-bind="lastNameAttrs"
+        v-bind="lastNameAttributeList"
         name="lastName"
         type="text"
         placeholder="Last Name"
@@ -89,7 +89,7 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
       <input
         class="register-form__input"
         v-model="password"
-        v-bind="passwordAttrs"
+        v-bind="passwordAttributeList"
         name="password"
         type="password"
         placeholder="Password"
@@ -100,7 +100,7 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
       <input
         class="register-form__input"
         v-model="confirmPassword"
-        v-bind="confirmPasswordAttrs"
+        v-bind="confirmPasswordAttributeList"
         name="confirmPassword"
         type="password"
         placeholder="Confirm Password"
@@ -110,7 +110,7 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
 
       <button class="register-form__submit-button">Sign Up</button>
     </form>
-    <p class="register-container__switch-modal-button" @click="$emit('changeModal')">
+    <p class="register-container__toggle-button" @click="$emit('changeModal')">
       Already have an account? Log In!
     </p>
   </div>
@@ -129,7 +129,7 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
     margin-bottom: 1.6rem;
   }
 
-  &__switch-modal-button {
+  &__toggle-button {
     font-size: 1.2rem;
     border: none;
     background: none;

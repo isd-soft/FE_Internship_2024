@@ -13,10 +13,10 @@ const { defineField, errors, handleSubmit } = useForm({
   validationSchema: schema
 })
 
-const [email, emailAttrs] = defineField('email', {
+const [email, emailAttributeList] = defineField('email', {
   validateOnModelUpdate: false
 })
-const [password, passwordAttrs] = defineField('password', {
+const [password, passwordAttributeList] = defineField('password', {
   validateOnModelUpdate: false
 })
 
@@ -31,14 +31,14 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
 </script>
 
 <template>
-  <div class="autho-modal__content login-container">
+  <div class="auth-modal__content login-container">
     <h1 class="text-xl login-container__title">Welcome</h1>
     <p class="text-sm login-container__description">Sign in to continue</p>
     <form @submit="onSubmit" class="login-container__form login-form">
       <input
         class="login-form__input"
         v-model="email"
-        v-bind="emailAttrs"
+        v-bind="emailAttributeList"
         name="email"
         type="email"
         placeholder="Email"
@@ -49,7 +49,7 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
       <input
         class="login-form__input"
         v-model="password"
-        v-bind="passwordAttrs"
+        v-bind="passwordAttributeList"
         name="password"
         placeholder="Password"
         type="password"
@@ -59,7 +59,7 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
 
       <button class="login-form__submit-button">Log In</button>
     </form>
-    <button class="login-container__switch-modal-button" @click="$emit('changeModal')">
+    <button class="login-container__toggle-button" @click="$emit('changeModal')">
       Not a user? Sign Up!
     </button>
   </div>
@@ -78,7 +78,7 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
     margin-bottom: 5rem;
   }
 
-  &__switch-modal-button {
+  &__toggle-button {
     font-size: 1.2rem;
     border: none;
     background: none;

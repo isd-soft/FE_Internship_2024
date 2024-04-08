@@ -10,10 +10,10 @@ const vfm = useVfm()
 
 //Form Management
 
-const modalType = ref(false) //False - Login, True - Register
+const modalFlag = ref(false) //False - Login, True - Register
 
-function changeModal() {
-  modalType.value = !modalType.value
+const changeModal = () =>{
+  modalFlag.value = !modalFlag.value
 }
 
 //Toast management
@@ -27,7 +27,7 @@ const toastMessage = computed(() => {
   return loginSuccess.value ? 'Login Successful' : 'Login Failed'
 })
 
-function finishLoginSuccess() {
+const finishLoginSuccess = () => {
   console.log('Login done')
   loginSuccess.value = true
   loginFinished.value = true
@@ -38,32 +38,32 @@ function finishLoginSuccess() {
   }, 100)
 }
 
-function finishLoginFail() {
+const finishLoginFail = () => {
   loginFinished.value = true
 }
-function refreshAttempt() {
+const refreshAttempt = () => {
   loginFinished.value = false
 }
 </script>
 
 <template>
   <VueFinalModal
-    class="autho-modal"
-    content-class="autho-modal__content"
+    class="auth-modal"
+    content-class="auth-modal__content"
     overlay-transition="vfm-fade"
     content-transition="vfm-fade"
     @clickOutside="$emit('close')"
   >
     <GenericToast v-if="loginFinished" :message="toastMessage" :type="toastType" />
     <LoginForm
-      v-if="!modalType"
+      v-if="!modalFlag"
       @changeModal="changeModal"
       @inputStart="refreshAttempt"
       @success="finishLoginSuccess"
       @failure="finishLoginFail"
     />
     <RegisterForm
-      v-if="modalType"
+      v-if="modalFlag"
       @changeModal="changeModal"
       @inputStart="refreshAttempt"
       @success="finishLoginSuccess"
@@ -73,7 +73,7 @@ function refreshAttempt() {
 </template>
 
 <style lang="scss">
-.autho-modal {
+.auth-modal {
   display: flex;
   justify-content: center;
   align-items: center;
