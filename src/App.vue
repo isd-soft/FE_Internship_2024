@@ -14,7 +14,7 @@ import {ModalsContainer} from 'vue-final-modal'
   <div>
     <!-- <PageHeader /> -->
     <RouterView />
-    <!-- <PageFooter / -->
+    <!-- <PageFooter /> -->
     <ModalsContainer />
   </div> 
 </template>
