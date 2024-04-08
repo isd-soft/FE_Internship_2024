@@ -4,7 +4,7 @@ import GenericLink from '../generics/GenericLink.vue';
 
 <template>
     <GenericLink href="/" containerClass="header__logo text-2xl" textContent="Furniro">
-        <img src="/logo_image.png" class="header__logo--image" alt="logo">
+        <img src="/logo_image.png" class="header__logo-image" alt="logo">
     </GenericLink>
 </template>
 
@@ -15,8 +15,8 @@ import GenericLink from '../generics/GenericLink.vue';
     column-gap: 5px;
     font-weight: 700;
     color: var(--color-black);
-    &--image{
-        height: clamp(21.4px,2.2vw,33px);
-    }
+}
+.header__logo-image{
+    height: 3.14rem;
 }
 </style>

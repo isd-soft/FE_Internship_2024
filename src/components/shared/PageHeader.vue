@@ -111,7 +111,6 @@ onUnmounted(() => {
         height: 100px;
         width:calc(100% - 8.3vw);
         max-width: 1380px;
-        // padding: 30px 0;
         margin: 0 auto;
     }
     &__link-wrapper{
