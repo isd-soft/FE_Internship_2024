@@ -174,11 +174,9 @@ onUnmounted(() => {
     }
 
     @media (max-width:375px) {
-        &__navigation-link{
-            &--collapse{
+        &__navigation-collapse{
                 width: 100%;
                 left: 0;
-            }
         }
     }
 }
