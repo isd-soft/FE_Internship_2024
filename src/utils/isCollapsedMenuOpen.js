@@ -1,7 +1,12 @@
 import {ref} from 'vue'
 
-export const isCollapsedMenuOpen = ref(false)
+const isCollapsedMenuOpen = ref(false)
 
-export const toggleCollapsedMenu = () => {
+const toggleCollapsedMenu = () => {
     isCollapsedMenuOpen.value = !isCollapsedMenuOpen.value
+}
+
+export const collapsedMenuInstruments = {
+    flag: isCollapsedMenuOpen,
+    toggle: toggleCollapsedMenu
 }

@@ -1,7 +1,12 @@
 import {ref} from 'vue'
 
-export const mediaFlag = ref(window.innerWidth) // Checks the width of the viewport
+ const mediaFlag = ref(window.innerWidth)
 
-export const updateMediaFlag = () => {
+ const updateMediaFlag = () => {
     mediaFlag.value = window.innerWidth
   }
+
+export const mediaFlagInstruments = {
+    flag: mediaFlag,
+    toggle: updateMediaFlag
+}

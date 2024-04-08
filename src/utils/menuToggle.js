@@ -1,7 +1,12 @@
 import {ref} from 'vue'
 
-export const isHamburgerIconVisible = ref(true)
+const isMenuIconVisible = ref(true)
 
-export const menuToggle = () => {
-    isHamburgerIconVisible.value = !isHamburgerIconVisible.value
+const menuToggle = () => {
+    isMenuIconVisible.value = !isMenuIconVisible.value
+}
+
+export const menuToggleInstruments = {
+    flag: isMenuIconVisible,
+    toggle: menuToggle
 }

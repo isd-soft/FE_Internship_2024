@@ -1,18 +1,20 @@
 <script setup>
 import { onMounted, onUnmounted, ref, nextTick } from 'vue'
 import { isMenuVisible } from '../../utils/isMenuVisible.js'
-import { updateMediaFlag } from '../../utils/updateMediaFlag.js'
-import { isHamburgerIconVisible, menuToggle } from '../../utils/menuToggle.js'
+import { mediaFlagInstruments } from '../../utils/updateMediaFlag.js'
+import {menuToggleInstruments} from '../../utils/menuToggle.js'
 import HeaderLogo from './HeaderLogo.vue'
 import HeaderNavigation from './HeaderNavigation.vue'
 import GenericLink from '../generics/GenericLink.vue'
 import CartIcon from '../../assets/icons/CartIcon.svg'
 import UserIcon from '../../assets/icons/UserIcon.svg'
-import HamburgerMenuIcon from '../../assets/icons/HamburgerMenuIcon.svg'
-import CrossMenuIcon from '../../assets/icons/CrossMenuIcon.svg'
-import HeaderNavigationCollapse from './HeaderNavigationCollapse.vue'
+import MenuIcon from '../../assets/icons/MenuIcon.svg'
+import CrossIcon from '../../assets/icons/CrossIcon.svg'
+import HeaderAdaptiveNavigation from './HeaderAdaptiveNavigation.vue'
 
 const headerRef = ref(null)
+const {flag:mediaFlag, toggle:updateMediaFlag} = mediaFlagInstruments
+const { flag:isMenuIconVisible, toggle:menuToggle } = menuToggleInstruments
 
 const updateOverlayPosition = () => {
   nextTick(() => {
@@ -86,14 +88,10 @@ onUnmounted(() => {
                     <UserIcon />
                 </GenericLink>
             </div>
-            <div class="header__overlay" v-if="!isHamburgerIconVisible" @click="menuToggle"></div>
-            <div class="header__navigation-collapse" v-if="!isHamburgerIconVisible">
-                <HeaderNavigationCollapse />
-            </div>
-            <span class="header__container-toggle" id="menuToggle" @click="menuToggle">
-                <HamburgerMenuIcon v-if="isHamburgerIconVisible" />
-                <CrossMenuIcon v-else />
-            </span>
+            <div class="header__overlay" v-if="!isMenuIconVisible" @click="menuToggle" />
+            <HeaderAdaptiveNavigation class = "header__navigation-collapse" v-if="!isMenuIconVisible"/>
+            <MenuIcon v-if="isMenuIconVisible" class="header__container-toggle" @click="menuToggle"/>
+            <CrossIcon v-else class="header__container-toggle" @click="menuToggle"/>
         </div>
     </header>
 </template>
@@ -185,7 +183,7 @@ onUnmounted(() => {
     }
 }
 
-.hamburger{
+.menu{
     height: 6.57rem;
     width: auto;
 }

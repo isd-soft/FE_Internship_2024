@@ -1,4 +1,6 @@
 import {computed} from 'vue'
-import { mediaFlag } from './updateMediaFlag'
+import { mediaFlagInstruments } from './updateMediaFlag'
+
+const {flag:mediaFlag, toggle:mediaFlagUpdate} = mediaFlagInstruments
 
 export const isMenuVisible = computed(() => mediaFlag.value > 768)

@@ -13,7 +13,7 @@ const linkList = [
 
 <template>
     <nav class="header__navigation navigation">
-        <GenericList :items="linkList" customClass="navigation__list" itemClass="text-xl">
+        <GenericList :items="linkList" customClass="navigation__list" itemClass="navigation__list-item text-xl">
             <template v-slot="{ item }">
                 <GenericLink v-bind="item" />
             </template>
@@ -22,10 +22,10 @@ const linkList = [
 </template>
 
 <style lang="scss" scoped>
-nav{
+.navigation{
     position: relative;
     display: flex;
-    align-items: center;
+    align-items: start;
     justify-content: center;
 }
 .navigation__list{
