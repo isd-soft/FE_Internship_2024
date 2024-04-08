@@ -7,7 +7,7 @@
 
 <template>
     <div>
-        <BannerSection navName="Contact"/>
+        <BannerSection title="Contact"/>
         <div class="contact">
             <div class="contact__text">
                 <h3 class="text-lg">Get In Touch With Us</h3>
