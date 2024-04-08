@@ -1,13 +1,9 @@
 
 <script setup>
 const props=defineProps({
-    alt:{
-        type: String,
-        default: ''  
-    },
-    src:{
-        type: String,
-        default: ''
+    icon: {
+        type: Object,
+        required: true
     },
     name:{
         type: String,
@@ -20,29 +16,27 @@ const props=defineProps({
 })
 </script>
 <template>
-    <div class="AdvantagesCard">
-        <div class="AdvantagesCard__text">
-        <h1 class="text-lg">{{ props.name }}</h1>
-        <p class="text-md">{{ props.description }}</p>   
+    <div class="AdvantageCard">
+        <component :is="icon"/>
+        <div class="AdvantageCard__text">
+        <h1 class="AdvantageCard__h1 text-lg">{{ props.name }}</h1>
+        <p class="AdvantageCard__p text-md">{{ props.description }}</p>   
         </div>
     </div>
 </template>
 <style lang="scss" scoped>
-.AdvantagesCard{
+.AdvantageCard{
     display: flex;
     align-items: center;
     gap: .75rem;
-    &__text{
-        h1{
-            font-weight: 600;
-            font-size: 25px;
-            margin:0;
-        }
-        p{
-            font-weight: 500;
-            margin: 0;
-            color: var(--color-taupe-gray);
-        }
+    &__h1{
+        font-weight: 600;
+        margin:0;
+    }
+    &__p{
+        font-weight: 500;
+        margin: 0;
+        color: var(--color-taupe-gray);
     }
 }
 </style>
