@@ -1,5 +1,5 @@
 <script setup>
-import AdvantagesCard from './AdvantagesCard.vue';
+import AdvantagesCard from './AdvantageCard.vue';
 
 </script>
 
