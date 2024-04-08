@@ -28,7 +28,7 @@ const urls = swiperImagesUrls
             </button>
             <swiper
             class="examples-section__swiper"
-            :slides-per-view="width > 768 ? 2 : 1"
+            :slides-per-view="width > 375 ? 2 : 1"
             :space-between="24"
             :pagination="{ 
                 clickable: true,
@@ -61,17 +61,17 @@ const urls = swiperImagesUrls
         height: max-content;
         display: flex;
         flex-direction: column;
-        // border: 1px solid deepskyblue;
     }
 
     &__title {
         font-weight: 700;
         color: var(--color-dark-charcoal);
-        margin-bottom: 8px;
+        margin-bottom: 0.8rem;
     }
 
     &__description {
         color: var(--color-granite-gray);
+        margin-bottom: 2.5rem;
     }
 
     &__button {
@@ -82,7 +82,7 @@ const urls = swiperImagesUrls
         font-weight: 500;
         line-height: 150%;
         padding: 13px;
-        margin: 25px 0 68px;
+        margin-bottom: 6.8rem;
     }
 
     &__container {
@@ -90,7 +90,6 @@ const urls = swiperImagesUrls
         height: 100%;
         display: flex;
         align-items: center;
-        // border: 1px solid deeppink;
     }
 
     &__swiper {
@@ -104,7 +103,7 @@ const urls = swiperImagesUrls
         background-size: cover;
         background-position: center;
         width: 100%;
-        height: 85%;
+        height: 95%;
     }
 
     &__button-prev {
@@ -144,42 +143,37 @@ const urls = swiperImagesUrls
 
 @media only screen and (max-width: 768px) {
     .examples-section {
-        gap: 2vw;
-
-        &__button-next {
-            display: none;
-        }
-
-        &__button-prev {
-            display: none;
-        }
-    
-        &__image-wrapper {
-            height: 95%;
-        }
-    }
-}
-
-@media only screen and (max-width: 425px) {
-    .examples-section {
         flex-direction: column-reverse;
-        padding: 20px;
+        height: calc(100vh - 50px);
+        padding: 40px;
         gap: 20px;
-        height: 100vh;
 
         &__container {
             width: 100%;
             height: 100%;
         }
 
-        &__text {
-           align-items: center;
-           text-align: center;
+        &__button {
+            margin: 0;
         }
+
+        &__text {
+            align-items: center;
+            text-align: center;
+        }
+
+        &__button-prev, &__button-next {
+            display: none;
+        }
+    }
+}
+
+@media only screen and (max-width: 375px) {
+    .examples-section {
+        padding: 20px;
 
         &__button {
             width: 100%;
-            margin: 20px 0 0;
         }
     }
 }
@@ -189,14 +183,11 @@ const urls = swiperImagesUrls
 .examples-section__swiper {
     .swiper-pagination {
         position: relative;
-        width: fit-content;
         display: flex;
         align-items: center;
         gap: 2rem;
 
         .swiper-pagination-bullet {
-            // width: 11px;
-            // height: 11px;
             width: 1.1rem;
             height: 1.1rem;
             background-color: var(--color-light-silver);
@@ -208,8 +199,6 @@ const urls = swiperImagesUrls
             display: flex;
             justify-content: center;
             align-items: center;
-            // width: 26px;
-            // height: 26px;
             width: 2.6rem;
             height: 2.6rem;
             background-color: transparent;
@@ -217,8 +206,6 @@ const urls = swiperImagesUrls
             
             &::after {
                 content: '';
-                // width: 11px;
-                // height: 11px;
                 width: 1.1rem;
                 height: 1.1rem;
                 background-color: var(--color-uc-gold);
@@ -228,17 +215,10 @@ const urls = swiperImagesUrls
     }
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 768px){
     .examples-section__swiper {
         .swiper-pagination {
             width: 100%;
-        }
-    }
-}
-
-@media only screen and (max-width: 425px) {
-    .examples-section__swiper {
-        .swiper-pagination {
             justify-content: center;
         }
     }
