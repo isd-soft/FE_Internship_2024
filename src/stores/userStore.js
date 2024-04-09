@@ -4,13 +4,8 @@ import { loginRequest } from '@/axios/loginRequest'
 import { registerRequest } from '@/axios/registerRequest'
 
 export const useUserStore = defineStore('user', () => {
-  // const id = ref(0)
-  // const email = ref("")
-  // const firstName = ref("")
-  // const lastName = ref("")
-  // const roles = ref("")
-
   const user = ref({})
+  const token = ref({})
 
   async function login(email, password) {
     const result = await loginRequest(JSON.stringify({ email: email, password: password }))
