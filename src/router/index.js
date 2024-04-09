@@ -2,6 +2,7 @@ import CartView from '../views/CartView.vue'
 import ContactView from '../views/ContactView.vue'
 import ShopView from '../views/ShopView.vue'
 import HomeView from '../views/HomeView.vue'
+import { authGuard } from './authGuard'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -25,11 +26,21 @@ const router = createRouter({
     {
       path: '/cart',
       name: 'cart',
-      component: CartView
+      component: CartView,
+      meta: { requiresAuth: true },
+
     }
 
     
   ]
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    authGuard(to, from, next);
+  } else {
+    next();
+  }
 })
 
 export default router

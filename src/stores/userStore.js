@@ -27,5 +27,9 @@ export const useUserStore = defineStore('user', () => {
         return false
     }
 
-    return{user, login, register}
+    function isAuthenticated(){
+        return this.user.value && this.user.value.keys().length > 0
+    }
+
+    return{user, login, register, isAuthenticated}
 })

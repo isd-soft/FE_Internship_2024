@@ -25,7 +25,7 @@ const { open } = useModal({
       <HeaderNavigation />
 
       <div class="header__link-wrapper">
-        <GenericLink href="#" containerClass="header__link">
+        <GenericLink href="/cart" containerClass="header__link">
           <CartIcon />
         </GenericLink>
 
