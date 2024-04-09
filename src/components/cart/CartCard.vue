@@ -91,15 +91,15 @@ const handleBlur = event => {
     &__text-wrapper {
         display: flex;
         align-items: center;
-        width: 67%;
-        margin: 0 35px;
+        width: 66%;
+        margin: 0 4rem;
     }
 
     &__name,
     &__price,
     &__input-wrapper,
     &__subtotal {
-        width: calc(100% / 4);
+        width: 20rem;
         text-align: center;
         outline: 1px red solid;
     }
