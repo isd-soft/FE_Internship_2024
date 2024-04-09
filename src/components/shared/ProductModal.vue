@@ -60,24 +60,24 @@ const emit = defineEmits(['close'])
         <div class="product-modal__price text-lg secondary-color part">{{ price }}</div>
       </div>
       <div>
-          <div class="product-modal__description text-sm part">{{ description }}</div>
-          <div class="product-modal__reviews part">
-                <StarRating :ratingStars="Number(rating)" />
-              <div class="product-modal__reviews--separator secondary-color"></div>
-              <div class="product-modal__reviews--customers text-sm secondary-color">{{ reviews }} Customer Review</div>
-          </div>
-          <div class="secondary-color text-sm part">Availability</div>
-          <div class="product-modal__product-type text-md part">{{ productType }}</div>
-          <div class="secondary-color text-sm part">Colors</div>
-          <div class="product-modal__colors part-x2">
-              <div class="product-modal__colors--item"></div>
-              <div class="product-modal__colors--item"></div>
-              <div class="product-modal__colors--item"></div>
-          </div>
+        <div class="product-modal__description text-sm part">{{ description }}</div>
+        <div class="product-modal__reviews part">
+              <StarRating :ratingStars="Number(rating)" />
+            <div class="product-modal__reviews--separator secondary-color"></div>
+            <div class="product-modal__reviews--customers text-sm secondary-color">{{ reviews }} Customer Review</div>
       </div>
-      <div class="product-modal__bottom-section">
+        <div class="secondary-color text-sm part">Availability</div>
+        <div class="product-modal__product-type text-md part">{{ productType }}</div>
+        <div class="secondary-color text-sm part">Colors</div>
+        <div class="product-modal__colors part-x2">
+            <div class="product-modal__colors--item"></div>
+            <div class="product-modal__colors--item"></div>
+            <div class="product-modal__colors--item"></div>
+        </div>
+      </div>
+      <div class="product-modal__bottom">
           <Counter />
-          <button class="product-modal__bottom-section--cartadding text-md">Add to cart</button>
+          <button class="product-modal__bottom-cartadding text-md">Add to cart</button>
       </div>
     </div>
   </VueFinalModal>
@@ -158,39 +158,23 @@ const emit = defineEmits(['close'])
         }
     }
 
-    &__bottom-section{
-        display: flex;
-        column-gap: 1.4vw;
-
-        &--cartadding{
-            border:1px solid var(--color-black);
-            border-radius: 1vw;
-            padding: 1.2vw 3.3vw;
-            cursor: pointer;
-        }
-
-        &--cartadding:hover{
-            color: var(--color-white);
-            background-color: var(--color-black);
-            transition: 0.25s ease-in-out;
-        }
+    &__bottom{
+      display: flex;
+      column-gap: 1.4vw;
     }
-    @media (max-width: 768px) {
-      &__details{
-        padding: 1.3vw;
-      }
 
-      &__content{
-        flex-direction: column;
-        max-width: 80%;
-      }
+    &__bottom-cartadding{
+      border:1px solid var(--color-black);
+      border-radius: 1vw;
+      padding: 1.2vw 3.3vw;
+      cursor: pointer;
+    }
 
-      &__cross{
-        right: 0.5%;
-        top: 0.5%;
-        fill: var(--color-white);
-      }
-  }
+    &__bottom-cartadding:hover{
+      color: var(--color-white);
+      background-color: var(--color-black);
+      transition: 0.25s ease-in-out;
+    }
 }
 
 .secondary-color{
@@ -199,13 +183,31 @@ const emit = defineEmits(['close'])
 
 .part{
     margin-bottom: 15px;
-
-    @media (max-width:768px) {
-      margin-bottom: 7.5px;
-    }
 }
 
 .part-x2{
     margin-bottom: 15px;
+}
+
+@media (max-width:768px) {
+.product-modal{
+  &__details{
+    padding: 1.3vw;
+  }
+
+  &__content{
+    flex-direction: column;
+    max-width: 80%;
+  }
+
+  &__cross{
+    right: 0.5%;
+    top: 0.5%;
+    fill: var(--color-white);
+  }
+}  
+.part{
+  margin-bottom: 7.5px;
+}
 }
 </style>

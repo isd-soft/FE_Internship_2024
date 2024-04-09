@@ -42,5 +42,14 @@ const starsData = computed(() => {
 .star-rating{
     display: flex;
     column-gap: 5px;
+    align-items: center;
+    justify-content: center;
+    
+    &__star{
+        svg{
+            width: auto;
+            height: 1.79rem;
+        }
+    }
 }
 </style>
