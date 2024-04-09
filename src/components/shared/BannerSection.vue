@@ -70,6 +70,7 @@ const props = defineProps({
     }
 
     &__path-link {
+        color: var(--color-black);
         font-weight: 300;
         
         &--primary {
