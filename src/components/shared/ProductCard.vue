@@ -1,5 +1,9 @@
 <template>
-  <div class="product-list-section__card product-card" @mouseenter="hoverFlag = true" @mouseleave="hoverFlag = false">
+  <div
+    class="product-list-section__card product-card"
+    @mouseenter="hoverFlag = true"
+    @mouseleave="hoverFlag = false"
+  >
     <img :src="imageSrc" :alt="title" />
 
     <div class="product-card__text-wrapper">
@@ -69,13 +73,15 @@ const { open } = useModal({
     header: props.title,
     price: convertPrice(props.price),
     // description: props.description,
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
     rating: 3.5,
     reviews: 10,
     // productType: props.productType,
-    productType: "Available",
+    productType: 'Available',
     // imgSrc: props.imageSrc,
-    imgSrc: "https://media.istockphoto.com/id/1293762741/photo/modern-living-room-interior-3d-render.webp?s=2048x2048&w=is&k=20&c=y5qtIaTcN6mnSb3bxBBhnBycfmNK48g6xawyfXHB5lw="
+    imgSrc:
+      'https://media.istockphoto.com/id/1293762741/photo/modern-living-room-interior-3d-render.webp?s=2048x2048&w=is&k=20&c=y5qtIaTcN6mnSb3bxBBhnBycfmNK48g6xawyfXHB5lw='
   }
 })
 </script>
