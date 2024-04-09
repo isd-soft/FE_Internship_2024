@@ -35,7 +35,7 @@
 import { ref } from 'vue'
 import ProductLabel from './ProductLabel.vue'
 import { useModal } from 'vue-final-modal'
-import ModalProduct from './ModalProduct.vue'
+import ProductModal from './ProductModal.vue'
 
 const hoverFlag = ref(false)
 
@@ -63,7 +63,7 @@ const convertPrice = (value) =>
   value ? 'Rp ' + value.toLocaleString('en-US').replace(/,/g, '.') : ''
 
 const { open } = useModal({
-  component: ModalProduct,
+  component: ProductModal,
   attrs: {
     id: 1,
     header: props.title,

@@ -29,12 +29,9 @@ const starsData = computed(() => {
         <div v-for="index in starsData.fullStars" :key="'full' + index" alt="Filled Star" class="star-rating__star">
             <FilledStarIcon />
         </div>
-        <!-- <img v-for="index in starsData.fullStars" :key="'full' + index" :src="FilledStarIcon" /> -->
-        <!-- <img v-if="starsData.halfStar" :src="HalfFilledStarIcon" alt="Half Filled Star" class="star-rating__star"/> -->
         <div v-if="starsData.halfStar" alt="Half Filled Star" class="star-rating__star">
             <HalfFilledStarIcon />
         </div>
-        <!-- <img v-for="index in starsData.emptyStars" :key="'empty' + index" :src="EmptyStarIcon" alt="Empty Star" class="star-rating__star"/> -->
         <div v-for="index in starsData.emptyStars" :key="'empty' + index" alt="Empty Star" class="star-rating__star">
             <EmptyStarIcon />
         </div>

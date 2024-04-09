@@ -2,6 +2,7 @@
 import { VueFinalModal } from 'vue-final-modal'
 import Counter from './Counter.vue';
 import StarRating from './StarRating.vue';
+import ClosingIcon from '../../assets/icons/CrossIcon.svg'
 
 const props = defineProps({
   id: {
@@ -50,29 +51,34 @@ const emit = defineEmits(['close'])
     content-transition="vfm-fade"
     @clickOutside="emit('close')"
   >
-    <!-- <div class="product-modal__photo" :style="`background-image: url('${getUrlFromString(imgSrc)}');`"></div>   -->
+  
     <img :src="imgSrc" class="product-modal__photo" alt="Product Image"/>
+    <ClosingIcon class = "product-modal__cross" @click ="emit('close')" />
     <div class="product-modal__details">
+      <div>
         <div class="product-modal__header text-3xl part">{{ header }}</div>
         <div class="product-modal__price text-lg secondary-color part">{{ price }}</div>
-        <div class="product-modal__description text-sm part">{{ description }}</div>
-        <div class="product-modal__reviews part">
-              <StarRating :ratingStars="Number(rating)" />
-            <div class="product-modal__reviews--separator secondary-color"></div>
-            <div class="product-modal__reviews--customers text-sm secondary-color">{{ reviews }} Customer Review</div>
-        </div>
-        <div class="secondary-color text-sm part">Availability</div>
-        <div class="product-modal__product-type text-sm part">{{ productType }}</div>
-        <div class="secondary-color text-sm part">Colors</div>
-        <div class="product-modal__colors part-x2">
-            <div class="product-modal__colors--item"></div>
-            <div class="product-modal__colors--item"></div>
-            <div class="product-modal__colors--item"></div>
-        </div>
-        <div class="product-modal__bottom-section part">
-            <Counter />
-            <button class="product-modal__bottom-section--cartadding text-md">Add to cart</button>
-        </div>
+      </div>
+      <div>
+          <div class="product-modal__description text-sm part">{{ description }}</div>
+          <div class="product-modal__reviews part">
+                <StarRating :ratingStars="Number(rating)" />
+              <div class="product-modal__reviews--separator secondary-color"></div>
+              <div class="product-modal__reviews--customers text-sm secondary-color">{{ reviews }} Customer Review</div>
+          </div>
+          <div class="secondary-color text-sm part">Availability</div>
+          <div class="product-modal__product-type text-md part">{{ productType }}</div>
+          <div class="secondary-color text-sm part">Colors</div>
+          <div class="product-modal__colors part-x2">
+              <div class="product-modal__colors--item"></div>
+              <div class="product-modal__colors--item"></div>
+              <div class="product-modal__colors--item"></div>
+          </div>
+      </div>
+      <div class="product-modal__bottom-section">
+          <Counter />
+          <button class="product-modal__bottom-section--cartadding text-md">Add to cart</button>
+      </div>
     </div>
   </VueFinalModal>
 </template>
@@ -86,6 +92,7 @@ const emit = defineEmits(['close'])
     backdrop-filter: blur(12px);
 
     &__content {    
+      position: relative;
         display: flex;
         background: #fff;
         border-radius: 0.5rem;
@@ -95,9 +102,19 @@ const emit = defineEmits(['close'])
 
     &__details{
         margin-top: 15px;
-        padding-right: 15px;
+        padding:0 15px 15px 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
 
+    &__cross{
+      position: absolute;
+      right: 2%;
+      top: 2%;
+      height: clamp(24.2px, 2vw,28.4px);
+      cursor: pointer;
+    }
     &__photo {
         max-height: 35vw;
         aspect-ratio: 1/1;
@@ -111,7 +128,7 @@ const emit = defineEmits(['close'])
         column-gap: 1.4vw;
 
         &--separator{
-            height: 1.4vw;
+            height: clamp(9.5px,1.4vw,21.5px);
             width: 0.5px;
             background-color: var(--color-taupe-gray);
         }
@@ -158,6 +175,22 @@ const emit = defineEmits(['close'])
             transition: 0.25s ease-in-out;
         }
     }
+    @media (max-width: 768px) {
+      &__details{
+        padding: 1.3vw;
+      }
+
+      &__content{
+        flex-direction: column;
+        max-width: 80%;
+      }
+
+      &__cross{
+        right: 0.5%;
+        top: 0.5%;
+        fill: var(--color-white);
+      }
+  }
 }
 
 .secondary-color{
@@ -166,9 +199,13 @@ const emit = defineEmits(['close'])
 
 .part{
     margin-bottom: 15px;
+
+    @media (max-width:768px) {
+      margin-bottom: 7.5px;
+    }
 }
 
 .part-x2{
-    margin-bottom: 30px;
+    margin-bottom: 15px;
 }
 </style>
