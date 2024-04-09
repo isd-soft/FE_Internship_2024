@@ -231,3 +231,26 @@ button {
     }
   }
 }
+
+.swiper-button {
+  flex: 0 0 auto;
+  background-color: var(--color-white);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.swiper-button-left {
+  @extend .swiper-button;
+  margin-right: -24px;
+}
+
+.swiper-button-right {
+  @extend .swiper-button;
+  margin-left: -24px;
+}
