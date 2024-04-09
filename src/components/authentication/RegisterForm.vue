@@ -41,8 +41,7 @@ const [confirmPassword, confirmPasswordAttributeList] = defineField('confirmPass
 const onSubmit = handleSubmit((values) => {
   const userStore = useUserStore()
   const { email, password, firstName, lastName } = values
-  const result = userStore.register(email, password, firstName, lastName)
-  result ? emit('success') : emit('failure')
+  userStore.register(email, password, firstName, lastName).then(res => res? emit('success') : emit('failure')).catch(err => emit('failure') )
 })
 
 const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])

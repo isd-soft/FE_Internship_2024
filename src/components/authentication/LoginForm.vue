@@ -23,8 +23,9 @@ const [password, passwordAttributeList] = defineField('password', {
 const onSubmit = handleSubmit((values) => {
   const userStore = useUserStore()
   const { email, password } = values
-  const result = userStore.login(email, password)
-  result ? emit('success') : emit('failure')
+  userStore.login(email, password).then(res => {
+    res? emit('success') : emit('failure')
+  }).catch(err => emit('failure') )
 })
 
 const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
