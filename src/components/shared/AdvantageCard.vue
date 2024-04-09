@@ -16,16 +16,16 @@ const props=defineProps({
 })
 </script>
 <template>
-    <div class="AdvantageCard">
+    <div class="advantage-card">
         <component :is="icon"/>
-        <div class="AdvantageCard__text">
-        <h1 class="AdvantageCard__title text-lg">{{ name }}</h1>
-        <p class="AdvantageCard__description text-md">{{ description }}</p>
+        <div class="advantage-card__text-wrapper">
+        <h3 class="advantage-card__title text-lg">{{ name }}</h3>
+        <p class="advantage-card__description text-md">{{ description }}</p>
         </div>
     </div>
 </template>
 <style lang="scss" scoped>
-.AdvantageCard{
+.advantage-card{
     display: flex;
     align-items: center;
     gap: .75rem;
