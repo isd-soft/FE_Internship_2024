@@ -35,6 +35,7 @@ function decreaseCount() {
     &__button{
         border: none;
         cursor: pointer;
+        background-color: white;
     }
 }
 </style>
