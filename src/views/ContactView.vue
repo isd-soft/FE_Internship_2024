@@ -1,13 +1,13 @@
 <script setup>
     import AdvantageSection from "@/components/shared/AdvantageSection.vue";
-    import ImageNavCard from "@/components/shared/ImageNavCard.vue"
+    import BannerSection from "@/components/shared/BannerSection.vue"
     import ContactInfoCard from "@/components/shared/ContactInfoCard.vue"
     import ContactForm from "@/components/shared/ContactForm.vue"
 </script>
 
 <template>
     <div>
-        <ImageNavCard navName="Contact"/>
+        <BannerSection title="Contact"/>
         <div class="contact">
             <div class="contact__text">
                 <h3 class="text-lg">Get In Touch With Us</h3>
