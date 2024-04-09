@@ -175,16 +175,30 @@ button {
   font-size: 1.6rem;
   font-weight: 700;
   width: fit-content;
-}
 
-.primary-button:hover {
-  background-color: var(--color-white);
-  color: var(--color-uc-gold);
-}
+  &:hover {
+    background-color: var(--color-white);
+    color: var(--color-uc-gold);
+  }
 
-.primary-button:active {
-  background-color: var(--color-uc-gold);
-  color: var(--color-white);
+  &:active {
+    background-color: var(--color-uc-gold);
+    color: var(--color-white);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+
+    &:hover {
+      background-color: var(--color-uc-gold);
+      color: var(--color-white);
+    }
+
+    &:active {
+      background-color: var(--color-uc-gold);
+      color: var(--color-white);
+    }
+  }
 }
 
 .secondary-button {
@@ -192,14 +206,28 @@ button {
   color: var(--color-uc-gold);
   font-size: 1.6rem;
   font-weight: 500;
-}
 
-.secondary-button:hover {
-  background-color: var(--color-uc-gold);
-  color: var(--color-white);
-}
+  &:hover {
+    background-color: var(--color-uc-gold);
+    color: var(--color-white);
+  }
 
-.secondary-button:active {
-  background-color: var(--color-white);
-  color: var(--color-uc-gold);
+  &:active {
+    background-color: var(--color-white);
+    color: var(--color-uc-gold);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+
+    &:hover {
+      background-color: var(--color-white);
+      color: var(--color-uc-gold);
+    }
+
+    &:active {
+      background-color: var(--color-white);
+      color: var(--color-uc-gold);
+    }
+  }
 }
