@@ -2,7 +2,7 @@
 import GenericLink from '@/components/generics/GenericLink.vue'
 import ArrowIcon from '@/assets/icons/ArrowIcon.svg'
 
-const props = defineProps({
+defineProps({
     title: String
 });
 </script>
