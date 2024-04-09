@@ -93,7 +93,7 @@ const { open } = useModal({
             <HeaderLogo />
             <HeaderNavigation v-show="isMenuVisible" />
             <div class="header__link-wrapper" v-show="isMenuVisible">
-                <GenericLink href="cart" containerClass="header__link">
+                <GenericLink href="/cart" containerClass="header__link">
                     <CartIcon />
                 </GenericLink>
                 <GenericLink containerClass="header__link"  @click="openModal">
