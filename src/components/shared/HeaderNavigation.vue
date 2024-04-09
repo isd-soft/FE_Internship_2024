@@ -24,8 +24,6 @@ const linkList = [
     display: flex;
     align-items: center;
     column-gap: 76px;
-    padding: 0;
-    margin: 0;
     list-style: none;
 }
 

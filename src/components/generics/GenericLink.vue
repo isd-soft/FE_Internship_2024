@@ -31,27 +31,3 @@ const props = defineProps({
     </template>
   </a>
 </template>
-
-<style lang="scss" scoped>
-  a{
-    text-decoration: none;
-    color: black;
-  }
-</style>
-
-<!-- use define props instead of export default
-
-Text-content
-children
-href
-container
-text-first
-text-class
-базовая конфигурация для линка
-
-GenericList
-tag = ol/ul/div
-is_vertical flag
-class
-items
-базовая конфигурация для списков -->

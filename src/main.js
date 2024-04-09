@@ -1,5 +1,5 @@
-import './styles/main.css'
 import "normalize.css"
+import './styles/main.css'
 import 'vue-final-modal/style.css'
 import ToastPlugin from 'vue-toast-notification';
 
