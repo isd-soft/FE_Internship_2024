@@ -1,5 +1,5 @@
 <script setup>
-import { VueFinalModal } from 'vue-final-modal'
+import { VueFinalModal, useVfm } from 'vue-final-modal'
 import Counter from './Counter.vue';
 import StarRating from './StarRating.vue';
 import ClosingIcon from '../../assets/icons/CrossIcon.svg'
@@ -39,7 +39,11 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['close'])
+const vfm = useVfm()
+
+const close = () => {
+  vfm.closeAll(vfm.openedModals)
+}
 
 </script>
 
@@ -53,7 +57,7 @@ const emit = defineEmits(['close'])
   >
   
     <img :src="imgSrc" class="product-modal__photo" alt="Product Image"/>
-    <ClosingIcon class = "product-modal__cross" @click ="emit('close')" />
+    <ClosingIcon class = "product-modal__cross" @click ="close()" />
     <div class="product-modal__details">
       <div>
         <div class="product-modal__header text-3xl part">{{ header }}</div>
@@ -63,16 +67,16 @@ const emit = defineEmits(['close'])
         <div class="product-modal__description text-sm part">{{ description }}</div>
         <div class="product-modal__reviews part">
               <StarRating :ratingStars="Number(rating)" />
-            <div class="product-modal__reviews--separator secondary-color"></div>
-            <div class="product-modal__reviews--customers text-sm secondary-color">{{ reviews }} Customer Review</div>
+            <div class="product-modal__reviews-separator secondary-color"></div>
+            <div class="text-sm secondary-color">{{ reviews }} Customer Review</div>
       </div>
         <div class="secondary-color text-sm part">Availability</div>
         <div class="product-modal__product-type text-md part">{{ productType }}</div>
         <div class="secondary-color text-sm part">Colors</div>
         <div class="product-modal__colors part-x2">
-            <div class="product-modal__colors--item"></div>
-            <div class="product-modal__colors--item"></div>
-            <div class="product-modal__colors--item"></div>
+            <div class="product-modal__colors-item"></div>
+            <div class="product-modal__colors-item"></div>
+            <div class="product-modal__colors-item"></div>
         </div>
       </div>
       <div class="product-modal__bottom">
@@ -96,7 +100,7 @@ const emit = defineEmits(['close'])
         display: flex;
         background: #fff;
         border-radius: 0.5rem;
-        column-gap: 3.5vw;
+        column-gap: 5rem;
         max-width: 70%;
     }
 
@@ -110,13 +114,13 @@ const emit = defineEmits(['close'])
 
     &__cross{
       position: absolute;
-      right: 2%;
-      top: 2%;
-      height: clamp(24.2px, 2vw,28.4px);
+      right: 1.5rem;
+      top: 1.5rem;
+      height: 2.86rem;
       cursor: pointer;
     }
     &__photo {
-        max-height: 35vw;
+        max-height: 50rem;
         aspect-ratio: 1/1;
         object-fit: cover;
         border-radius: .5rem 0 0 .5rem;
@@ -125,48 +129,48 @@ const emit = defineEmits(['close'])
     &__reviews{
         display: flex;
         align-items: center;
-        column-gap: 1.4vw;
+        column-gap: 2rem;
+    }
 
-        &--separator{
-            height: clamp(9.5px,1.4vw,21.5px);
-            width: 0.5px;
-            background-color: var(--color-taupe-gray);
-        }
+    &__reviews-separator{
+        height: 2rem;
+        width: 0.5px;
+        background-color: var(--color-taupe-gray);
     }
 
     &__colors{
         display: flex;
         column-gap: 1.1vw;
 
-        &--item{
+        &-item{
             width: 2.1vw;
             height: 2.1vw;
             border-radius: 100%;
             cursor: pointer;
         }
 
-        &--item:nth-child(1){
+        &-item:nth-child(1){
             background-color: var(--color-violet-blue);
         }
 
-        &--item:nth-child(2){
+        &-item:nth-child(2){
             background-color: var(--color-black);
         }
 
-        &--item:nth-child(3){
+        &-item:nth-child(3){
             background-color: var(--color-uc-gold);
         }
     }
 
     &__bottom{
       display: flex;
-      column-gap: 1.4vw;
+      column-gap: 2rem;
     }
 
     &__bottom-cartadding{
       border:1px solid var(--color-black);
-      border-radius: 1vw;
-      padding: 1.2vw 3.3vw;
+      border-radius: 1.43rem;
+      padding: 1.71rem 4.71rem;
       cursor: pointer;
     }
 
@@ -192,7 +196,7 @@ const emit = defineEmits(['close'])
 @media (max-width:768px) {
 .product-modal{
   &__details{
-    padding: 1.3vw;
+    padding: 1.86rem;
   }
 
   &__content{
@@ -201,9 +205,13 @@ const emit = defineEmits(['close'])
   }
 
   &__cross{
-    right: 0.5%;
-    top: 0.5%;
+    right: 1rem;
+    top: 1rem;
     fill: var(--color-white);
+  }
+
+  &__bottom{
+    justify-content: space-between;
   }
 }  
 .part{
