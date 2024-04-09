@@ -155,3 +155,9 @@ ul {
 .text-12xl {
     font-size: 8rem;
 }
+
+.title {
+    font-size: 4rem;
+    color: var(--color-dark-charcoal);
+    font-weight: 700;
+}
