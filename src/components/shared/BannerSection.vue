@@ -29,7 +29,7 @@ const props = defineProps({
 
 <style lang="scss" scoped>
 .banner-section {
-    background-image: url(../../public/background_image_card.png);
+    background-image: url(/background_image_card.png);
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;

@@ -1,11 +1,10 @@
 <script setup>
 import GenericLink from '../generics/GenericLink.vue';
-import LogoIcon from '../../assets/icons/LogoIcon.svg';
 </script>
 
 <template>
     <GenericLink href="/" containerClass="header__logo text-2xl" textContent="Furniro">
-        <LogoIcon />
+        <img src="/logo_image.png" class="header__logo-image" alt="logo">
     </GenericLink>
 </template>
 
@@ -16,5 +15,8 @@ import LogoIcon from '../../assets/icons/LogoIcon.svg';
     column-gap: 5px;
     font-weight: 700;
     color: var(--color-black);
+}
+.header__logo-image{
+    height: 3.14rem;
 }
 </style>
