@@ -88,7 +88,7 @@ ul {
 }
 
 .text-xs {
-    font-size: 0.8rem;
+    font-size: 1.2rem;
 }
 
 .text-sm {
@@ -154,4 +154,10 @@ ul {
 
 .text-12xl {
     font-size: 8rem;
+}
+
+.title {
+    font-size: 4rem;
+    color: var(--color-dark-charcoal);
+    font-weight: 700;
 }
