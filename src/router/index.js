@@ -1,7 +1,7 @@
-import CartView from '@/views/CartView.vue'
-import ContactView from '@/views/ContactView.vue'
-import ShopView from '@/views/ShopView.vue'
-import HomeView from '@/views/HomeView.vue'
+import CartView from '../views/CartView.vue'
+import ContactView from '../views/ContactView.vue'
+import ShopView from '../views/ShopView.vue'
+import HomeView from '../views/HomeView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({

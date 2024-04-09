@@ -8,6 +8,8 @@ import HeaderNavigation from './HeaderNavigation.vue'
 import GenericLink from '../generics/GenericLink.vue'
 import CartIcon from '../../assets/icons/CartIcon.svg'
 import UserIcon from '../../assets/icons/UserIcon.svg'
+import LoginModal from '../authentication/LoginModal.vue'
+import { useModal } from 'vue-final-modal'
 import MenuIcon from '../../assets/icons/MenuIcon.svg'
 import CrossIcon from '../../assets/icons/CrossIcon.svg'
 import HeaderAdaptiveNavigation from './HeaderAdaptiveNavigation.vue'
@@ -73,6 +75,16 @@ onUnmounted(() => {
     observer.disconnect()
   }
 })
+
+const openModal = () => {
+  open()
+}
+
+const { open } = useModal({
+  component: LoginModal,
+  attrs: {}
+})
+
 </script>
 
 <template>
@@ -84,7 +96,7 @@ onUnmounted(() => {
                 <GenericLink href="cart" containerClass="header__link">
                     <CartIcon />
                 </GenericLink>
-                <GenericLink href="#" containerClass="header__link">
+                <GenericLink containerClass="header__link"  @click="openModal">
                     <UserIcon />
                 </GenericLink>
             </div>
