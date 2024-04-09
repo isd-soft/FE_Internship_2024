@@ -19,7 +19,9 @@ const props=defineProps({
 
 <template>
     <div class="info-card">
-        <component :is="icon" class="info-card__icon"/>
+        <div class="info-card__icon-wrapper">
+            <component :is="icon" class="info-card__icon"/>
+        </div>
         <div class="info-card__text-wrapper">
             <h3 class="info-card__title text-lg">{{ infoTitle }}</h3>
             <p class="info-card__about text-sm">{{ infoTextFirst }}</p>
@@ -31,8 +33,10 @@ const props=defineProps({
 <style lang="scss" scoped>
 .info-card{
     display: flex;
-    align-items: start;
-    gap: 3rem;
+    &__icon-wrapper{
+        width: 30px;
+        margin-right: 12px;
+    }
     &__title{
         margin:0;
         font-weight: 500;
