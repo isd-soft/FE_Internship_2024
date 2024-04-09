@@ -7,7 +7,7 @@ import SupportICon from "@/assets/icons/AdvantageSupportIcon.svg"
 </script>
 
 <template>
-    <div class="advantage">
+    <div class="advantage-section">
         <AdvantageCard :icon="TrophyIcon" name="High Quality" description="Crafted from top materials"/>
         <AdvantageCard :icon="WarrantyIcon" name="Warranty Protection" description="Over 2 years"/>
         <AdvantageCard :icon="ShippingICon" name="Free Shipping" description="Order over 150 $"/>
@@ -16,7 +16,7 @@ import SupportICon from "@/assets/icons/AdvantageSupportIcon.svg"
 </template>
 
 <style lang="scss" scoped>
-.advantage{
+.advantage-section{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -25,7 +25,7 @@ import SupportICon from "@/assets/icons/AdvantageSupportIcon.svg"
     gap: 48px;
 }
 @media screen and (max-width:768px){
-    .advantage{
+    .advantage-section{
         gap: 50px;
         padding: 40px;  
     }
