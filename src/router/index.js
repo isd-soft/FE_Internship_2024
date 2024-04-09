@@ -19,7 +19,7 @@ const router = createRouter({
       component: ContactView
     },
     {
-      path:'/shop',
+      path: '/shop',
       name: 'shop',
       component: ShopView
     },
@@ -27,19 +27,16 @@ const router = createRouter({
       path: '/cart',
       name: 'cart',
       component: CartView,
-      meta: { requiresAuth: true },
-
+      // meta: { requiresAuth: true } //Comment this if u need to access cart
     }
-
-    
   ]
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.requiresAuth)) {
-    authGuard(to, from, next);
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    authGuard(to, from, next)
   } else {
-    next();
+    next()
   }
 })
 
