@@ -145,7 +145,7 @@ const urls = swiperImagesUrls
     .examples-section {
         flex-direction: column-reverse;
         height: calc(100vh - 50px);
-        padding: 40px;
+        padding: 60px 40px;
         gap: 20px;
 
         &__container {
@@ -170,7 +170,7 @@ const urls = swiperImagesUrls
 
 @media only screen and (max-width: 375px) {
     .examples-section {
-        padding: 20px;
+        padding: 40px 20px;
 
         &__button {
             width: 100%;
