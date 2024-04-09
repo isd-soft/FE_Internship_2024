@@ -58,25 +58,25 @@ const close = () => {
   
     <img :src="imgSrc" class="product-modal__photo" alt="Product Image"/>
     <ClosingIcon class = "product-modal__cross" @click ="close()" />
-    <div class="product-modal__details">
-      <div>
-        <div class="product-modal__header text-3xl part">{{ header }}</div>
-        <div class="product-modal__price text-lg secondary-color part">{{ price }}</div>
+    <div class="product-modal__detail">
+      <div class = "product-modal__wrapper">
+        <div class="product-modal__header text-3xl">{{ header }}</div>
+        <div class="product-modal__price text-lg">{{ price }}</div>
       </div>
-      <div>
+      <div class = "product-modal__wrapper">
         <div class="product-modal__description text-sm part">{{ description }}</div>
-        <div class="product-modal__reviews part">
+        <div class="product-modal__review part">
               <StarRating :ratingStars="Number(rating)" />
-            <div class="product-modal__reviews-separator secondary-color"></div>
-            <div class="text-sm secondary-color">{{ reviews }} Customer Review</div>
+            <div class="product-modal__review-separator"></div>
+            <div class="text-sm product-modal__review-text">{{ reviews }} Customer Review</div>
       </div>
-        <div class="secondary-color text-sm part">Availability</div>
-        <div class="product-modal__product-type text-md part">{{ productType }}</div>
-        <div class="secondary-color text-sm part">Colors</div>
-        <div class="product-modal__colors part-x2">
-            <div class="product-modal__colors-item"></div>
-            <div class="product-modal__colors-item"></div>
-            <div class="product-modal__colors-item"></div>
+        <div class="product-modal__section-header text-sm">Availability</div>
+        <div class="product-modal__product-type text-md">{{ productType }}</div>
+        <div class="product-modal__section-header text-sm">Colors</div>
+        <div class="product-modal__color">
+            <div class="product-modal__color-item"></div>
+            <div class="product-modal__color-item"></div>
+            <div class="product-modal__color-item"></div>
         </div>
       </div>
       <div class="product-modal__bottom">
@@ -95,21 +95,34 @@ const close = () => {
     background-color: var(--color-warm-ivory);
     backdrop-filter: blur(12px);
 
-    &__content {    
-      position: relative;
-        display: flex;
-        background: #fff;
-        border-radius: 0.5rem;
-        column-gap: 5rem;
-        max-width: 70%;
+    &__header{
+      margin-bottom: 15px;
     }
 
-    &__details{
+    &__price{
+      color: var(--color-taupe-gray);
+      margin-bottom: 15px;
+    }
+
+    &__content {    
+      position: relative;
+      display: flex;
+      background: #fff;
+      border-radius: 0.5rem;
+      column-gap: 5rem;
+      max-width: 70%;
+    }
+
+    &__detail{
         margin-top: 15px;
         padding:0 15px 15px 0;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+    }
+    
+    &__description{
+      margin-bottom: 15px;
     }
 
     &__cross{
@@ -119,28 +132,44 @@ const close = () => {
       height: 2.86rem;
       cursor: pointer;
     }
+
     &__photo {
-        max-height: 50rem;
-        aspect-ratio: 1/1;
-        object-fit: cover;
-        border-radius: .5rem 0 0 .5rem;
+      max-width: calc((100% - 50px) / 2);
+      aspect-ratio: 1/1;
+      object-fit: cover;
+      border-radius: .5rem 0 0 .5rem;
     }
 
-    &__reviews{
+    &__review{
         display: flex;
         align-items: center;
         column-gap: 2rem;
+        margin-bottom: 15px;
     }
 
-    &__reviews-separator{
+    &__review-text{
+      color: var(--color-taupe-gray);
+    }
+
+    &__review-separator{
         height: 2rem;
         width: 0.5px;
         background-color: var(--color-taupe-gray);
     }
+    
+    &__product-type{
+      margin-bottom: 15px;
+    }
 
-    &__colors{
+    &__section-header{
+      color: var(--color-taupe-gray);
+      margin-bottom: 15px;
+    }
+
+    &__color{
         display: flex;
         column-gap: 1.1vw;
+        margin-bottom: 15px;
 
         &-item{
             width: 2.1vw;
@@ -169,6 +198,7 @@ const close = () => {
 
     &__bottom-cartadding{
       border:1px solid var(--color-black);
+      background-color: var(--color-white);
       border-radius: 1.43rem;
       padding: 1.71rem 4.71rem;
       cursor: pointer;
@@ -181,27 +211,20 @@ const close = () => {
     }
 }
 
-.secondary-color{
-    color: var(--color-taupe-gray);
-}
-
-.part{
-    margin-bottom: 15px;
-}
-
-.part-x2{
-    margin-bottom: 15px;
-}
-
 @media (max-width:768px) {
 .product-modal{
-  &__details{
+  &__detail{
     padding: 1.86rem;
   }
 
   &__content{
     flex-direction: column;
     max-width: 80%;
+  }
+
+  &__photo{
+    max-height: 50rem;
+    max-width: 100%;
   }
 
   &__cross{
@@ -211,11 +234,15 @@ const close = () => {
   }
 
   &__bottom{
-    justify-content: space-between;
+    justify-content: center;
+    column-gap: 7rem;
+  }
+  
+  &__header, &__price, 
+  &__description, &__review, 
+  &__product-type, &__section-header, &__color{
+    margin-bottom: 7.5px;
   }
 }  
-.part{
-  margin-bottom: 7.5px;
-}
 }
 </style>

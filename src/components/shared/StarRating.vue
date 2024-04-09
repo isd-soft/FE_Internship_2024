@@ -44,9 +44,9 @@ const starsData = computed(() => {
     column-gap: 5px;
     align-items: center;
     justify-content: center;
-    
+
     &__star{
-        svg{
+        .fill, .half, .empty{
             width: auto;
             height: 1.79rem;
         }
