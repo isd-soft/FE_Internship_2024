@@ -1,47 +1,55 @@
 <script setup>
 const props=defineProps({
-    alt:{
-        type: String,
-        default: ''  
+    icon:{
+        type:Object
     },
-    src:{
-        type: String,
-        default: ''
-    },
-
-    infoName:{
+    infoTitle:{
         type: String,
         default: ''
     },
-    info:{
+    infoTextFirst:{
+        type: String,
+        default: ''
+    },
+    infoTextSecond:{
         type: String,
         default: ''
     }})
 </script>
 
 <template>
-    <div class="infoCard">
-        <img :src="props.src" :alt="props.alt">
-        <div >
-            <h1>{{ props.infoName }}</h1>
-            <p>{{ props.info }}</p>
+    <div class="info-card">
+        <component :is="icon" class="info-card__icon"/>
+        <div class="info-card__text-wrapper">
+            <h3 class="info-card__title text-lg">{{ infoTitle }}</h3>
+            <p class="info-card__about text-sm">{{ infoTextFirst }}</p>
+            <p class="info-card__about text-sm">{{ infoTextSecond }}</p>
         </div>
     </div>
 </template>
 
 <style lang="scss" scoped>
-.infoCard{
+.info-card{
     display: flex;
     align-items: start;
-    gap: 2rem;
-    h1{
+    gap: 3rem;
+    &__title{
         margin:0;
         font-weight: 500;
-        font-size: 1.5rem;
-        line-height: 2rem;
     }
-    p{
+    &__about{
         margin: 0;
+        font-weight: 300;
+    }
+}
+@media only screen and (max-width: 768px) {
+    .info-card{
+        &__title{
+            font-size: 4.8rem;
+        }
+        &__about{
+            font-size: 2rem;
+        }
     }
 }
 </style>
