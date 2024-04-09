@@ -188,6 +188,7 @@ button {
 
   &:disabled {
     cursor: not-allowed;
+    opacity: 0.75;
 
     &:hover {
       background-color: var(--color-uc-gold);
@@ -219,6 +220,7 @@ button {
 
   &:disabled {
     cursor: not-allowed;
+    opacity: 0.75;
 
     &:hover {
       background-color: var(--color-white);
@@ -253,4 +255,40 @@ button {
 .swiper-button-right {
   @extend .swiper-button;
   margin-left: -24px;
+}
+
+.tertiary-button {
+  background-color: transparent;
+  border: 1px solid var(--color-black);
+  color: 1px solid var(--color-black);
+  padding: 2rem 5rem;
+  border-radius: 10px;
+  font-size: 2rem;
+  width: fit-content;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--color-black);
+    color: var(--color-white);
+  }
+
+  &:active {
+    background-color: transparent;
+    color: var(--color-black);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.75;
+
+    &:hover {
+      background-color: transparent;
+      color: var(--color-black);
+    }
+
+    &:active {
+      background-color: transparent;
+      color: var(--color-black);
+    }
+  }
 }
