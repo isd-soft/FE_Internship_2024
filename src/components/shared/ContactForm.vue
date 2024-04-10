@@ -9,7 +9,7 @@ const schema = yup.object({
     message: yup.string().required()
 })
 
-const { defineField, errors, handleSubmit } = useForm({
+const { defineField, errors, handleSubmit,resetForm } = useForm({
     validationSchema: schema
 })
 
@@ -34,6 +34,7 @@ const onSubmit = handleSubmit((values) => {
     const result=true
     result ? emit('success') : emit('failure')
     alert(JSON.stringify(values, null, 2));
+    resetForm();
 })
 
 const emit = defineEmits(['success', 'failure', 'inputStart'])
