@@ -4,33 +4,38 @@ const categoryList = ['Product', 'Price', 'Quantity', 'Subtotal']
 
 <template>
     <div class="cart-section__list-heading list-heading">
-        <div class="list-heading__category-wrapper">
-            <span v-for="(category, index) in categoryList" :key="index" class="list-heading__category text-sm">{{
-                category
-            }}</span>
-        </div>
+        <span v-for="(category, index) in categoryList" :key="index" class="list-heading__category text-sm">{{
+            category
+        }}</span>
     </div>
 </template>
 
 <style lang="scss" scoped>
 .list-heading {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 5rem;
+    grid-column: 1 /span 6;
+    display: grid;
+    grid-template-columns: inherit;
     background-color: var(--color-linen);
-
-    &__category-wrapper {
-        display: flex;
-        align-items: center;
-        width: 66%;
-        padding: 15px 0;
-    }
+    padding: 1.5rem 0;
 
     &__category {
-        font-weight: 500;
-        width: 25%;
         text-align: center;
-        outline: 1px solid red;
+
+        &:nth-child(1) {
+            grid-column: 2;
+        }
+
+        &:nth-child(2) {
+            grid-column: 3;
+        }
+
+        &:nth-child(3) {
+            grid-column: 4;
+        }
+
+        &:nth-child(4) {
+            grid-column: 5;
+        }
     }
 }
 </style>

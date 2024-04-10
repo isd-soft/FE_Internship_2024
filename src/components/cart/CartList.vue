@@ -22,7 +22,23 @@ const mockCartData = [
 </template>
 
 <style lang="scss" scoped>
-    .cart-section__list-wrapper {
-        width: 66%;
+.cart-section__list-wrapper {
+    width: 66%;
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    row-gap: 5rem;
+
+    .cart-section__list {
+        grid-column: 1 /span 6;
+        display: grid;
+        grid-template-columns: inherit;
+        row-gap: inherit;
+
+        &:deep(.cart-section__list-item) {
+            grid-column: 1 /span 6;
+            display: grid;
+            grid-template-columns: inherit;
+        }
     }
+}
 </style>

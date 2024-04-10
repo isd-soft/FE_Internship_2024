@@ -12,4 +12,6 @@ import CartSection from "@/components/cart/CartSection.vue";
     </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+
+</style>
