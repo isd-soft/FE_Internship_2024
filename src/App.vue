@@ -2,7 +2,11 @@
 import PageHeader from './components/shared/PageHeader.vue'
 import PageFooter from './components/shared/PageFooter.vue'
 import {ModalsContainer} from 'vue-final-modal'
+import { socket } from "@/socket";
 
+//Hot reload preparations
+socket.off()
+socket.connect()
 
 </script>
 
