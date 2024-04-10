@@ -1,69 +1,96 @@
 <script setup>
-    import Advantages from "@/components/shared/Advantages.vue";
+    import AdvantageSection from "@/components/shared/AdvantageSection.vue";
     import BannerSection from "@/components/shared/BannerSection.vue"
     import ContactInfoCard from "@/components/shared/ContactInfoCard.vue"
     import ContactForm from "@/components/shared/ContactForm.vue"
+    import MapPointIcon from "@/assets/icons/ContactMapPointIcon.svg"
+    import ClockIcon from "@/assets/icons/ContactClockIcon.svg"
+    import PhoneIcon from "@/assets/icons/ContactPhoneIcon.svg"
 </script>
 
 <template>
-    <div>
+    <div class="contact">
         <BannerSection title="Contact"/>
-        <div class="contact">
-            <div class="contact__text">
-                <h3 class="text-lg">Get In Touch With Us</h3>
-                <p class="text-sm">For More Information About Our Product & Services. Please Feel Free To Drop Us <br>
+        <div class="contact__container">
+            <div class="contact__text-wrapper">
+                <h3 class="contact__tagline text-2xl">Get In Touch With Us</h3>
+                <p class="contact__recommendation text-sm">For More Information About Our Product & Services. Please Feel Free To Drop Us <br>
                     An Email. Our Staff Always Be There To Help You Out. Do Not Hesitate!</p>
             </div>
-            <div class="contact__session">
-                <div class="contact__info">
-                    <ContactInfoCard src="/src/assets/icons/Vector (1).svg" alt="Adress Icon" infoName="Address" info="236 5th SE Avenue, New York NY10000, United States"/>
-                    <ContactInfoCard src="/src/assets/icons/Vector (2).svg" alt="Phone Icon" infoName="Phone"   info="Mobile: +(84) 546-6789Hotline: +(84) 456-6789"/>
-                    <ContactInfoCard src="/src/assets/icons/bi_clock-fill.svg" alt="Clock Icon" infoName="Working Time" info="Monday-Friday: 9:00 - 22:00Saturday-Sunday: 9:00 - 21:00"/>
+            <div class="contact__section">
+                <div class="contact__info-wrapper">
+                    <ContactInfoCard  :icon="MapPointIcon" infoTitle="Address" infoTextFirst="236 5th SE Avenue, " infoTextSecond="New York NY10000, United States"/>
+                    <ContactInfoCard  :icon="ClockIcon" infoTitle="Phone"   infoTextFirst="Mobile: +(84) 546-6789" infoTextSecond="Hotline: +(84) 456-6789"/>
+                    <ContactInfoCard  :icon="PhoneIcon" infoTitle="Working Time" infoTextFirst="Monday-Friday: 9:00 - 22:00" infoTextSecond="Saturday-Sunday: 9:00 - 21:00"/>
                 </div>
-                <ContactForm/>
+                <ContactForm class="contact__form"/>
             </div>
         </div>
         <iframe class="contact__map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2720.2304445812615!2d28.835034976908844!3d47.016081471141874!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40c97c2169d23a6f%3A0x8c9cf6c999802fef!2sInther%20Software%20Development!5e0!3m2!1sru!2s!4v1712302064333!5m2!1sru!2s"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        <Advantages/>
+        <AdvantageSection/>
     </div>
 </template>
 
 <style lang="scss" scoped>
     .contact{
-        padding: 98px 191px 36px 191px;
+        &__container{
+        padding: 38px 191px 63px 191px;
         display: flex;
         flex-direction: column;
         align-items: center;
-        
-        &__text{
-            text-align: center;
-            h3{
-                font-weight: 600;
-                margin: 0;
-                margin-bottom: 7px;
-            }
-            p{
-                margin: 0;
-                color: gainsboro;
-            }
         }
-        &__session{
+        &__text-wrapper{
+            text-align: center;
+        }
+        &__tagline{
+            font-weight: 600;
+            margin-bottom: 7px;
+        }
+        &__recommendation{
+            color: var(--color-quick-silver);
+        }
+        &__section{
             display: flex;
-            justify-content: space-between;
             margin-top: 82px;
             width: 80%;
-            gap:110px;
+            gap: 11rem;
         }
-        &__info{
+        &__info-wrapper{
             display: flex;
             flex-direction: column;
-            gap: 42px;
-
+            gap: 4.2rem; 
+            flex-wrap: wrap;
+        }
+        &__form{
+            width: 100%;
         }
         &__map{
             width: 100%;
             height: 520px;
             filter: grayscale(40%);
+        }
+    }
+    @media only screen and (max-width: 768px) {
+        .contact{
+            &__container{
+                padding: 4rem;
+            }
+            &__tagline{
+                font-size: 6rem;
+            }
+            &__recommendation{
+                font-size: 2.8rem;
+            }
+            &__section{
+                width: 100%;
+                flex-direction: column;
+                align-items: center;
+            }
+            &__info-wrapper{
+                width: 100%;
+                flex-direction: row;
+                justify-content: space-between;
+            }
         }
     }
 </style>

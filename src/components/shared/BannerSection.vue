@@ -2,7 +2,7 @@
 import GenericLink from '@/components/generics/GenericLink.vue'
 import ArrowIcon from '@/assets/icons/ArrowIcon.svg'
 
-const props = defineProps({
+defineProps({
     title: String
 });
 </script>
@@ -48,9 +48,11 @@ const props = defineProps({
     }
 
     &__logo {
-        width: 7.7rem;
-        aspect-ratio: 1/1;
+        width: 5rem;
+        height: 3.2rem;
+        margin-bottom: 1.4rem;
     }
+
     &__title {
         font-weight: 500;
         color: var(--color-black);
@@ -70,6 +72,7 @@ const props = defineProps({
     }
 
     &__path-link {
+        color: var(--color-black);
         font-weight: 300;
         
         &--primary {
