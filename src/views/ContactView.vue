@@ -7,10 +7,8 @@
     import ClockIcon from "@/assets/icons/ContactClockIcon.svg"
     import PhoneIcon from "@/assets/icons/ContactPhoneIcon.svg"
     import GenericToast from '@/components/generics/GenericToast.vue'
-    import { useVfm } from 'vue-final-modal'
     import { ref, computed } from 'vue'
 
-    const vfm = useVfm()
 
     const loginSuccess = ref(false)
     const loginFinished = ref(false)
@@ -26,10 +24,6 @@
         loginSuccess.value = true
         loginFinished.value = true
         //Needed to trigger Toast. The toast is not inside the Modal, but its appearance depends on loginFinished becoming true,
-        //So the modal closing is done 100 sec after finish of this function async
-        setTimeout(() => {
-            vfm.closeAll(vfm.openedModals)
-        }, 100)
         }
 
         const finishLoginFail = () => {

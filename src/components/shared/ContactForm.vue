@@ -1,7 +1,6 @@
 <script setup>
 import { useForm } from 'vee-validate'
 import * as yup from 'yup'
-import { ref, computed } from 'vue'
 
 const schema = yup.object({
     name:  yup.string().required(),
@@ -91,7 +90,7 @@ const emit = defineEmits(['success', 'failure', 'inputStart'])
                 @focus="$emit('inputStart')"/>
             <span class="form-wrapper__error text-sm">{{ errors.message }}</span>
         </div>
-        <button  class="form-wrapper__button text-sm" >Submit</button>
+        <button  class="form-wrapper__button text-sm primary-button" >Submit</button>
     </form>
 </template>
 
@@ -114,6 +113,7 @@ const emit = defineEmits(['success', 'failure', 'inputStart'])
         padding: 20px 35px;
         border: 1px solid var(--color-quick-silver);
         border-radius: .75rem;
+        resize: none;
         &::placeholder {
             color: var(--color-quick-silver);
         }
@@ -122,23 +122,8 @@ const emit = defineEmits(['success', 'failure', 'inputStart'])
         }
     }
     &__button{
-        background-color:var(--color-uc-gold);
-        border-color: var(--color-uc-gold);
-        color: var(--color-white);
-        border-width: 1px;
-        border-radius: .25rem;
-        width: fit-content;
-        transition-duration: .3s;
-        margin-top: 1.6rem;
-        padding-top: .75rem;
-        padding-bottom: .75rem;
-        padding-left: 4rem;
-        padding-right: 4rem;
-        &:hover{
-            background-color: var(--color-white);
-            border-color: var(--color-white);
-            color: var(--color-uc-gold);
-        }
+        border-radius: .5rem;
+        padding: 1.4rem 9rem;
     
     }
     &__error {
@@ -157,6 +142,9 @@ const emit = defineEmits(['success', 'failure', 'inputStart'])
         }
         &__error{
             font-size: 2.4rem;
+        }
+        &__button{
+            font-size: 4rem;
         }
     }
 }
