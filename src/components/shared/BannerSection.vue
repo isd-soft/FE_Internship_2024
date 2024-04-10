@@ -48,9 +48,11 @@ defineProps({
     }
 
     &__logo {
-        width: 7.7rem;
-        aspect-ratio: 1/1;
+        width: 5rem;
+        height: 3.2rem;
+        margin-bottom: 1.4rem;
     }
+
     &__title {
         font-weight: 500;
         color: var(--color-black);
