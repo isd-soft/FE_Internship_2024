@@ -94,10 +94,10 @@ const { open } = useModal({
             <HeaderNavigation v-show="isMenuVisible" />
             <div class="header__link-wrapper" v-show="isMenuVisible">
                 <GenericLink href="/cart" containerClass="header__link">
-                    <CartIcon />
+                    <CartIcon class="header__link-item"/>
                 </GenericLink>
                 <GenericLink containerClass="header__link"  @click="openModal">
-                    <UserIcon />
+                    <UserIcon class="header__link-item"/>
                 </GenericLink>
             </div>
             <div class="header__overlay" v-if="!isMenuIconVisible" @click="menuToggle" />
@@ -123,17 +123,20 @@ const { open } = useModal({
         max-width: 1380px;
         margin: 0 auto;
     }
+
     &__link-wrapper{
         display: flex;
         align-items: center;
         column-gap: 24px;
     }
+
     &__link{
         color: var(--color-black);
-        .cart, .user{
-            width: auto;
-            height: 2.47rem;
-        }
+    }
+
+    &__link-item{
+      width: auto;
+      height: 2.47rem;
     }
 
     &__container-toggle{
