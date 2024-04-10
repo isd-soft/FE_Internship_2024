@@ -45,6 +45,7 @@ defineProps({
         width: 5rem;
         aspect-ratio: 1/1;
     }
+
     &__title {
         font-weight: 500;
         color: var(--color-black);

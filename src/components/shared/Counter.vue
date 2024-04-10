@@ -16,9 +16,9 @@ function decreaseCount() {
 
 <template>
     <div class="counter">
-        <button class="counter__button text-sm" @click = "increaseCount">+</button>
+        <button class="counter__button-action text-sm" @click = "decreaseCount">-</button>
         <span class="counter__value text-md">{{ count }}</span>
-        <button class="counter__button text-sm" @click = "decreaseCount">-</button>
+        <button class="counter__button-action text-sm" @click = "increaseCount">+</button>
     </div>
 </template>
 
@@ -26,16 +26,21 @@ function decreaseCount() {
 .counter{
     display: flex;
     align-items: center;
-    column-gap: 2.4vw;
-    border-radius: .8vw;
+    column-gap: 2.35rem;
+    border-radius: 1.43rem;
     height: auto;
     border: 1px solid var(--color-quick-silver);
-    padding: 10px;
+    padding: 1rem;
 
-    &__button{
-        border: none;
-        cursor: pointer;
-        background-color: white;
+    &__button-action{
+      background-color: var(--color-white);
+    }
+
+    &__value{
+      display: flex;
+      width: 3.5rem;
+      justify-content: center;
+      align-items: center;
     }
 }
 </style>
