@@ -24,9 +24,27 @@ const currentPage = ref(1);
 
 const pageNumber = Math.ceil(mockArray.length / 16);
 
-const getButtonNumberList = () => Array.from({ length: 3 }, (_, index) => (currentPage.value > pageNumber - 2 ? pageNumber - 2 : currentPage.value === 1 ? 1 : currentPage.value - 1) + index)
+const getButtonNumberList = () => {
+    let value = currentPage.value - 1
 
-const pageList = (pageNumber) => mockArray.slice(16 * (pageNumber - 1), mockArray.length > 16 * pageNumber ? 16 * pageNumber : mockArray.length);
+    if (currentPage.value > pageNumber - 2) {
+        value = pageNumber - 2
+    }
+
+    if (currentPage.value === 1) {
+        value = 1
+    }
+
+    return Array.from({ length: 3 }, (_, index) => value + index)
+}
+
+const pageList = (pageNumber) => {
+    const lowerBound = 16 * (pageNumber - 1)
+
+    const upperBound = mockArray.length > 16 * pageNumber ? 16 * pageNumber : mockArray.length
+    
+    return mockArray.slice(lowerBound, upperBound)
+}
 
 const nextPage = () => (currentPage.value < mockArray.length / 16) && currentPage.value++
 
