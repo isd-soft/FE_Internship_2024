@@ -80,7 +80,7 @@ const handleBlur = event => {
         height: 3.1rem;
         border: 1px solid var(--color-quick-silver);
         margin: 0 auto;
-        border-radius: 10px;
+        border-radius: 1rem;
 
         &:focus {
             outline: none;
