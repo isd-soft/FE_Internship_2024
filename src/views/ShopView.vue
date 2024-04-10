@@ -1,9 +1,11 @@
 <script setup>
-
+import BannerSection from '@/components/shared/BannerSection.vue';
+import AdvantageSection from '@/components/shared/AdvantageSection.vue';
 </script>
 
 <template>
-    <h1></h1>
+    <BannerSection title="Shop"/>
+    <AdvantageSection/>
 </template>
 
 <style lang="scss" scoped>
