@@ -3,7 +3,7 @@ import HeroSection from '../components/home/HeroSection.vue'
 import CategorySection from '../components/home/CategorySection.vue'
 import ProductSection from '../components/home/ProductSection.vue'
 import GallerySection from '../components/home/GallerySection.vue'
-import ExamplesSection from '../components/home/ExamplesSection.vue'
+import ExampleSection from '../components/home/ExampleSection.vue'
 </script>
 
 <template>
@@ -11,7 +11,7 @@ import ExamplesSection from '../components/home/ExamplesSection.vue'
         <HeroSection />
         <CategorySection />
         <ProductSection />
-        <ExamplesSection />
+        <ExampleSection />
         <GallerySection />
     </main>
 </template>
