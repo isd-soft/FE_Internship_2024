@@ -49,7 +49,7 @@ const handleBlur = event => {
         </div>
 
         <button class="cart-card__delete-button">
-            <TrashIcon />
+            <TrashIcon width="2.8rem" height="2.8rem"/>
         </button>
     </div>
 </template>
