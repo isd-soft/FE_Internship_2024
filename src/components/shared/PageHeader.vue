@@ -130,7 +130,7 @@ const { open } = useModal({
     }
     &__link{
         color: var(--color-black);
-        svg{
+        .cart, .user{
             width: auto;
             height: 2.47rem;
         }
@@ -139,58 +139,62 @@ const { open } = useModal({
     &__container-toggle{
         display:none;
     }
-    @media (max-width:768px) {  
+}
 
-        &__container{
-            height: 50px;
+@media (max-width:768px) {  
+.header{
+  &__container{
+      height: 50px;
+  }
+
+  &__container-toggle{
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+  }
+
+  &__overlay{
+      position: fixed;
+      top: 50px;
+      left: 0;
+      z-index: 997;
+      width: 100%;
+      height: 100vh;
+      background-color: var(--color-warm-ivory);
+      backdrop-filter: blur(12px);
+  }
+
+  &__navigation-collapse{
+      position: absolute;
+      background-color: var(--color-white);
+      top: 50px;
+      left: 50%;
+      z-index: 998;
+      transform: translateX(0%);
+      height: 100vh;
+      width: 50%;
+      animation: expandMenu ease-in-out .25s;
+      max-height: fit-content;
+
+      @keyframes expandMenu {
+        from{
+            transform: translateX(100%);
         }
-
-        &__container-toggle{
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
+        to{
+            transform: translateX(-1%);
         }
-
-        &__overlay{
-            position: fixed;
-            top: 50px;
-            left: 0;
-            z-index: 997;
-            width: 100%;
-            height: 100vh;
-            background-color: var(--color-warm-ivory);
-            backdrop-filter: blur(12px);
-        }
-
-        &__navigation-collapse{
-            position: absolute;
-            background-color: var(--color-white);
-            top: 50px;
-            left: 50%;
-            z-index: 998;
-            transform: translateX(0%);
-            height: 100vh;
-            width: 50%;
-            animation: expandMenu ease-in-out .25s;
-            max-height: fit-content;
-
-            @keyframes expandMenu {
-                from{
-                    transform: translateX(100%);
-                }
-                to{
-                    transform: translateX(-1%);
-                }
-            }
-        }
+      }
     }
+  }
+}
 
-    @media (max-width:375px) {
-        &__navigation-collapse{
-                width: 100%;
-                left: 0;
-        }
+@media (max-width:375px) {
+  .header{
+    &__navigation-collapse{
+      width: 100%;
+      left: 0;
     }
+  }
 }
 
 .menu{
