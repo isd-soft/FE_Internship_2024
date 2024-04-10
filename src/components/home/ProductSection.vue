@@ -7,72 +7,80 @@ const productList = [
     imageSrc: 'https://via.placeholder.com/381x480/CCCCCC/FFFFFF?text=Placeholder+Image',
     title: 'Syltherine',
     description: 'Stylish cafe chair',
-    price: 2500000,
-    oldPrice: 3500000,
-    productType: 'stock'
+    price: 250,
+    oldPrice: 350,
+    productType: 'stock',
+    value: 10
   },
   {
     id: 2,
     imageSrc: 'https://via.placeholder.com/381x480/CCCCCC/FFFFFF?text=Placeholder+Image',
     title: 'Syltherine',
     description: 'Stylish cafe chair',
-    price: 2500000,
-    oldPrice: 3500000,
-    productType: 'stock'
+    price: 250,
+    oldPrice: 350,
+    productType: 'stock',
+    value: 10
   },
   {
     id: 3,
     imageSrc: 'https://via.placeholder.com/381x480/CCCCCC/FFFFFF?text=Placeholder+Image',
     title: 'Syltherine',
     description: 'Stylish cafe chair',
-    price: 2500000,
-    oldPrice: 3500000,
-    productType: 'stock'
+    price: 250,
+    oldPrice: 350,
+    productType: 'stock',
+    value: 10
   },
   {
     id: 4,
     imageSrc: 'https://via.placeholder.com/381x480/CCCCCC/FFFFFF?text=Placeholder+Image',
     title: 'Syltherine',
     description: 'Stylish cafe chair',
-    price: 2500000,
-    oldPrice: 3500000,
-    productType: 'stock'
+    price: 250,
+    oldPrice: 350,
+    productType: 'stock',
+    value: 10
   },
   {
     id: 5,
     imageSrc: 'https://via.placeholder.com/381x480/CCCCCC/FFFFFF?text=Placeholder+Image',
     title: 'Syltherine',
     description: 'Stylish cafe chair',
-    price: 2500000,
-    oldPrice: 3500000,
-    productType: 'stock'
+    price: 250,
+    oldPrice: 350,
+    productType: 'stock',
+    value: 10
   },
   {
     id: 6,
     imageSrc: 'https://via.placeholder.com/381x480/CCCCCC/FFFFFF?text=Placeholder+Image',
     title: 'Syltherine',
     description: 'Stylish cafe chair',
-    price: 2500000,
-    oldPrice: 3500000,
-    productType: 'stock'
+    price: 250,
+    oldPrice: 350,
+    productType: 'stock',
+    value: 10
   },
   {
     id: 7,
     imageSrc: 'https://via.placeholder.com/381x480/CCCCCC/FFFFFF?text=Placeholder+Image',
     title: 'Syltherine',
     description: 'Stylish cafe chair',
-    price: 2500000,
-    oldPrice: 3500000,
-    productType: 'stock'
+    price: 250,
+    oldPrice: 350,
+    productType: 'stock',
+    value: 10
   },
   {
     id: 8,
     imageSrc: 'https://via.placeholder.com/381x480/CCCCCC/FFFFFF?text=Placeholder+Image',
     title: 'Syltherine',
     description: 'Stylish cafe chair',
-    price: 2500000,
-    oldPrice: 3500000,
-    productType: 'stock'
+    price: 250,
+    oldPrice: 350,
+    productType: 'stock',
+    value: 10
   }
 ]
 </script>
