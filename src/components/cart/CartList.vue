@@ -41,4 +41,10 @@ const mockCartData = [
         }
     }
 }
+
+@media only screen and (max-width: 768px) {
+    .cart-section__list-wrapper {
+        width: 100%;
+    }
+}
 </style>

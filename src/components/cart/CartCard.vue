@@ -38,14 +38,14 @@ const handleBlur = event => {
             {{ price }}
         </span>
 
-        <input @blur="handleBlur" @input="handleInput" class="cart-card__quantity text-sm" :value="quantity">
+        <input @blur="handleBlur" @input="handleInput" class="cart-card__quantity text-xs" :value="quantity">
 
         <span class="cart-card__subtotal text-sm">
             {{ price * quantity }}
         </span>
 
         <button class="cart-card__delete-button">
-            <TrashIcon width="2.8rem" height="2.8rem"/>
+            <TrashIcon width="2.8rem" height="2.8rem" />
         </button>
     </div>
 </template>
@@ -76,9 +76,15 @@ const handleBlur = event => {
         grid-column: 4;
         text-align: center;
         display: block;
-        max-width: 5rem;
-        height: fit-content;
+        width: 3.1rem;
+        height: 3.1rem;
+        border: 1px solid var(--color-quick-silver);
         margin: 0 auto;
+        border-radius: 10px;
+
+        &:focus {
+            outline: none;
+        }
     }
 
     &__subtotal {
@@ -87,6 +93,15 @@ const handleBlur = event => {
 
     &__delete-button {
         grid-column: 6;
+    }
+}
+
+@media only screen and (max-width:768px) {
+    .cart-card {
+        &__image {
+            width: 7.5rem;
+            height: 7.5rem;
+        }
     }
 }
 </style>
