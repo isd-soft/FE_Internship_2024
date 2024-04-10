@@ -81,7 +81,7 @@ const close = () => {
       </div>
       <div class="product-modal__bottom">
           <Counter />
-          <button class="product-modal__bottom-cartadding button text-md">Add to cart</button>
+          <button class="product-modal__bottom-cartadding text-md">Add to cart</button>
       </div>
     </div>
   </VueFinalModal>
