@@ -60,19 +60,19 @@ const close = () => {
     <ClosingIcon class = "product-modal__cross" @click ="close()" />
     <div class="product-modal__detail">
       <div class = "product-modal__wrapper">
-        <div class="product-modal__header text-3xl">{{ header }}</div>
-        <div class="product-modal__price text-lg">{{ price }}</div>
+        <span class="product-modal__header text-3xl">{{ header }}</span>
+        <span class="product-modal__price text-md">{{ price }}</span>
       </div>
       <div class = "product-modal__wrapper">
-        <div class="product-modal__description text-sm part">{{ description }}</div>
+        <span class="product-modal__description text-xs part">{{ description }}</span>
         <div class="product-modal__review part">
-              <StarRating :ratingStars="Number(rating)" />
-            <div class="product-modal__review-separator"></div>
-            <div class="text-sm product-modal__review-text">{{ reviews }} Customer Review</div>
+            <StarRating :ratingStars="Number(rating)" />
+            <span class="product-modal__review-separator" />
+            <span class="text-xs product-modal__review-text">{{ reviews }} Customer Review</span>
       </div>
-        <div class="product-modal__section-header text-sm">Availability</div>
-        <div class="product-modal__product-type text-md">{{ productType }}</div>
-        <div class="product-modal__section-header text-sm">Colors</div>
+        <span class="product-modal__section-header text-xs">Availability</span>
+        <span class="product-modal__product-type text-md">{{ productType }}</span>
+        <span class="product-modal__section-header text-xs">Colors</span>
         <div class="product-modal__color">
             <div class="product-modal__color-item"></div>
             <div class="product-modal__color-item"></div>
@@ -81,7 +81,7 @@ const close = () => {
       </div>
       <div class="product-modal__bottom">
           <Counter />
-          <button class="product-modal__bottom-cartadding text-md">Add to cart</button>
+          <button class="product-modal__bottom-cartadding button text-md">Add to cart</button>
       </div>
     </div>
   </VueFinalModal>
@@ -96,10 +96,12 @@ const close = () => {
     backdrop-filter: blur(12px);
 
     &__header{
+      display: block;
       margin-bottom: 15px;
     }
 
     &__price{
+      display: block;
       color: var(--color-taupe-gray);
       margin-bottom: 15px;
     }
@@ -116,12 +118,14 @@ const close = () => {
     &__detail{
         margin-top: 15px;
         padding:0 15px 15px 0;
+        width: 45%;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
     }
     
     &__description{
+      display: block;
       margin-bottom: 15px;
     }
 
@@ -148,6 +152,7 @@ const close = () => {
     }
 
     &__review-text{
+      display: block;
       color: var(--color-taupe-gray);
     }
 
@@ -158,10 +163,12 @@ const close = () => {
     }
     
     &__product-type{
+      display: block;
       margin-bottom: 15px;
     }
 
     &__section-header{
+      display: block;
       color: var(--color-taupe-gray);
       margin-bottom: 15px;
     }
@@ -193,7 +200,7 @@ const close = () => {
 
     &__bottom{
       display: flex;
-      column-gap: 2rem;
+      column-gap: 3.5rem;
     }
 
     &__bottom-cartadding{
@@ -201,7 +208,6 @@ const close = () => {
       background-color: var(--color-white);
       border-radius: 1.43rem;
       padding: 1.71rem 4.71rem;
-      cursor: pointer;
     }
 
     &__bottom-cartadding:hover{
@@ -215,6 +221,7 @@ const close = () => {
 .product-modal{
   &__detail{
     padding: 1.86rem;
+    width: 100%;
   }
 
   &__content{
@@ -223,6 +230,7 @@ const close = () => {
   }
 
   &__photo{
+    border-radius: .5rem .5rem 0 0;
     max-height: 50rem;
     max-width: 100%;
   }

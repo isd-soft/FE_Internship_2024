@@ -26,15 +26,9 @@ const starsData = computed(() => {
 
 <template>
     <div class="star-rating">
-        <div v-for="index in starsData.fullStars" :key="'full' + index" alt="Filled Star" class="star-rating__star">
-            <FilledStarIcon />
-        </div>
-        <div v-if="starsData.halfStar" alt="Half Filled Star" class="star-rating__star">
-            <HalfFilledStarIcon />
-        </div>
-        <div v-for="index in starsData.emptyStars" :key="'empty' + index" alt="Empty Star" class="star-rating__star">
-            <EmptyStarIcon />
-        </div>
+        <FilledStarIcon v-for="index in starsData.fullStars" :key="'full' + index" alt="Filled Star" class="star-rating__star"/>
+        <HalfFilledStarIcon v-if="starsData.halfStar" alt="Half Filled Star" class="star-rating__star"/>
+        <EmptyStarIcon v-for="index in starsData.emptyStars" :key="'empty' + index" alt="Empty Star"  class="star-rating__star"/>
     </div>
 </template>
 
@@ -46,10 +40,8 @@ const starsData = computed(() => {
     justify-content: center;
 
     &__star{
-        .fill, .half, .empty{
-            width: auto;
-            height: 1.79rem;
-        }
+        width: auto;
+        height: 1.79rem;
     }
 }
 </style>
