@@ -5,7 +5,7 @@ import { ref, computed } from 'vue'
 import { useUserStore } from '../../stores/userStore'
 
 const schema = yup.object({
-  email: yup.string().email().required(),
+  username: yup.string().required(),
   password: yup.string().min(6).required()
 })
 
@@ -13,7 +13,7 @@ const { defineField, errors, handleSubmit } = useForm({
   validationSchema: schema
 })
 
-const [email, emailAttributeList] = defineField('email', {
+const [username, usernameAttributeList] = defineField('username', {
   validateOnModelUpdate: false
 })
 const [password, passwordAttributeList] = defineField('password', {
@@ -22,8 +22,8 @@ const [password, passwordAttributeList] = defineField('password', {
 
 const onSubmit = handleSubmit((values) => {
   const userStore = useUserStore()
-  const { email, password } = values
-  userStore.login(email, password).then(res => {
+  const { username, password } = values
+  userStore.login(username, password).then(res => {
     res? emit('success') : emit('failure')
   }).catch(err => emit('failure') )
 })
@@ -38,11 +38,11 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
     <form @submit="onSubmit" class="login-container__form login-form">
       <input
         class="login-form__input"
-        v-model="email"
-        v-bind="emailAttributeList"
-        name="email"
-        type="email"
-        placeholder="Email"
+        v-model="username"
+        v-bind="usernameAttributeList"
+        name="username"
+        type="username"
+        placeholder="Username"
         @focus="$emit('inputStart')"
       />
       <span class="login-form__error">{{ errors.email }}</span>

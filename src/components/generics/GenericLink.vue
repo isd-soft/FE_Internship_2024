@@ -20,7 +20,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <a :href="props.href" :class="props.containerClass" @click = "$router.push(props.href)">
+  <RouterLink :to="props.href" :class="props.containerClass" @click = "$router.push(props.href)">
     <template v-if="props.textFirst">
       {{ props.textContent }}
       <slot></slot>
@@ -29,5 +29,5 @@ const props = defineProps({
       <slot></slot>
       {{ props.textContent }}
     </template>
-  </a>
+  </RouterLink>
 </template>
