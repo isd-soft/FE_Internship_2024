@@ -32,7 +32,7 @@ const router = createRouter({
       path: '/cart',
       name: 'cart',
       component: CartView,
-      // meta: { requiresAuth: true } //Comment this if u need to access cart
+      meta: { requiresAuth: true } //Comment this if u need to access cart
     },
     {
       path: '/admin',
@@ -60,17 +60,21 @@ const router = createRouter({
   ]
 })
 
-router.beforeEach((to, from, next) => {
+// router.isReady().then(() => {
+  router.beforeEach(async(to, from) => {
   if (to.matched.some((record) => record.meta.requiresAuth)) {
-    authGuard(to, from, next)
-  } else {
-    next()
-  }
-  if (to.matched.some((record) => record.meta.requiresAdmin)) {
-    adminGuard(to, from, next)
-  } else {
-    next()
-  }
+    const canAccess = await authGuard(to, from)
+    console.log("Can access?")
+    if(!canAccess) return {name : 'shop'}
+
+    if (to.matched.some((record) => record.meta.requiresAdmin)) {
+      const canAccess = await adminGuard(to, from)
+      if(!canAccess) return {name : 'shop'}
+    } 
+  } 
+ 
 })
+
+// })
 
 export default router

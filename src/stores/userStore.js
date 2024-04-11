@@ -1,35 +1,56 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
+import { loginRequest } from '@/axios/loginRequest'
+import { registerRequest } from '@/axios/registerRequest'
+import { logoutRequest } from '@/axios/logoutRequest'
 
 export const useUserStore = defineStore('user', () => {
-    // const id = ref(0)
-    // const email = ref("")
-    // const firstName = ref("")
-    // const lastName = ref("")
-    // const roles = ref("")
+  const user = ref({})
+  const token = ref({})
 
-    const user = ref({})
-
-    function login(email, password){
-        // let result = await axios.post("/login", JSON.stringify({email: email, password: password}))
-        // Insert Verification to check if result was fetched
-        // this.user.value = JSON.parse(result)
-        // return success condition
-        return true
+  const login = async (username, password) => {
+    const result = await loginRequest(JSON.stringify({ username: username, password: password }))
+    if (result) {
+      user.value = result.user
+      token.value = result.token
+      return true
     }
+    return false
+  }
 
-    function register(email, password, firstName, lastName){
-        console.log(JSON.stringify({email: email, password:password, firstName:firstName, lastName:lastName}, null, 2))
-        // let result = await axios.post("/register", JSON.stringify({email: email, password: password, firstName:firstName, lastName:lastName}))
-        // Insert Verification to check if result was fetched
-        // this.user.value = JSON.parse(result)
-        // return success condition
-        return false
+  const register = async (email, username, password, firstName, lastName) => {
+    const result = await registerRequest(
+      JSON.stringify({
+        email: email,
+        username: username,
+        password: password,
+        firstName: firstName,
+        lastName: lastName
+      })
+    )
+    if (result.user) {
+      user.value = result.user
+      token.value = result.token
+      return true
     }
+    console.log('Something went wrong')
+    return false
+  }
 
-    function isAuthenticated(){
-        return this.user.value && this.user.value.keys().length > 0
-    }
+  const isAuthenticated = () => {
+    console.log('Checking auth')
+    return token.value.key
+  }
 
-    return{user, login, register, isAuthenticated}
+  const isAdmin = () => {
+    return user.value.roles.role === 'ADMIN'
+  }
+
+  const logout = async () => {
+    const result = await logoutRequest(JSON.stringify({username : user.value.username}))
+    user.value = {}
+    token.value = {}
+  }
+
+  return { user, token, login, register, isAuthenticated, isAdmin, logout }
 })

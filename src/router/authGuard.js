@@ -1,6 +1,7 @@
 import { useUserStore } from '@/stores/userStore'
 
-export const authGuard = async (to, from, next) => {
+export const authGuard = async (to, from) => {
   const userStore = useUserStore()
-  userStore.isAuthenticated() ? next() : next('/store')
+  console.log("Inside AuthGuard")
+  return userStore.isAuthenticated()
 }
