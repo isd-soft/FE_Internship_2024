@@ -4,6 +4,9 @@ import AdvantageSection from '@/components/shared/AdvantageSection.vue';
 import GenericList from '@/components/generics/GenericList.vue';
 import ProductCard from '@/components/shared/ProductCard.vue';
 import { ref } from 'vue';
+import { useWindowSize } from '@vueuse/core';
+
+const { width } = useWindowSize();
 
 const objTemplate = {
   imageSrc: 'https://via.placeholder.com/381x480/CCCCCC/FFFFFF?text=Placeholder+Image',
@@ -35,6 +38,14 @@ const getButtonNumberList = () => {
         value = 1
     }
 
+    if (pageNumber < 3) {
+        return Array.from({ length: pageNumber }, (_, index) => index + 1)
+    }
+
+    if (width.value < 769) {
+        return [currentPage.value]
+    }
+
     return Array.from({ length: 3 }, (_, index) => value + index)
 }
 
@@ -56,7 +67,9 @@ const nextActive = () => currentPage.value < pageNumber ? '': '--disabled';
 
 const prevActive = () => currentPage.value > 1 ? '' : '--disabled';
 
-const pageActive = (number) => currentPage.value == number ? '--active' : '';
+const pageActive = (number) => {
+    return currentPage.value === number ? '--active' : '';
+}
 
 console.log(pageList(pageNumber));
 </script>
