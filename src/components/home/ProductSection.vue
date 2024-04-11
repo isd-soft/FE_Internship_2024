@@ -120,8 +120,7 @@ const productList = [
 
   &__list {
     display: grid;
-    grid-template-columns: repeat(4, calc((100% - 96px) / 4));
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 32px;
     width: 100%;
     padding: 0;
@@ -129,14 +128,12 @@ const productList = [
     list-style: none;
 
     @media only screen and (max-width: 768px) {
-      grid-template-columns: repeat(2, calc((100% - 32px) / 2));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 32px;
-      grid-template-rows: repeat(4, 1fr);
     }
 
     @media only screen and (max-width: 375px) {
-      grid-template-columns: 100%;
-      grid-template-rows: repeat(8, 1fr);
+      grid-template-columns: repeat(1, minmax(0, 1fr));
     }
 
     & :deep(.product-section__item) {

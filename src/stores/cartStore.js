@@ -1,13 +1,15 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
+import {useProductStore} from './productStore'
 
 export const useCartStore = defineStore('cart', () => {
     const productMap = ref(new Map())
     const userId = ref("")
+    const productStore = useProductStore()
 
     const addProduct = (product) => {
         if (!productMap.value) productMap.value = new Map();
-        //If quantity of productId === 0 return false
+        if(!productStore.inStock(product.id)) return false
         productMap.value.set(product.id, product);
         saveCart()
         return true
@@ -20,7 +22,7 @@ export const useCartStore = defineStore('cart', () => {
     };
     
     const changeProductQuantity = (productId, newQuantity) => {
-        //if newQuantity > productquantity(productId) return false
+        if (!productStore.isAvailable(productId, newQuantity)) return false
         productMap.value[productId].quantity = newQuantity
         saveCart()
         return true
@@ -47,7 +49,7 @@ export const useCartStore = defineStore('cart', () => {
         productMap.value = new Map()
         userId.value = undefined
     }
-    
+
     //Called when user finished shopping and is checking out
     const removeCart = () => {
         localStorage.removeItem(userId);

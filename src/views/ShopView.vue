@@ -74,7 +74,6 @@ console.log(pageList(pageNumber));
             <button :class="['shop-section__button', 'shop-section__button' + pageActive(number)]" v-for="number in getButtonNumberList()" :key="number" @click="goToPage(number)">{{ number }}</button>
             <button :class="['shop-section__button', 'shop-section__button' + nextActive()]" @click="nextPage">Next</button>
         </div>
-        {{ currentPage }}
     </section>
     <AdvantageSection/>
 </template>
@@ -85,7 +84,6 @@ console.log(pageList(pageNumber));
         display: grid;
         grid-template-columns: repeat(4, minmax(0, 1fr));
         column-gap: 3.2rem;
-        grid-template-rows: repeat(4, minmax(0, 1fr));
         row-gap: 4rem;
         padding: 2rem 10rem;
         margin-bottom: 3rem;
@@ -125,6 +123,25 @@ console.log(pageList(pageNumber));
     &__button--active {
         background-color: var(--color-uc-gold);
         color: var(--color-white);
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .shop-section {
+        &__list {
+            padding: 60px 40px;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            grid-template-rows: auto;
+        }
+    }
+}
+
+@media only screen and (max-width: 375px) {
+    .shop-section {
+        &__list {
+            padding: 40px 20px;
+            grid-template-columns: repeat(1, minmax(0, 1fr));
+        }
     }
 }
 </style>

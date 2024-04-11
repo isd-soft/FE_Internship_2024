@@ -12,13 +12,13 @@ const props = defineProps({
 </script>
 
 <template>
-  <div v-if="props.type === 'discount'" class="product-card__label label label__discount">
+  <div v-if="props.type === 'discount'" class="text-sm product-card__label label label__discount">
     -{{ props.value }}%
   </div>
 
-  <div v-else-if="props.type === 'new'" class="label label__new">New</div>
+  <div v-else-if="props.type === 'new'" class="text-sm label label__new">New</div>
 
-  <div v-else class="label label__stock">
+  <div v-else class="text-sm label label__stock">
     {{ props.value }}
     <span class="label__specification">Available</span>
   </div>
@@ -38,11 +38,6 @@ const props = defineProps({
   height: 4.8rem;
   border-radius: 100%;
 
-  @media only screen and (max-width:768px) {
-    width: 6.4rem;
-    height: 6.4rem;
-  }
-
   &__specification {
     font-size: .8rem;
   }
@@ -57,6 +52,30 @@ const props = defineProps({
 
   &__stock {
     background-color: var(--color-granite-gray);
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .label {
+    width: clamp(36px, 6.25vw, 48px);
+    height: clamp(36px, 6.25vw, 48px);
+    font-size: clamp(12px, 2vw, 16px);
+
+    &__specification {
+      font-size: clamp(6px, 1vw, 8px);
+    }
+  }
+}
+
+@media only screen and (max-width: 375px) {
+  .label {
+    width: clamp(36px, 12.8vw, 48px);
+    height: clamp(36px, 12.8vw, 48px);
+    font-size: clamp(12px, 4.3vw, 16px);
+
+    &__specification {
+      font-size: clamp(6px, 2vw, 8px);
+    }
   }
 }
 </style>

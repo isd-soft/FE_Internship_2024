@@ -1,12 +1,15 @@
 <script setup>
-import { ModalsContainer } from 'vue-final-modal'
-import AdminProducList from './components/admin/AdminProductList.vue';
+import {ModalsContainer} from 'vue-final-modal'
+
 
 </script>
 
 
 <template>
-  <AdminProducList />
+  <div>
+    <ModalsContainer />
+    <RouterView/>
+  </div>
 </template>
 
 <style lang="scss"></style>
