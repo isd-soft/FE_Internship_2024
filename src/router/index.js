@@ -8,8 +8,8 @@ import { authGuard } from './authGuard'
 import { adminGuard } from './adminGuard'
 import { createRouter, createWebHistory } from 'vue-router'
 import BannerSection from '@/components/shared/BannerSection.vue'
-import ProductCard from '@/components/shared/ProductCard.vue'
 import AdminContactPage from '@/components/admin/AdminContactPage.vue'
+import AdminUsersList from '@/components/admin/AdminUsersList.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -65,7 +65,7 @@ const router = createRouter({
       {
         path: 'users',
         name: 'users',
-        component: ProductCard //add component when it will appear
+        component: AdminUsersList//add component when it will appear
       }
     ]
     }

@@ -76,7 +76,7 @@ console.log(pageList(pageNumber));
 
 <template>
     <BannerSection title="Shop"/>
-    <section class="main_section section shop-section">
+    <section class="main__section section shop-section">
         <GenericList :items="pageList(currentPage)" key="id" customClass="shop-section__list" itemClass="shop-section__list-item">
             <template v-slot="{item}">
                 <ProductCard v-bind="item"/>
