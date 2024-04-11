@@ -1,10 +1,14 @@
 <script setup>
-    import Advantages from "../components/shared/Advantages.vue"
+import BannerSection from "@/components/shared/BannerSection.vue";
+import AdvantageSection from "@/components/shared/AdvantageSection.vue"
+import CartSection from "@/components/cart/CartSection.vue";
 </script>
 
 <template>
     <div>
-        <Advantages/>
+        <BannerSection title="Cart" />
+        <CartSection />
+        <AdvantageSection />
     </div>
 </template>
 

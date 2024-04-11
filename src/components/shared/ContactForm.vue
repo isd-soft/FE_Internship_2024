@@ -3,29 +3,29 @@
 </script>
 
 <template>
-    <form action="" class="form">
-        <div class="form__field">
-            <label for="name" class="form__label text-sm">Your name</label>
-            <input type="text" class="form__input text-sm" placeholder="ABC">
+    <form action="" class="form-wrapper">
+        <div class="form-wrapper__field">
+            <label for="name" class="form-wrapper__label text-sm">Your name</label>
+            <input type="text" class="form-wrapper__input text-sm" placeholder="ABC">
         </div>
-        <div class="form__field">
-            <label for="email" class="form__label text-sm">Email address</label>
-            <input type="email" class="form__input text-sm" placeholder="abs@def.com">
+        <div class="form-wrapper__field">
+            <label for="email" class="form-wrapper__label text-sm">Email address</label>
+            <input type="email" class="form-wrapper__input text-sm" placeholder="abs@def.com">
         </div>
-        <div class="form__field">
-            <label for="subject" class="form__label text-sm">Subject</label>
-            <input type="text" class="form__input text-sm" placeholder="This is an optional">
+        <div class="form-wrapper__field">
+            <label for="subject" class="form-wrapper__label text-sm">Subject</label>
+            <input type="text" class="form-wrapper__input text-sm" placeholder="This is an optional">
         </div>
-        <div class="form__field">
-            <label for="message" class="form__label text-sm">Message</label>
-            <textarea type="text" rows="5" class="form__input text-sm" placeholder="Hi! i’d like to ask about"/>
+        <div class="form-wrapper__field">
+            <label for="message" class="form-wrapper__label text-sm">Message</label>
+            <textarea type="text" rows="5" class="form-wrapper__input text-sm" placeholder="Hi! i’d like to ask about"/>
         </div>
-        <button type="submit" class="form__button text-sm" >Submit</button>
+        <button type="submit" class="form-wrapper__button text-sm" >Submit</button>
     </form>
 </template>
 
 <style lang="scss" scoped>
-.form{
+.form-wrapper{
     display: flex;
     gap: 1.5rem;
     width: 60%;
@@ -62,6 +62,16 @@
             background-color: var(--color-white);
             border-color: var(--color-white);
             color: var(--color-uc-gold);
+        }
+    }
+}
+@media only screen and (max-width: 768px) {
+    .form-wrapper{
+        &__label{
+            font-size: 2.4rem;
+        }
+        &__input{
+            font-size: 2.4rem;
         }
     }
 }
