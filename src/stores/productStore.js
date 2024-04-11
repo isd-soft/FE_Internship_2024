@@ -1,11 +1,13 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import {getProductListRequest} from '../axios/getProductListRequest'
+import {createProductRequest} from '../axios/createProductRequest'
 
 
 export const useProductStore = defineStore('product', () => {
   const productMap = ref(new Map())
 
+  // Called in App.vue rn to fetch products
   const initStore = async () => {
     const result = await getProductListRequest()
     if (productMap.value) productMap.value = new Map()
@@ -16,7 +18,15 @@ export const useProductStore = defineStore('product', () => {
     console.log(productMap.value)
   }
 
-  // Those functions are to be used by WebSocket
+  const inStock = (productId) =>{
+    return productMap.value[productId].stock > 0
+  }
+
+  const isAvailable = (productId, quantity) => {
+    return print.value[productId].stock >= quantity
+  }
+
+  // Those functions are to be used by WebSocket:
   const addproductMap =  (product) => {
     if (!productMap.value) productMap.value = new Map()
     productMap.value.set(product.id, product)
@@ -32,19 +42,20 @@ export const useProductStore = defineStore('product', () => {
       }  
     }
 
-    // Those functions are to be used by Admin
+    // Those functions are to be used by Admin:
 
-    const addProductToServer = async () => {
+    const addProductToServer = async(product, token) => {
+      const result = await createProductRequest(JSON.stringify(product), token)
+      return result
+    }
+
+    const updateProductToServer = async(product, token) =>{
 
     }
 
-    const updateProductToServer = async () =>{
+    const deleteProductFromServer = async(product, token) =>{
 
     }
 
-    const deleteProductFromServer = async() =>{
-
-    }
-
-  return { productMap, initStore, addproductMap, removeproductMap, updateproductMap, addProductToServer, updateProductToServer, deleteProductFromServer}
+  return { productMap, initStore, inStock, isAvailable, addproductMap, removeproductMap, updateproductMap, addProductToServer, updateProductToServer, deleteProductFromServer}
 })
