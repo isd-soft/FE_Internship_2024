@@ -1,10 +1,20 @@
 <script setup>
 import EditIcon from '../../assets/icons/EditIcon.svg'
 import TrashIcon from '../../assets/icons/TrashIcon.svg'
+import { useModal } from 'vue-final-modal'
+import AdminProductModal from './AdminProductModal.vue'
+
+
+const { open } = useModal({
+    component: AdminProductModal,
+    attrs: {
+
+    }
+})
 
 defineProps({
     headingFlag: Boolean,
-    imageSrc: String,
+    imageUrl: String,
     id: String,
     name: String,
     price: Number,
@@ -21,6 +31,9 @@ const categoryList = [
     'Discount',
     'Actions'
 ]
+
+const truncateId = (id) => (id.substring(0, 7) + '...');
+
 </script>
 
 <template>
@@ -31,10 +44,10 @@ const categoryList = [
     </div>
 
     <div v-else class="admin-product-list__card admin-product-card">
-        <img class="admin-product-card__image" :src="imageSrc" :alt="name" />
+        <img class="admin-product-card__image" :src="imageUrl" :alt="name" />
 
-        <span class="text-sm admin-product-card__id">
-            {{ id }}
+        <span :title="id" class="text-sm admin-product-card__id">
+            {{ truncateId(id) }}
         </span>
 
         <span class="text-sm admin-product-card__name">
@@ -53,7 +66,7 @@ const categoryList = [
             {{ discount ? discount : 'N/A' }}
         </span>
 
-        <button class="text-sm admin-product-card__patch-button">
+        <button @click="open" class="text-sm admin-product-card__patch-button">
             <EditIcon width="2.4rem" height="2.4rem" />
         </button>
 
@@ -76,6 +89,7 @@ const categoryList = [
     justify-self: center;
     align-self: center;
     display: block;
+    overflow: hidden;
 }
 
 .admin-product-heading {

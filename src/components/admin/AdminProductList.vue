@@ -1,49 +1,23 @@
 <script setup>
+import { useProductStore } from '@/stores/productStore';
+import { computed } from 'vue';
 import GenericList from '../generics/GenericList.vue';
 import AdminProduct from './AdminProduct.vue';
 
-const mockProductList = [
-    {
-        headingFlag: true
-    },
-    {
-        id: '123',
-        imageSrc: 'https://via.placeholder.com/100x100/CCCCCC/FFFFFF?text=Placeholder+Image',
-        name: 'Product Example',
-        price: 300,
-        stock: 69,
-        discount: 13
-    },
-    {
-        id: '123',
-        imageSrc: 'https://via.placeholder.com/100x100/CCCCCC/FFFFFF?text=Placeholder+Image',
-        name: 'Product Example',
-        price: 300,
-        stock: 69,
-    },
-    {
-        id: '123',
-        imageSrc: 'https://via.placeholder.com/100x100/CCCCCC/FFFFFF?text=Placeholder+Image',
-        name: 'Product Example',
-        price: 300,
-        stock: 69,
-        discount: 13
-    },
-    {
-        id: '123',
-        imageSrc: 'https://via.placeholder.com/100x100/CCCCCC/FFFFFF?text=Placeholder+Image',
-        name: 'Product Example',
-        price: 300,
-        stock: 69,
-    }
-]
+const store = useProductStore()
 
+const productList = computed(() => Array.from(store.productMap).map((product) => {
+    const [_, productObj] = product;
 
+    const { id, imageUrl, name, price, stock, discount } = productObj;
+
+    return { id, imageUrl, name, price: parseInt(price), stock, discount: parseInt(discount) };
+}));
 </script>
 
 <template>
-    <GenericList :items="mockProductList" customClass="main__admin-product-list admin-product-list"
-        itemClass="admin-product-list__item">
+    <GenericList :items="[{ headingFlag: true }, ...productList]"
+        customClass="main__admin-product-list admin-product-list" itemClass="admin-product-list__item">
         <template v-slot="{ item }">
             <AdminProduct v-bind="item" />
         </template>
