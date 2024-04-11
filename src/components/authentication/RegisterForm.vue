@@ -46,7 +46,10 @@ const [confirmPassword, confirmPasswordAttributeList] = defineField('confirmPass
 const onSubmit = handleSubmit((values) => {
   const userStore = useUserStore()
   const { email, username, password, firstName, lastName } = values
-  userStore.register(email, username, password, firstName, lastName).then(res => res? emit('success') : emit('failure')).catch(err => emit('failure') )
+  userStore
+    .register(email, username, password, firstName, lastName)
+    .then((res) => (res ? emit('success') : emit('failure')))
+    .catch((err) => emit('failure'))
 })
 
 const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
@@ -78,7 +81,6 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
         @focus="$emit('inputStart')"
       />
       <span class="register-form__error">{{ errors.username }}</span>
-
 
       <input
         class="register-form__input"
@@ -133,6 +135,10 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
 </template>
 
 <style lang="scss" scoped>
+span {
+  height: 0.8rem;
+}
+
 .register-container {
   padding: 5rem 3.8rem 4rem 4rem;
 
@@ -162,8 +168,8 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
   &__input {
     border: 1px solid var(--color-quick-silver);
     border-radius: 1rem;
-    padding: 1.5rem 1.2rem;
-    font-size: 1.6rem;
+    padding: 1.2rem 1.2rem;
+    font-size: 1.4rem;
 
     ::placeholder {
       color: var(--color-quick-silver);
@@ -176,7 +182,8 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
 
   &__error {
     color: var(--color-candy-pink);
-    margin-bottom: 0.8rem;
+    font-size: 0.8rem;
+    margin-bottom: 0.2rem;
     padding-left: 0.4rem;
   }
 

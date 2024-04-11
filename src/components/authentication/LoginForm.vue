@@ -67,6 +67,7 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
 </template>
 
 <style lang="scss" scoped>
+
 .login-container {
   padding: 5rem 3.8rem 4rem 4rem;
 
