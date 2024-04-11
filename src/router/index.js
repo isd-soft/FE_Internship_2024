@@ -3,6 +3,7 @@ import ContactView from '../views/ContactView.vue'
 import ShopView from '../views/ShopView.vue'
 import HomeView from '../views/HomeView.vue'
 import AdminView from '../views/AdminView.vue'
+import DefaultView from '../views/DefaultView.vue'
 import { authGuard } from './authGuard'
 import { adminGuard } from './adminGuard'
 import { createRouter, createWebHistory } from 'vue-router'
@@ -15,28 +16,39 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: HomeView
+      name: 'default',
+      redirect: {path: '/home'},
+      component: DefaultView,
+      // meta: { requiresAdmin: true },
+      children:[
+        {
+          path: 'home',
+          name: 'home',
+          component: HomeView
+        },
+        {
+          path: 'contact',
+          name: 'contact',
+          component: ContactView
+        },
+        {
+          path: 'shop',
+          name: 'shop',
+          component: ShopView
+        },
+        {
+          path: 'cart',
+          name: 'cart',
+          component: CartView,
+          meta: { requiresAuth: true } //Comment this if u need to access cart
+        },
+      ]
     },
-    {
-      path: '/contact',
-      name: 'contact',
-      component: ContactView
-    },
-    {
-      path: '/shop',
-      name: 'shop',
-      component: ShopView
-    },
-    {
-      path: '/cart',
-      name: 'cart',
-      component: CartView,
-      meta: { requiresAuth: true } //Comment this if u need to access cart
-    },
+    
     {
       path: '/admin',
       name: 'admin',
+      redirect: {path: 'admin/products'},
       component: AdminView,
       // meta: { requiresAdmin: true },
       children:[

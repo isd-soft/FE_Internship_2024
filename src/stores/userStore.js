@@ -3,16 +3,19 @@ import { defineStore } from 'pinia'
 import { loginRequest } from '@/axios/loginRequest'
 import { registerRequest } from '@/axios/registerRequest'
 import { logoutRequest } from '@/axios/logoutRequest'
+import {useCartStore} from './cartStore'
 
 export const useUserStore = defineStore('user', () => {
   const user = ref({})
   const token = ref({})
+  const cartStore = useCartStore()
 
   const login = async (username, password) => {
     const result = await loginRequest(JSON.stringify({ username: username, password: password }))
     if (result) {
       user.value = result.user
       token.value = result.token
+      cartStore.getCart(user.value.id)
       return true
     }
     return false
@@ -31,6 +34,7 @@ export const useUserStore = defineStore('user', () => {
     if (result.user) {
       user.value = result.user
       token.value = result.token
+      cartStore.getCart(user.value.id)
       return true
     }
     console.log('Something went wrong')
@@ -50,6 +54,7 @@ export const useUserStore = defineStore('user', () => {
     const result = await logoutRequest(JSON.stringify({username : user.value.username}))
     user.value = {}
     token.value = {}
+    cartStore.stashCart()
   }
 
   return { user, token, login, register, isAuthenticated, isAdmin, logout }
