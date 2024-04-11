@@ -1,6 +1,6 @@
 <script setup>
 import GenericLink from '@/components/generics/GenericLink.vue'
-import ArrowIcon from '@/assets/icons/ArrowIcon.svg'
+import Chevron from '@/assets/icons/Chevron.svg'
 
 defineProps({
     title: String
@@ -19,7 +19,7 @@ defineProps({
             <div class="banner-section__path-wrapper">
                 <GenericLink href="/" container-class="banner-section__path-link banner-section__path-link--primary text-sm" text-content="Home" />
 
-                <ArrowIcon class="banner-section__arrow"/>
+                <Chevron class="banner-section__chevron" :style="{transform: 'rotate(90degree)', width: '2.4rem', height: '2.4rem', strokeWidth: '3px', margin: '0 -0.5rem'}" stroke="#000"/>
 
                 <GenericLink href="/" container-class="banner-section__path-link text-sm" :text-content="title" />
             </div>
@@ -41,16 +41,9 @@ defineProps({
         padding: 9rem 0 10rem 0;
     }
 
-    &__logo-link {
-        display: block;
-        margin: -10px;
-        
-    }
-
     &__logo {
         width: 5rem;
-        height: 3.2rem;
-        margin-bottom: 1.4rem;
+        aspect-ratio: 1/1;
     }
 
     &__title {

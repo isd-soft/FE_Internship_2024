@@ -4,8 +4,7 @@ import { swiperImagesUrls } from '@/utils/swiperImagesUrls.js'
 import { getUrlFromString } from '@/utils/getUrlFromString';
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Pagination, Navigation, Keyboard } from 'swiper/modules';
-import LeftChevron from '@/assets/icons/left-chevron.svg'
-import RightChevron from '@/assets/icons/right-chevron.svg'
+import Chevron from '@/assets/icons/Chevron.svg'
 import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/navigation'
@@ -20,11 +19,11 @@ const urls = swiperImagesUrls
         <div class="examples-section__text">
             <h2 class="text-2xl examples-section__title">50+ Beautiful rooms inspiration</h2>
             <span class="text-sm examples-section__description">Our designer already made a lot of beautiful prototipe of rooms that inspire you</span>
-            <button class="text-sm examples-section__button">Explore more</button>
+            <button class="primary-button examples-section__button">Explore more</button>
         </div>
         <div class="examples-section__container">
-            <button class="examples-section__button-prev">
-                <LeftChevron stroke="#B88E2F"/>
+            <button class="swiper-button-left examples-section__button-prev">
+                <Chevron stroke="#B88E2F" :style="{transform: 'rotate(180deg)', width: '24px', height: '24px', strokeWidth: '2px'}"/>
             </button>
             <swiper
             class="examples-section__swiper"
@@ -40,8 +39,8 @@ const urls = swiperImagesUrls
                 <swiper-slide v-for="(url, index) in urls" :key="index" :style="{backgroundImage: `url(${getUrlFromString(url.url)})`}" :class="['examples-section__image-wrapper']">
                 </swiper-slide>
             </swiper>
-            <button class="examples-section__button-next">
-                <RightChevron stroke="#B88E2F"/>
+            <button class="swiper-button-right examples-section__button-next">
+                <Chevron stroke="#B88E2F" :style="{ width: '24px', height: '24px', strokeWidth: '2px'}"/>
             </button>
         </div>
     </section>
@@ -75,13 +74,6 @@ const urls = swiperImagesUrls
     }
 
     &__button {
-        width: fit-content;
-        border: none;
-        background-color: var(--color-uc-gold);
-        color: var(--color-white);
-        font-weight: 500;
-        line-height: 150%;
-        padding: 13px;
         margin-bottom: 6.8rem;
     }
 
@@ -106,34 +98,8 @@ const urls = swiperImagesUrls
         height: 95%;
     }
 
-    &__button-prev {
-        width: 51.5px;
-        height: 48px;
-        background-color: var(--color-white);
-        border: none;
-        border-radius: 50%;
-        padding: 0;
-        margin-right: -24px;
-        z-index: 200;
-
-        &:hover {
-            cursor: pointer;
-        }
-    }
-
-    &__button-next {
-        width: 51.5px;
-        height: 48px;
-        background-color: var(--color-white);
-        border: none;
-        border-radius: 50%;
-        padding: 0;
-        margin-left: -24px;
-        z-index: 200;
-
-        &:hover {
-            cursor: pointer;
-        }
+    &__button-prev, &__button-next {
+        margin-bottom: 5%;
     }
 }
 

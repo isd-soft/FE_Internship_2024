@@ -1,3 +1,52 @@
+<script setup>
+import { ref } from 'vue'
+import ProductLabel from './ProductLabel.vue'
+import { useModal } from 'vue-final-modal'
+import ModalProduct from './ModalProduct.vue'
+
+const hoverFlag = ref(false)
+
+// eslint-disable-next-line no-unused-vars
+const props = defineProps({
+  imageSrc: String,
+  title: String,
+  description: String,
+  price: Number,
+  oldPrice: {
+    type: Number,
+    required: false
+  },
+  productType: {
+    type: String,
+    validator: (value) => ['discount', 'stock', 'new'].includes(value)
+  },
+  value: {
+    type: Number,
+    validator: (value) => value >= 0
+  }
+})
+
+const convertPrice = (value) =>
+  value ? '$' + value.toLocaleString('en-US').replace(/,/g, '.') : ''
+
+const { open } = useModal({
+  component: ModalProduct,
+  attrs: {
+    id: 1,
+    header: props.title,
+    price: convertPrice(props.price),
+    // description: props.description,
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    rating: 3.5,
+    reviews: 10,
+    // productType: props.productType,
+    productType: "Available",
+    // imgSrc: props.imageSrc,
+    imgSrc: "https://media.istockphoto.com/id/1293762741/photo/modern-living-room-interior-3d-render.webp?s=2048x2048&w=is&k=20&c=y5qtIaTcN6mnSb3bxBBhnBycfmNK48g6xawyfXHB5lw="
+  }
+})
+</script>
+
 <template>
   <div
     class="product-list-section__card product-card"
@@ -26,64 +75,14 @@
       </div>
     </div>
 
-    <ProductLabel :type="productType" />
+    <ProductLabel :type="productType" :value="value"/>
 
     <div v-show="hoverFlag" class="product-card__overlay">
       <button class="product-card__button text-sm">Add to cart</button>
-      <button class="product-card__button text-sm" @click="openModal">Details</button>
+      <button class="product-card__button text-sm" @click="open">Details</button>
     </div>
   </div>
 </template>
-
-<script setup>
-import { ref } from 'vue'
-import ProductLabel from './ProductLabel.vue'
-import { useModal } from 'vue-final-modal'
-import ProductModal from './ProductModal.vue'
-
-const hoverFlag = ref(false)
-
-// eslint-disable-next-line no-unused-vars
-const props = defineProps({
-  imageSrc: String,
-  title: String,
-  description: String,
-  price: Number,
-  oldPrice: {
-    type: Number,
-    required: false
-  },
-  productType: {
-    type: String,
-    validator: (value) => ['discount', 'stock', 'new'].includes(value)
-  }
-})
-
-const openModal = () => {
-  open()
-}
-
-const convertPrice = (value) =>
-  value ? 'Rp ' + value.toLocaleString('en-US').replace(/,/g, '.') : ''
-
-const { open } = useModal({
-  component: ProductModal,
-  attrs: {
-    id: 1,
-    header: props.title,
-    price: convertPrice(props.price),
-    // description: props.description,
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    rating: 3.5,
-    reviews: 10,
-    // productType: props.productType,
-    productType: 'Available',
-    // imgSrc: props.imageSrc,
-    imgSrc:
-      'https://media.istockphoto.com/id/1293762741/photo/modern-living-room-interior-3d-render.webp?s=2048x2048&w=is&k=20&c=y5qtIaTcN6mnSb3bxBBhnBycfmNK48g6xawyfXHB5lw='
-  }
-})
-</script>
 
 <style lang="scss" scoped>
 .product-card {
