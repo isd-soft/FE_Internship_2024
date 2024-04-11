@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/valid-template-root -->
 <script setup>
 import { onMounted } from 'vue'
 import { useToast } from 'vue-toast-notification'
@@ -33,6 +34,10 @@ const props = defineProps({
   }
 })
 </script>
+
+<template>
+  
+</template>
 
 <style lang="scss">
 .v-toast {
