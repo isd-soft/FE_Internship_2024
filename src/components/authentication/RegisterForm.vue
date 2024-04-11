@@ -183,7 +183,7 @@ span {
   &__error {
     color: var(--color-candy-pink);
     font-size: 0.8rem;
-    margin-bottom: 0.2rem;
+    margin-bottom: 0.1rem;
     padding-left: 0.4rem;
   }
 
