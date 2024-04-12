@@ -8,13 +8,16 @@ import { deleteProductRequest } from '../axios/deleteProductRequest'
 
 export const useProductStore = defineStore('product', () => {
   const productMap = ref(new Map())
+  const loader = ref(false)
 
   // Called in App.vue rn to fetch products
   const initStore = async () => {
+    loader.value = false
     const result = await getProductListRequest()
     if (productMap.value) productMap.value = new Map()
     if (result) {
       for (let product of result) productMap.value.set(product.id, product)
+      loader.value = true
     }
 
     //console.log(productMap.value)
@@ -61,5 +64,5 @@ export const useProductStore = defineStore('product', () => {
       return result
     }
 
-  return { productMap, initStore, inStock, isAvailable, addproductMap, removeproductMap, updateproductMap, addProductToServer, updateProductToServer, deleteProductFromServer}
+  return { productMap, loader, initStore, inStock, isAvailable, addproductMap, removeproductMap, updateproductMap, addProductToServer, updateProductToServer, deleteProductFromServer}
 })
