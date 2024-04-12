@@ -11,8 +11,9 @@ export const useCartStore = defineStore('cart', () => {
 
     const addProduct = (product) => {
         if (!(productMap.value instanceof Map)) productMap.value = new Map();
+        if (product.quantity == undefined) product.quantity = 1
         // if(!productStore.inStock(product.id)) return false
-        productMap.value.set(product.id.toString(), product);
+        productMap.value.set(product.id, product);
         console.log("Product added!")
         console.log(productMap.value)
         saveCart()
@@ -63,12 +64,12 @@ export const useCartStore = defineStore('cart', () => {
 
     //Called when user finished shopping and is checking out
     const removeCart = () => {
-        localStorage.removeItem(userId);
+        localStorage.removeItem(userId.value);
         productMap.value = new Map();
     };
 
 
-    return {productMap, addProduct, deleteProduct, changeProductQuantity, getProduct, saveCart, getCart, stashCart, removeCart}
+    return {productMap, userId, addProduct, deleteProduct, changeProductQuantity, getProduct, saveCart, getCart, stashCart, removeCart}
 
 })
 
