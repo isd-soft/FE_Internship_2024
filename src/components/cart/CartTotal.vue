@@ -1,4 +1,17 @@
 <script setup>
+import { useCartStore } from '@/stores/cartStore';
+import {ref} from 'vue'
+import GenericToast from '../generics/GenericToast.vue';
+
+const cartStore = useCartStore()
+
+const toastFlag = ref(false)
+
+const checkout = () => {
+    cartStore.removeCart()
+    toastFlag.value = true
+}
+
 const props = defineProps({
     total: Number,
     subtotal: Number
@@ -7,6 +20,7 @@ const props = defineProps({
 
 <template>
     <div class="cart-section__total cart-total">
+        <GenericToast v-if="toastFlag" message="Checkout complete" type="success"/>
         <h3 class="cart-total__title text-xl">
             Cart Totals
         </h3>
@@ -33,7 +47,7 @@ const props = defineProps({
             </div>
         </div>
 
-        <button class="cart-total__button tertiary-button">
+        <button class="cart-total__button tertiary-button" @click="checkout">
             Check Out
         </button>
     </div>
