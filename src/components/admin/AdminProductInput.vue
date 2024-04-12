@@ -1,9 +1,4 @@
 <script setup>
-import { handleNumberInputBlur } from '../../utils/handleNumberInputBlur.js'
-import { handleNumberInputInsert } from '../../utils/handleNumberInputInsert.js'
-
-const NOOP = () => { }
-
 defineProps({
     title: String,
     placeholder: String,
@@ -19,14 +14,13 @@ defineProps({
 
 <template>
     <div>
-        <span class="admin-product-form__field-title text-sm">
+        <label :for="name" class="admin-product-form__field-title text-sm">
             {{ title }}:
-        </span>
+        </label>
 
-        <component @input="isNumeric ? handleNumberInputInsert($event) : NOOP"
-            @blur="isNumeric ? handleNumberInputBlur($event, value) : NOOP" :is="tag ? tag : 'input'"
-            class="admin-product-form__field text-sm" :class="`admin-product-form__${title}`"
-            :placeholder="placeholder ? placeholder : ''" :value="value" :name="name" />
+        <component :is="tag ? tag : 'input'" class="admin-product-form__field text-sm"
+            :class="`admin-product-form__${title}`" :placeholder="placeholder ? placeholder : ''" :value="value"
+            :name="name" />
     </div>
 </template>
 

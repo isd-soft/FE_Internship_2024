@@ -1,6 +1,11 @@
 <script setup>
-import {ModalsContainer} from 'vue-final-modal'
+import { ModalsContainer } from 'vue-final-modal'
+import AdminProductList from './components/admin/AdminProductList.vue';
+import { useProductStore } from './stores/productStore';
 
+const store = useProductStore();
+
+store.initStore();
 
 </script>
 
@@ -8,7 +13,7 @@ import {ModalsContainer} from 'vue-final-modal'
 <template>
   <div>
     <ModalsContainer />
-    <RouterView/>
+    <AdminProductList />
   </div>
 </template>
 
