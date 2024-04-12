@@ -1,6 +1,7 @@
 <script setup>
 import GenericList from '../generics/GenericList.vue';
 import TrashIcon from '@/assets/icons/TrashIcon.svg';
+import ToggleButton from '../shared/ToggleButton.vue';
 
 const splitDate = (date) => date.split('T');
 
@@ -26,6 +27,10 @@ const mockArray = Array.from({ length: 9 }, (_, index) => ({
     id: initialID + index,
   ...userTemplate,
 }));
+
+const checkRole = (item) => {
+    return item.roles[0].role === 'ADMIN'
+}
 </script>
 
 <template>
@@ -61,7 +66,9 @@ const mockArray = Array.from({ length: 9 }, (_, index) => ({
                         <br>
                         {{ splitDate(item.updatedAt)[0] }}
                     </span>
-                    <span class="admin-user-section__role">{{ item.roles[0].role }}</span>
+                    <span class="admin-user-section__role">
+                        <ToggleButton :state="checkRole(item)"/>
+                    </span>
                     <div class="admin-user-section__delete">
                         <TrashIcon/>
                     </div>
@@ -79,8 +86,8 @@ const mockArray = Array.from({ length: 9 }, (_, index) => ({
     row-gap: 2.5rem;
     text-align: center;
 
-    span {
-        display: block;
+    &__title, &__header-name, &__id, &__fist-name, &__last-name, 
+    &__username, &__email, &__created-at, &__last-update, &__role, &__delete {
         padding: 0 0.5rem;
     }
 
@@ -137,6 +144,12 @@ const mockArray = Array.from({ length: 9 }, (_, index) => ({
                 display: none;
             }
         }
+    }
+
+    &__role {
+        width: 100%;
+        height: 100%;
+        padding: 1rem;
     }
 }
 </style>
