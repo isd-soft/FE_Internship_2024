@@ -1,4 +1,5 @@
 <script setup>
+import AdminSidebar from '@/components/admin/AdminSidebar.vue';
 import {useAdminUserStore} from "../stores/adminUserStore"
 import { storeToRefs } from "pinia";
 
@@ -9,6 +10,7 @@ const users = storeToRefs(adminStore)
 
 <template>
     <div>
+        <AdminSidebar />
         <div>{{ users }}</div>
         <RouterView />
     </div>
