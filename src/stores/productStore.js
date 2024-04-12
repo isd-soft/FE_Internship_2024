@@ -17,7 +17,7 @@ export const useProductStore = defineStore('product', () => {
       for (let product of result) productMap.value.set(product.id, product)
     }
 
-    console.log(productMap.value)
+    //console.log(productMap.value)
   }
 
   const inStock = (productId) =>{

@@ -1,11 +1,11 @@
 import axiosService from "./axios";
 
 export const getContactRequest=async()=>{
-    const response = await axiosService.get('/setting/list')
-
+    const response = await axiosService.get('/setting/read/CONTACT_INFORMATION',{
+    })
     if (response.status === 200) {
-        return response
+        return response.data
         
     }
-    console.log(response)
+    else return null
 }
