@@ -1,9 +1,6 @@
 <script setup>
 import {ModalsContainer} from 'vue-final-modal'
-import { useProductStore } from './stores/productStore';
 
-const productStore = useProductStore()
-productStore.initStore()
 
 </script>
 

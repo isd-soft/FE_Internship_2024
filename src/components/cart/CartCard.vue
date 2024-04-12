@@ -1,5 +1,7 @@
 <script setup>
 import TrashIcon from '../../assets/icons/TrashIcon.svg';
+import { handleNumberInputBlur } from '../../utils/handleNumberInputBlur.js'
+import { handleNumberInputInsert } from '../../utils/handleNumberInputInsert.js'
 
 
 const props = defineProps({
@@ -9,20 +11,20 @@ const props = defineProps({
     quantity: Number
 })
 
-const handleInput = event => /^\d+$/.test(event.target.value) || event.target.value === '' ? null : (event.preventDefault(), event.target.value = event.target.value.replace(/\D/g, ''));
+// const handleInput = event => /^\d+$/.test(event.target.value) || event.target.value === '' ? null : (event.preventDefault(), event.target.value = event.target.value.replace(/\D/g, ''));
 
-const handleBlur = event => {
-    const startsWithZero = event.target.value.startsWith('0')
+// const handleBlur = event => {
+//     const startsWithZero = event.target.value.startsWith('0')
 
-    const nonZeroValue = event.target.value.replace(/^0+/, '')
+//     const nonZeroValue = event.target.value.replace(/^0+/, '')
 
-    if (!nonZeroValue.length || !event.target.value.length) {
-        event.target.value = props.quantity
-        return
-    }
+//     if (!nonZeroValue.length || !event.target.value.length) {
+//         event.target.value = props.quantity
+//         return
+//     }
 
-    if (startsWithZero) event.target.value = nonZeroValue;
-}
+//     if (startsWithZero) event.target.value = nonZeroValue;
+// }
 
 </script>
 
@@ -38,7 +40,8 @@ const handleBlur = event => {
             {{ price }}
         </span>
 
-        <input @blur="handleBlur" @input="handleInput" class="cart-card__quantity text-xs" :value="quantity">
+        <input @blur="handleNumberInputBlur($event, quantity)" @input="handleNumberInputInsert($event)"
+            class="cart-card__quantity text-xs" :value="quantity">
 
         <span class="cart-card__subtotal text-sm">
             {{ price * quantity }}
