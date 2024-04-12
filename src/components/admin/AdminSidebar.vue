@@ -30,6 +30,13 @@ import SidebarNavigation from './SidebarNavigation.vue';
     &__logo{
         padding: 1rem 2.5rem 0 2.5rem;
     }
+
+    & :deep(.navigation__link-text){
+        display: block;
+        opacity: 0;
+        transition: opacity 0.25s ease-in-out, visibility 0s linear;
+        visibility: hidden;
+    }
 }
 
 .aside:hover{
@@ -39,6 +46,12 @@ import SidebarNavigation from './SidebarNavigation.vue';
         opacity: 1;
         visibility: visible;
         transition-delay: 0.25s;
-    }    
+    } 
+    
+    & :deep(.navigation__link-text){
+        opacity: 1;
+        visibility: visible;
+        transition-delay: 0.25s;
+    }
 }
 </style>
