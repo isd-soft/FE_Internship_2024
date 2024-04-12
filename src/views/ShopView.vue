@@ -4,6 +4,9 @@ import AdvantageSection from '@/components/shared/AdvantageSection.vue';
 import GenericList from '@/components/generics/GenericList.vue';
 import ProductCard from '@/components/shared/ProductCard.vue';
 import { ref } from 'vue';
+import { useWindowSize } from '@vueuse/core';
+
+const { width } = useWindowSize();
 
 const objTemplate = {
   imageSrc: 'https://via.placeholder.com/381x480/CCCCCC/FFFFFF?text=Placeholder+Image',
@@ -35,6 +38,14 @@ const getButtonNumberList = () => {
         value = 1
     }
 
+    if (pageNumber < 3) {
+        return Array.from({ length: pageNumber }, (_, index) => index + 1)
+    }
+
+    if (width.value < 769) {
+        return [currentPage.value]
+    }
+
     return Array.from({ length: 3 }, (_, index) => value + index)
 }
 
@@ -56,7 +67,9 @@ const nextActive = () => currentPage.value < pageNumber ? '': '--disabled';
 
 const prevActive = () => currentPage.value > 1 ? '' : '--disabled';
 
-const pageActive = (number) => currentPage.value == number ? '--active' : '';
+const pageActive = (number) => {
+    return currentPage.value === number ? '--active' : '';
+}
 
 console.log(pageList(pageNumber));
 </script>
@@ -74,7 +87,6 @@ console.log(pageList(pageNumber));
             <button :class="['shop-section__button', 'shop-section__button' + pageActive(number)]" v-for="number in getButtonNumberList()" :key="number" @click="goToPage(number)">{{ number }}</button>
             <button :class="['shop-section__button', 'shop-section__button' + nextActive()]" @click="nextPage">Next</button>
         </div>
-        {{ currentPage }}
     </section>
     <AdvantageSection/>
 </template>
@@ -85,7 +97,6 @@ console.log(pageList(pageNumber));
         display: grid;
         grid-template-columns: repeat(4, minmax(0, 1fr));
         column-gap: 3.2rem;
-        grid-template-rows: repeat(4, minmax(0, 1fr));
         row-gap: 4rem;
         padding: 2rem 10rem;
         margin-bottom: 3rem;
@@ -125,6 +136,25 @@ console.log(pageList(pageNumber));
     &__button--active {
         background-color: var(--color-uc-gold);
         color: var(--color-white);
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .shop-section {
+        &__list {
+            padding: 60px 40px;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            grid-template-rows: auto;
+        }
+    }
+}
+
+@media only screen and (max-width: 375px) {
+    .shop-section {
+        &__list {
+            padding: 40px 20px;
+            grid-template-columns: repeat(1, minmax(0, 1fr));
+        }
     }
 }
 </style>

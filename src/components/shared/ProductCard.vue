@@ -48,7 +48,11 @@ const { open } = useModal({
 </script>
 
 <template>
-  <div class="product-list-section__card product-card" @mouseenter="hoverFlag = true" @mouseleave="hoverFlag = false">
+  <div
+    class="product-list-section__card product-card"
+    @mouseenter="hoverFlag = true"
+    @mouseleave="hoverFlag = false"
+  >
     <img :src="imageSrc" :alt="title" />
 
     <div class="product-card__text-wrapper">
