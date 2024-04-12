@@ -83,7 +83,7 @@
         &__container{
             display: flex;
             flex-direction: column;
-            padding: 5rem  5rem 0 5rem;
+            padding: 5rem  10rem 0 10rem;
             gap:3rem;
         }
         &__form-wrapper{
@@ -117,7 +117,7 @@
         }
         &__time-wrapper{
             display: flex;
-            gap: 9rem;
+            justify-content: space-between;
         }
         &__hours-wrapper{
             display: flex;
