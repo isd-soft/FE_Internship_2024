@@ -26,15 +26,13 @@ const mockArray = Array.from({ length: 9 }, (_, index) => ({
     id: initialID + index,
   ...userTemplate,
 }));
-
-console.log(mockArray)
 </script>
 
 <template>
     <div style="display: flex;">
         <div style="flex: 0 0 auto; width: 10rem; background-color: black;"></div>
         <section class="main__section section admin-user-section">
-            <h1 class="admin-user-section__title">Users</h1>
+            <h1 class="text-5xladmin-user-section__title">Users</h1>
             <div class="text-sm admin-user-section__table-header">
                 <span class="admin-user-section__header-name">ID</span>
                 <span class="admin-user-section__header-name">First Name</span>
@@ -75,7 +73,7 @@ console.log(mockArray)
 
 <style lang="scss" scoped>
 .admin-user-section {
-    padding: 10rem;
+    padding: 5rem 10rem;
     display: grid;
     grid-template-columns: repeat(8, minmax(0, 1fr)) 5rem;
     row-gap: 2.5rem;
