@@ -1,6 +1,8 @@
-import { ref } from 'vue'
+import { ref, toRaw } from 'vue'
 import { defineStore } from 'pinia'
 import {useProductStore} from './productStore'
+import { mapFromJson } from '@/utils/mapFromJson'
+import { mapToJson } from '@/utils/mapToJson'
 
 export const useCartStore = defineStore('cart', () => {
     const productMap = ref(new Map())
@@ -8,9 +10,11 @@ export const useCartStore = defineStore('cart', () => {
     const productStore = useProductStore()
 
     const addProduct = (product) => {
-        if (!productMap.value) productMap.value = new Map();
-        if(!productStore.inStock(product.id)) return false
-        productMap.value.set(product.id, product);
+        if (!(productMap.value instanceof Map)) productMap.value = new Map();
+        // if(!productStore.inStock(product.id)) return false
+        productMap.value.set(product.id.toString(), product);
+        console.log("Product added!")
+        console.log(productMap.value)
         saveCart()
         return true
     };
@@ -22,7 +26,7 @@ export const useCartStore = defineStore('cart', () => {
     };
     
     const changeProductQuantity = (productId, newQuantity) => {
-        if (!productStore.isAvailable(productId, newQuantity)) return false
+        // if (!productStore.isAvailable(productId, newQuantity)) return false
         productMap.value[productId].quantity = newQuantity
         saveCart()
         return true
@@ -33,14 +37,21 @@ export const useCartStore = defineStore('cart', () => {
     };
     
     const saveCart = () => {
-        localStorage.setItem(userId, JSON.stringify(productMap.value));
+        console.log("Saving cart")
+        console.log(userId.value)
+        const rawMap = toRaw(productMap.value)
+        const jsonCart = mapToJson(rawMap)
+        localStorage.setItem(userId.value, jsonCart);
     };
     
     //Called during login/register to create cart or retrieve from localStorage
     const getCart = (usrId) => {
         userId.value = usrId;
-        const cart = localStorage.getItem(userId);
-        productMap.value = cart ? JSON.parse(cart) : new Map();
+        const cart = localStorage.getItem(userId.value);
+        console.log(cart)
+        productMap.value = cart ? mapFromJson(cart) : new Map();
+        console.log("Cart Retrieved")
+        console.log(productMap.value)
     };
 
     //Called during logout
