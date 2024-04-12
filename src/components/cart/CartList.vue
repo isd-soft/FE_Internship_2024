@@ -2,18 +2,25 @@
 import ListHeading from './ListHeading.vue'
 import GenericList from '../generics/GenericList.vue'
 import CartCard from './CartCard.vue'
+import { useCartStore } from '@/stores/cartStore';
+import { computed } from 'vue';
 
-const mockCartData = [
-    { imageSrc: 'https://via.placeholder.com/100x100/CCCCCC/FFFFFF?text=Placeholder+Image', name: 'Asgaard sofa', price: 250000, quantity: 2 },
-    { imageSrc: 'https://via.placeholder.com/100x100/CCCCCC/FFFFFF?text=Placeholder+Image', name: 'Asgaard sofa', price: 250000, quantity: 2 },
-]
+const cartStore = useCartStore()
+
+const cartItemList = computed(() => {
+    return Array.from(cartStore.productMap.values())
+})
+
+// const mockCartData = [
+//     { imageSrc: 'https://via.placeholder.com/100x100/CCCCCC/FFFFFF?text=Placeholder+Image', name: 'Asgaard sofa', price: 250000, quantity: 2 },
+//     { imageSrc: 'https://via.placeholder.com/100x100/CCCCCC/FFFFFF?text=Placeholder+Image', name: 'Asgaard sofa', price: 250000, quantity: 2 },
+// ]
 </script>
 
 <template>
     <div class="cart-section__list-wrapper">
         <ListHeading />
-
-        <GenericList :items="mockCartData" customClass="cart-section__list" itemClass="cart-section__list-item">
+        <GenericList :items="cartItemList" customClass="cart-section__list" itemClass="cart-section__list-item">
             <template v-slot="{ item }">
                 <CartCard v-bind="item" />
             </template>

@@ -2,6 +2,8 @@ import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import {getProductListRequest} from '../axios/getProductListRequest'
 import {createProductRequest} from '../axios/createProductRequest'
+import {updateProductRequest} from '../axios/updateProductRequest'
+import { deleteProductRequest } from '../axios/deleteProductRequest'
 
 
 export const useProductStore = defineStore('product', () => {
@@ -50,11 +52,13 @@ export const useProductStore = defineStore('product', () => {
     }
 
     const updateProductToServer = async(product, token) =>{
-
+      const result = await updateProductRequest(JSON.stringify(product), token) //Must contain id of product and values to be changed
+      return result
     }
 
-    const deleteProductFromServer = async(product, token) =>{
-
+    const deleteProductFromServer = async(productId, token) =>{
+      const result = await deleteProductRequest(JSON.stringify([productId]), token)
+      return result
     }
 
   return { productMap, initStore, inStock, isAvailable, addproductMap, removeproductMap, updateproductMap, addProductToServer, updateProductToServer, deleteProductFromServer}
