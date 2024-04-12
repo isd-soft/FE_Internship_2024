@@ -7,14 +7,10 @@ defineProps({
         type: String,
         default: ''
     },
-    infoTextFirst:{
-        type: String,
-        default: ''
+    infoText:{
+        type: Array,
     },
-    infoTextSecond:{
-        type: String,
-        default: ''
-    }})
+    })
 </script>
 
 <template>
@@ -24,8 +20,9 @@ defineProps({
         </div>
         <div class="info-card__text-wrapper">
             <h3 class="info-card__title text-lg">{{ infoTitle }}</h3>
-            <p class="info-card__about text-sm">{{ infoTextFirst }}</p>
-            <p class="info-card__about text-sm">{{ infoTextSecond }}</p>
+            <div class="info-card__about-wrapper text-sm" v-for="(item) in infoText" :key="item.id">
+                <p class="info-card__about text-sm">{{ item }}</p>
+            </div>
         </div>
     </div>
 </template>

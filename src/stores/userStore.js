@@ -9,19 +9,23 @@ export const useUserStore = defineStore('user', () => {
   const user = ref({})
   const token = ref({})
   const cartStore = useCartStore()
+  const loader = ref(false)
 
   const login = async (username, password) => {
+    loader.value = false
     const result = await loginRequest(JSON.stringify({ username: username, password: password }))
     if (result) {
       user.value = result.user
       token.value = result.token
       cartStore.getCart(user.value.id)
+      loader.value = true
       return true
     }
     return false
   }
 
   const register = async (email, username, password, firstName, lastName) => {
+    loader.value = false
     const result = await registerRequest(
       JSON.stringify({
         email: email,
@@ -35,6 +39,7 @@ export const useUserStore = defineStore('user', () => {
       user.value = result.user
       token.value = result.token
       cartStore.getCart(user.value.id)
+      loader.value = true
       return true
     }
     console.log('Something went wrong')
@@ -57,5 +62,5 @@ export const useUserStore = defineStore('user', () => {
     cartStore.stashCart()
   }
 
-  return { user, token, login, register, isAuthenticated, isAdmin, logout }
+  return { user, token, loader, login, register, isAuthenticated, isAdmin, logout }
 })
