@@ -4,7 +4,16 @@ import ProductLabel from './ProductLabel.vue'
 import { useModal } from 'vue-final-modal'
 import ModalProduct from './ModalProduct.vue'
 
+import LoginModal from '../authentication/LoginModal.vue'
+import { useUserStore } from '@/stores/userStore'
+import { useCartStore } from '@/stores/cartStore'
+import GenericToast from '../generics/GenericToast.vue'
+
+const userStore = useUserStore()
+const cartStore = useCartStore()
+
 const hoverFlag = ref(false)
+const toastFlag = ref(false)
 
 // eslint-disable-next-line no-unused-vars
 const props = defineProps({
@@ -29,7 +38,33 @@ const props = defineProps({
 const convertPrice = (value) =>
   value ? '$' + value.toLocaleString('en-US').replace(/,/g, '.') : ''
 
-const { open } = useModal({
+
+const addProduct = () =>{
+  if (!userStore.isAuthenticated()) OpenLoginModal()
+  else {
+    toastFlag.value = true
+    cartStore.addProduct({
+    id: 1,
+    header: props.title,
+    price: convertPrice(props.price),
+    // description: props.description,
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    rating: 3.5,
+    reviews: 10,
+    // productType: props.productType,
+    productType: "Available",
+    // imgSrc: props.imageSrc,
+    imgSrc: "https://media.istockphoto.com/id/1293762741/photo/modern-living-room-interior-3d-render.webp?s=2048x2048&w=is&k=20&c=y5qtIaTcN6mnSb3bxBBhnBycfmNK48g6xawyfXHB5lw="
+  })
+}
+}
+
+const {open: OpenLoginModal} = useModal({
+  component: LoginModal
+})
+
+
+const { open: OpenProductModal } = useModal({
   component: ModalProduct,
   attrs: {
     id: 1,
@@ -53,6 +88,7 @@ const { open } = useModal({
     @mouseenter="hoverFlag = true"
     @mouseleave="hoverFlag = false"
   >
+  <GenericToast v-if="toastFlag" message="Product added to cart" type="info" />
     <img :src="imageSrc" :alt="title" />
 
     <div class="product-card__text-wrapper">
@@ -78,8 +114,8 @@ const { open } = useModal({
     <ProductLabel :type="productType" :value="value"/>
 
     <div v-show="hoverFlag" class="product-card__overlay">
-      <button class="product-card__button text-sm">Add to cart</button>
-      <button class="product-card__button text-sm" @click="open">Details</button>
+      <button class="product-card__button text-sm" @click="addProduct">Add to cart</button>
+      <button class="product-card__button text-sm" @click="OpenProductModal">Details</button>
     </div>
   </div>
 </template>
