@@ -1,21 +1,43 @@
 <script setup>
+import { useRoute } from 'vue-router'
+import { reactive, computed } from 'vue'
 import ProductIcon from '../../assets/icons/ProductIcon.svg'
 import AdminContactIcon from '../../assets/icons/AdminContactIcon.svg'
 import AdminUserIcon from '../../assets/icons/AdminUserIcon.svg'
 import GenericList from '../generics/GenericList.vue'
 import GenericLink from '../generics/GenericLink.vue'
 
+const route = useRoute()
+
 const icons = {
   ProductIcon,
   AdminUserIcon,
   AdminContactIcon
-};
+}
 
-const linkList = [
-    { href: "admin/products", textContent: "Products", textClass:"navigation__link-text text-lg", containerClass: "navigation__link", icon: 'ProductIcon' },
-    { href: "admin/users", textContent: "Users", textClass:"navigation__link-text text-lg", containerClass: "navigation__link", icon: 'AdminUserIcon' },
-    { href: "admin/contacts", textContent: "Contacts", textClass:"navigation__link-text text-lg", containerClass: "navigation__link", icon: 'AdminContactIcon' }
-]
+const linkList = reactive([
+  {
+    href: 'admin/products',
+    textContent: 'Products',
+    textClass: 'navigation__link-text text-lg',
+    containerClass: 'navigation__link',
+    icon: 'ProductIcon'
+  },
+  {
+    href: 'admin/users',
+    textContent: 'Users',
+    textClass: 'navigation__link-text text-lg',
+    containerClass: 'navigation__link',
+    icon: 'AdminUserIcon'
+  },
+  {
+    href: 'admin/contacts',
+    textContent: 'Contacts',
+    textClass: 'navigation__link-text text-lg',
+    containerClass: 'navigation__link',
+    icon: 'AdminContactIcon'
+  }
+])
 </script>
 
 <template>
@@ -35,42 +57,47 @@ const linkList = [
 </template>
 
 <style lang="scss" scoped>
-.navigation{
-
+.navigation {
   margin-top: 8rem;
 
-  &__list{
+  &__list {
     display: flex;
     flex-direction: column;
     padding: 0 3.4rem 0 3.4rem;
     row-gap: 4rem;
   }
 
-  &__link{
+  &__link {
     display: flex;
     align-items: center;
+    background-color: transparent;
     color: var(--color-black);
     column-gap: 3rem;
     font-weight: 500;
   }
 
-  &__list-item{
-    .contact-icon{
+  &__list-item {
+    .contact-icon {
       min-width: 3rem;
       min-height: 4.8rem;
+      fill: var(--color-uc-gold);
     }
 
-    .adminuser-icon{
+    .active-icon {
+      fill: var(--color-white);
+    }
+
+    .adminuser-icon {
       min-width: 3.2rem;
       min-height: 3.7rem;
       fill: var(--color-uc-gold);
     }
 
-    .product-icon{
+    .product-icon {
       min-width: 3.2rem;
       min-height: 3.2rem;
+      fill: var(--color-uc-gold);
     }
   }
 }
-
 </style>
