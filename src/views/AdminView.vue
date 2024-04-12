@@ -3,8 +3,13 @@ import {useAdminUserStore} from "../stores/adminUserStore"
 import { storeToRefs } from "pinia";
 
 const adminStore = useAdminUserStore()
+
 adminStore.getUsers()
+
+adminStore.getUserRole()
+
 const users = storeToRefs(adminStore)
+
 </script>
 
 <template>
