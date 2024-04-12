@@ -4,22 +4,27 @@ import TrashIcon from '../../assets/icons/TrashIcon.svg'
 import { useModal } from 'vue-final-modal'
 import AdminProductModal from './AdminProductModal.vue'
 
+const props = defineProps({
+    headingFlag: Boolean,
+    imageUrl: String,
+    id: String,
+    description: String,
+    name: String,
+    price: String,
+    stock: Number,
+    discount: String,
+    code: String,
+    rating: Number,
+    isNew: Boolean,
+    createdAt: String,
+    updatedAt: String
+})
 
 const { open } = useModal({
     component: AdminProductModal,
     attrs: {
-
+        ...props
     }
-})
-
-defineProps({
-    headingFlag: Boolean,
-    imageUrl: String,
-    id: String,
-    name: String,
-    price: Number,
-    stock: Number,
-    discount: Number
 })
 
 const categoryList = [
@@ -90,11 +95,12 @@ const truncateId = (id) => (id.substring(0, 7) + '...');
     align-self: center;
     display: block;
     overflow: hidden;
+    text-align: center;
 }
 
 .admin-product-heading {
     background-color: var(--color-linen);
-    padding: 2rem 0;
+    padding: 2rem 1rem;
 
     &__category:last-child {
         grid-column: span 2;
@@ -102,6 +108,10 @@ const truncateId = (id) => (id.substring(0, 7) + '...');
 }
 
 .admin-product-card {
+    border: 1px solid var(--color-uc-gold);
+    border-radius: 1rem;
+    padding: 1rem;
+
     &__image {
         width: 7.5rem;
         height: 7.5rem;
