@@ -29,16 +29,13 @@ const { open } = useModal({
 
 const categoryList = [
     'Image',
-    'ID',
+    'Code',
     'Name',
     'Price',
     'Stock',
     'Discount',
     'Actions'
 ]
-
-const truncateId = (id) => (id.substring(0, 7) + '...');
-
 </script>
 
 <template>
@@ -51,8 +48,8 @@ const truncateId = (id) => (id.substring(0, 7) + '...');
     <div v-else class="admin-product-list__card admin-product-card">
         <img class="admin-product-card__image" :src="imageUrl" :alt="name" />
 
-        <span :title="id" class="text-sm admin-product-card__id">
-            {{ truncateId(id) }}
+        <span class="text-sm admin-product-card__code">
+            {{ code }}
         </span>
 
         <span class="text-sm admin-product-card__name">

@@ -5,7 +5,7 @@ import { useProductStore } from './stores/productStore';
 
 const store = useProductStore();
 
-store.initStore();
+store.initStore()
 
 </script>
 
