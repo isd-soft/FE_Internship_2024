@@ -17,6 +17,7 @@ import GenericLink from '../generics/GenericLink.vue';
     color: var(--color-black);
 }
 .header__logo-image{
-    height: 3.14rem;
+    height: 5rem;
+    width: 5rem;
 }
 </style>
