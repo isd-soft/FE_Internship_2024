@@ -32,7 +32,7 @@
 
   &__wrapper {
     background-color: var(--color-old-lace);
-    padding: 40px;
+    padding: 60px 40px 40px 40px;
     border-radius: 10px;
     width: 50%;
   }
@@ -76,6 +76,7 @@
 
     &__wrapper {
       width: 100%;
+      padding: 40px;
     }
 
     &__title,
@@ -84,6 +85,10 @@
     &__label {
       display: block;
       text-align: center;
+    }
+
+    &__title{
+      font-size: 4.5rem;
     }
 
     &__description {
@@ -115,6 +120,7 @@
 
     &__title {
       margin-bottom: 24px;
+      font-size: 3.6rem;
     }
 
     &__button {
