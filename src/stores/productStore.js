@@ -1,4 +1,4 @@
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import {getProductListRequest} from '../axios/getProductListRequest'
 import {createProductRequest} from '../axios/createProductRequest'
@@ -10,17 +10,27 @@ export const useProductStore = defineStore('product', () => {
   const productMap = ref(new Map())
   const loader = ref(false)
 
+
   // Called in App.vue rn to fetch products
   const initStore = async () => {
     loader.value = false
     const result = await getProductListRequest()
     if (productMap.value) productMap.value = new Map()
     if (result) {
-      for (let product of result) productMap.value.set(product.id, product)
+      for (let product of result) {
+        product.price =  normalizePrice(product.price)
+        product.discount = parseInt(product.discount)
+        productMap.value.set(product.id, product)
+      }
       loader.value = true
     }
 
     //console.log(productMap.value)
+  }
+
+  const normalizePrice = (price) =>{
+    if (price.includes("$")) price = price.replace("$", "")
+    return parseFloat(price)
   }
 
   const inStock = (productId) =>{

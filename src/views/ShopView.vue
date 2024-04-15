@@ -5,27 +5,40 @@ import GenericList from '@/components/generics/GenericList.vue';
 import ProductCard from '@/components/shared/ProductCard.vue';
 import { ref } from 'vue';
 import { useWindowSize } from '@vueuse/core';
+import {computed} from 'vue'
+import {useProductStore} from '@/stores/productStore.js'
 
 const { width } = useWindowSize();
 
-const objTemplate = {
-  imageSrc: 'https://via.placeholder.com/381x480/CCCCCC/FFFFFF?text=Placeholder+Image',
-  title: 'Syltherine',
-  description: 'Stylish cafe chair',
-  price: 250,
-  oldPrice: 350,
-  productType: 'stock',
-  value: 10
-};
+// const objTemplate = {
+//   imageSrc: 'https://via.placeholder.com/381x480/CCCCCC/FFFFFF?text=Placeholder+Image',
+//   title: 'Syltherine',
+//   description: 'Stylish cafe chair',
+//   price: 250,
+//   oldPrice: 350,
+//   productType: 'stock',
+//   value: 10
+// };
 
-const mockArray = Array.from({ length: 90 }, (_, index) => ({
-    id: index + 1,
-  ...objTemplate,
-}));
+// const mockArray = Array.from({ length: 90 }, (_, index) => ({
+//     id: index + 1,
+//   ...objTemplate,
+// }));
+
+
+
+const productStore = useProductStore()
+productStore.initStore()
+
+const productList = computed(() => {
+  return Array.from(productStore.productMap.values())
+})
 
 const currentPage = ref(1);
 
-const pageNumber = Math.ceil(mockArray.length / 16);
+const pageNumber = Math.ceil(productList.value.length / 16);
+// const pageNumber = Math.ceil(mockArray.length / 16);
+
 
 const getButtonNumberList = () => {
     let value = currentPage.value - 1
@@ -52,12 +65,23 @@ const getButtonNumberList = () => {
 const pageList = (pageNumber) => {
     const lowerBound = 16 * (pageNumber - 1)
 
-    const upperBound = mockArray.length > 16 * pageNumber ? 16 * pageNumber : mockArray.length
+    const upperBound = productList.value.length > 16 * pageNumber ? 16 * pageNumber : productList.value.length
     
-    return mockArray.slice(lowerBound, upperBound)
+    return productList.value.slice(lowerBound, upperBound)
 }
 
-const nextPage = () => (currentPage.value < mockArray.length / 16) && currentPage.value++
+// const pageList = (pageNumber) => {
+//     const lowerBound = 16 * (pageNumber - 1)
+
+//     const upperBound = mockArray.length > 16 * pageNumber ? 16 * pageNumber : mockArray.length
+    
+//     return mockArray.slice(lowerBound, upperBound)
+// }
+
+// const nextPage = () => (currentPage.value < mockArray.length / 16) && currentPage.value++
+
+const nextPage = () => (currentPage.value < productList.value.length / 16) && currentPage.value++
+
 
 const prevPage = () => currentPage.value > 1 && currentPage.value--
 
@@ -77,7 +101,7 @@ console.log(pageList(pageNumber));
 <template>
     <BannerSection title="Shop"/>
     <section class="main_section section shop-section">
-        <GenericList :items="pageList(currentPage)" key="id" customClass="shop-section__list" itemClass="shop-section__list-item">
+        <GenericList v-if="productStore.loader" :items="pageList(currentPage)" key="id" customClass="shop-section__list" itemClass="shop-section__list-item">
             <template v-slot="{item}">
                 <ProductCard v-bind="item"/>
             </template>

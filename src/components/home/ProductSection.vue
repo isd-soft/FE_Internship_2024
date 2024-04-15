@@ -1,88 +1,98 @@
 <script setup>
 import GenericList from '../generics/GenericList.vue'
 import ProductCard from '../shared/ProductCard.vue'
-const productList = [
-  {
-    id: 1,
-    imageSrc: 'https://via.placeholder.com/381x480/CCCCCC/FFFFFF?text=Placeholder+Image',
-    title: 'Syltherine',
-    description: 'Stylish cafe chair',
-    price: 250,
-    oldPrice: 350,
-    productType: 'stock',
-    value: 10
-  },
-  {
-    id: 2,
-    imageSrc: 'https://via.placeholder.com/381x480/CCCCCC/FFFFFF?text=Placeholder+Image',
-    title: 'Syltherine',
-    description: 'Stylish cafe chair',
-    price: 250,
-    oldPrice: 350,
-    productType: 'stock',
-    value: 10
-  },
-  {
-    id: 3,
-    imageSrc: 'https://via.placeholder.com/381x480/CCCCCC/FFFFFF?text=Placeholder+Image',
-    title: 'Syltherine',
-    description: 'Stylish cafe chair',
-    price: 250,
-    oldPrice: 350,
-    productType: 'stock',
-    value: 10
-  },
-  {
-    id: 4,
-    imageSrc: 'https://via.placeholder.com/381x480/CCCCCC/FFFFFF?text=Placeholder+Image',
-    title: 'Syltherine',
-    description: 'Stylish cafe chair',
-    price: 250,
-    oldPrice: 350,
-    productType: 'stock',
-    value: 10
-  },
-  {
-    id: 5,
-    imageSrc: 'https://via.placeholder.com/381x480/CCCCCC/FFFFFF?text=Placeholder+Image',
-    title: 'Syltherine',
-    description: 'Stylish cafe chair',
-    price: 250,
-    oldPrice: 350,
-    productType: 'stock',
-    value: 10
-  },
-  {
-    id: 6,
-    imageSrc: 'https://via.placeholder.com/381x480/CCCCCC/FFFFFF?text=Placeholder+Image',
-    title: 'Syltherine',
-    description: 'Stylish cafe chair',
-    price: 250,
-    oldPrice: 350,
-    productType: 'stock',
-    value: 10
-  },
-  {
-    id: 7,
-    imageSrc: 'https://via.placeholder.com/381x480/CCCCCC/FFFFFF?text=Placeholder+Image',
-    title: 'Syltherine',
-    description: 'Stylish cafe chair',
-    price: 250,
-    oldPrice: 350,
-    productType: 'stock',
-    value: 10
-  },
-  {
-    id: 8,
-    imageSrc: 'https://via.placeholder.com/381x480/CCCCCC/FFFFFF?text=Placeholder+Image',
-    title: 'Syltherine',
-    description: 'Stylish cafe chair',
-    price: 250,
-    oldPrice: 350,
-    productType: 'stock',
-    value: 10
-  }
-]
+import {computed} from 'vue'
+import {useProductStore} from '@/stores/productStore.js'
+
+const productStore = useProductStore()
+productStore.initStore()
+
+const productList = computed(() => {
+  return Array.from(productStore.productMap.values())
+})
+
+// const productList = [
+//   {
+//     id: 1,
+//     imageSrc: 'https://via.placeholder.com/381x480/CCCCCC/FFFFFF?text=Placeholder+Image',
+//     title: 'Syltherine',
+//     description: 'Stylish cafe chair',
+//     price: 250,
+//     oldPrice: 350,
+//     productType: 'stock',
+//     value: 10
+//   },
+//   {
+//     id: 2,
+//     imageSrc: 'https://via.placeholder.com/381x480/CCCCCC/FFFFFF?text=Placeholder+Image',
+//     title: 'Syltherine',
+//     description: 'Stylish cafe chair',
+//     price: 250,
+//     oldPrice: 350,
+//     productType: 'stock',
+//     value: 10
+//   },
+//   {
+//     id: 3,
+//     imageSrc: 'https://via.placeholder.com/381x480/CCCCCC/FFFFFF?text=Placeholder+Image',
+//     title: 'Syltherine',
+//     description: 'Stylish cafe chair',
+//     price: 250,
+//     oldPrice: 350,
+//     productType: 'stock',
+//     value: 10
+//   },
+//   {
+//     id: 4,
+//     imageSrc: 'https://via.placeholder.com/381x480/CCCCCC/FFFFFF?text=Placeholder+Image',
+//     title: 'Syltherine',
+//     description: 'Stylish cafe chair',
+//     price: 250,
+//     oldPrice: 350,
+//     productType: 'stock',
+//     value: 10
+//   },
+//   {
+//     id: 5,
+//     imageSrc: 'https://via.placeholder.com/381x480/CCCCCC/FFFFFF?text=Placeholder+Image',
+//     title: 'Syltherine',
+//     description: 'Stylish cafe chair',
+//     price: 250,
+//     oldPrice: 350,
+//     productType: 'stock',
+//     value: 10
+//   },
+//   {
+//     id: 6,
+//     imageSrc: 'https://via.placeholder.com/381x480/CCCCCC/FFFFFF?text=Placeholder+Image',
+//     title: 'Syltherine',
+//     description: 'Stylish cafe chair',
+//     price: 250,
+//     oldPrice: 350,
+//     productType: 'stock',
+//     value: 10
+//   },
+//   {
+//     id: 7,
+//     imageSrc: 'https://via.placeholder.com/381x480/CCCCCC/FFFFFF?text=Placeholder+Image',
+//     title: 'Syltherine',
+//     description: 'Stylish cafe chair',
+//     price: 250,
+//     oldPrice: 350,
+//     productType: 'stock',
+//     value: 10
+//   },
+//   {
+//     id: 8,
+//     imageSrc: 'https://via.placeholder.com/381x480/CCCCCC/FFFFFF?text=Placeholder+Image',
+//     title: 'Syltherine',
+//     description: 'Stylish cafe chair',
+//     price: 250,
+//     oldPrice: 350,
+//     productType: 'stock',
+//     value: 10
+//   }
+// ]
 </script>
 
 <template>
@@ -90,7 +100,7 @@ const productList = [
     <div class="product-section__container container">
       <h2 class="product-section__title text-3xl">Our Products</h2>
 
-      <GenericList :items="productList" tag="ul" keyProp="id" customClass="product-section__list"
+      <GenericList v-if="productStore.loader" :items="productList" tag="ul" keyProp="id" customClass="product-section__list"
         itemClass="product-section__item">
         <template v-slot="{ item }">
           <ProductCard v-bind="item" />
@@ -126,6 +136,7 @@ const productList = [
     padding: 0;
     margin: 0;
     list-style: none;
+    align-items: stretch;
 
     @media only screen and (max-width: 768px) {
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -138,6 +149,9 @@ const productList = [
 
     & :deep(.product-section__item) {
       width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: stretch;
     }
   }
 

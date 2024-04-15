@@ -1,6 +1,6 @@
 <script setup>
 import { useCartStore } from '@/stores/cartStore';
-import {ref} from 'vue'
+import {ref, computed} from 'vue'
 import GenericToast from '../generics/GenericToast.vue';
 
 const cartStore = useCartStore()
@@ -12,10 +12,8 @@ const checkout = () => {
     toastFlag.value = true
 }
 
-const props = defineProps({
-    total: Number,
-    subtotal: Number
-})
+
+
 </script>
 
 <template>
@@ -32,7 +30,7 @@ const props = defineProps({
                 </span>
 
                 <span class="cart-total__value text-sm">
-                    {{ subtotal }}
+                    {{ cartStore.total }}
                 </span>
             </div>
 
@@ -42,7 +40,7 @@ const props = defineProps({
                 </span>
 
                 <span class="cart-total__final-value text-md">
-                    {{ total }}
+                    {{ cartStore.total }}
                 </span>
             </div>
         </div>

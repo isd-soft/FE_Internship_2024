@@ -11,7 +11,6 @@ const users = storeToRefs(adminStore)
 <template>
     <div>
         <AdminSidebar />
-        <div>{{ users }}</div>
         <RouterView />
     </div>
 </template>
