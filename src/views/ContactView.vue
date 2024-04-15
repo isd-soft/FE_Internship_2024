@@ -114,11 +114,6 @@
             filter: grayscale(40%);
         }
     }
-    .loader{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
     @media only screen and (max-width: 768px) {
         .contact{
             &__container{

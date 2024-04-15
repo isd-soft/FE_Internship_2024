@@ -1,13 +1,21 @@
 <script setup>
-    import { ref } from 'vue'
-    const phone=ref('')
+import { useContactStore } from "@/stores/contactStore";
+import { onBeforeMount,computed } from "vue";
+import Loader from "@/assets/icons/LoaderIcon.svg"
+const store = useContactStore()
 
-    console.log(phone.value)
+onBeforeMount(()=>{
+        store.fetchContactInformation() 
+    })
+const contactInfo = computed(()=>{
+    return store.contactInformation
+})
+console.log(contactInfo.value.address)
 </script>
 
 
 <template>
-    <section class="admin-contact">
+    <section class="admin-contact" v-if="store.loader">
         <div class="admin-contact__container">
             <div class="admin-contact__name">
                 <h3 class="admin-contact__name-text text-4xl">Contact Information</h3>
@@ -18,14 +26,14 @@
                         <input 
                         type="text" 
                         class="admin-contact__input text-sm"
-                        placeholder="str. Bulgara 33/1, et. 3"/>
+                        :value="contactInfo.address"/>
                     </div>
                     <div class="admin-contact__field">
                         <label for="Work time" class="admin-contact__label text-sm">Work Time</label>
                         <p class="text-xs">Monday-Friday: 9:00 - 22:00</p>
                         <p class="text-xs">Saturday-Sunday: 9:00 - 21:00</p>
                         <div class="admin-contact__time-wrapper">
-                            <input name="city" list="days"  class="admin-contact__input text-sm"  placeholder="Saturday-Sunday"/>
+                            <input name="city" list="days"  class="admin-contact__input text-sm"  value="Saturday-Sunday"/>
                             <datalist id="days">
                                 <option value="Monday-Friday" />
                                 <option value="Saturday-Sunday" />
@@ -75,6 +83,9 @@
             </div>
         </div>
     </section>
+    <div class="loader" v-else>
+        <Loader/>
+    </div>
 </template>
 
 <style lang="scss" scoped>
