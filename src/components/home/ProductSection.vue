@@ -107,7 +107,7 @@ const productList = computed(() => {
         </template>
       </GenericList>
 
-      <button class="product-section__button text-sm">Show more</button>
+      <button class="product-section__button text-sm" @click="$router.push('shop')">Show more</button>
     </div>
   </section>
 </template>
