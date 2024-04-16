@@ -1,15 +1,17 @@
 <script setup>
 import { VueFinalModal, useVfm } from 'vue-final-modal'
 import AdminProductInput from './AdminProductInput.vue'
-import { Form } from 'vee-validate';
+import { useForm } from 'vee-validate'
 import * as Yup from 'yup'
 import CrossIcon from '../../assets/icons/CrossIcon.svg'
+import { useUserStore } from '../../stores/userStore'
+import GenericToast from '../generics/GenericToast.vue'
+import { useProductStore } from '../../stores/productStore'
+import { ref, watch } from 'vue';
+
 
 const vfm = useVfm()
-
 const closeModal = () => vfm.closeAll(vfm.openedModals)
-
-const formatDate = (date) => new Date(date).toLocaleDateString('en-GB').replace(/\//g, '.')
 
 const props = defineProps({
     name: String,
@@ -24,9 +26,10 @@ const props = defineProps({
     createdAt: String,
     updatedAt: String,
     headingFlag: Boolean,
+    newProductFlag: Boolean
 })
 
-const { createdAt, updatedAt, headingFlag, ...formValues } = props;
+const { createdAt, updatedAt, headingFlag, ...initialValues } = props
 
 const validationSchema = Yup.object().shape({
     name: Yup.string().required('Name is required'),
@@ -34,9 +37,9 @@ const validationSchema = Yup.object().shape({
     description: Yup.string().required('Description is required'),
     imageUrl: Yup.string().required('Image URL is required'),
     price: Yup.string().required('Price is required').matches(/^\d+(\.\d{2})?$/, 'Price must be in NN.NN format'),
-    stock: Yup.number().required('Stock is required').typeError('Discount is required').integer().min(0, 'Stock must be a positive integer or 0'),
-    discount: Yup.number().required('Discount is required').typeError('Discount is required').integer().min(0, 'Discount must be a positive integer').max(100, 'Discount cannot be more than 100'),
-});
+    stock: Yup.number().required('Stock is required').typeError('Discount must be an integer').integer().min(0, 'Stock must be a positive integer or 0'),
+    discount: Yup.number().required('Discount is required').typeError('Discount must be a number').integer().min(0, 'Discount must be a positive integer').max(100, 'Discount cannot be more than 100'),
+})
 
 const inputPresetList = [
     { title: 'Name', placeholder: '...', name: 'name' },
@@ -49,7 +52,42 @@ const inputPresetList = [
     { title: 'New', placeholder: '...', name: 'isNew', type: 'checkbox', checkboxValue: props.isNew },
 ]
 
-const handleSubmit = values => console.log(values);
+const { handleSubmit, isSubmitting, setValues } = useForm({
+    validationSchema: validationSchema,
+    initialValues: props.newProductFlag ? {} : initialValues
+})
+
+const productStore = useProductStore()
+const token = useUserStore().token.key
+
+const toastPreset = ref({})
+const submitCompletionFlag = ref(false)
+
+const reset = () => setValues(initialValues)
+
+const submit = handleSubmit(values => {
+    if (submitCompletionFlag.value) submitCompletionFlag.value = false
+
+    const { updateProductToServer, addProductToServer } = productStore;
+
+    const action = props.newProductFlag ? addProductToServer : updateProductToServer;
+
+    action(values, token)
+        .then(response =>
+            response
+                ? toastPreset.value = { message: `${props.newProductFlag ? 'CREATE' : 'PATCH'}SUCCESS!`, type: 'success' }
+                : toastPreset.value = { message: `${props.newProductFlag ? 'CREATE' : 'PATCH'}FAILURE!`, type: 'error' })
+        .catch(error =>
+            toastPreset.value = { message: `${props.newProductFlag ? 'CREATE' : 'PATCH'} ERROR!` + error, type: 'error' })
+        .finally(() => {
+            submitCompletionFlag.value = true
+            if (props.newProductFlag) setTimeout(() => vfm.closeAll(vfm.openedModals), 100)
+        })
+})
+
+watch(submitCompletionFlag, () => productStore.initStore())
+
+const formatDate = (date) => new Date(date).toLocaleDateString('en-GB').replace(/\//g, '.')
 
 </script>
 
@@ -57,11 +95,11 @@ const handleSubmit = values => console.log(values);
     <VueFinalModal contentClass="admin-product-modal__container" class="admin-product-modal__modal admin-product-modal"
         overlayTransition="vfm-fade" contentTransition="vfm-fade" @clickOutside="$emit('close')">
 
-        <img class="admin-product-modal__image" :src="imageUrl" :alt="name" />
+        <img v-if="!newProductFlag" class="admin-product-modal__image" :src="imageUrl" :alt="name" />
 
-        <Form class="admin-product-modal__form admin-product-form" :validationSchema="validationSchema"
-            :initialValues="formValues" :onSubmit="handleSubmit">
-            <div class="admin-product-form__metadata-wrapper">
+        <form v-if="!newProductFlag" class="admin-product-modal__form admin-product-form" @submit="submit"
+            @reset="reset">
+            <div class=" admin-product-form__metadata-wrapper">
                 <h2 class="admin-product-form__title text-3xl">
                     {{ name }}
                 </h2>
@@ -80,20 +118,41 @@ const handleSubmit = values => console.log(values);
             </div>
 
             <div class="admin-product-form__button-wrapper">
-                <button type="submit" class="admin-product-form__submit-button text-sm">
+                <button :disabled="isSubmitting" type="submit" class="admin-product-form__submit-button text-sm">
                     Apply
                 </button>
 
-                <button type="reset" class="admin-product-form__reset-button text-sm">
+                <button :disabled="isSubmitting" type="button" @click="reset"
+                    class="admin-product-form__reset-button text-sm">
                     Reset
                 </button>
             </div>
+        </form>
 
-        </Form>
+        <form v-if="newProductFlag" class="admin-product-modal__form-new admin-product-form admin-product-form--new"
+            @submit="submit">
+            <h2 class="admin-product-form__title admin-product-form__title--new text-3xl">
+                New product
+            </h2>
+
+            <div class="admin-product-form__input-wrapper">
+                <AdminProductInput v-for="(input, index) of inputPresetList" :key="`${name}_${index}`" v-bind="input" />
+            </div>
+
+            <button :disabled="isSubmitting" type="submit"
+                class="admin-product-form__submit-button admin-product-form__submit-button--new text-sm">
+                Add
+            </button>
+
+        </form>
+
+
 
         <button class="admin-product-modal__close-button" @click="closeModal">
             <CrossIcon width="2.86rem" height="2.86rem" />
         </button>
+
+        <GenericToast v-if="submitCompletionFlag" v-bind="toastPreset" />
     </VueFinalModal>
 </template>
 
@@ -130,6 +189,11 @@ const handleSubmit = values => console.log(values);
     display: flex;
     flex-direction: column;
     padding: 2rem;
+    justify-content: space-between;
+
+    &--new {
+        padding: 4rem 8rem;
+    }
 
     &__metadata-wrapper {
         display: flex;
@@ -140,6 +204,11 @@ const handleSubmit = values => console.log(values);
 
     &__title {
         font-weight: 400;
+
+        &--new {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
     }
 
     &__info {
@@ -149,7 +218,6 @@ const handleSubmit = values => console.log(values);
     &__input-wrapper {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 1rem;
     }
 
     &__button-wrapper {
@@ -157,7 +225,6 @@ const handleSubmit = values => console.log(values);
         align-items: center;
         justify-content: center;
         gap: 2.5rem;
-        margin-top: 2.5rem;
     }
 
     &__submit-button,
@@ -171,6 +238,12 @@ const handleSubmit = values => console.log(values);
         background-color: var(--color-uc-gold);
         color: var(--color-white);
         justify-self: flex-end;
+
+        &--new {
+            width: fit-content;
+            padding: 0.75rem 5rem;
+            margin: 0 auto;
+        }
     }
 
     &__reset-button {

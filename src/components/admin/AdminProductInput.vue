@@ -37,7 +37,7 @@ const valueAttr = props.type === 'checkbox' ? { value: props.checkboxValue } : n
         display: flex;
         align-items: center;
         gap: 0.5rem;
-        padding-top: 2rem;
+        padding-bottom: 2rem;
 
         &:nth-child(1),
         &:nth-child(2),
@@ -110,9 +110,10 @@ const valueAttr = props.type === 'checkbox' ? { value: props.checkboxValue } : n
     &__error {
         font-weight: 500;
         position: absolute;
-        top: 0.2rem;
-        left: 0;
-        width: 100%;
+        bottom: 0.4rem;
+        left: 8.5rem;
+        display: block;
+        width: fit-content;
         text-align: center;
         color: var(--color-candy-pink);
     }
