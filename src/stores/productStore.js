@@ -42,9 +42,12 @@ export const useProductStore = defineStore('product', () => {
   }
 
   // Those functions are to be used by WebSocket:
-  const addproductMap =  (product) => {
+  const addproductMap =  (productArray) => {
     if (!productMap.value) productMap.value = new Map()
+    for (let product of productArray){
     productMap.value.set(product.id, product)
+    console.log("PRODUCT UPDATED: ", productMap.value)
+    }
 }
 
   const removeproductMap = (productId) => {

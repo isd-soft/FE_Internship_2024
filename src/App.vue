@@ -1,10 +1,11 @@
 <script setup>
 import {ModalsContainer} from 'vue-final-modal'
-import { socket } from "@/socket";
+import { socket , bindEvents} from "@/socket";
 
+
+bindEvents()
+socket.emit('test');
 //Hot reload preparations
-socket.off()
-socket.connect()
 
 </script>
 
