@@ -5,7 +5,8 @@ import { handleNumberInputInsert } from '../../utils/handleNumberInputInsert.js'
 
 
 const props = defineProps({
-    imageSrc: String,
+    id: String,
+    imageUrl: String,
     name: String,
     price: Number,
     quantity: Number
@@ -30,21 +31,21 @@ const props = defineProps({
 
 <template>
     <div class="cart-list__card cart-card">
-        <img class="cart-card__image" :src="imageSrc" :alt="name">
+        <img class="cart-card__image" :src="imageUrl" :alt="name">
 
         <span class="cart-card__name text-sm">
             {{ name }}
         </span>
 
         <span class="cart-card__price text-sm">
-            {{ price }}
+           ${{ price }}
         </span>
 
         <input @blur="handleNumberInputBlur($event, quantity)" @input="handleNumberInputInsert($event)"
             class="cart-card__quantity text-xs" :value="quantity">
 
         <span class="cart-card__subtotal text-sm">
-            {{ price * quantity }}
+            ${{ price * quantity }}
         </span>
 
         <button class="cart-card__delete-button">
