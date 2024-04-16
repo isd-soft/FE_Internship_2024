@@ -22,17 +22,20 @@ const props = defineProps({
     }
 })
 
-const { state, onColor, offColor, toggleColor, outline} = props;
+const { state, onColor, offColor, toggleColor, outline } = props;
 
 const getButtonState = () => state ? '--on' : '--off';
 
-const getBackgroundColor = () => state ? onColor : offColor;
+const initialColor = () => state ? offColor : onColor;
+
+const finalColor = () => state ? onColor : offColor;
 </script>
 
 <template>
-    <button class="toggle-button" :style="{outline: outline}">
-        <div :class="['toggle-button__wrapper', 'toggle-button__wrapper' + getButtonState()]" :style="{backgroundColor: getBackgroundColor()}">
-            <div class="toggle-button__toggler" :style="{backgroundColor: toggleColor}"></div>
+    <button :style="{ outline: outline, '--initial-color': initialColor(), '--final-color': finalColor() }"
+        :class="['toggle-button']">
+        <div :class="['toggle-button__wrapper', 'toggle-button__wrapper' + getButtonState()]">
+            <div class="toggle-button__toggler" :style="{ backgroundColor: toggleColor }"></div>
         </div>
     </button>
 </template>
@@ -43,6 +46,18 @@ const getBackgroundColor = () => state ? onColor : offColor;
     aspect-ratio: 2 / 1;
     border-radius: 25% / 50%;
     overflow: hidden;
+    animation: color-change 0.3s ease-in-out forwards;
+    cursor: pointer;
+
+    @keyframes color-change {
+        0% {
+            background-color: var(--initial-color);
+        }
+
+        100% {
+            background-color: var(--final-color);
+        }
+    }
 
     &__wrapper {
         background-color: transparent;
@@ -52,14 +67,33 @@ const getBackgroundColor = () => state ? onColor : offColor;
         display: flex;
         justify-content: center;
         align-items: center;
-        transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
-        
+
+        @keyframes slide-on {
+            0% {
+                transform: translate(-40%, 0);
+            }
+
+            100% {
+                transform: translate(-20%, 0);
+            }
+        }
+
+        @keyframes slide-off {
+            0% {
+                transform: translate(-20%, 0);
+            }
+
+            100% {
+                transform: translate(-40%, 0);
+            }
+        }
+
         &--on {
-            transform: translate(-20%, 0);
+            animation: slide-on 0.3s ease-in-out forwards;
         }
 
         &--off {
-            transform: translate(-40%, 0);
+            animation: slide-off 0.3s ease-in-out forwards;
         }
     }
 

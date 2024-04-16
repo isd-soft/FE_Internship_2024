@@ -7,28 +7,32 @@ import { getUserRoleRequest } from '@/axios/getUserRoleRequest'
 import {useUserStore} from './userStore'
 
 export const useAdminUserStore = defineStore('adminuser', () => {
-    const users = ref({})
+    const users = ref([])
     const userRole = ref({})
     const userStore = useUserStore()
-    const usersLoader = ref(false)
+    const userLoader = ref(false)
     const userRoleLoader = ref(false)
 
     const getUsers = async () => {
-        usersLoader.value = false
+        userLoader.value = false
         const response = await getUserListRequest(userStore.token.key)
         if(response) users.value = response
-        usersLoader.value = true
+        userLoader.value = true
     }
 
     //After Update and delete a webhook should be triggered that changes those values I think?
     //If no, then call getUser again
     const updateUsers = async(modifiedUser) => {
         const response = await updateUserRequest(JSON.stringify(modifiedUser), userStore.token.key)
+        const index = users.value.findIndex(user => user.id === modifiedUser.id)
+        users.value[index] = modifiedUser
+        if (response) console.log("User updated")
         return response
     }
 
     const deleteUser = async(userId) =>{
         const response = await deleteUserRequest(userStore.token.key, [userId])
+        if (response) users.value = users.value.filter(user => user.id !== userId)
         return response 
     }
 
@@ -39,6 +43,6 @@ export const useAdminUserStore = defineStore('adminuser', () => {
         userRoleLoader.value = true
     }
 
-    return {users, usersLoader, userRoleLoader, getUsers, updateUsers, deleteUser, getUserRole}
+    return {users, userRole, userLoader, userRoleLoader, getUsers, updateUsers, deleteUser, getUserRole}
 
 })

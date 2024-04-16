@@ -1,15 +1,5 @@
 <script setup>
 import AdminSidebar from '@/components/admin/AdminSidebar.vue';
-import {useAdminUserStore} from "../stores/adminUserStore"
-import { storeToRefs } from "pinia";
-
-const adminStore = useAdminUserStore()
-
-adminStore.getUsers()
-
-adminStore.getUserRole()
-
-const users = storeToRefs(adminStore)
 
 </script>
 
@@ -20,6 +10,4 @@ const users = storeToRefs(adminStore)
     </div>
 </template>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

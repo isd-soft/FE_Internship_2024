@@ -1,24 +1,51 @@
 <script setup>
 import GenericList from '../generics/GenericList.vue';
 import TrashIcon from '@/assets/icons/TrashIcon.svg';
+import ToggleButton from '@/components/shared/ToggleButton.vue';
 import { useAdminUserStore } from "../../stores/adminUserStore.js";
 import { computed } from 'vue';
+import { ref } from 'vue';
 
 const adminStore = useAdminUserStore()
 
+adminStore.getUsers()
+
 const users = computed(() => adminStore.users)
+
+adminStore.getUserRole()
+
+const roles = computed(() => adminStore.userRole)
 
 const splitDate = (date) => date.split('T');
 
+const checkRole = (item, role) => item.roles.find(i => i.role === role) ? true : false
+
+const updateRole = (item) => {
+    if (checkRole(item, 'ADMIN')) {
+        console.log("is admin")
+        const newItem = { ...item, roles: item.roles.filter(role => role.role !== 'ADMIN') }
+        console.log(newItem)
+        adminStore.updateUsers(newItem)
+    } else {
+        console.log("is not admin")
+        const adminRole = roles.value.find(role => role.role === 'ADMIN')
+        const newItem = { ...item, roles: [...item.roles, { id: adminRole.id, role: adminRole.role }] }
+        console.log(newItem)
+        adminStore.updateUsers(newItem)
+    }
+}
+
 const deleteUser = (id) => {
     console.log("delete user", id)
-    adminStore.deleteUser(id).then(() => adminStore.getUsers())
+    adminStore.deleteUser(id)
 }
+
+const isAdmin = (item) => item.roles.find(i => i.role === 'ADMIN') ? 'ADMIN' : 'USER'
 </script>
 
 <template>
     <section class="main__section section admin-user-section">
-        <h1 class="text-5xladmin-user-section__title">Users</h1>
+        <h1 class="text-5xl admin-user-section__title">Users</h1>
         <div class="text-sm admin-user-section__table-header">
             <span class="admin-user-section__header-name">ID</span>
             <span class="admin-user-section__header-name">First Name</span>
@@ -27,31 +54,31 @@ const deleteUser = (id) => {
             <span class="admin-user-section__header-name">Email</span>
             <span class="admin-user-section__header-name">Created at</span>
             <span class="admin-user-section__header-name">Last updated</span>
-            <span class="admin-user-section__header-name">Role</span>
+            <span class="admin-user-section__header-name">Admin role</span>
             <span class="admin-user-section__header-name"></span>
         </div>
-        <GenericList :items="users" tag="ul" keyProp="id" custom-class="text-xs admin-user-section__list"
-            item-class="admin-user-section__list-item">
+        <GenericList v-if="adminStore.userLoader" :items="users" tag="ul" :keyProp="id"
+            custom-class="text-xs admin-user-section__list" item-class="admin-user-section__list-item">
             <template v-slot="{ item }">
-                <span class="admin-user-section__id" :title="item.id">{{ item.id }}</span>
-                <span class="admin-user-section__fist-name">{{ item.FirstName }}</span>
-                <span class="admin-user-section__last-name">{{ item.lastName }}</span>
-                <span class="admin-user-section__username">{{ item.username }}</span>
-                <span class="admin-user-section__email">{{ item.email }}</span>
-                <span class="admin-user-section__created-at">
+                <div class="admin-user-section__id" :title="item.id">{{ item.id }}</div>
+                <div class="admin-user-section__fist-name">{{ item.firstName }}</div>
+                <div class="admin-user-section__last-name">{{ item.lastName }}</div>
+                <div class="admin-user-section__username">{{ item.username }}</div>
+                <div class="admin-user-section__email">{{ item.email }}</div>
+                <div class="admin-user-section__created-at">
                     {{ splitDate(item.createdAt)[1].slice(0, 5) }}
                     <br>
                     {{ splitDate(item.createdAt)[0] }}
-                </span>
-                <span class="admin-user-section__last-update">
+                </div>
+                <div class="admin-user-section__last-update">
                     {{ splitDate(item.updatedAt)[1].slice(0, 5) }}
                     <br>
                     {{ splitDate(item.updatedAt)[0] }}
-                </span>
-                <span class="admin-user-section__role">
-                    {{ item.roles[0].role }}
-                </span>
-                <div class="admin-user-section__delete">
+                </div>
+                <div class="admin-user-section__role">
+                    <ToggleButton :state="checkRole(item, 'ADMIN')" @click="updateRole(item)" />
+                </div>
+                <div class=" admin-user-section__delete">
                     <TrashIcon @click="deleteUser(item.id)" />
                 </div>
             </template>
@@ -104,7 +131,6 @@ const deleteUser = (id) => {
 
     &:deep(.admin-user-section__list-item) {
         height: 5rem;
-        border: 1px solid darkmagenta;
         grid-column: 1 / span 9;
         display: grid;
         grid-template-columns: inherit;
