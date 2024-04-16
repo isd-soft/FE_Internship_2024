@@ -9,7 +9,7 @@ import { adminGuard } from './adminGuard'
 import { createRouter, createWebHistory } from 'vue-router'
 import BannerSection from '@/components/shared/BannerSection.vue'
 import AdminContactPage from '@/components/admin/AdminContactPage.vue'
-import AdminUsersList from '@/components/admin/AdminUsersList.vue'
+import AdminUserList from '@/components/admin/AdminUserList.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -65,7 +65,7 @@ const router = createRouter({
       {
         path: 'users',
         name: 'users',
-        component: AdminUsersList//add component when it will appear
+        component: AdminUserList //add component when it will appear
       }
     ]
     }

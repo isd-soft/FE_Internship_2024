@@ -8,10 +8,10 @@ import {useUserStore} from './userStore'
 
 export const useAdminUserStore = defineStore('adminuser', () => {
     const users = ref({})
-    const userRoles = ref({})
+    const userRole = ref({})
     const userStore = useUserStore()
     const usersLoader = ref(false)
-    const userRolesLoader = ref(false)
+    const userRoleLoader = ref(false)
 
     const getUsers = async () => {
         usersLoader.value = false
@@ -28,18 +28,17 @@ export const useAdminUserStore = defineStore('adminuser', () => {
     }
 
     const deleteUser = async(userId) =>{
-        const response = await deleteUserRequest(JSON.stringify([userId]), userStore.token.key)
+        const response = await deleteUserRequest(userStore.token.key, [userId])
         return response 
     }
 
     const getUserRole = async() => {
-        userRolesLoader.value = false
+        userRoleLoader.value = false
         const response = await getUserRoleRequest(userStore.token.key)
-        if(response) userRoles.value = response
-        console.log(userRoles.value)
-        userRolesLoader.value = true
+        if(response) userRole.value = response
+        userRoleLoader.value = true
     }
 
-    return {users, usersLoader, userRolesLoader, getUsers, updateUsers, deleteUser, getUserRole}
+    return {users, usersLoader, userRoleLoader, getUsers, updateUsers, deleteUser, getUserRole}
 
 })

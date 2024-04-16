@@ -1,9 +1,8 @@
 <script setup>
 import GenericList from '../generics/GenericList.vue';
 import TrashIcon from '@/assets/icons/TrashIcon.svg';
-import ToggleButton from '../shared/ToggleButton.vue';
 import { useAdminUserStore } from "../../stores/adminUserStore.js";
-import {computed} from 'vue';
+import { computed } from 'vue';
 
 const adminStore = useAdminUserStore()
 
@@ -11,8 +10,9 @@ const users = computed(() => adminStore.users)
 
 const splitDate = (date) => date.split('T');
 
-const checkRole = (item) => {
-    return item.roles[0].role === 'ADMIN'
+const deleteUser = (id) => {
+    console.log("delete user", id)
+    adminStore.deleteUser(id).then(() => adminStore.getUsers())
 }
 </script>
 
@@ -30,7 +30,8 @@ const checkRole = (item) => {
             <span class="admin-user-section__header-name">Role</span>
             <span class="admin-user-section__header-name"></span>
         </div>
-        <GenericList :items="users" tag="ul" keyProp="id" custom-class="text-xs admin-user-section__list" item-class="admin-user-section__list-item">
+        <GenericList :items="users" tag="ul" keyProp="id" custom-class="text-xs admin-user-section__list"
+            item-class="admin-user-section__list-item">
             <template v-slot="{ item }">
                 <span class="admin-user-section__id" :title="item.id">{{ item.id }}</span>
                 <span class="admin-user-section__fist-name">{{ item.FirstName }}</span>
@@ -48,10 +49,10 @@ const checkRole = (item) => {
                     {{ splitDate(item.updatedAt)[0] }}
                 </span>
                 <span class="admin-user-section__role">
-                    <ToggleButton :state="checkRole(item)"/>
+                    {{ item.roles[0].role }}
                 </span>
                 <div class="admin-user-section__delete">
-                    <TrashIcon/>
+                    <TrashIcon @click="deleteUser(item.id)" />
                 </div>
             </template>
         </GenericList>
@@ -66,8 +67,17 @@ const checkRole = (item) => {
     row-gap: 2.5rem;
     text-align: center;
 
-    &__title, &__header-name, &__id, &__fist-name, &__last-name, 
-    &__username, &__email, &__created-at, &__last-update, &__role, &__delete {
+    &__title,
+    &__header-name,
+    &__id,
+    &__fist-name,
+    &__last-name,
+    &__username,
+    &__email,
+    &__created-at,
+    &__last-update,
+    &__role,
+    &__delete {
         padding: 0 0.5rem;
     }
 
@@ -107,16 +117,34 @@ const checkRole = (item) => {
         height: 50%;
         display: flex;
         justify-content: center;
+
+        svg {
+            fill: var(--color-uc-gold);
+            cursor: pointer;
+
+            &:hover {
+                fill: var(--color-dark-charcoal);
+            }
+
+            &:active {
+                fill: var(--color-uc-gold);
+            }
+        }
     }
 
-    &__id, &__fist-name, &__last-name, &__username, &__email{
+    &__id,
+    &__fist-name,
+    &__last-name,
+    &__username,
+    &__email {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
         margin-left: 0.5rem;
-    
 
-        &:hover, &:focus {
+
+        &:hover,
+        &:focus {
             overflow: scroll;
             text-overflow: inherit;
 
