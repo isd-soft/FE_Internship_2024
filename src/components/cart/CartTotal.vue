@@ -23,25 +23,23 @@ const checkout = () => {
         <span class="cart-total__category text-sm"> Subtotal </span>
 
         <span class="cart-total__value text-sm">
-          {{ cartStore.subtotal }}
+          ${{ cartStore.subtotal }}
         </span>
       </div>
 
       <div class="cart-total__text-wrapper">
-                <span class="cart-total__category text-sm">
-                    Delivery
-                </span>
+        <span class="cart-total__category text-sm"> Delivery </span>
 
-                <span class="cart-total__value text-sm">
-                    {{ cartStore.delivery }}
-                </span>
-            </div>
+        <span class="cart-total__value text-sm">
+          ${{ cartStore.delivery }}
+        </span>
+      </div>
 
       <div class="cart-total__text-wrapper">
         <span class="cart-total__category text-sm"> Total </span>
 
         <span class="cart-total__final-value text-md">
-          {{ cartStore.total }}
+          ${{ cartStore.total }}
         </span>
       </div>
     </div>
@@ -56,7 +54,7 @@ const checkout = () => {
   flex-direction: column;
   align-items: center;
   width: 31%;
-  padding: 1.5rem 7.5rem 8rem 7.5rem;
+  padding: 7rem 7.5rem 7rem 7.5rem;
   background-color: var(--color-linen);
 
   &__title {

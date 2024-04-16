@@ -67,7 +67,7 @@ const handleBlur = (event) => {
 
 <template>
   <div class="cart-list__card cart-card">
-    <GenericToast v-if="toastFlag" :message="toastMessage" :type="toastType" />
+    <GenericToast v-if="toastFlag && !quantityChangeSuccessFlag" :message="toastMessage" :type="toastType" />
 
     <img class="cart-card__image" :src="imageUrl" :alt="name" />
 
