@@ -8,7 +8,10 @@ const isFailure = ref(false)
 
 const schema = yup.object({
   username: yup.string().required(),
-  password: yup.string().min(6, 'Password must contain at least 6 characters').required('Password must not be empty')
+  password: yup
+    .string()
+    .min(6, 'Password must contain at least 6 characters')
+    .required('Password must not be empty')
 })
 
 const { defineField, errors, handleSubmit } = useForm({
@@ -25,16 +28,19 @@ const [password, passwordAttributeList] = defineField('password', {
 const onSubmit = handleSubmit((values) => {
   const userStore = useUserStore()
   const { username, password } = values
-  userStore.login(username, password).then(res => {
-    if(res) emit('success') 
-    else {
+  userStore
+    .login(username, password)
+    .then((res) => {
+      if (res) emit('success')
+      else {
+        emit('failure')
+        isFailure.value = true
+      }
+    })
+    .catch((err) => {
       emit('failure')
       isFailure.value = true
-    }
-  }).catch(err => {
-    emit('failure') 
-    isFailure.value = true
-  })
+    })
 })
 
 const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
@@ -47,7 +53,7 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
     <form @submit="onSubmit" class="login-container__form login-form">
       <input
         class="login-form__input"
-        :class="{'login-form__input--error': errors.username}"
+        :class="{ 'login-form__input--error': errors.username }"
         v-model="username"
         v-bind="usernameAttributeList"
         name="username"
@@ -57,7 +63,7 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
       />
       <input
         class="login-form__input"
-        :class="{'login-form__input--error': errors.password}"
+        :class="{ 'login-form__input--error': errors.password }"
         v-model="password"
         v-bind="passwordAttributeList"
         name="password"
@@ -66,7 +72,7 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
         @focus="$emit('inputStart')"
       />
 
-      <span class="login-form__error">{{isFailure? "Incorrect Username or Password":""}}</span>
+      <span class="login-form__error">{{ isFailure ? 'Incorrect Username or Password' : '' }}</span>
 
       <button class="primary-button login-form__submit-button">Log In</button>
     </form>
@@ -77,10 +83,9 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
 </template>
 
 <style lang="scss" scoped>
-span{
+span {
   min-height: 3rem;
 }
-
 
 .login-container {
   padding: 5rem 3.8rem 4rem 4rem;
@@ -100,9 +105,9 @@ span{
     background: none;
     width: 100%;
     text-decoration: underline transparent;
-    transition: .2s ease-out;
+    transition: 0.2s ease-out;
 
-    &:hover{
+    &:hover {
       text-decoration: underline black;
     }
   }
@@ -119,13 +124,12 @@ span{
     font-size: 1.6rem;
     margin-bottom: 0.8rem;
 
-
     ::placeholder {
       color: var(--color-quick-silver);
     }
 
-    &--error{
-      outline: 3px solid var(--color-candy-pink);
+    &--error {
+      outline: 2px solid var(--color-candy-pink);
     }
   }
 
@@ -138,7 +142,8 @@ span{
   &__submit-button {
     margin-top: 9.5rem;
     margin-bottom: 1rem;
-    padding: 1.2rem 10.5rem;
+    padding: 1.2rem 13rem;
+    align-self: center;
     color: var(--color-white);
     background-color: var(--color-uc-gold);
     font-size: 1.6rem;

@@ -154,7 +154,7 @@ span {
 }
 
 .register-container {
-  padding: 5rem 3.8rem 4rem 4rem;
+  padding: 5rem 6rem 4rem 6rem;
   display: flex;
   flex-direction: column;
 
@@ -185,11 +185,9 @@ span {
 
 .register-form {
     display: grid;
-    // grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(3, 3fr 1fr);
     grid-auto-flow:column;
-    grid-column-gap: 2rem;
-    // grid-gap: 1rem;
+    grid-column-gap: 3rem;
     &__input {
     border: 1px solid var(--color-quick-silver);
     border-radius: 1rem;
@@ -240,6 +238,13 @@ span {
     background-color: var(--color-uc-gold);
     font-size: 1.6rem;
     border: 1px solid var(--color-uc-gold);
+  }
+}
+
+@media only screen and (max-width: 375px){
+  .register-container{
+    width: 100%;
+    height: 100%;
   }
 }
 
