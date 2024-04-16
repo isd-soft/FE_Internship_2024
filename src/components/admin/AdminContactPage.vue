@@ -1,49 +1,126 @@
 <script setup>
 import { useContactStore } from "@/stores/contactStore";
-import { onBeforeMount,computed } from "vue";
+import { onBeforeMount,ref } from "vue";
+import * as yup from 'yup';
+import { useForm } from 'vee-validate'
 import Loader from "@/assets/icons/LoaderIcon.svg"
 const store = useContactStore()
 
+
+
 onBeforeMount(()=>{
-        store.fetchContactInformation() 
+        store.fetchContactInformation()
     })
-const contactInfo = computed(()=>{
-    return store.contactInformation
+
+const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/    
+
+const schema = yup.object({
+address: yup.string(),
+country: yup.string(),
+geoCoordinates: yup.string(),
+phoneNumber1: yup.string().matches(phoneRegExp, 'Phone number is not valid'),
+phoneNumber2: yup.string().matches(phoneRegExp, 'Phone number is not valid'),
+email1: yup.string().email(),
+email2: yup.string().email(),
+worktime: yup.string(),
 })
-console.log(contactInfo.value.address)
+
+const time=ref("")
+const hour1=ref("")
+const hour2=ref("")
+const { errors, handleSubmit, } = useForm({
+    validationSchema: schema
+})
+
+
+const onSubmit=handleSubmit(()=>{
+    console.log('submit')
+    store
+    .postContactInfo()
+    .then((res) => (res ? console.log('success') : console.log('failure')))
+    .catch((err) => console.log('failure'))
+})
+
+const onCancel=()=>{
+    console.log(`${time.value}: ${hour1.value} - ${hour2.value}`)
+}
+
 </script>
-
-
 <template>
     <section class="admin-contact" v-if="store.loader">
         <div class="admin-contact__container">
             <div class="admin-contact__name">
                 <h3 class="admin-contact__name-text text-4xl">Contact Information</h3>
             </div>
-                <form class="admin-contact__form-wrapper">
+                <form class="admin-contact__form-wrapper" @submit="onSubmit">
                     <div class="admin-contact__field">
                         <label for="address" class="admin-contact__label text-sm">Address</label>
-                        <input 
-                        type="text" 
+                        <input
+                        type="text"
+                        v-model="store.contactInformation.address"
+                        name="address"
                         class="admin-contact__input text-sm"
-                        :value="contactInfo.address"/>
+                        >
+                        <span class="register-form__error">{{ errors.address }}</span>
+                        <div class="admin-contact__city-country-wrapper">
+                            <div class="admin-contact__field">
+                                <label for="country" class="admin-contact__label text-sm">Country</label>
+                                <input 
+                                    type="text" 
+                                    class="admin-contact__input text-sm"
+                                    v-model="store.contactInformation.country"
+                                    />
+                            </div>
+                            <div class="admin-contact__field">
+                                <label for="city" class="admin-contact__label text-sm">City</label>
+                                <input 
+                                    type="text" 
+                                    class="admin-contact__input text-sm"
+                                    v-model="store.contactInformation.city"
+                                    />
+                            </div>
+                        </div>
                     </div>
                     <div class="admin-contact__field">
                         <label for="Work time" class="admin-contact__label text-sm">Work Time</label>
-                        <p class="text-xs">Monday-Friday: 9:00 - 22:00</p>
-                        <p class="text-xs">Saturday-Sunday: 9:00 - 21:00</p>
-                        <div class="admin-contact__time-wrapper">
-                            <input name="city" list="days"  class="admin-contact__input text-sm"  value="Saturday-Sunday"/>
-                            <datalist id="days">
-                                <option value="Monday-Friday" />
-                                <option value="Saturday-Sunday" />
-                            </datalist>
-                            <div class="admin-contact__hours-wrapper">
-                                <input type="time" class="admin-contact__input text-sm" value="09:00">
-                                <p class="text-4xl">-</p>
-                                <input type="time" class="admin-contact__input text-sm" value="22:00">
-                            </div>
+                        <div class="admin-contact__time-wrapper text-sm" v-for="(item) in store.contactInformation.workTime" :key="item.id">
+                            <p class="text-sm">{{ item }}</p>
                         </div>
+                        <div class="admin-contact__time-wrapper">
+                            <select id="days" class="admin-contact__input text-sm" v-model="time">
+                                <option >Monday-Friday</option>
+                                <option >Saturday-Sunday</option>
+                            </select>
+                            
+                            <div class="admin-contact__hours-wrapper">
+                                <input type="time" class="admin-contact__input text-sm" v-model="hour1">
+                                <p class="text-4xl">-</p>
+                                <input type="time" class="admin-contact__input text-sm" v-model="hour2" >
+                            </div>
+                            
+                        </div>
+                        <p>{{ worktime }}</p>
+                    </div>
+                    
+                    <div class="admin-contact__field">
+                        <label for="Phones" class="admin-contact__label text-sm">Phone Numbers</label>
+                        <div class="admin-contact__time-wrapper text-sm" v-for="(item) in store.contactInformation.phoneNumber" :key="item.id">
+                            <p class="text-sm">{{ item }}</p>
+                        </div>
+                        <input 
+                            type="tel" 
+                            id="phone" 
+                            name="Phones"
+                            class="admin-contact__input text-sm" 
+                            v-model="store.contactInformation.phoneNumber[0]"
+                            />
+                            <input 
+                            type="tel" 
+                            id="phone" 
+                            name="Phones"
+                            class="admin-contact__input text-sm" 
+                            v-model="store.contactInformation.phoneNumber[1]"
+                            />
                     </div>
                     <div class="admin-contact__field">
                         <label for="Coordinates" class="admin-contact__label text-sm">Coordinates</label>
@@ -51,37 +128,31 @@ console.log(contactInfo.value.address)
                             type="text" 
                             rows="6" 
                             class="admin-contact__input text-sm" 
-                            placeholder="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2825."/>
-                    </div>
-                    <div class="admin-contact__field">
-                        <label for="Phones" class="admin-contact__label text-sm">Phone Numbers</label>
-                        <p class="text-xs">Monday-Friday: 9:00 - 22:00</p>
-                        <p class="text-xs">Saturday-Sunday: 9:00 - 21:00</p>
-                        <input 
-                            type="tel" 
-                            id="phone" 
-                            name="Phones"
-                            class="admin-contact__input text-sm" 
-                            pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
-                            placeholder="This is an optional"
-                            v-model="phone"/>
+                            v-model="store.contactInformation.geoCoordinates"/>
                     </div>
                     <div class="admin-contact__field">
                         <label for="email" class="admin-contact__label text-sm">Email address</label>
-                        <p class="text-xs">Monday-Friday: 9:00 - 22:00</p>
-                        <p class="text-xs">Saturday-Sunday: 9:00 - 21:00</p>
+                        <div class="admin-contact__time-wrapper text-sm" v-for="(item) in store.contactInformation.email" :key="item.id">
+                            <p class="text-sm">{{ item }}</p>
+                        </div>
                         <input 
                             type="email"
                             class="admin-contact__input text-sm" 
-                            placeholder="abs@def.com"
-                            v-model="email">
+                            v-model="store.contactInformation.email[0]"
+                            >
+                            <input 
+                            type="email"
+                            class="admin-contact__input text-sm" 
+                            v-model="store.contactInformation.email[1]"
+                            >
                     </div>
+                    
                 </form>
             <div class="admin-contact__buttons-wrapper">
-                <button class="admin-contact__button button_modify primary-button ">Modify</button>
-                <button class="admin-contact__button button_cancel primary-button ">Cancel</button>
+                    <button class="admin-contact__button button_modify primary-button " @click="onSubmit">Modify</button>
+                    <button class="admin-contact__button button_cancel primary-button " @click="onCancel">Cancel</button>
+                    </div>
             </div>
-        </div>
     </section>
     <div class="loader" v-else>
         <Loader/>
@@ -94,7 +165,7 @@ console.log(contactInfo.value.address)
         &__container{
             display: flex;
             flex-direction: column;
-            padding: 5rem  10rem 0 10rem;
+            padding: 5rem  10rem 0 15rem;
             gap:3rem;
         }
         &__form-wrapper{
@@ -103,6 +174,10 @@ console.log(contactInfo.value.address)
             column-gap: 5rem;
             row-gap: 2rem;
             
+        }
+        &__city-country-wrapper{
+            display: flex;
+            justify-content: space-between;
         }
         &__field{
             display: flex;
@@ -151,6 +226,9 @@ console.log(contactInfo.value.address)
     color: var(--color-candy-pink);
     }
 }
+.errorfield{
+    border: 1px solid var(--color-candy-pink);
+}
 @media only screen and (max-width:1024px) {
     .admin-contact{
         &__form-wrapper{
@@ -162,6 +240,11 @@ console.log(contactInfo.value.address)
     .admin-contact{
         &__field{
             width: 100%;
+        }
+        &__city-country-wrapper{
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
         }
     }
 }

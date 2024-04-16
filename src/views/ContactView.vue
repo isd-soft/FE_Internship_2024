@@ -59,7 +59,7 @@
                     <ContactInfoCard  :icon="MapPointIcon" infoTitle="Address" :infoText="store.getFormatAddress" href="#" styles="pointer-events: none; cursor: default;"/>
                     <ContactInfoCard  :icon="PhoneIcon" infoTitle="Phone"   :infoText="store.getFormatPhones" href="tel:"/>
                     <ContactInfoCard  :icon="EmailIcon" infoTitle="Emails" :infoText="contactInfo.email" href="mailto:"/>
-                    <ContactInfoCard  :icon="ClockIcon" infoTitle="Working Time" :infoText="['Monday-Friday: 9:00 - 22:00','Saturday-Sunday: 9:00 - 21:00']" href="#" styles="pointer-events: none; cursor: default;"/>
+                    <ContactInfoCard  :icon="ClockIcon" infoTitle="Working Time" :infoText="contactInfo.workTime" href="#" styles="pointer-events: none; cursor: default;"/>
                 </div>
                 <GenericToast v-if="submitFinished" :message="toastMessage" :type="toastType" />
                 <ContactForm 

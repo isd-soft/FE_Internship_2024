@@ -34,7 +34,6 @@ const [message, messageAttributeList] = defineField('message', {
 })
 
 const onSubmit = handleSubmit((values) => {
-    const { name, email, subject, message } = values
     const result=true
     result ? emit('success') : emit('failure')
     alert(JSON.stringify(values, null, 2));
