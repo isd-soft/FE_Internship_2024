@@ -8,5 +8,5 @@ const LIVE_UPDATE_EVENT = 'live:entity-hook'
 export const socket = io(URL)
 
 socket.on(LIVE_UPDATE_EVENT, (...args) => {
-  //handle somehow
+  console.log(args)
 })

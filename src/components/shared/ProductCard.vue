@@ -1,14 +1,141 @@
+<script setup>
+import { ref, computed } from 'vue'
+import ProductLabel from './ProductLabel.vue'
+import { useModal } from 'vue-final-modal'
+import ModalProduct from './ModalProduct.vue'
+
+import LoginModal from '../authentication/LoginModal.vue'
+import { useUserStore } from '@/stores/userStore'
+import { useCartStore } from '@/stores/cartStore'
+import GenericToast from '../generics/GenericToast.vue'
+
+const userStore = useUserStore()
+const cartStore = useCartStore()
+
+const hoverFlag = ref(false)
+const toastFlag = ref(false)
+
+const determineType = (p) => {
+  if(p.discount > 0) return 'discount'
+  else if (p.isNew) return 'new'
+  else return 'stock'
+}
+
+const productType = computed(() => determineType(props))
+
+// eslint-disable-next-line no-unused-vars
+const props = defineProps({
+  id: String,
+  imageUrl: String,
+  name: String,
+  code: String,
+  description: String,
+  price: Number,
+  oldPrice: {
+    type: Number,
+    required: false
+  },
+  stock: Number,
+  rating: Number,
+  discount: {
+    type: Number,
+    required: false
+  },
+  isNew: {
+    type: Boolean,
+    required: false
+  },
+  createdAt: {
+    type: String,
+    required: false
+  },
+  updatedAt: {
+    type: String,
+    required: false
+  }
+  // value: {
+  //   type: Number,
+  //   validator: (value) => value >= 0
+  // },
+  // productType: {
+  //   type: String,
+  //   validator: (value) => ['discount', 'stock', 'new'].includes(value)
+  // },
+})
+
+const convertPrice = (value) =>
+  value ? '$' + value.toLocaleString('en-US').replace(/,/g, '.') : ''
+
+const truncateDescription = (text) => text.substring(0, 49).concat("...")
+
+const addToCart = () => {
+  cartStore.addProduct({
+    id: props.id,
+    imageUrl: props.imageUrl,
+    name: props.name,
+    code: props.code,
+    description: props.description,
+    price: props.price,
+    oldPrice: props.oldPrice,
+    stock: props.stock,
+    rating: props.rating,
+    discount: props.discount,
+    isNew: props.isNew,
+    createdAt: props.createdAt,
+    updatedAt: props.updatedAt
+  })
+}
+
+const addProduct = () =>{
+  if (!userStore.isAuthenticated()) OpenLoginModal()
+  else {
+    toastFlag.value = true
+    addToCart()
+}
+}
+
+const {open: OpenLoginModal} = useModal({
+  component: LoginModal
+})
+
+
+const { open: OpenProductModal } = useModal({
+  component: ModalProduct,
+  attrs: {
+    id: props.id,
+    imageUrl: props.imageUrl,
+    name: props.name,
+    code: props.code,
+    description: props.description,
+    price: convertPrice(props.price),
+    oldPrice: convertPrice(props.oldPrice),
+    stock: props.stock,
+    rating: props.rating,
+    discount: props.discount,
+    isNew: props.isNew,
+    createdAt: props.createdAt,
+    updatedAt: props.updatedAt,
+    productType: determineType(props)
+  }
+})
+</script>
+
 <template>
-  <div class="product-list-section__card product-card" @mouseenter="hoverFlag = true" @mouseleave="hoverFlag = false">
-    <img :src="imageSrc" :alt="title" />
+  <div
+    class="product-list-section__card product-card"
+    @mouseenter="hoverFlag = true"
+    @mouseleave="hoverFlag = false"
+  >
+  <GenericToast v-if="toastFlag" message="Product added to cart" type="info" />
+    <img class="product-card__image" :src="imageUrl" :alt="name" />
 
     <div class="product-card__text-wrapper">
       <h3 class="product-card__title text-lg">
-        {{ title }}
+        {{ name }}
       </h3>
 
       <span class="product-card__description text-sm">
-        {{ description }}
+        {{ truncateDescription(description) }}
       </span>
 
       <div class="product-card__price-wrapper">
@@ -22,63 +149,14 @@
       </div>
     </div>
 
-    <ProductLabel :type="productType" />
+    <ProductLabel :type="productType" :value="discount"/>
 
     <div v-show="hoverFlag" class="product-card__overlay">
-      <button class="product-card__button text-sm">Add to cart</button>
-      <button class="product-card__button text-sm" @click="openModal">Details</button>
+      <button class="product-card__button text-sm" @click="addProduct">Add to cart</button>
+      <button class="product-card__button text-sm" @click="OpenProductModal">Details</button>
     </div>
   </div>
 </template>
-
-<script setup>
-import { ref } from 'vue'
-import ProductLabel from './ProductLabel.vue'
-import { useModal } from 'vue-final-modal'
-import ModalProduct from './ModalProduct.vue'
-
-const hoverFlag = ref(false)
-
-// eslint-disable-next-line no-unused-vars
-const props = defineProps({
-  imageSrc: String,
-  title: String,
-  description: String,
-  price: Number,
-  oldPrice: {
-    type: Number,
-    required: false
-  },
-  productType: {
-    type: String,
-    validator: (value) => ['discount', 'stock', 'new'].includes(value)
-  }
-})
-
-const openModal = () => {
-  open()
-}
-
-const convertPrice = (value) =>
-  value ? 'Rp ' + value.toLocaleString('en-US').replace(/,/g, '.') : ''
-
-const { open } = useModal({
-  component: ModalProduct,
-  attrs: {
-    id: 1,
-    header: props.title,
-    price: convertPrice(props.price),
-    // description: props.description,
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    rating: 3.5,
-    reviews: 10,
-    // productType: props.productType,
-    productType: "Available",
-    // imgSrc: props.imageSrc,
-    imgSrc: "https://media.istockphoto.com/id/1293762741/photo/modern-living-room-interior-3d-render.webp?s=2048x2048&w=is&k=20&c=y5qtIaTcN6mnSb3bxBBhnBycfmNK48g6xawyfXHB5lw="
-  }
-})
-</script>
 
 <style lang="scss" scoped>
 .product-card {
@@ -88,7 +166,7 @@ const { open } = useModal({
 
   &__image {
     width: 100%;
-    height: 67%;
+    aspect-ratio: 95/100;
   }
 
   &__text-wrapper {
@@ -98,6 +176,7 @@ const { open } = useModal({
     padding: 6%;
     padding-bottom: 7%;
     background-color: var(--color-cultured);
+    height: 100%;
 
     @media only screen and (max-width: 375px) {
       align-items: center;
@@ -112,6 +191,9 @@ const { open } = useModal({
   &__description {
     font-weight: 500;
     color: var(--color-taupe-gray);
+    // text-overflow: ellipsis;
+    // white-space: nowrap;
+    // overflow: hidden;
   }
 
   &__price-wrapper {
@@ -119,6 +201,8 @@ const { open } = useModal({
     align-items: center;
     flex-wrap: wrap;
     column-gap: 16px;
+    margin-top: auto;
+
   }
 
   &__price {

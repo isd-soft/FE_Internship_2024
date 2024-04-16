@@ -1,36 +1,78 @@
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
+import {getProductListRequest} from '../axios/getProductListRequest'
+import {createProductRequest} from '../axios/createProductRequest'
+import {updateProductRequest} from '../axios/updateProductRequest'
+import { deleteProductRequest } from '../axios/deleteProductRequest'
 
 
 export const useProductStore = defineStore('product', () => {
-  const productList = ref(Map())
+  const productMap = ref(new Map())
+  const loader = ref(false)
 
-  function addProductList(product) {
-    if (!this.productList.value) this.productList.value = new Map()
-    this.productList.value.set(product.id, product)
+
+  // Called in App.vue rn to fetch products
+  const initStore = async () => {
+    loader.value = false
+    const result = await getProductListRequest()
+    if (productMap.value) productMap.value = new Map()
+    if (result) {
+      for (let product of result) {
+        product.price =  normalizePrice(product.price)
+        product.discount = parseInt(product.discount)
+        productMap.value.set(product.id, product)
+      }
+      loader.value = true
+    }
+
+    //console.log(productMap.value)
+  }
+
+  const normalizePrice = (price) =>{
+    if (price.includes("$")) price = price.replace("$", "")
+    return parseFloat(price)
+  }
+
+  const inStock = (productId) =>{
+    return productMap.value[productId].stock > 0
+  }
+
+  const isAvailable = (productId, quantity) => {
+    return print.value[productId].stock >= quantity
+  }
+
+  // Those functions are to be used by WebSocket:
+  const addproductMap =  (product) => {
+    if (!productMap.value) productMap.value = new Map()
+    productMap.value.set(product.id, product)
 }
 
-  function removeProductList(productId) {
-    this.productList.value.remove(productId)
+  const removeproductMap = (productId) => {
+    productMap.value.remove(productId)
 }
 
-  function updateProductList(product) {
-    if (this.productList.value[product.id]) {
-        this.productList.value[product.id] = product
+  const updateproductMap = (product) => {
+    if (productMap.value[product.id]) {
+        productMap.value[product.id] = product
       }  
     }
 
-    function addProductToServer(){
+    // Those functions are to be used by Admin:
 
+    const addProductToServer = async(product, token) => {
+      const result = await createProductRequest(JSON.stringify(product), token)
+      return result
     }
 
-    function updateProductToServer(){
-
+    const updateProductToServer = async(product, token) =>{
+      const result = await updateProductRequest(JSON.stringify(product), token) //Must contain id of product and values to be changed
+      return result
     }
 
-    function deleteProductFromServer(){
-
+    const deleteProductFromServer = async(productId, token) =>{
+      const result = await deleteProductRequest(JSON.stringify([productId]), token)
+      return result
     }
 
-  return { productList, addProductList, removeProductList, updateProductList}
+  return { productMap, loader, initStore, inStock, isAvailable, addproductMap, removeproductMap, updateproductMap, addProductToServer, updateProductToServer, deleteProductFromServer}
 })

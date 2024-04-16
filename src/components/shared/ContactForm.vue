@@ -1,36 +1,128 @@
 <script setup>
+import { useForm } from 'vee-validate'
+import * as yup from 'yup'
 
+const schema = yup.object({
+    name:  yup.string().required("This field is empty!"),
+    email: yup.string().email("Please write your email correctly").required("This field is empty!"),
+    subject: yup.string(),
+    message: yup.string().required("This field is empty!")
+})
+
+
+const { defineField, errors, handleSubmit,resetForm } = useForm({
+    validationSchema: schema,
+    
+})
+
+
+const [name, nameAttributeList] = defineField('name', {
+    validateOnModelUpdate: false
+    
+})
+
+const [email, emailAttributeList] = defineField('email', {
+    validateOnModelUpdate: false
+})
+
+const [subject, subjectAttributeList] = defineField('subject', {
+    validateOnModelUpdate: false
+})
+
+const [message, messageAttributeList] = defineField('message', {
+    validateOnModelUpdate: false
+})
+
+const onSubmit = handleSubmit((values) => {
+    const { name, email, subject, message } = values
+    const result=true
+    result ? emit('success') : emit('failure')
+    alert(JSON.stringify(values, null, 2));
+    resetForm();
+})
+
+const emit = defineEmits(['success', 'failure', 'inputStart'])
 </script>
 
 <template>
-    <form action="" class="form">
-        <div class="form__field">
-            <label for="name" class="form__label text-sm">Your name</label>
-            <input type="text" class="form__input text-sm" placeholder="ABC">
+    <form @submit="onSubmit" class="form-wrapper">
+        <div class="form-wrapper__field">
+            <label for="name" class="form-wrapper__label text-sm">Your name*</label>
+            <div class="form-wrapper__field-wrapper">
+                <input 
+                    type="text" 
+                    class="form-wrapper__input text-sm"
+                    :class="{errorfield:errors.name}"
+                    placeholder="ABC"
+                    v-model="name"
+                    v-bind="nameAttributeList"
+                    name="name"
+                    @focus="$emit('inputStart')"/>
+                <span class="form-wrapper__error text-sm">{{ errors.name }}</span>
+            </div>
         </div>
-        <div class="form__field">
-            <label for="email" class="form__label text-sm">Email address</label>
-            <input type="email" class="form__input text-sm" placeholder="abs@def.com">
+        <div class="form-wrapper__field">
+            <label for="email" class="form-wrapper__label text-sm">Email address*</label>
+            <div class="form-wrapper__field-wrapper">
+                <input 
+                    type="email"
+                    class="form-wrapper__input text-sm"
+                    :class="{errorfield:errors.email}"
+                    placeholder="abs@def.com"
+                    v-model="email"
+                    v-bind="emailAttributeList"
+                    name="email"
+                    @focus="$emit('inputStart')"/>
+                <span class="form-wrapper__error text-sm">{{ errors.email }}</span>
+            </div>
+            
         </div>
-        <div class="form__field">
-            <label for="subject" class="form__label text-sm">Subject</label>
-            <input type="text" class="form__input text-sm" placeholder="This is an optional">
+        <div class="form-wrapper__field">
+            <label for="subject" class="form-wrapper__label text-sm">Subject</label>
+            <div class="form-wrapper__field-wrapper">
+                <input 
+                    type="text" 
+                    class="form-wrapper__input text-sm"
+                    :class="{errorfield:errors.subject}"
+                    placeholder="This is an optional"
+                    v-model="subject"
+                    v-bind="subjectAttributeList"
+                    name="subject"
+                    @focus="$emit('inputStart')"/>
+                <span class="form-wrapper__error text-sm">{{ errors.subject }}</span>
+            </div>
+            
         </div>
-        <div class="form__field">
-            <label for="message" class="form__label text-sm">Message</label>
-            <textarea type="text" rows="5" class="form__input text-sm" placeholder="Hi! i’d like to ask about"/>
+        <div class="form-wrapper__field">
+            <label for="message" class="form-wrapper__label text-sm">Message*</label>
+            <div class="form-wrapper__field-wrapper">
+            <textarea 
+                type="text" 
+                rows="1" 
+                class="form-wrapper__input text-sm"
+                :class="{errorfield:errors.message}"
+                placeholder="Hi! i’d like to ask about"
+                v-model="message"
+                v-bind="messageAttributeList"
+                name="message"
+                @focus="$emit('inputStart')"/>
+            <span class="form-wrapper__error text-sm"> {{ errors.message }}</span>
+            </div>
+            
         </div>
-        <button type="submit" class="form__button text-sm" >Submit</button>
+        <span class="text-sm">* means the frield is required</span>
+        <button  class="form-wrapper__button text-sm primary-button" >Submit</button>
     </form>
+    
 </template>
 
 <style lang="scss" scoped>
-.form{
-    display: flex;
-    gap: 1.5rem;
-    width: 60%;
-    max-width: 635px;
-    flex-direction: column;
+.form-wrapper{
+    &__field-wrapper{
+        display: flex;
+        flex-direction: column;
+        gap: 12px
+    }
     &__field{
         display: flex;
         flex-direction: column;
@@ -41,27 +133,45 @@
     }
     &__input{
         padding: 20px 35px;
-        border-color: var(--color-quick-silver);
-        border-width: 1px;
+        border: 1px solid var(--color-quick-silver);
         border-radius: .75rem;
+        resize: none;
+        &::placeholder {
+            color: var(--color-quick-silver);
+        }
+        &:focus{
+            border: 1px solid var(--color-uc-gold);
+        }
     }
     &__button{
-        background-color:var(--color-uc-gold);
-        border-color: var(--color-uc-gold);
-        color: var(--color-white);
-        border-width: 1px;
-        border-radius: .25rem;
-        width: fit-content;
-        transition-duration: .3s;
-        margin-top: 1.6rem;
-        padding-top: .75rem;
-        padding-bottom: .75rem;
-        padding-left: 4rem;
-        padding-right: 4rem;
-        &:hover{
-            background-color: var(--color-white);
-            border-color: var(--color-white);
-            color: var(--color-uc-gold);
+        border-radius: .5rem;
+        padding: 1.4rem 9rem;
+        grid-column: 2 / 2;
+
+    
+    }
+    &__error {
+        color: var(--color-candy-pink);
+        padding-left: 0.4rem;
+        }
+}
+.errorfield{
+    border: 1px solid var(--color-candy-pink);
+}
+@media only screen and (max-width: 768px) {
+    .form-wrapper{
+        &__label{
+            font-size: 2.4rem;
+        }
+        &__input{
+            padding: 15px;
+            font-size: 2.4rem;
+        }
+        &__error{
+            font-size: 2.4rem;
+        }
+        &__button{
+            font-size: 4rem;
         }
     }
 }

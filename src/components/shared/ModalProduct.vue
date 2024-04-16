@@ -1,44 +1,56 @@
 <script setup>
-import { VueFinalModal } from 'vue-final-modal'
+import { VueFinalModal, useVfm } from 'vue-final-modal'
 import Counter from './Counter.vue';
 import StarRating from './StarRating.vue';
+import ClosingIcon from '../../assets/icons/CrossIcon.svg'
+import {toUppercaseUtil} from '../../utils/toUppercaseUtil.js'
+
+const reviews = () => Math.floor(Math.random() * 20)
 
 const props = defineProps({
-  id: {
+  id: String,
+  imageUrl: String,
+  name: String,
+  code: String,
+  description: String,
+  price: Number,
+  oldPrice: {
     type: Number,
-    required: true
+    required: false
   },
-  header: {
-    type: String,
-    required: true
-  },
-  price: {
-    type: String,
-    required: true
-  },
-  description: {
-    type: String,
-    required: true
-  },
-  rating: {
+  stock: Number,
+  rating: Number,
+  discount: {
     type: Number,
-    required: true
+    required: false
   },
-  reviews: {
-    type: Number,
-    required: true
+  isNew: {
+    type: Boolean,
+    required: false
   },
+  createdAt: {
+    type: String,
+    required: false
+  },
+  updatedAt: {
+    type: String,
+    required: false
+  },
+  // value: {
+  //   type: Number,
+  //   validator: (value) => value >= 0
+  // },
   productType: {
     type: String,
-    required: true
+    validator: (value) => ['discount', 'stock', 'new'].includes(value)
   },
-  imgSrc: {
-    type:String,
-    default:''
-  }
 })
 
-const emit = defineEmits(['close'])
+const vfm = useVfm()
+
+const close = () => {
+  vfm.closeAll(vfm.openedModals)
+}
 
 </script>
 
@@ -50,29 +62,34 @@ const emit = defineEmits(['close'])
     content-transition="vfm-fade"
     @clickOutside="emit('close')"
   >
-    <!-- <div class="product-modal__photo" :style="`background-image: url('${getUrlFromString(imgSrc)}');`"></div>   -->
-    <img :src="imgSrc" class="product-modal__photo" alt="Product Image"/>
-    <div class="product-modal__details">
-        <div class="product-modal__header text-3xl part">{{ header }}</div>
-        <div class="product-modal__price text-lg secondary-color part">{{ price }}</div>
-        <div class="product-modal__description text-sm part">{{ description }}</div>
-        <div class="product-modal__reviews part">
-              <StarRating :ratingStars="Number(rating)" />
-            <div class="product-modal__reviews--separator secondary-color"></div>
-            <div class="product-modal__reviews--customers text-sm secondary-color">{{ reviews }} Customer Review</div>
+  
+    <img :src="imageUrl" class="product-modal__photo" alt="Product Image"/>
+    <ClosingIcon class = "product-modal__cross" @click ="close()" />
+    <div class="product-modal__detail">
+      <div class = "product-modal__wrapper">
+        <span class="product-modal__header text-3xl">{{ name }}</span>
+        <span class="product-modal__price text-md">{{ price }}</span>
+      </div>
+      <div class = "product-modal__wrapper">
+        <span class="product-modal__description text-xs part">{{ description }}</span>
+        <div class="product-modal__review part">
+            <StarRating :ratingStars="Number(rating)" />
+            <span class="product-modal__review-separator" />
+            <span class="text-xs product-modal__review-text">{{ reviews() }} Customer Review</span>
+      </div>
+        <span class="product-modal__section-header text-xs">Availability</span>
+        <span class="product-modal__product-type text-md">{{ toUppercaseUtil(productType) }}</span>
+        <span class="product-modal__section-header text-xs">Colors</span>
+        <div class="product-modal__color">
+            <div class="product-modal__color-item"></div>
+            <div class="product-modal__color-item"></div>
+            <div class="product-modal__color-item"></div>
         </div>
-        <div class="secondary-color text-sm part">Availability</div>
-        <div class="product-modal__product-type text-sm part">{{ productType }}</div>
-        <div class="secondary-color text-sm part">Colors</div>
-        <div class="product-modal__colors part-x2">
-            <div class="product-modal__colors--item"></div>
-            <div class="product-modal__colors--item"></div>
-            <div class="product-modal__colors--item"></div>
-        </div>
-        <div class="product-modal__bottom-section part">
-            <Counter />
-            <button class="product-modal__bottom-section--cartadding text-md">Add to cart</button>
-        </div>
+      </div>
+      <div class="product-modal__bottom">
+          <Counter />
+          <button class="product-modal__bottom-cartadding text-md">Add to cart</button>
+      </div>
     </div>
   </VueFinalModal>
 </template>
@@ -85,90 +102,162 @@ const emit = defineEmits(['close'])
     background-color: var(--color-warm-ivory);
     backdrop-filter: blur(12px);
 
-    &__content {    
-        display: flex;
-        background: #fff;
-        border-radius: 0.5rem;
-        column-gap: 3.5vw;
-        max-width: 70%;
+    &__header{
+      display: block;
+      margin-bottom: 15px;
     }
 
-    &__details{
+    &__price{
+      display: block;
+      color: var(--color-taupe-gray);
+      margin-bottom: 15px;
+    }
+
+    &__content {    
+      position: relative;
+      display: flex;
+      background: #fff;
+      border-radius: 0.5rem;
+      column-gap: 5rem;
+      max-width: 70%;
+    }
+
+    &__detail{
         margin-top: 15px;
-        padding-right: 15px;
+        padding:0 15px 15px 0;
+        width: 45%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    
+    &__description{
+      display: block;
+      margin-bottom: 15px;
+    }
+
+    &__cross{
+      position: absolute;
+      right: 1.5rem;
+      top: 1.5rem;
+      height: 2.86rem;
+      cursor: pointer;
     }
 
     &__photo {
-        max-height: 35vw;
-        aspect-ratio: 1/1;
-        object-fit: cover;
-        border-radius: .5rem 0 0 .5rem;
+      max-width: calc((100% - 50px) / 2);
+      aspect-ratio: 1/1;
+      object-fit: cover;
+      border-radius: .5rem 0 0 .5rem;
     }
 
-    &__reviews{
+    &__review{
         display: flex;
         align-items: center;
-        column-gap: 1.4vw;
-
-        &--separator{
-            height: 1.4vw;
-            width: 0.5px;
-            background-color: var(--color-taupe-gray);
-        }
+        column-gap: 2rem;
+        margin-bottom: 15px;
     }
 
-    &__colors{
+    &__review-text{
+      display: block;
+      color: var(--color-taupe-gray);
+    }
+
+    &__review-separator{
+        height: 2rem;
+        width: 0.5px;
+        background-color: var(--color-taupe-gray);
+    }
+    
+    &__product-type{
+      display: block;
+      margin-bottom: 15px;
+    }
+
+    &__section-header{
+      display: block;
+      color: var(--color-taupe-gray);
+      margin-bottom: 15px;
+    }
+
+    &__color{
         display: flex;
         column-gap: 1.1vw;
+        margin-bottom: 15px;
 
-        &--item{
+        &-item{
             width: 2.1vw;
             height: 2.1vw;
             border-radius: 100%;
             cursor: pointer;
         }
 
-        &--item:nth-child(1){
+        &-item:nth-child(1){
             background-color: var(--color-violet-blue);
         }
 
-        &--item:nth-child(2){
+        &-item:nth-child(2){
             background-color: var(--color-black);
         }
 
-        &--item:nth-child(3){
+        &-item:nth-child(3){
             background-color: var(--color-uc-gold);
         }
     }
 
-    &__bottom-section{
-        display: flex;
-        column-gap: 1.4vw;
+    &__bottom{
+      display: flex;
+      column-gap: 3.5rem;
+    }
 
-        &--cartadding{
-            border:1px solid var(--color-black);
-            border-radius: 1vw;
-            padding: 1.2vw 3.3vw;
-            cursor: pointer;
-        }
+    &__bottom-cartadding{
+      border:1px solid var(--color-black);
+      background-color: var(--color-white);
+      border-radius: 1.43rem;
+      padding: 1.71rem 4.71rem;
+    }
 
-        &--cartadding:hover{
-            color: var(--color-white);
-            background-color: var(--color-black);
-            transition: 0.25s ease-in-out;
-        }
+    &__bottom-cartadding:hover{
+      color: var(--color-white);
+      background-color: var(--color-black);
+      transition: 0.25s ease-in-out;
     }
 }
 
-.secondary-color{
-    color: var(--color-taupe-gray);
-}
+@media (max-width:768px) {
+.product-modal{
+  &__detail{
+    padding: 1.86rem;
+    width: 100%;
+  }
 
-.part{
-    margin-bottom: 15px;
-}
+  &__content{
+    flex-direction: column;
+    max-width: 80%;
+  }
 
-.part-x2{
-    margin-bottom: 30px;
+  &__photo{
+    border-radius: .5rem .5rem 0 0;
+    max-height: 50rem;
+    max-width: 100%;
+  }
+
+  &__cross{
+    right: 1rem;
+    top: 1rem;
+    fill: var(--color-white);
+  }
+
+  &__bottom{
+    justify-content: center;
+    column-gap: 7rem;
+  }
+  
+  &__header, &__price, 
+  &__description, &__review, 
+  &__product-type, &__section-header, &__color{
+    margin-bottom: 7.5px;
+  }
+}  
 }
 </style>

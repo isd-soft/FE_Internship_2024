@@ -7,6 +7,7 @@ const schema = yup.object({
   firstName: yup.string().required(),
   lastName: yup.string().required(),
   email: yup.string().email().required(),
+  username: yup.string().required(),
   password: yup.string().min(6).required(),
   confirmPassword: yup
     .string()
@@ -19,6 +20,10 @@ const { defineField, errors, handleSubmit } = useForm({
 })
 
 const [email, emailAttributeList] = defineField('email', {
+  validateOnModelUpdate: false
+})
+
+const [username, usernameAttributeList] = defineField('username', {
   validateOnModelUpdate: false
 })
 
@@ -40,9 +45,11 @@ const [confirmPassword, confirmPasswordAttributeList] = defineField('confirmPass
 
 const onSubmit = handleSubmit((values) => {
   const userStore = useUserStore()
-  const { email, password, firstName, lastName } = values
-  const result = userStore.register(email, password, firstName, lastName)
-  result ? emit('success') : emit('failure')
+  const { email, username, password, firstName, lastName } = values
+  userStore
+    .register(email, username, password, firstName, lastName)
+    .then((res) => (res ? emit('success') : emit('failure')))
+    .catch((err) => emit('failure'))
 })
 
 const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
@@ -63,6 +70,17 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
         @focus="$emit('inputStart')"
       />
       <span class="register-form__error">{{ errors.email }}</span>
+
+      <input
+        class="register-form__input"
+        v-model="username"
+        v-bind="usernameAttributeList"
+        name="username"
+        type="username"
+        placeholder="Username"
+        @focus="$emit('inputStart')"
+      />
+      <span class="register-form__error">{{ errors.username }}</span>
 
       <input
         class="register-form__input"
@@ -117,6 +135,10 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
 </template>
 
 <style lang="scss" scoped>
+span {
+  height: 0.8rem;
+}
+
 .register-container {
   padding: 5rem 3.8rem 4rem 4rem;
 
@@ -146,8 +168,8 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
   &__input {
     border: 1px solid var(--color-quick-silver);
     border-radius: 1rem;
-    padding: 1.5rem 1.2rem;
-    font-size: 1.6rem;
+    padding: 1.2rem 1.2rem;
+    font-size: 1.4rem;
 
     ::placeholder {
       color: var(--color-quick-silver);
@@ -160,7 +182,8 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
 
   &__error {
     color: var(--color-candy-pink);
-    margin-bottom: 0.8rem;
+    font-size: 0.8rem;
+    margin-bottom: 0.1rem;
     padding-left: 0.4rem;
   }
 

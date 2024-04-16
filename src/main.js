@@ -1,5 +1,5 @@
 import "normalize.css"
-import './styles/main.css'
+import './styles/main.scss'
 import 'vue-final-modal/style.css'
 import ToastPlugin from 'vue-toast-notification';
 
@@ -10,6 +10,8 @@ import { createVfm } from 'vue-final-modal'
 
 import App from './App.vue'
 import router from './router'
+
+
 
 const app = createApp(App)
 const vfm = createVfm()
