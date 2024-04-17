@@ -21,7 +21,7 @@ defineProps({
 
                 <Chevron class="banner-section__chevron" :style="{transform: 'rotate(90degree)', width: '2.4rem', height: '2.4rem', strokeWidth: '3px', margin: '0 -0.5rem'}" stroke="#000"/>
 
-                <GenericLink href="/" container-class="banner-section__path-link text-sm" :text-content="title" />
+                <span class="banner-section__path-link text-sm" >{{ title }}</span> 
             </div>
         </div>
     </section>

@@ -5,11 +5,16 @@ defineProps({
     },
     infoTitle:{
         type: String,
-        default: ''
     },
     infoText:{
         type: Array,
     },
+    href:{
+        type:String
+    },
+    styles:{
+        type:String
+    }
     })
 </script>
 
@@ -21,7 +26,7 @@ defineProps({
         <div class="info-card__text-wrapper">
             <h3 class="info-card__title text-lg">{{ infoTitle }}</h3>
             <div class="info-card__about-wrapper text-sm" v-for="(item) in infoText" :key="item.id">
-                <p class="info-card__about text-sm">{{ item }}</p>
+                <a :href="href+item"  class="info-card__about text-sm" :style="styles">{{ item }}</a>
             </div>
         </div>
     </div>
@@ -30,6 +35,7 @@ defineProps({
 <style lang="scss" scoped>
 .info-card{
     display: flex;
+    height: min-content;
     &__icon-wrapper{
         width: 30px;
         margin-right: 12px;
@@ -41,6 +47,11 @@ defineProps({
     &__about{
         margin: 0;
         font-weight: 300;
+        text-decoration: none;
+        color: var(--color-black);
+        &:hover{
+            color: var(--color-uc-gold);
+        }
     }
 }
 @media only screen and (max-width: 768px) {
