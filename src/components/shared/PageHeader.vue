@@ -1,8 +1,9 @@
 <script setup>
-import { onMounted, onUnmounted, ref, nextTick } from 'vue'
+import { onMounted, onUnmounted, ref, nextTick, reactive, computed } from 'vue'
 import { isMenuVisible } from '../../utils/isMenuVisible.js'
 import { mediaFlagInstruments } from '../../utils/updateMediaFlag.js'
-import {menuToggleInstruments} from '../../utils/menuToggle.js'
+import { menuToggleInstruments } from '../../utils/menuToggle.js'
+import { toggleMenu, menuState } from '@/utils/toggleMenu.js'
 import HeaderLogo from './HeaderLogo.vue'
 import HeaderNavigation from './HeaderNavigation.vue'
 import GenericLink from '../generics/GenericLink.vue'
@@ -15,8 +16,21 @@ import CrossIcon from '../../assets/icons/CrossIcon.svg'
 import HeaderAdaptiveNavigation from './HeaderAdaptiveNavigation.vue'
 
 const headerRef = ref(null)
-const {flag:mediaFlag, toggle:updateMediaFlag} = mediaFlagInstruments
-const { flag:isMenuIconVisible, toggle:menuToggle } = menuToggleInstruments
+const { flag: mediaFlag, toggle: updateMediaFlag } = mediaFlagInstruments
+const { flag: isMenuIconVisible, toggle: menuToggle } = menuToggleInstruments
+
+const state = reactive({
+  shrinkHeader: false
+})
+
+
+const scrollTriggerHeight = computed(() => {
+  return (window.innerHeight - 100) / 2
+})
+
+const handleScroll = () => {
+  state.shrinkHeader = window.scrollY > scrollTriggerHeight.value
+}
 
 const updateOverlayPosition = () => {
   nextTick(() => {
@@ -31,8 +45,6 @@ const updateOverlayPosition = () => {
     }
   })
 }
-
-// const observer_huerver = new IntersectionObserver()
 
 let observer // Declare the MutationObserver outside of any specific method to ensure it's accessible throughout the component lifecycle
 
@@ -53,12 +65,14 @@ onMounted(() => {
   window.addEventListener('resize', updateMediaFlag)
   window.addEventListener('resize', updateFollowingBlockPadding)
   window.addEventListener('resize', updateOverlayPosition)
-  
+  window.addEventListener('scroll', handleScroll)
+  handleScroll()
+
   updateFollowingBlockPadding()
   updateOverlayPosition()
 
-  observer = new MutationObserver(mutations => {
-    mutations.forEach(mutation => {
+  observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
       if (mutation.type === 'childList') {
         updateFollowingBlockPadding()
       }
@@ -72,7 +86,8 @@ onUnmounted(() => {
   window.removeEventListener('resize', updateMediaFlag)
   window.removeEventListener('resize', updateFollowingBlockPadding)
   window.removeEventListener('resize', updateOverlayPosition)
-  
+  window.removeEventListener('scroll', handleScroll)
+
   if (observer) {
     observer.disconnect()
   }
@@ -86,79 +101,90 @@ const { open } = useModal({
   component: LoginModal,
   attrs: {}
 })
-
 </script>
 
 <template>
-    <header ref="headerRef" class="header">
-        <div class="header__container container">
-            <HeaderLogo />
-            <HeaderNavigation v-show="isMenuVisible" />
-            <div class="header__link-wrapper" v-show="isMenuVisible">
-                <GenericLink href="/cart" containerClass="header__link">
-                    <CartIcon class="header__link-item"/>
-                </GenericLink>
-                <GenericLink containerClass="header__link"  @click="openModal">
-                    <UserIcon class="header__link-item"/>
-                </GenericLink>
-            </div>
-            <div class="header__overlay" v-if="!isMenuIconVisible" @click="menuToggle" />
-            <HeaderAdaptiveNavigation class = "header__navigation-collapse" v-if="!isMenuIconVisible"/>
-            <MenuIcon v-if="isMenuIconVisible" class="header__container-toggle" @click="menuToggle"/>
-            <CrossIcon v-else class="header__container-toggle" @click="menuToggle"/>
-        </div>
-    </header>
+  <header :class="{ 'header-shrink': state.shrinkHeader }" ref="headerRef" class="header">
+    <div class="header__container container">
+      <HeaderLogo />
+      <HeaderNavigation v-show="isMenuVisible" />
+      <div class="header__link-wrapper" v-show="isMenuVisible">
+        <GenericLink href="/cart" containerClass="header__link">
+          <CartIcon class="header__link-item" />
+        </GenericLink>
+        <GenericLink containerClass="header__link" @click="openModal">
+          <UserIcon class="header__link-item" />
+        </GenericLink>
+      </div>
+      <div class="header__overlay" v-if="!isMenuIconVisible" @click="toggleMenu" />
+      <HeaderAdaptiveNavigation
+        :class="{
+          'header__navigation-collapse': true,
+          'menu-open': menuState.menuState === 'open',
+          'menu-closed': menuState.menuState === 'closed'
+        }"
+        v-if="!isMenuIconVisible"
+      />
+      <MenuIcon v-if="isMenuIconVisible" class="header__container-toggle" @click="toggleMenu" />
+      <CrossIcon v-else class="header__container-toggle" @click="toggleMenu" />
+    </div>
+  </header>
 </template>
 
 <style lang="scss" scoped>
-.header{
-    position: fixed;
-    background-color: var(--color-white);
-    width: 100%;
-    z-index: 999;
-    &__container{
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        height: 100px;
-        width:calc(100% - 8.3vw);
-        max-width: 1380px;
-        margin: 0 auto;
-    }
-
-    &__link-wrapper{
-        display: flex;
-        align-items: center;
-        column-gap: 24px;
-    }
-
-    &__link{
-        color: var(--color-black);
-    }
-
-    &__link-item{
-      width: auto;
-      height: 2.47rem;
-    }
-
-    &__container-toggle{
-        display:none;
-    }
-}
-
-@media (max-width:768px) {  
-.header{
-  &__container{
-      height: 50px;
+.header {
+  position: fixed;
+  background-color: var(--color-white);
+  width: 100%;
+  z-index: 999;
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100px;
+    width: calc(100% - 8.3vw);
+    max-width: 1380px;
+    margin: 0 auto;
+    transition: height 0.3s ease-in-out;
   }
 
-  &__container-toggle{
+  &__link-wrapper {
+    display: flex;
+    align-items: center;
+    column-gap: 24px;
+  }
+
+  &__link {
+    color: var(--color-black);
+  }
+
+  &__link-item {
+    width: auto;
+    height: 2.47rem;
+  }
+
+  &__container-toggle {
+    display: none;
+  }
+}
+
+.header-shrink .header__container {
+  height: 50px;
+}
+
+@media (max-width: 991px) {
+  .header {
+    &__container {
+      height: 50px;
+    }
+
+    &__container-toggle {
       display: flex;
       justify-content: flex-end;
       align-items: center;
-  }
+    }
 
-  &__overlay{
+    &__overlay {
       position: fixed;
       top: 50px;
       left: 0;
@@ -166,11 +192,11 @@ const { open } = useModal({
       width: 100%;
       height: 100vh;
       background-color: var(--color-warm-ivory);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-  }
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
 
-  &__navigation-collapse{
+    &__navigation-collapse {
       position: absolute;
       background-color: var(--color-white);
       top: 50px;
@@ -179,37 +205,52 @@ const { open } = useModal({
       transform: translateX(0%);
       height: 100vh;
       width: 50%;
-      animation: expandMenu ease-in-out .25s;
       max-height: fit-content;
-
-      @keyframes expandMenu {
-        from{
-            transform: translateX(100%);
-        }
-        to{
-            transform: translateX(-1%);
-        }
-      }
     }
+  }
+  @keyframes expandMenu {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(0%);
+    }
+  }
+
+  @keyframes collapseMenu {
+    from {
+      transform: translateX(0%);
+    }
+    to {
+      transform: translateX(100%);
+    }
+  }
+
+  .menu-open {
+    animation: expandMenu ease-in-out 0.25s forwards;
+  }
+
+  .menu-closed {
+    animation: collapseMenu ease-in-out 0.25s forwards;
   }
 }
 
-@media (max-width:375px) {
-  .header{
-    &__navigation-collapse{
+@media (max-width: 575px) {
+  .header {
+    &__navigation-collapse {
       width: 100%;
       left: 0;
     }
   }
 }
 
-.menu{
-    height: 6.57rem;
-    width: auto;
+.menu {
+  height: 6.57rem;
+  width: auto;
 }
 
-.cross{
-    height: 5rem;
-    align-items: center;
+.cross {
+  height: 5rem;
+  align-items: center;
 }
 </style>
