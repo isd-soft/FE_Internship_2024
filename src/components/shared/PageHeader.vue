@@ -104,7 +104,7 @@ const { open } = useModal({
 </script>
 
 <template>
-  <header :class="{ 'header-shrink': state.shrinkHeader }" ref="headerRef" class="header">
+  <header :class="['header', {'header-shrink': state.shrinkHeader, 'menu-active': menuState.menuState === 'open'}]" ref="headerRef" class="header">
     <div class="header__container container">
       <HeaderLogo />
       <HeaderNavigation v-show="isMenuVisible" />
@@ -146,6 +146,10 @@ const { open } = useModal({
     max-width: 1380px;
     margin: 0 auto;
     transition: height 0.3s ease-in-out;
+  }
+
+  &.menu-active {
+    background-color: var(--color-uc-gold);
   }
 
   &__link-wrapper {
