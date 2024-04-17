@@ -7,7 +7,7 @@ import CartTotal from './CartTotal.vue'
     <section class="main__section section cart-section">
         <div class="cart-section__container container">
             <CartList />
-            <CartTotal :subtotal="250000" :total="250000" />
+            <CartTotal/>
         </div>
     </section>
 </template>

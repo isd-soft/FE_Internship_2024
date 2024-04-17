@@ -13,7 +13,7 @@
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec
         ullamcorper mattis.
       </p>
-      <button class="text-sm hero-section__button" @click="$router.push('shop')">BUY NOW</button>
+      <button class="text-sm primary-button hero-section__button" @click="$router.push('shop')">BUY NOW</button>
     </div>
   </section>
 </template>
@@ -32,7 +32,7 @@
 
   &__wrapper {
     background-color: var(--color-old-lace);
-    padding: 40px;
+    padding: 60px 40px 40px 40px;
     border-radius: 10px;
     width: 50%;
   }
@@ -54,17 +54,17 @@
   }
 
   &__button {
-    background-color: var(--color-uc-gold);
-    border: 1px solid var(--color-uc-gold);
-    color: var(--color-white);
-    font-weight: 700;
+  //   background-color: var(--color-uc-gold);
+  //   border: 1px solid var(--color-uc-gold);
+  //   color: var(--color-white);
+  //   font-weight: 700;
     padding: 2.5rem 7.2rem;
 
-    &:hover {
-      color: var(--color-uc-gold);
-      background-color: var(--color-white);
-      cursor: pointer;
-    }
+  //   &:hover {
+  //     color: var(--color-uc-gold);
+  //     background-color: var(--color-white);
+  //     cursor: pointer;
+  //   }
   }
 }
 
@@ -76,6 +76,7 @@
 
     &__wrapper {
       width: 100%;
+      padding: 40px;
     }
 
     &__title,
@@ -84,6 +85,10 @@
     &__label {
       display: block;
       text-align: center;
+    }
+
+    &__title{
+      font-size: 4.5rem;
     }
 
     &__description {
@@ -115,6 +120,7 @@
 
     &__title {
       margin-bottom: 24px;
+      font-size: 3.6rem;
     }
 
     &__button {

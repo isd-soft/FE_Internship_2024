@@ -19,7 +19,7 @@ const urls = swiperImagesUrls
         <div class="examples-section__text">
             <h2 class="text-2xl examples-section__title">50+ Beautiful rooms inspiration</h2>
             <span class="text-sm examples-section__description">Our designer already made a lot of beautiful prototipe of rooms that inspire you</span>
-            <button class="primary-button examples-section__button">Explore more</button>
+            <button class="primary-button examples-section__button" @click="$router.push('shop')">Explore more</button>
         </div>
         <div class="examples-section__container">
             <button class="swiper-button-left examples-section__button-prev">

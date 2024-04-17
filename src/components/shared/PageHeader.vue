@@ -32,6 +32,8 @@ const updateOverlayPosition = () => {
   })
 }
 
+// const observer_huerver = new IntersectionObserver()
+
 let observer // Declare the MutationObserver outside of any specific method to ensure it's accessible throughout the component lifecycle
 
 const updateFollowingBlockPadding = () => {
@@ -165,6 +167,7 @@ const { open } = useModal({
       height: 100vh;
       background-color: var(--color-warm-ivory);
       backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
   }
 
   &__navigation-collapse{
