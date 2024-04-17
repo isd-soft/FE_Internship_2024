@@ -3,10 +3,12 @@ import { defineStore } from 'pinia'
 import { getUserListRequest } from '@/axios/getUserListRequest'
 import { updateUserRequest } from '@/axios/updateUserRequest'
 import { deleteUserRequest } from '@/axios/deleteUserRequest'
+import { getUserRoleRequest } from '@/axios/getUserRoleRequest'
 import {useUserStore} from './userStore'
 
 export const useAdminUserStore = defineStore('adminuser', () => {
-    const users = ref({})
+    const users = ref([])
+    const userRole = ref({})
     const userStore = useUserStore()
 
     const getUsers = async () => {
@@ -18,14 +20,23 @@ export const useAdminUserStore = defineStore('adminuser', () => {
     //If no, then call getUser again
     const updateUsers = async(modifiedUser) => {
         const response = await updateUserRequest(JSON.stringify(modifiedUser), userStore.token.key)
+        const index = users.value.findIndex(user => user.id === modifiedUser.id)
+        users.value[index] = modifiedUser
+        if (response) console.log("User updated")
         return response
     }
 
     const deleteUser = async(userId) =>{
-        const response = await deleteUserRequest(JSON.stringify([userId]), userStore.token.key)
+        const response = await deleteUserRequest(userStore.token.key, [userId])
+        if (response) users.value = users.value.filter(user => user.id !== userId)
         return response 
     }
 
-    return {users, getUsers, updateUsers, deleteUser}
+    const getUserRole = async() => {
+        const response = await getUserRoleRequest(userStore.token.key)
+        if(response) userRole.value = response
+    }
+
+    return {users, userRole, getUsers, updateUsers, deleteUser, getUserRole}
 
 })

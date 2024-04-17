@@ -1,14 +1,12 @@
 <script setup>
-import {ModalsContainer} from 'vue-final-modal'
-
-
+import { ModalsContainer } from 'vue-final-modal'
 </script>
 
 
 <template>
   <div>
     <ModalsContainer />
-    <RouterView/>
+    <RouterView />
   </div>
 </template>
 

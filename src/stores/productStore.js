@@ -34,11 +34,11 @@ export const useProductStore = defineStore('product', () => {
   }
 
   const inStock = (productId) =>{
-    return productMap.value[productId].stock > 0
+    return productMap.value.get(productId).stock > 0
   }
 
   const isAvailable = (productId, quantity) => {
-    return print.value[productId].stock >= quantity
+    return productMap.value.get(productId).stock >= quantity
   }
 
   // Those functions are to be used by WebSocket:
