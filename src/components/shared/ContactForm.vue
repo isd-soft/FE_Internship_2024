@@ -92,27 +92,26 @@ const emit = defineEmits(['success', 'failure', 'inputStart'])
             </div>
             
         </div>
-        <div class="form-wrapper__field">
+        <div class="form-wrapper__textarea-wrapper">
             <label for="message" class="form-wrapper__label text-sm">Message*</label>
-            <div class="form-wrapper__field-wrapper">
+            <div class="form-wrapper__textarea-field">
             <textarea 
                 type="text" 
-                rows="1" 
                 class="form-wrapper__input text-sm"
                 :class="{errorfield:errors.message}"
                 placeholder="Hi! i’d like to ask about"
                 v-model="message"
                 v-bind="messageAttributeList"
                 name="message"
+                rows="5"
                 @focus="$emit('inputStart')"/>
             <span class="form-wrapper__error text-sm"> {{ errors.message }}</span>
             </div>
-            
+        
         </div>
-        <span class="text-sm">* means the frield is required</span>
         <button  class="form-wrapper__button text-sm primary-button" >Submit</button>
+        <span class="form-wrapper__warning text-sm">* means the frield is required</span>
     </form>
-    
 </template>
 
 <style lang="scss" scoped>
@@ -120,21 +119,36 @@ const emit = defineEmits(['success', 'failure', 'inputStart'])
     &__field-wrapper{
         display: flex;
         flex-direction: column;
-        gap: 12px
+        gap: 1.2rem;
     }
     &__field{
         display: flex;
         flex-direction: column;
-        gap: 22px;
+        gap: 2.2rem;
+        grid-column: 1 / 1;
+    }
+    &__textarea-wrapper{
+        display: flex;
+        flex-direction: column;
+        gap: 2.2rem;
+        grid-column: 2 / 2;
+        grid-row: 1 / span 3;
+    }
+    &__textarea-field{
+        display: flex;
+        flex-direction: column;
+        gap: 1.2rem;
+        height: 100%;
     }
     &__label{
         font-weight: 500;
     }
     &__input{
-        padding: 20px 35px;
+        padding: 15px 35px;
         border: 1px solid var(--color-quick-silver);
         border-radius: .75rem;
         resize: none;
+        height: 100%;
         &::placeholder {
             color: var(--color-quick-silver);
         }
@@ -148,6 +162,9 @@ const emit = defineEmits(['success', 'failure', 'inputStart'])
         grid-column: 2 / 2;
 
     
+    }
+    &__warning{
+        grid-column: 2 / 2;
     }
     &__error {
         color: var(--color-candy-pink);
