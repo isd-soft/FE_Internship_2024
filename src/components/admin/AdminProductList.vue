@@ -8,6 +8,7 @@ import AdminProductModal from './AdminProductModal.vue';
 
 const productStore = useProductStore()
 productStore.initStore()
+
 const productList = computed(() => Array.from(productStore.productMap).map(product => product[1]))
 
 const { open } = useModal({
@@ -44,7 +45,7 @@ const { open } = useModal({
     flex-direction: column;
     align-items: center;
     gap: 5rem;
-    padding: 3rem 5rem;
+    padding: 3rem 5rem 3rem 13rem;
 
     &__add-button {
         color: var(--color-white);

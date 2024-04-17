@@ -10,6 +10,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import BannerSection from '@/components/shared/BannerSection.vue'
 import ProductCard from '@/components/shared/ProductCard.vue'
 import AdminContactPage from '@/components/admin/AdminContactPage.vue'
+import AdminProductList from '@/components/admin/AdminProductList.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -55,7 +56,7 @@ const router = createRouter({
       {
         path: 'products',
         name: 'products',
-        component: BannerSection //add component when it will appear
+        component: AdminProductList //add component when it will appear
       },
       {
         path: 'contact-settings',

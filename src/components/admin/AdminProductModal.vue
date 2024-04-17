@@ -7,7 +7,7 @@ import CrossIcon from '../../assets/icons/CrossIcon.svg'
 import { useUserStore } from '../../stores/userStore'
 import GenericToast from '../generics/GenericToast.vue'
 import { useProductStore } from '../../stores/productStore'
-import { ref, watch } from 'vue';
+import { ref, watch } from 'vue'
 
 
 const vfm = useVfm()
@@ -49,12 +49,12 @@ const inputPresetList = [
     { title: 'Price', placeholder: '...', name: 'price' },
     { title: 'Stock', placeholder: '...', name: 'stock' },
     { title: 'Discount', placeholder: '...', name: 'discount' },
-    { title: 'New', placeholder: '...', name: 'isNew', type: 'checkbox', checkboxValue: props.isNew },
+    { title: 'New', placeholder: '...', name: 'isNew', type: 'checkbox', checkboxValue: props.newProductFlag ? true : props.isNew },
 ]
 
 const { handleSubmit, isSubmitting, setValues } = useForm({
     validationSchema: validationSchema,
-    initialValues: props.newProductFlag ? {} : initialValues
+    initialValues: props.newProductFlag ? { isNew: true } : initialValues
 })
 
 const productStore = useProductStore()
