@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 import { loginRequest } from '@/axios/loginRequest'
 import { registerRequest } from '@/axios/registerRequest'
 import { logoutRequest } from '@/axios/logoutRequest'
-import {useCartStore} from './cartStore'
+import { useCartStore } from './cartStore'
 
 export const useUserStore = defineStore('user', () => {
   const user = ref({})
@@ -52,11 +52,11 @@ export const useUserStore = defineStore('user', () => {
   }
 
   const isAdmin = () => {
-    return user.value.roles.role === 'ADMIN'
+    return user.value.roles != undefined && user.value.roles.some((r) => r.role === 'ADMIN')
   }
 
   const logout = async () => {
-    const result = await logoutRequest(JSON.stringify({username : user.value.username}))
+    const result = await logoutRequest(JSON.stringify({ username: user.value.username }))
     user.value = {}
     token.value = {}
     cartStore.stashCart()

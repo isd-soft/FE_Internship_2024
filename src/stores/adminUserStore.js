@@ -39,20 +39,29 @@ export const useAdminUserStore = defineStore('adminuser', () => {
 
     //WebSocket functions:
     const addUserWeb = (usr) =>{
-        users.value.push(usr)
+        console.log("Hello from AddUserWeb ", usr)
+        const index = users.value.findIndex(user => user.id === usr.id)
+        if(index === -1) users.value.push(usr)
+        else users.value[index] = usr
         console.log("User added: ", users.value)
     }
 
+    //This is not getting called
     const updateUserRoleWeb = (usrId, roleId) => {
         const index = users.value.findIndex(user => user.id === usrId)
-        const role = userRole.value.filter(r => r.id === roleId)
+        const role = userRole.value.filter(r => r.id === roleId)[0]
         users.value[index].roles.push(role)
         console.log("User role updated: ", users.value[index])
     }
 
-    const deleteUserWeb = (usrId) => {}
-    const deleteUserRoleWeb = (usrId, roleId) => {}
+    const deleteUserWeb = (usrId) => {
+        const index = users.value.findIndex(user => user.id === usrId)
+        console.log("Deleting user: ", usrId)
+        users.value.pop(usrId)
+    }
 
+    //This is not called
+    const deleteUserRoleWeb = (usrId, roleId) => {}
     return {users, userRole, getUsers, updateUsers, deleteUser, getUserRole, addUserWeb, updateUserRoleWeb, deleteUserWeb, deleteUserRoleWeb}
 
 })

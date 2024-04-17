@@ -29,16 +29,19 @@ export const bindEvents = () => {
         break
       }
       case 'AuthUser': {
-        if (update.event === 'CREATE' && userStore.isAdmin())
-          adminUserStore.addUser(update.instances[0])
-        else if (update.event === 'DELETE')
-          adminUserStore.deleteUserWeb(update.instances.id) //Maybe
+        console.log('Reached here')
+        console.log(update.event === 'CREATE')
+        console.log(userStore.isAdmin())
+        if (update.event === 'CREATE' && userStore.isAdmin()) {
+          console.log('Trying to update')
+          adminUserStore.addUserWeb(update.instances[0])
+        } else if (update.event === 'DELETE') adminUserStore.deleteUserWeb(update.instances[0].id) //Maybe
         break
       }
       case 'AuthUserRole': {
         if (update.event === 'UPDATE' && userStore.isAdmin())
           adminUserStore.addRoleToUser(update.instances.userId, update.instances.roleId)
-        else if (update.event === 'DELETE')
+        else if (update.event === 'DELETE' && userStore.isAdmin())
           adminUserStore.deleteUserRoleWeb(update.lookup.userId, update.lookup.roleId[0])
         break
       }
