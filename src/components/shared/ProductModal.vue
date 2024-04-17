@@ -217,7 +217,7 @@ const close = () => {
     }
 }
 
-@media (max-width:768px) {
+@media only screen and (max-width:992px) {
 .product-modal{
   &__detail{
     padding: 1.86rem;
