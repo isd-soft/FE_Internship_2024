@@ -47,7 +47,7 @@ export const useContactStore=defineStore("contactStore",()=>{
     }
 
     const getFormatAddress=computed(()=>{
-        const address=[contactInformation.value.address,"Moldova Chisinau"]
+        const address=[contactInformation.value.address,`${contactInformation.value.country}, ${contactInformation.value.city}`]
         return address
     })
     const getFormatPhones=computed(()=>{

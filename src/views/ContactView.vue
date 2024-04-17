@@ -84,7 +84,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 13rem;
+        gap: 7rem;
         }
         &__text-wrapper{
             text-align: center;
@@ -100,7 +100,7 @@
             width: 80%;
             display: flex;
             flex-direction: column;
-            gap: 3rem;
+            gap: 7rem;
             
         }
         &__info-wrapper{
