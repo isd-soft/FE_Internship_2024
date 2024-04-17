@@ -1,8 +1,6 @@
 <script setup>
 import { useContactStore } from "@/stores/contactStore";
 import { onBeforeMount,ref } from "vue";
-import * as yup from 'yup';
-import { useForm } from 'vee-validate'
 import Loader from "@/assets/icons/LoaderIcon.svg"
 const store = useContactStore()
 
@@ -12,39 +10,47 @@ onBeforeMount(()=>{
         store.fetchContactInformation()
     })
 
-const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/    
+// const schema = yup.object({
+// address: yup.string().required("This field is required"),
+// country: yup.string().required(),
+// geoCoordinates: yup.string(),
+// phoneNumber1: yup.string(),
+// phoneNumber2: yup.string(),
+// email1: yup.string().required().email(),
+// email2: yup.string().email(),
+// })
 
-const schema = yup.object({
-address: yup.string(),
-country: yup.string(),
-geoCoordinates: yup.string(),
-phoneNumber1: yup.string().matches(phoneRegExp, 'Phone number is not valid'),
-phoneNumber2: yup.string().matches(phoneRegExp, 'Phone number is not valid'),
-email1: yup.string().email(),
-email2: yup.string().email(),
-worktime: yup.string(),
-})
+const hourFriday1=ref("09:00")
+const hourFriday2=ref("22:00")
+const hourSaturday1=ref("09:00")
+const hourSaturday2=ref("20:00")
+const edit=ref(true)
 
-const time=ref("")
-const hour1=ref("")
-const hour2=ref("")
-const { errors, handleSubmit, } = useForm({
-    validationSchema: schema
-})
+// const {  handleSubmit,defineField } = useForm({
+//     validationSchema: schema,
+// })
 
-
-const onSubmit=handleSubmit(()=>{
-    console.log('submit')
-    store
-    .postContactInfo()
-    .then((res) => (res ? console.log('success') : console.log('failure')))
-    .catch((err) => console.log('failure'))
-})
-
-const onCancel=()=>{
-    console.log(`${time.value}: ${hour1.value} - ${hour2.value}`)
+const onEdit=()=>{
+    edit.value=!edit.value
 }
 
+const onSubmit=()=>{
+    console.log('submit')
+    store
+    .postContactInfo([`Monday-Friday: ${hourFriday1.value} - ${hourFriday2.value}`,`Saturday-Sunday: ${hourSaturday1.value} - ${hourSaturday2.value}`])
+    .then((res) => (res ? console.log('success') : console.log('failure')))
+    .catch(() => console.log('failure'))
+}
+
+const onCancel=()=>{
+    edit.value=!edit.value
+    store.fetchContactInformation()
+}
+
+// const [address,addressAttributeList] = defineField('address', {
+//     validateOnModelUpdate: false
+    
+// })
 </script>
 <template>
     <section class="admin-contact" v-if="store.loader">
@@ -58,10 +64,11 @@ const onCancel=()=>{
                         <input
                         type="text"
                         v-model="store.contactInformation.address"
-                        name="address"
+                        :name="address"
                         class="admin-contact__input text-sm"
+                        :disabled="edit"
+                        required
                         >
-                        <span class="register-form__error">{{ errors.address }}</span>
                         <div class="admin-contact__city-country-wrapper">
                             <div class="admin-contact__field">
                                 <label for="country" class="admin-contact__label text-sm">Country</label>
@@ -69,6 +76,7 @@ const onCancel=()=>{
                                     type="text" 
                                     class="admin-contact__input text-sm"
                                     v-model="store.contactInformation.country"
+                                    :disabled="edit"
                                     />
                             </div>
                             <div class="admin-contact__field">
@@ -77,42 +85,44 @@ const onCancel=()=>{
                                     type="text" 
                                     class="admin-contact__input text-sm"
                                     v-model="store.contactInformation.city"
+                                    :disabled="edit"
                                     />
                             </div>
                         </div>
                     </div>
                     <div class="admin-contact__field">
                         <label for="Work time" class="admin-contact__label text-sm">Work Time</label>
-                        <div class="admin-contact__time-wrapper text-sm" v-for="(item) in store.contactInformation.workTime" :key="item.id">
-                            <p class="text-sm">{{ item }}</p>
-                        </div>
                         <div class="admin-contact__time-wrapper">
-                            <select id="days" class="admin-contact__input text-sm" v-model="time">
-                                <option >Monday-Friday</option>
-                                <option >Saturday-Sunday</option>
-                            </select>
+                            <span class="admin-contact__time-text text-sm">Monday-Friday:</span>
                             
                             <div class="admin-contact__hours-wrapper">
-                                <input type="time" class="admin-contact__input text-sm" v-model="hour1">
+                                <input type="time" class="admin-contact__input text-sm" v-model="hourFriday1" :disabled="edit">
                                 <p class="text-4xl">-</p>
-                                <input type="time" class="admin-contact__input text-sm" v-model="hour2" >
+                                <input type="time" class="admin-contact__input text-sm" v-model="hourFriday2" :disabled="edit">
                             </div>
                             
                         </div>
-                        <p>{{ worktime }}</p>
+                        <div class="admin-contact__time-wrapper">
+                            <span class="admin-contact__time-text text-sm">Saturday-Sunday:</span>
+                            
+                            <div class="admin-contact__hours-wrapper">
+                                <input type="time" class="admin-contact__input text-sm" v-model="hourSaturday1" :disabled="edit">
+                                <p class="text-4xl">-</p>
+                                <input type="time" class="admin-contact__input text-sm" v-model="hourSaturday2" :disabled="edit">
+                            </div>
+                            
+                        </div>
                     </div>
                     
                     <div class="admin-contact__field">
                         <label for="Phones" class="admin-contact__label text-sm">Phone Numbers</label>
-                        <div class="admin-contact__time-wrapper text-sm" v-for="(item) in store.contactInformation.phoneNumber" :key="item.id">
-                            <p class="text-sm">{{ item }}</p>
-                        </div>
                         <input 
                             type="tel" 
                             id="phone" 
                             name="Phones"
                             class="admin-contact__input text-sm" 
                             v-model="store.contactInformation.phoneNumber[0]"
+                            :disabled="edit"
                             />
                             <input 
                             type="tel" 
@@ -120,6 +130,7 @@ const onCancel=()=>{
                             name="Phones"
                             class="admin-contact__input text-sm" 
                             v-model="store.contactInformation.phoneNumber[1]"
+                            :disabled="edit"
                             />
                     </div>
                     <div class="admin-contact__field">
@@ -128,29 +139,31 @@ const onCancel=()=>{
                             type="text" 
                             rows="6" 
                             class="admin-contact__input text-sm" 
-                            v-model="store.contactInformation.geoCoordinates"/>
+                            v-model="store.contactInformation.geoCoordinates"
+                            :disabled="edit"/>
                     </div>
                     <div class="admin-contact__field">
                         <label for="email" class="admin-contact__label text-sm">Email address</label>
-                        <div class="admin-contact__time-wrapper text-sm" v-for="(item) in store.contactInformation.email" :key="item.id">
-                            <p class="text-sm">{{ item }}</p>
-                        </div>
                         <input 
                             type="email"
                             class="admin-contact__input text-sm" 
+                            :name="email1"
                             v-model="store.contactInformation.email[0]"
+                            :disabled="edit"
                             >
                             <input 
                             type="email"
                             class="admin-contact__input text-sm" 
                             v-model="store.contactInformation.email[1]"
+                            :disabled="edit"
                             >
                     </div>
                     
                 </form>
             <div class="admin-contact__buttons-wrapper">
-                    <button class="admin-contact__button button_modify primary-button " @click="onSubmit">Modify</button>
-                    <button class="admin-contact__button button_cancel primary-button " @click="onCancel">Cancel</button>
+                    <button class="admin-contact__button button_modify primary-button " @click="onEdit" :style="edit ? '' : 'display:none' " >Edit</button> 
+                    <button class="admin-contact__button button_edit primary-button " @click="onSubmit" :style="edit ? 'display:none': '' " >Modify</button>
+                    <button class="admin-contact__button button_cancel primary-button " @click="onCancel" :style="edit ? 'display:none': '' ">Cancel</button>
                     </div>
             </div>
     </section>
@@ -205,6 +218,10 @@ const onCancel=()=>{
             display: flex;
             justify-content: space-between;
         }
+        &__time-text{
+            display:flex;
+            align-items: center;
+        }
         &__hours-wrapper{
             display: flex;
         }
@@ -224,6 +241,13 @@ const onCancel=()=>{
     &:hover {
     background-color: var(--color-white);
     color: var(--color-candy-pink);
+    }
+}
+.button_edit{
+    background-color: var(--color-blue-green);
+    &:hover {
+    background-color: var(--color-white);
+    color: var(--color-blue-green);
     }
 }
 .errorfield{

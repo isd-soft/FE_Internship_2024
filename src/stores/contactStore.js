@@ -20,7 +20,7 @@ export const useContactStore=defineStore("contactStore",()=>{
 
         
     }
-    const postContactInfo = async () => {
+    const postContactInfo = async (workHours) => {
     loader.value = false
     const result = await postContactInfoRequest(
         
@@ -33,7 +33,7 @@ export const useContactStore=defineStore("contactStore",()=>{
             geoCoordinates:contactInformation.value.geoCoordinates,
             phoneNumber: contactInformation.value.phoneNumber,
             email: contactInformation.value.email,
-            workTime: ['Monday-Friday: 9:00 - 22:00','Saturday-Sunday: 9:00 - 21:00']
+            workTime: workHours
         }
         })
     ,userStore.token.key)
@@ -47,7 +47,7 @@ export const useContactStore=defineStore("contactStore",()=>{
     }
 
     const getFormatAddress=computed(()=>{
-        const address=[contactInformation.value.address,"Moldova Chisinau"]
+        const address=[contactInformation.value.address,`${contactInformation.value.country}, ${contactInformation.value.city}`]
         return address
     })
     const getFormatPhones=computed(()=>{
