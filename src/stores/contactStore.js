@@ -57,6 +57,7 @@ export const useContactStore=defineStore("contactStore",()=>{
 
     //From Websocket
     const changeContactInformation = (info) => {
+        console.log("Changing contact info ", info.value)
         contactInformation.value = info.value
     }
     

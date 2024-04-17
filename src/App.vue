@@ -5,7 +5,8 @@ import {useProductStore} from '@/stores/productStore.js'
 
 const productStore = useProductStore()
 productStore.initStore()
-
+socket.off()
+socket.connect()
 
 bindEvents()
 socket.emit('test');

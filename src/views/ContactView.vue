@@ -18,9 +18,10 @@
     onBeforeMount(()=>{
         store.fetchContactInformation() 
     })
-    const contactInfo = computed(()=>{
-        return store.contactInformation
-    })
+
+    // const contactInfo = computed(()=>{
+    //     return store.contactInformation
+    // })
     
     const toastType = computed(() => {
         return submitSuccess.value ? 'success' : 'error'
@@ -58,8 +59,8 @@
                 <div class="contact__info-wrapper"> 
                     <ContactInfoCard  :icon="MapPointIcon" infoTitle="Address" :infoText="store.getFormatAddress" href="#" styles="pointer-events: none; cursor: default;"/>
                     <ContactInfoCard  :icon="PhoneIcon" infoTitle="Phone"   :infoText="store.getFormatPhones" href="tel:"/>
-                    <ContactInfoCard  :icon="EmailIcon" infoTitle="Emails" :infoText="contactInfo.email" href="mailto:"/>
-                    <ContactInfoCard  :icon="ClockIcon" infoTitle="Working Time" :infoText="contactInfo.workTime" href="#" styles="pointer-events: none; cursor: default;"/>
+                    <ContactInfoCard  :icon="EmailIcon" infoTitle="Emails" :infoText="store.contactInformation.email" href="mailto:"/>
+                    <ContactInfoCard  :icon="ClockIcon" infoTitle="Working Time" :infoText="store.contactInformation.workTime" href="#" styles="pointer-events: none; cursor: default;"/>
                 </div>
                 <GenericToast v-if="submitFinished" :message="toastMessage" :type="toastType" />
                 <ContactForm 
@@ -69,7 +70,7 @@
                     @failure="finishSubmitFail"/>
             </div>
         </div>
-        <iframe class="contact__map" :src="contactInfo.geoCoordinates"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <iframe class="contact__map" :src="store.contactInformation.geoCoordinates"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         <AdvantageSection class="contact__advantage-section"/>
     </div>
     <div v-else class="loader">
