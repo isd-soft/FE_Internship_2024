@@ -2,6 +2,8 @@
 import SidebarLogo from './SidebarLogo.vue'
 import SidebarNavigation from './SidebarNavigation.vue'
 import LogoutIcon from '../../assets/icons/LogoutIcon.svg'
+
+
 </script>
 
 <template>

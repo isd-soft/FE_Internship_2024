@@ -7,9 +7,9 @@ import DefaultView from '../views/DefaultView.vue'
 import { authGuard } from './authGuard'
 import { adminGuard } from './adminGuard'
 import { createRouter, createWebHistory } from 'vue-router'
-import BannerSection from '@/components/shared/BannerSection.vue'
-import ProductCard from '@/components/shared/ProductCard.vue'
 import AdminContactView from '@/views/AdminContactView.vue'
+import AdminUserList from '@/components/admin/AdminUserList.vue'
+import AdminProductList from '@/components/admin/AdminProductList.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -55,7 +55,7 @@ const router = createRouter({
       {
         path: 'products',
         name: 'products',
-        component: BannerSection //add component when it will appear
+        component: AdminProductList //add component when it will appear
       },
       {
         path: 'contact-settings',
@@ -65,7 +65,7 @@ const router = createRouter({
       {
         path: 'users',
         name: 'users',
-        component: ProductCard //add component when it will appear
+        component: AdminUserList //add component when it will appear
       }
     ]
     }
