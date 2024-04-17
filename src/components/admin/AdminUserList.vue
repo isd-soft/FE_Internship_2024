@@ -21,12 +21,10 @@ const checkRole = (item, role) => item.roles.find(i => i.role === role) ? true :
 
 const updateRole = (item) => {
     if (checkRole(item, 'ADMIN')) {
-        console.log("is admin")
         const newItem = { ...item, roles: item.roles.filter(role => role.role !== 'ADMIN') }
         console.log(newItem)
         adminStore.updateUsers(newItem)
     } else {
-        console.log("is not admin")
         const adminRole = roles.value.find(role => role.role === 'ADMIN')
         const newItem = { ...item, roles: [...item.roles, { id: adminRole.id, role: adminRole.role }] }
         console.log(newItem)
@@ -44,21 +42,19 @@ const deleteUser = (id) => {
     <section class="main__section section admin-user-section">
         <h1 class="text-5xl admin-user-section__title">Users</h1>
         <div class="text-sm admin-user-section__table-header">
-            <span class="admin-user-section__header-name">ID</span>
-            <span class="admin-user-section__header-name">First Name</span>
-            <span class="admin-user-section__header-name">Last Name</span>
-            <span class="admin-user-section__header-name">Username</span>
-            <span class="admin-user-section__header-name">Email</span>
-            <span class="admin-user-section__header-name">Created at</span>
-            <span class="admin-user-section__header-name">Last updated</span>
-            <span class="admin-user-section__header-name">Admin role</span>
-            <span class="admin-user-section__header-name"></span>
+            <span class="admin-user-section__first-name">First Name</span>
+            <span class="admin-user-section__last-name">Last Name</span>
+            <span class="admin-user-section__username">Username</span>
+            <span class="admin-user-section__email">Email</span>
+            <span class="admin-user-section__created-at">Created at</span>
+            <span class="admin-user-section__last-updated">Last updated</span>
+            <span class="admin-user-section__role">Admin role</span>
+            <span class="admin-user-section__delete"></span>
         </div>
         <GenericList :items="users" tag="ul" :keyProp="id" custom-class="text-xs admin-user-section__list"
             item-class="admin-user-section__list-item">
             <template v-slot="{ item }">
-                <div class="admin-user-section__id" :title="item.id">{{ item.id }}</div>
-                <div class="admin-user-section__fist-name">{{ item.firstName }}</div>
+                <div class="admin-user-section__first-name">{{ item.firstName }}</div>
                 <div class="admin-user-section__last-name">{{ item.lastName }}</div>
                 <div class="admin-user-section__username">{{ item.username }}</div>
                 <div class="admin-user-section__email">{{ item.email }}</div>
@@ -87,14 +83,11 @@ const deleteUser = (id) => {
 .admin-user-section {
     padding: 5rem 10rem;
     display: grid;
-    grid-template-columns: repeat(8, minmax(0, 1fr)) 5rem;
+    grid-template-columns: repeat(7, minmax(0, 1fr)) 5rem;
     row-gap: 2.5rem;
     text-align: center;
 
-    &__title,
-    &__header-name,
-    &__id,
-    &__fist-name,
+    &__first-name,
     &__last-name,
     &__username,
     &__email,
@@ -106,13 +99,13 @@ const deleteUser = (id) => {
     }
 
     &__title {
-        grid-column: 1 / span 9;
+        grid-column: 1 / span 8;
         text-align: start;
     }
 
     &__table-header {
         height: 5rem;
-        grid-column: 1 / span 9;
+        grid-column: 1 / span 8;
         display: grid;
         grid-template-columns: inherit;
         background-color: var(--color-linen);
@@ -120,7 +113,7 @@ const deleteUser = (id) => {
     }
 
     &__list {
-        grid-column: 1 / span 9;
+        grid-column: 1 / span 8;
         display: grid;
         grid-template-columns: inherit;
         row-gap: inherit;
@@ -128,7 +121,7 @@ const deleteUser = (id) => {
 
     &:deep(.admin-user-section__list-item) {
         height: 5rem;
-        grid-column: 1 / span 9;
+        grid-column: 1 / span 8;
         display: grid;
         grid-template-columns: inherit;
         align-items: center;
@@ -155,8 +148,7 @@ const deleteUser = (id) => {
         }
     }
 
-    &__id,
-    &__fist-name,
+    &__first-name,
     &__last-name,
     &__username,
     &__email {
@@ -181,6 +173,63 @@ const deleteUser = (id) => {
         width: 100%;
         height: 100%;
         padding: 1rem;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .admin-user-section {
+        grid-template-columns: repeat(4, minmax(0, 1fr)) 5rem;
+
+        &__title {
+            grid-column: 1 / span 5;
+        }
+
+        &__table-header {
+            grid-column: 1 / span 5;
+            // height: 200%;
+            grid-template-rows: repeat(2, minmax(0, 1fr));
+        }
+
+        &__list {
+            grid-column: 1 / span 5;
+        }
+
+        &:deep(.admin-user-section__list-item) {
+            grid-column: 1 / span 5;
+            grid-template-rows: repeat(2, minmax(0, 1fr));
+        }
+
+        &__first-name {
+            grid-row: 1;
+        }
+
+        &__last-name {
+            grid-row: 2;
+        }
+
+        &__username {
+            grid-row: 1;
+        }
+
+        &__email {
+            grid-row: 2;
+        }
+
+        &__created-at {
+            grid-row: 1;
+        }
+
+        &__last-update {
+            grid-row: 2;
+        }
+
+        &__role {
+            grid-row: 1 / span 2;
+        }
+
+        &__delete {
+            grid-row: 1 / span 2;
+        }
     }
 }
 </style>
