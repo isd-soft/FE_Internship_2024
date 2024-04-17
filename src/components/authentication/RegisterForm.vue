@@ -67,7 +67,7 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
     <p class="text-sm register-container__description">Create an account to shop</p>
     <form @submit="onSubmit" class="register-container__form register-form">
       <input
-        class="register-form__input"
+        class="text-sm register-form__input"
         :class="{ 'register-form__input--error': errors.email }"
         v-model="email"
         v-bind="emailAttributeList"
@@ -78,9 +78,8 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
       />
       <span class="register-form__error">{{ errors.email }}</span>
 
-      
       <input
-        class="register-form__input"
+        class="text-sm register-form__input"
         :class="{ 'register-form__input--error': errors.firstName }"
         v-model="firstName"
         v-bind="firstNameAttributeList"
@@ -92,7 +91,7 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
       <span class="register-form__error">{{ errors.firstName }}</span>
 
       <input
-        class="register-form__input"
+        class="text-sm register-form__input"
         :class="{ 'register-form__input--error': errors.password }"
         v-model="password"
         v-bind="passwordAttributeList"
@@ -104,7 +103,7 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
       <span class="register-form__error">{{ errors.password }}</span>
 
       <input
-        class="register-form__input"
+        class="text-sm register-form__input"
         :class="{ 'register-form__input--error': errors.username }"
         v-model="username"
         v-bind="usernameAttributeList"
@@ -115,9 +114,8 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
       />
       <span class="register-form__error">{{ errors.username }}</span>
 
-
       <input
-        class="register-form__input"
+        class="text-sm register-form__input"
         :class="{ 'register-form__input--error': errors.lastName }"
         v-model="lastName"
         v-bind="lastNameAttributeList"
@@ -129,7 +127,7 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
       <span class="register-form__error">{{ errors.lastName }}</span>
 
       <input
-        class="register-form__input"
+        class="text-sm register-form__input"
         :class="{ 'register-form__input--error': errors.confirmPassword }"
         v-model="confirmPassword"
         v-bind="confirmPasswordAttributeList"
@@ -139,10 +137,11 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
         @focus="$emit('inputStart')"
       />
       <span class="register-form__error">{{ errors.confirmPassword }}</span>
-
     </form>
-    <button class="primary-button register-form__submit-button" @click="onSubmit">Sign Up</button>
-    <p class="register-container__toggle-button" @click="$emit('changeModal')">
+    <button class="text-sm primary-button register-form__submit-button" @click="onSubmit">
+      Sign Up
+    </button>
+    <p class="text-xs register-container__toggle-button" @click="$emit('changeModal')">
       Already have an account? Log In!
     </p>
   </div>
@@ -150,33 +149,36 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
 
 <style lang="scss" scoped>
 span {
-  height: 1.2rem;
+  height: 12px;
 }
 
 .register-container {
-  padding: 5rem 6rem 4rem 6rem;
+  // padding: 5rem 6rem 4rem 6rem;
+  padding: 50px 60px 40px 60px;
   display: flex;
   flex-direction: column;
 
   &__title {
     color: var(--color-uc-gold);
-    margin-bottom: 1rem;
+    margin-bottom: 10px;
+    font-size: 32px;
   }
 
   &__description {
-    margin-bottom: 1.6rem;
+    margin-bottom: 30px;
+    font-size: 16px;
   }
 
   &__toggle-button {
-    font-size: 1.2rem;
     border: none;
     background: none;
     width: 100%;
+    font-size: 12px;
     text-align: center;
     text-decoration: underline transparent;
-    transition: .2s ease-out;
+    transition: 0.2s ease-out;
 
-    &:hover{
+    &:hover {
       cursor: pointer;
       text-decoration: underline black;
     }
@@ -184,16 +186,17 @@ span {
 }
 
 .register-form {
-    display: grid;
-    grid-template-rows: repeat(3, 3fr 1fr);
-    grid-auto-flow:column;
-    grid-column-gap: 3rem;
-    &__input {
+  display: grid;
+  grid-template-rows: repeat(3, 3fr 1fr);
+  grid-auto-flow: column;
+  grid-column-gap: 30px;
+
+  &__input {
     border: 1px solid var(--color-quick-silver);
-    border-radius: 1rem;
-    padding: 1.5rem 1.2rem;
-    margin-bottom: 0.2rem;
-    font-size: 1.6rem;
+    border-radius: 10px;
+    padding: 15px 12px;
+    font-size: 16px;
+    margin-bottom: 2px;
     ::placeholder {
       color: var(--color-quick-silver);
     }
@@ -201,52 +204,77 @@ span {
     &--error {
       outline: 2px solid var(--color-candy-pink);
     }
-    }
+  }
 
-    &__submit-button {
-    margin-top: 2.4rem;
-    margin-bottom: 1rem;
-    padding: 1.2rem 11rem;
+  &__submit-button {
+    margin-top: 24px;
+    margin-bottom: 10px;
+    padding: 12px 110px;
+    font-size: 16px;
     color: var(--color-white);
     background-color: var(--color-uc-gold);
-    font-size: 1.6rem;
     border: 1px solid var(--color-uc-gold);
     align-self: center;
-    
   }
 
   &__error {
     color: var(--color-candy-pink);
-    font-size: 1rem;
-    margin-bottom: 0.1rem;
-    padding-left: 0.4rem;
+    font-size: 12px;
+    margin-bottom: 1px;
+    padding-left: 4px;
   }
+}
+
+@media only screen and (max-width: 991px) {
+  .register-container {
+    &__title {
+      font-size: 30px;
+    }
+    &__description {
+      font-size: 14px;
+    }
   }
-
-  
-
-@media only screen and (max-width: 768px) {
   .register-form {
-  display: flex;
-  flex-direction: column;
-
+    display: flex;
+    flex-direction: column;
+    &__input {
+      font-size: 14px;
+    }
     &__submit-button {
-    margin-top: 2.4rem;
-    margin-bottom: 1rem;
-    padding: 1.2rem 11rem;
-    color: var(--color-white);
-    background-color: var(--color-uc-gold);
-    font-size: 1.6rem;
-    border: 1px solid var(--color-uc-gold);
-  }
-}
+      margin-top: 18px;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
 
-@media only screen and (max-width: 375px){
-  .register-container{
-    width: 100%;
-    height: 100%;
+    &__error {
+      margin-bottom: 3px;
+    }
   }
-}
 
+  @media only screen and (max-width: 575px) {
+    span {
+      height: 17px;
+    }
+    .register-container {
+      padding: 0 5rem;
+      display: flex;
+      flex-direction: column;
+    }
+    .register-form {
+      
+      &__input {
+        padding: 12px 12px;
+        width: min(350px, 80vw);
+      }
+      &__error {
+        margin-bottom: 2px;
+      }
+
+      &__submit-button {
+        padding: 12px min(90px, 25vw);
+        white-space: nowrap;
+      }
+    }
+  }
 }
 </style>
