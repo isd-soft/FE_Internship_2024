@@ -30,3 +30,4 @@ export const handleNumberInputBlur = (event, initialValue) => {
 
     event.target.value = nonZeroValue;
 };
+
