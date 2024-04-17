@@ -4,7 +4,6 @@ import TrashIcon from '@/assets/icons/TrashIcon.svg';
 import ToggleButton from '@/components/shared/ToggleButton.vue';
 import { useAdminUserStore } from "../../stores/adminUserStore.js";
 import { computed } from 'vue';
-import { ref } from 'vue';
 
 const adminStore = useAdminUserStore()
 
@@ -39,8 +38,6 @@ const deleteUser = (id) => {
     console.log("delete user", id)
     adminStore.deleteUser(id)
 }
-
-const isAdmin = (item) => item.roles.find(i => i.role === 'ADMIN') ? 'ADMIN' : 'USER'
 </script>
 
 <template>
@@ -57,8 +54,8 @@ const isAdmin = (item) => item.roles.find(i => i.role === 'ADMIN') ? 'ADMIN' : '
             <span class="admin-user-section__header-name">Admin role</span>
             <span class="admin-user-section__header-name"></span>
         </div>
-        <GenericList v-if="adminStore.userLoader" :items="users" tag="ul" :keyProp="id"
-            custom-class="text-xs admin-user-section__list" item-class="admin-user-section__list-item">
+        <GenericList :items="users" tag="ul" :keyProp="id" custom-class="text-xs admin-user-section__list"
+            item-class="admin-user-section__list-item">
             <template v-slot="{ item }">
                 <div class="admin-user-section__id" :title="item.id">{{ item.id }}</div>
                 <div class="admin-user-section__fist-name">{{ item.firstName }}</div>

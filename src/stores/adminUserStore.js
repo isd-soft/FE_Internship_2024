@@ -10,14 +10,10 @@ export const useAdminUserStore = defineStore('adminuser', () => {
     const users = ref([])
     const userRole = ref({})
     const userStore = useUserStore()
-    const userLoader = ref(false)
-    const userRoleLoader = ref(false)
 
     const getUsers = async () => {
-        userLoader.value = false
         const response = await getUserListRequest(userStore.token.key)
         if(response) users.value = response
-        userLoader.value = true
     }
 
     //After Update and delete a webhook should be triggered that changes those values I think?
@@ -37,12 +33,10 @@ export const useAdminUserStore = defineStore('adminuser', () => {
     }
 
     const getUserRole = async() => {
-        userRoleLoader.value = false
         const response = await getUserRoleRequest(userStore.token.key)
         if(response) userRole.value = response
-        userRoleLoader.value = true
     }
 
-    return {users, userRole, userLoader, userRoleLoader, getUsers, updateUsers, deleteUser, getUserRole}
+    return {users, userRole, getUsers, updateUsers, deleteUser, getUserRole}
 
 })
