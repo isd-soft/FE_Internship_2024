@@ -84,7 +84,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 13rem;
+        gap: 7rem;
         }
         &__text-wrapper{
             text-align: center;
@@ -100,16 +100,10 @@
             width: 80%;
             display: flex;
             flex-direction: column;
-            gap: 3rem;
+            gap: 7rem;
             
         }
         &__info-wrapper{
-            //last version
-            // display: flex;
-            // flex-direction: column;
-            // gap: 4.2rem; 
-            // flex-wrap: wrap;
-            //new version
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 4.2rem;
@@ -118,7 +112,8 @@
             display: grid;
             grid-template-rows: repeat(2, minmax(0, 1fr));
             grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 3.6rem;
+            row-gap: 2.4rem;
+            column-gap: 3.6rem;
         }
         &__map{
             width: 100%;
