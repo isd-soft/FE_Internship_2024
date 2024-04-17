@@ -1,4 +1,4 @@
-import { ref, toRaw } from 'vue'
+import { ref, toRaw, computed } from 'vue'
 import { defineStore } from 'pinia'
 import {useProductStore} from './productStore'
 import { mapFromJson } from '@/utils/mapFromJson'
@@ -7,6 +7,11 @@ import { mapToJson } from '@/utils/mapToJson'
 export const useCartStore = defineStore('cart', () => {
     const productMap = ref(new Map())
     const userId = ref("")
+    const total = computed(() => {
+        let sum = 0
+        for (let [key, value] of productMap.value) sum += value.price * value.quantity
+        return sum
+      })
     const productStore = useProductStore()
 
     const addProduct = (product) => {
@@ -69,7 +74,7 @@ export const useCartStore = defineStore('cart', () => {
     };
 
 
-    return {productMap, userId, addProduct, deleteProduct, changeProductQuantity, getProduct, saveCart, getCart, stashCart, removeCart}
+    return {productMap, userId, total, addProduct, deleteProduct, changeProductQuantity, getProduct, saveCart, getCart, stashCart, removeCart}
 
 })
 

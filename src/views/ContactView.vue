@@ -6,12 +6,22 @@
     import MapPointIcon from "@/assets/icons/ContactMapPointIcon.svg"
     import ClockIcon from "@/assets/icons/ContactClockIcon.svg"
     import PhoneIcon from "@/assets/icons/ContactPhoneIcon.svg"
+    import EmailIcon from "@/assets/icons/ContactEmailIcon.svg"
+    import Loader from "@/assets/icons/LoaderIcon.svg"
     import GenericToast from '@/components/generics/GenericToast.vue'
-    import { ref, computed } from 'vue'
+    import { useContactStore } from "@/stores/contactStore";
+    import { ref, computed, onBeforeMount } from 'vue'
 
-
+    const store = useContactStore()
     const submitSuccess = ref(false)
     const submitFinished = ref(false)
+    onBeforeMount(()=>{
+        store.fetchContactInformation() 
+    })
+    const contactInfo = computed(()=>{
+        return store.contactInformation
+    })
+    
     const toastType = computed(() => {
         return submitSuccess.value ? 'success' : 'error'
     })
@@ -32,10 +42,11 @@
         const refreshAttempt = () => {
             submitFinished.value = false
         }
+        
 </script>
 
 <template>
-    <div class="contact">
+    <div class="contact" v-if="store.loader">
         <BannerSection title="Contact"/>
         <div class="contact__container">
             <div class="contact__text-wrapper">
@@ -44,10 +55,11 @@
                     An Email. Our Staff Always Be There To Help You Out. Do Not Hesitate!</p>
             </div>
             <div class="contact__section">
-                <div class="contact__info-wrapper">
-                    <ContactInfoCard  :icon="MapPointIcon" infoTitle="Address" infoTextFirst="236 5th SE Avenue, " infoTextSecond="New York NY10000, United States"/>
-                    <ContactInfoCard  :icon="ClockIcon" infoTitle="Phone"   infoTextFirst="Mobile: +(84) 546-6789" infoTextSecond="Hotline: +(84) 456-6789"/>
-                    <ContactInfoCard  :icon="PhoneIcon" infoTitle="Working Time" infoTextFirst="Monday-Friday: 9:00 - 22:00" infoTextSecond="Saturday-Sunday: 9:00 - 21:00"/>
+                <div class="contact__info-wrapper"> 
+                    <ContactInfoCard  :icon="MapPointIcon" infoTitle="Address" :infoText="store.getFormatAddress" href="#" styles="pointer-events: none; cursor: default;"/>
+                    <ContactInfoCard  :icon="PhoneIcon" infoTitle="Phone"   :infoText="store.getFormatPhones" href="tel:"/>
+                    <ContactInfoCard  :icon="EmailIcon" infoTitle="Emails" :infoText="contactInfo.email" href="mailto:"/>
+                    <ContactInfoCard  :icon="ClockIcon" infoTitle="Working Time" :infoText="contactInfo.workTime" href="#" styles="pointer-events: none; cursor: default;"/>
                 </div>
                 <GenericToast v-if="submitFinished" :message="toastMessage" :type="toastType" />
                 <ContactForm 
@@ -57,8 +69,11 @@
                     @failure="finishSubmitFail"/>
             </div>
         </div>
-        <iframe class="contact__map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2720.2304445812615!2d28.835034976908844!3d47.016081471141874!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40c97c2169d23a6f%3A0x8c9cf6c999802fef!2sInther%20Software%20Development!5e0!3m2!1sru!2s!4v1712302064333!5m2!1sru!2s"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        <AdvantageSection/>
+        <iframe class="contact__map" :src="contactInfo.geoCoordinates"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <AdvantageSection class="contact__advantage-section"/>
+    </div>
+    <div v-else class="loader">
+        <Loader/>
     </div>
 </template>
 
@@ -69,6 +84,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        gap: 13rem;
         }
         &__text-wrapper{
             text-align: center;
@@ -81,24 +97,34 @@
             color: var(--color-quick-silver);
         }
         &__section{
-            display: flex;
-            margin-top: 82px;
             width: 80%;
-            gap: 11rem;
-        }
-        &__info-wrapper{
             display: flex;
             flex-direction: column;
-            gap: 4.2rem; 
-            flex-wrap: wrap;
+            gap: 3rem;
+            
+        }
+        &__info-wrapper{
+            //last version
+            // display: flex;
+            // flex-direction: column;
+            // gap: 4.2rem; 
+            // flex-wrap: wrap;
+            //new version
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 4.2rem;
         }
         &__form{
-            width: 100%;
+            display: grid;
+            grid-template-rows: repeat(2, minmax(0, 1fr));
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 3.6rem;
         }
         &__map{
             width: 100%;
             height: 520px;
             filter: grayscale(40%);
+            margin-bottom: -5px;
         }
     }
     @media only screen and (max-width: 768px) {
@@ -114,13 +140,40 @@
             }
             &__section{
                 width: 100%;
+                display: flex;
                 flex-direction: column;
                 align-items: center;
             }
-            &__info-wrapper{
+            &__form{
                 width: 100%;
-                flex-direction: row;
-                justify-content: space-between;
+                display: flex;
+                flex-direction: column;
+            }
+        }
+    }
+    @media only screen and (max-width: 425px) {
+        .contact{
+            &__section{
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            &__form{
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+            }
+            &__info-wrapper{
+            //last version
+            // display: flex;
+            // flex-direction: column;
+            // gap: 4.2rem; 
+            // flex-wrap: wrap;
+            //new version
+            display: grid;
+            grid-template-columns: repeat(1, minmax(0, 1fr));
+            gap: 4.2rem;
             }
         }
     }

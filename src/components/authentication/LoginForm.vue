@@ -4,9 +4,11 @@ import * as yup from 'yup'
 import { ref, computed } from 'vue'
 import { useUserStore } from '../../stores/userStore'
 
+const isFailure = ref(false)
+
 const schema = yup.object({
   username: yup.string().required(),
-  password: yup.string().min(6).required()
+  password: yup.string().min(6, 'Password must contain at least 6 characters').required('Password must not be empty')
 })
 
 const { defineField, errors, handleSubmit } = useForm({
@@ -24,8 +26,15 @@ const onSubmit = handleSubmit((values) => {
   const userStore = useUserStore()
   const { username, password } = values
   userStore.login(username, password).then(res => {
-    res? emit('success') : emit('failure')
-  }).catch(err => emit('failure') )
+    if(res) emit('success') 
+    else {
+      emit('failure')
+      isFailure.value = true
+    }
+  }).catch(err => {
+    emit('failure') 
+    isFailure.value = true
+  })
 })
 
 const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
@@ -38,6 +47,7 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
     <form @submit="onSubmit" class="login-container__form login-form">
       <input
         class="login-form__input"
+        :class="{'login-form__input--error': errors.username}"
         v-model="username"
         v-bind="usernameAttributeList"
         name="username"
@@ -45,10 +55,9 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
         placeholder="Username"
         @focus="$emit('inputStart')"
       />
-      <span class="login-form__error">{{ errors.email }}</span>
-
       <input
         class="login-form__input"
+        :class="{'login-form__input--error': errors.password}"
         v-model="password"
         v-bind="passwordAttributeList"
         name="password"
@@ -56,9 +65,10 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
         type="password"
         @focus="$emit('inputStart')"
       />
-      <span class="login-form__error">{{ errors.password }}</span>
 
-      <button class="login-form__submit-button">Log In</button>
+      <span class="login-form__error">{{isFailure? "Incorrect Username or Password":""}}</span>
+
+      <button class="primary-button login-form__submit-button">Log In</button>
     </form>
     <button class="login-container__toggle-button" @click="$emit('changeModal')">
       Not a user? Sign Up!
@@ -67,6 +77,10 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
 </template>
 
 <style lang="scss" scoped>
+span{
+  min-height: 3rem;
+}
+
 
 .login-container {
   padding: 5rem 3.8rem 4rem 4rem;
@@ -84,8 +98,13 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
     font-size: 1.2rem;
     border: none;
     background: none;
-    text-decoration: underline;
     width: 100%;
+    text-decoration: underline transparent;
+    transition: .2s ease-out;
+
+    &:hover{
+      text-decoration: underline black;
+    }
   }
 }
 
@@ -98,26 +117,28 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
     border-radius: 1rem;
     padding: 1.5rem 1.2rem;
     font-size: 1.6rem;
+    margin-bottom: 0.8rem;
+
 
     ::placeholder {
       color: var(--color-quick-silver);
     }
 
-    :focus {
-      border: 1px solid var(--color-uc-gold);
+    &--error{
+      outline: 3px solid var(--color-candy-pink);
     }
   }
 
   &__error {
     color: var(--color-candy-pink);
-    margin-bottom: 0.8rem;
+    font-size: 1.4rem;
     padding-left: 0.4rem;
   }
 
   &__submit-button {
     margin-top: 9.5rem;
     margin-bottom: 1rem;
-    padding: 1.2rem 0;
+    padding: 1.2rem 10.5rem;
     color: var(--color-white);
     background-color: var(--color-uc-gold);
     font-size: 1.6rem;

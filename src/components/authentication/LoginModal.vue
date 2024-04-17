@@ -78,7 +78,7 @@ const refreshAttempt = () => {
   justify-content: center;
   align-items: center;
   background-color: var(--color-warm-ivory);
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(6px);
 
   &__content {
     background-color: var(--color-old-lace);

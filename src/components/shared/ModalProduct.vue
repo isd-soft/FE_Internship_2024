@@ -3,40 +3,47 @@ import { VueFinalModal, useVfm } from 'vue-final-modal'
 import Counter from './Counter.vue';
 import StarRating from './StarRating.vue';
 import ClosingIcon from '../../assets/icons/CrossIcon.svg'
+import {toUppercaseUtil} from '../../utils/toUppercaseUtil.js'
+
+const reviews = () => Math.floor(Math.random() * 20)
 
 const props = defineProps({
-  id: {
+  id: String,
+  imageUrl: String,
+  name: String,
+  code: String,
+  description: String,
+  price: Number,
+  oldPrice: {
     type: Number,
-    required: true
+    required: false
   },
-  header: {
-    type: String,
-    required: true
-  },
-  price: {
-    type: String,
-    required: true
-  },
-  description: {
-    type: String,
-    required: true
-  },
-  rating: {
+  stock: Number,
+  rating: Number,
+  discount: {
     type: Number,
-    required: true
+    required: false
   },
-  reviews: {
-    type: Number,
-    required: true
+  isNew: {
+    type: Boolean,
+    required: false
   },
+  createdAt: {
+    type: String,
+    required: false
+  },
+  updatedAt: {
+    type: String,
+    required: false
+  },
+  // value: {
+  //   type: Number,
+  //   validator: (value) => value >= 0
+  // },
   productType: {
     type: String,
-    required: true
+    validator: (value) => ['discount', 'stock', 'new'].includes(value)
   },
-  imgSrc: {
-    type:String,
-    default:''
-  }
 })
 
 const vfm = useVfm()
@@ -56,11 +63,11 @@ const close = () => {
     @clickOutside="emit('close')"
   >
   
-    <img :src="imgSrc" class="product-modal__photo" alt="Product Image"/>
+    <img :src="imageUrl" class="product-modal__photo" alt="Product Image"/>
     <ClosingIcon class = "product-modal__cross" @click ="close()" />
     <div class="product-modal__detail">
       <div class = "product-modal__wrapper">
-        <span class="product-modal__header text-3xl">{{ header }}</span>
+        <span class="product-modal__header text-3xl">{{ name }}</span>
         <span class="product-modal__price text-md">{{ price }}</span>
       </div>
       <div class = "product-modal__wrapper">
@@ -68,10 +75,10 @@ const close = () => {
         <div class="product-modal__review part">
             <StarRating :ratingStars="Number(rating)" />
             <span class="product-modal__review-separator" />
-            <span class="text-xs product-modal__review-text">{{ reviews }} Customer Review</span>
+            <span class="text-xs product-modal__review-text">{{ reviews() }} Customer Review</span>
       </div>
         <span class="product-modal__section-header text-xs">Availability</span>
-        <span class="product-modal__product-type text-md">{{ productType }}</span>
+        <span class="product-modal__product-type text-md">{{ toUppercaseUtil(productType) }}</span>
         <span class="product-modal__section-header text-xs">Colors</span>
         <div class="product-modal__color">
             <div class="product-modal__color-item"></div>
