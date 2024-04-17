@@ -4,21 +4,20 @@ import GenericList from '../generics/GenericList.vue'
 import { useUserStore } from '@/stores/userStore'
 import { useRoute } from 'vue-router'
 import { computed } from 'vue'
-import {useModal} from 'vue-final-modal' 
-import { toggleMenu } from '@/utils/toggleMenu' 
+import { useModal } from 'vue-final-modal'
+import { toggleMenu } from '@/utils/toggleMenu'
 import LoginModal from '../authentication/LoginModal.vue'
 
 const user = useUserStore()
 const route = useRoute()
 
-const {open: openLoginModal} = useModal({
+const { open: openLoginModal } = useModal({
   component: LoginModal
 })
 
 function handleProfileClick() {
   if (!user.isAuthenticated()) openLoginModal()
   toggleMenu()
-
 }
 
 const linkList = [
@@ -45,7 +44,11 @@ const isActive = (href) => computed(() => route.path === href)
       itemClass="navigation__list-item text-xl"
     >
       <template v-slot="{ item }">
-        <GenericLink v-bind="item" @click="item.clickHandler ? item.clickHandler() : {}" :class="{ 'active-link': isActive(item.href).value }"/>
+        <GenericLink
+          v-bind="item"
+          @click="item.clickHandler ? item.clickHandler() : {}"
+          :class="{ 'active-link': isActive(item.href).value }"
+        />
       </template>
     </GenericList>
   </nav>

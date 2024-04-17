@@ -56,17 +56,17 @@ const router = createRouter({
       {
         path: 'products',
         name: 'products',
-        component: AdminProductList //add component when it will appear
+        component: AdminProductList
       },
       {
         path: 'contact-settings',
         name: 'contact-settings',
-        component: AdminContactPage //add component when it will appear
+        component: AdminContactPage
       },
       {
         path: 'users',
         name: 'users',
-        component: AdminUserList //add component when it will appear
+        component: AdminUserList
       }
     ]
     }
