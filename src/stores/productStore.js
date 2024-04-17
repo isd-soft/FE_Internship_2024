@@ -45,9 +45,12 @@ export const useProductStore = defineStore('product', () => {
   const addproductMap =  (productArray) => {
     if (!productMap.value) productMap.value = new Map()
     for (let product of productArray){
-    productMap.value.set(product.id, product)
-    console.log("PRODUCT UPDATED: ", productMap.value)
+      product.price =  normalizePrice(product.price)
+      product.discount = parseInt(product.discount)
+      productMap.value.set(product.id, product)
     }
+    console.log("PRODUCT UPDATED: ", productMap.value)
+//Might wanna add loader here if necessary
 }
 
   const removeproductMap = (productId) => {
