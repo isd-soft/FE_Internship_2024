@@ -3,6 +3,10 @@ import EditIcon from '../../assets/icons/EditIcon.svg'
 import TrashIcon from '../../assets/icons/TrashIcon.svg'
 import { useModal } from 'vue-final-modal'
 import AdminProductModal from './AdminProductModal.vue'
+import { useProductStore } from '../../stores/productStore';
+import { useUserStore } from '../../stores/userStore';
+import GenericToast from '../generics/GenericToast.vue';
+import { ref, watch } from 'vue';
 
 const props = defineProps({
     headingFlag: Boolean,
@@ -10,9 +14,9 @@ const props = defineProps({
     id: String,
     description: String,
     name: String,
-    price: String,
+    price: Number,
     stock: Number,
-    discount: String,
+    discount: Number,
     code: String,
     rating: Number,
     isNew: Boolean,
@@ -29,7 +33,7 @@ const { open } = useModal({
 
 const categoryList = [
     'Image',
-    'ID',
+    'Code',
     'Name',
     'Price',
     'Stock',
@@ -37,7 +41,32 @@ const categoryList = [
     'Actions'
 ]
 
-const truncateId = (id) => (id.substring(0, 7) + '...');
+const productStore = useProductStore()
+const token = useUserStore().token.key
+
+const deletionFlag = ref(false)
+const toastPreset = ref({})
+
+watch(deletionFlag, () => deletionFlag ? productStore.initStore() : null) //Delete this
+
+const handleDeletion = () => {
+    if (deletionFlag.value) deletionFlag.value = false
+
+    confirm('Are you sure you want to delete this product?')
+        ? productStore.deleteProductFromServer(props.id, token)
+            .then(result =>
+                toastPreset.value = result
+                    ? { message: 'Product deleted successfully', type: 'success' }
+                    : { message: 'Error while deleting the product', type: 'error' }
+            )
+            .catch(error =>
+                toastPreset.value = { message: 'Error: ' + error, type: 'error' }
+            )
+            .finally(() =>
+                deletionFlag.value = true
+            )
+        : null
+}
 
 </script>
 
@@ -51,33 +80,20 @@ const truncateId = (id) => (id.substring(0, 7) + '...');
     <div v-else class="admin-product-list__card admin-product-card">
         <img class="admin-product-card__image" :src="imageUrl" :alt="name" />
 
-        <span :title="id" class="text-sm admin-product-card__id">
-            {{ truncateId(id) }}
-        </span>
-
-        <span class="text-sm admin-product-card__name">
-            {{ name }}
-        </span>
-
-        <span class="text-sm admin-product-card__price">
-            {{ price }} USD
-        </span>
-
-        <span class="text-sm admin-product-card__stock">
-            {{ stock }}
-        </span>
-
-        <span class="text-sm admin-product-card__discount">
-            {{ discount ? discount : 'N/A' }}
+        <span v-for="(category, index) of [code, name, `${price} USD`, stock, discount ? discount : 'N/A']"
+            :class="`text-sm admin-product-card__${['code', 'name', 'price', 'stock', 'discount'][index]}`">
+            {{ category }}
         </span>
 
         <button @click="open" class="text-sm admin-product-card__patch-button">
             <EditIcon width="2.4rem" height="2.4rem" />
         </button>
 
-        <button class="text-sm admin-product-card__delete-button">
+        <button @click="handleDeletion" class="text-sm admin-product-card__delete-button">
             <TrashIcon width="2.4rem" height="2.4rem" />
         </button>
+
+        <GenericToast v-if="deletionFlag" v-bind="toastPreset" />
     </div>
 </template>
 
@@ -109,7 +125,6 @@ const truncateId = (id) => (id.substring(0, 7) + '...');
 
 .admin-product-card {
     border: 1px solid var(--color-uc-gold);
-    border-radius: 1rem;
     padding: 1rem;
 
     &__image {

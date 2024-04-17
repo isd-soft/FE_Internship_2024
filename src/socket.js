@@ -24,24 +24,23 @@ export const bindEvents = () => {
       switch(update.model){
         case 'Article': {
           console.log(update.instances)
-          if(update.event == 'AFTER_CREATE' || update.event == 'AFTER_UPDATE')productStore.addproductMap(update.instances)
+          if(update.event === 'AFTER_CREATE' || update.event === 'AFTER_UPDATE')productStore.addproductMap(update.instances)
+          else if(update.event === 'AFTER_BULK_DESTROY') productStore.removeproductMap(update.lookup.id) //Probably
           break
         }
         case 'AuthUser':{
-          if(update.event == 'AFTER_CREATE' && userStore.isAdmin()) adminUserStore.addUser(update.instances[0]) //Need to update the adminStore
+          if(update.event === 'AFTER_CREATE' && userStore.isAdmin()) adminUserStore.addUser(update.instances[0])
+          else if (update.event === 'AFTER_BULK_DESTROY') adminUserStore.deleteUserWeb(update.lookup.id) //Maybe
           break
         }
         case 'AuthUserRole':{
-          if (update.event == 'AFTER_UPDATE' && userStore.isAdmin() ) adminUserStore.addRoleToUser(update.instances.userId, update.instances.roleId) //Need to update the adminStore
+          if (update.event === 'AFTER_UPDATE' && userStore.isAdmin() ) adminUserStore.addRoleToUser(update.instances.userId, update.instances.roleId)
+          else if (update.event === 'AFTER_BULK_DESTROY') adminUserStore.deleteUserRoleWeb(update.lookup.userId, update.lookup.roleId[0])
           break}
         case 'Setting': {
-          if (update.event == 'AFTER_UPDATE') contactStore.changeContactInformation(update.instances)
+          if (update.event === 'AFTER_UPDATE') contactStore.changeContactInformation(update.instances)
           break
         }
       }
     })
 }
-
-// export const bindEvents = () => {
-  
-// }

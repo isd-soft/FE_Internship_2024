@@ -13,7 +13,7 @@
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec
         ullamcorper mattis.
       </p>
-      <button class="text-sm hero-section__button" @click="$router.push('shop')">BUY NOW</button>
+      <button class="text-sm primary-button hero-section__button" @click="$router.push('shop')">BUY NOW</button>
     </div>
   </section>
 </template>
@@ -54,17 +54,17 @@
   }
 
   &__button {
-    background-color: var(--color-uc-gold);
-    border: 1px solid var(--color-uc-gold);
-    color: var(--color-white);
-    font-weight: 700;
+  //   background-color: var(--color-uc-gold);
+  //   border: 1px solid var(--color-uc-gold);
+  //   color: var(--color-white);
+  //   font-weight: 700;
     padding: 2.5rem 7.2rem;
 
-    &:hover {
-      color: var(--color-uc-gold);
-      background-color: var(--color-white);
-      cursor: pointer;
-    }
+  //   &:hover {
+  //     color: var(--color-uc-gold);
+  //     background-color: var(--color-white);
+  //     cursor: pointer;
+  //   }
   }
 }
 

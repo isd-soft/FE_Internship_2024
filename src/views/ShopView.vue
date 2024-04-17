@@ -28,7 +28,6 @@ const { width } = useWindowSize();
 
 
 const productStore = useProductStore()
-productStore.initStore()
 
 const productList = computed(() => {
   return Array.from(productStore.productMap.values())
@@ -100,8 +99,8 @@ console.log(pageList(pageNumber));
 
 <template>
     <BannerSection title="Shop"/>
-    <section class="main_section section shop-section">
-        <GenericList v-if="productStore.loader" :items="pageList(currentPage)" key="id" customClass="shop-section__list" itemClass="shop-section__list-item">
+    <section class="main__section section shop-section">
+        <GenericList :items="pageList(currentPage)" key="id" customClass="shop-section__list" itemClass="shop-section__list-item">
             <template v-slot="{item}">
                 <ProductCard v-bind="item"/>
             </template>

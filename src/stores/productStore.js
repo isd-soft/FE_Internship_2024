@@ -34,11 +34,11 @@ export const useProductStore = defineStore('product', () => {
   }
 
   const inStock = (productId) =>{
-    return productMap.value[productId].stock > 0
+    return productMap.value.get(productId).stock > 0
   }
 
   const isAvailable = (productId, quantity) => {
-    return print.value[productId].stock >= quantity
+    return productMap.value.get(productId).stock >= quantity
   }
 
   // Those functions are to be used by WebSocket:
@@ -50,19 +50,11 @@ export const useProductStore = defineStore('product', () => {
       productMap.value.set(product.id, product)
     }
     console.log("PRODUCT UPDATED: ", productMap.value)
-//Might wanna add loader here if necessary
 }
 
   const removeproductMap = (productId) => {
     productMap.value.remove(productId)
 }
-
-  const updateproductMap = (product) => {
-    if (productMap.value[product.id]) {
-        productMap.value[product.id] = product
-      }  
-    }
-
     // Those functions are to be used by Admin:
 
     const addProductToServer = async(product, token) => {
@@ -80,5 +72,5 @@ export const useProductStore = defineStore('product', () => {
       return result
     }
 
-  return { productMap, loader, initStore, inStock, isAvailable, addproductMap, removeproductMap, updateproductMap, addProductToServer, updateProductToServer, deleteProductFromServer}
+  return { productMap, loader, initStore, inStock, isAvailable, addproductMap, removeproductMap, addProductToServer, updateProductToServer, deleteProductFromServer}
 })

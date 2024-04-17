@@ -3,10 +3,12 @@ import { defineStore } from 'pinia'
 import { getUserListRequest } from '@/axios/getUserListRequest'
 import { updateUserRequest } from '@/axios/updateUserRequest'
 import { deleteUserRequest } from '@/axios/deleteUserRequest'
+import { getUserRoleRequest } from '@/axios/getUserRoleRequest'
 import {useUserStore} from './userStore'
 
 export const useAdminUserStore = defineStore('adminuser', () => {
-    const users = ref({})
+    const users = ref([])
+    const userRole = ref({})
     const userStore = useUserStore()
 
     const getUsers = async () => {
@@ -18,14 +20,39 @@ export const useAdminUserStore = defineStore('adminuser', () => {
     //If no, then call getUser again
     const updateUsers = async(modifiedUser) => {
         const response = await updateUserRequest(JSON.stringify(modifiedUser), userStore.token.key)
+        const index = users.value.findIndex(user => user.id === modifiedUser.id)
+        users.value[index] = modifiedUser
+        if (response) console.log("User updated")
         return response
     }
 
     const deleteUser = async(userId) =>{
-        const response = await deleteUserRequest(JSON.stringify([userId]), userStore.token.key)
+        const response = await deleteUserRequest(userStore.token.key, [userId])
+        if (response) users.value = users.value.filter(user => user.id !== userId)
         return response 
     }
 
-    return {users, getUsers, updateUsers, deleteUser}
+    const getUserRole = async() => {
+        const response = await getUserRoleRequest(userStore.token.key)
+        if(response) userRole.value = response
+    }
+
+    //WebSocket functions:
+    const addUserWeb = (usr) =>{
+        users.value.push(usr)
+        console.log("User added: ", users.value)
+    }
+
+    const updateUserRoleWeb = (usrId, roleId) => {
+        const index = users.value.findIndex(user => user.id === usrId)
+        const role = userRole.value.filter(r => r.id === roleId)
+        users.value[index].roles.push(role)
+        console.log("User role updated: ", users.value[index])
+    }
+
+    const deleteUserWeb = (usrId) => {}
+    const deleteUserRoleWeb = (usrId, roleId) => {}
+
+    return {users, userRole, getUsers, updateUsers, deleteUser, getUserRole, addUserWeb, updateUserRoleWeb, deleteUserWeb, deleteUserRoleWeb}
 
 })

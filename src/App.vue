@@ -1,6 +1,10 @@
 <script setup>
 import {ModalsContainer} from 'vue-final-modal'
 import { socket , bindEvents} from "@/socket";
+import {useProductStore} from '@/stores/productStore.js'
+
+const productStore = useProductStore()
+productStore.initStore()
 
 
 bindEvents()
@@ -13,7 +17,7 @@ socket.emit('test');
 <template>
   <div>
     <ModalsContainer />
-    <RouterView/>
+    <RouterView />
   </div>
 </template>
 
