@@ -1,13 +1,9 @@
 <script setup>
 import { useContactStore } from "@/stores/contactStore";
-import { onBeforeMount,ref,computed } from "vue";
+import { ref,computed } from "vue";
 import Loader from "@/assets/icons/LoaderIcon.svg"
 import GenericToast from '@/components/generics/GenericToast.vue'
 const store = useContactStore()
-
-onBeforeMount(()=>{
-        store.fetchContactInformation()
-    })
 
 const hourFriday1=ref("09:00")
 const hourFriday2=ref("22:00")

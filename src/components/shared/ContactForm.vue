@@ -57,7 +57,7 @@ const emit = defineEmits(['success', 'failure', 'inputStart'])
                     v-bind="nameAttributeList"
                     name="name"
                     @focus="$emit('inputStart')"/>
-                <span class="form-wrapper__error text-sm">{{ errors.name }}</span>
+                <span class="form-wrapper__error text-xs">{{ errors.name }}</span>
             </div>
         </div>
         <div class="form-wrapper__field">
@@ -72,7 +72,7 @@ const emit = defineEmits(['success', 'failure', 'inputStart'])
                     v-bind="emailAttributeList"
                     name="email"
                     @focus="$emit('inputStart')"/>
-                <span class="form-wrapper__error text-sm">{{ errors.email }}</span>
+                <span class="form-wrapper__error text-xs">{{ errors.email }}</span>
             </div>
             
         </div>
@@ -88,7 +88,7 @@ const emit = defineEmits(['success', 'failure', 'inputStart'])
                     v-bind="subjectAttributeList"
                     name="subject"
                     @focus="$emit('inputStart')"/>
-                <span class="form-wrapper__error text-sm">{{ errors.subject }}</span>
+                <span class="form-wrapper__error text-xs">{{ errors.subject }}</span>
             </div>
             
         </div>
@@ -105,12 +105,13 @@ const emit = defineEmits(['success', 'failure', 'inputStart'])
                 name="message"
                 rows="5"
                 @focus="$emit('inputStart')"/>
-            <span class="form-wrapper__error text-sm"> {{ errors.message }}</span>
+            <span class="form-wrapper__error text-xs"> {{ errors.message }}</span>
             </div>
-        
         </div>
-        <button  class="form-wrapper__button text-sm primary-button" >Submit</button>
-        <span class="form-wrapper__warning text-sm">* means the frield is required</span>
+            <div class="form-wrapper__button-text-wrapper">
+                <span class="form-wrapper__warning text-sm">* the field is required</span>
+                <button  class="form-wrapper__button text-sm primary-button" >Submit</button>
+            </div>
     </form>
 </template>
 
@@ -119,20 +120,22 @@ const emit = defineEmits(['success', 'failure', 'inputStart'])
     &__field-wrapper{
         display: flex;
         flex-direction: column;
-        gap: 1.2rem;
+        
     }
     &__field{
         display: flex;
         flex-direction: column;
-        gap: 2.2rem;
+        gap: 1.4rem;
         grid-column: 1 / 1;
+        position: relative;
     }
     &__textarea-wrapper{
         display: flex;
         flex-direction: column;
-        gap: 2.2rem;
+        gap: 1.4rem;
         grid-column: 2 / 2;
-        grid-row: 1 / span 3;
+        grid-row: 1 / span 2;
+        position: relative;
     }
     &__textarea-field{
         display: flex;
@@ -156,19 +159,21 @@ const emit = defineEmits(['success', 'failure', 'inputStart'])
             border: 1px solid var(--color-uc-gold);
         }
     }
+    &__button-text-wrapper{
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+    }
     &__button{
         border-radius: .5rem;
-        padding: 1.4rem 9rem;
-        grid-column: 2 / 2;
-
-    
-    }
-    &__warning{
-        grid-column: 2 / 2;
+        padding: 1.4rem 7rem;
     }
     &__error {
         color: var(--color-candy-pink);
         padding-left: 0.4rem;
+        position: absolute;
+        top: 0;
+        right: 0;
         }
 }
 .errorfield{
