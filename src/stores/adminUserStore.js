@@ -28,7 +28,8 @@ export const useAdminUserStore = defineStore('adminuser', () => {
 
     const deleteUser = async(userId) =>{
         const response = await deleteUserRequest(userStore.token.key, [userId])
-        if (response) users.value = users.value.filter(user => user.id !== userId)
+        if (response) 
+        // users.value = users.value.filter(user => user.id !== userId)
         return response 
     }
 
@@ -57,7 +58,7 @@ export const useAdminUserStore = defineStore('adminuser', () => {
     const deleteUserWeb = (usrId) => {
         const index = users.value.findIndex(user => user.id === usrId)
         console.log("Deleting user: ", usrId)
-        users.value.pop(usrId)
+        users.value.splice(index, 1)
     }
 
     //This is not called
