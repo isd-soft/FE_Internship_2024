@@ -4,6 +4,7 @@ import { isMenuVisible } from '../../utils/isMenuVisible.js'
 import { mediaFlagInstruments } from '../../utils/updateMediaFlag.js'
 import { menuToggleInstruments } from '../../utils/menuToggle.js'
 import { toggleMenu, menuState } from '@/utils/toggleMenu.js'
+import { useUserStore } from '@/stores/userStore.js'
 import HeaderLogo from './HeaderLogo.vue'
 import HeaderNavigation from './HeaderNavigation.vue'
 import GenericLink from '../generics/GenericLink.vue'
@@ -18,11 +19,11 @@ import HeaderAdaptiveNavigation from './HeaderAdaptiveNavigation.vue'
 const headerRef = ref(null)
 const { flag: mediaFlag, toggle: updateMediaFlag } = mediaFlagInstruments
 const { flag: isMenuIconVisible, toggle: menuToggle } = menuToggleInstruments
+const user = useUserStore()
 
 const state = reactive({
   shrinkHeader: false
 })
-
 
 const scrollTriggerHeight = computed(() => {
   return (window.innerHeight - 100) / 2
@@ -93,26 +94,36 @@ onUnmounted(() => {
   }
 })
 
-const openModal = () => {
-  open()
+const authCheck = (event) => {
+  if(!user.isAuthenticated()){ 
+    event.preventDefault()
+    openLoginModal()
+  }
 }
 
-const { open } = useModal({
+const { open: openLoginModal } = useModal({
   component: LoginModal,
   attrs: {}
 })
 </script>
 
 <template>
-  <header :class="['header', {'header-shrink': state.shrinkHeader, 'menu-active': menuState.menuState === 'open'}]" ref="headerRef" class="header">
+  <header
+    :class="[
+      'header',
+      { 'header-shrink': state.shrinkHeader, 'menu-active': menuState.menuState === 'open' }
+    ]"
+    ref="headerRef"
+    class="header"
+  >
     <div class="header__container container">
       <HeaderLogo />
       <HeaderNavigation v-show="isMenuVisible" />
       <div class="header__link-wrapper" v-show="isMenuVisible">
-        <GenericLink href="/cart" containerClass="header__link">
+        <GenericLink href="/cart" containerClass="header__link" @click = "$event => authCheck($event)">
           <CartIcon class="header__link-item" />
         </GenericLink>
-        <GenericLink containerClass="header__link" @click="openModal">
+        <GenericLink containerClass="header__link" @click="openLoginModal">
           <UserIcon class="header__link-item" />
         </GenericLink>
       </div>
@@ -121,7 +132,8 @@ const { open } = useModal({
         :class="{
           'header__navigation-collapse': true,
           'menu-open': menuState.menuState === 'open',
-          'menu-closed': menuState.menuState === 'closed'
+          'menu-closed': menuState.menuState === 'closed',
+          'menu-active': menuState.menuState === 'open'
         }"
         v-if="!isMenuIconVisible"
       />
@@ -135,6 +147,7 @@ const { open } = useModal({
 .header {
   position: fixed;
   background-color: var(--color-white);
+  transition: background-color 0.25s ease-in-out;
   width: 100%;
   z-index: 999;
   &__container {
@@ -149,7 +162,7 @@ const { open } = useModal({
   }
 
   &.menu-active {
-    background-color: var(--color-uc-gold);
+    background-color: var(--color-old-lace);
   }
 
   &__link-wrapper {
@@ -176,7 +189,7 @@ const { open } = useModal({
   height: 50px;
 }
 
-@media (max-width: 991px) {
+@media only screen and (max-width: 992px) {
   .header {
     &__container {
       height: 50px;
@@ -203,6 +216,7 @@ const { open } = useModal({
     &__navigation-collapse {
       position: absolute;
       background-color: var(--color-white);
+      transition: background-color 0.25s ease-in-out;
       top: 50px;
       left: 50%;
       z-index: 998;
@@ -210,6 +224,10 @@ const { open } = useModal({
       height: 100vh;
       width: 50%;
       max-height: fit-content;
+
+      &.menu-active {
+        background-color: var(--color-old-lace);
+      }
     }
   }
   @keyframes expandMenu {

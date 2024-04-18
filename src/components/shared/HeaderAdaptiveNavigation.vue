@@ -1,6 +1,8 @@
 <script setup>
 import GenericLink from '../generics/GenericLink.vue'
 import GenericList from '../generics/GenericList.vue'
+import CartIcon from '../../assets/icons/CartIcon.svg'
+import UserIcon from '../../assets/icons/UserIcon.svg'
 import { useUserStore } from '@/stores/userStore'
 import { useRoute } from 'vue-router'
 import { computed } from 'vue'
@@ -11,25 +13,45 @@ import LoginModal from '../authentication/LoginModal.vue'
 const user = useUserStore()
 const route = useRoute()
 
-const { open: openLoginModal } = useModal({
-  component: LoginModal
-})
+const { open: openLoginModal } = useModal({ component: LoginModal })
 
-function handleProfileClick() {
-  if (!user.isAuthenticated()) openLoginModal()
+const handleNavigationClick = () => {
   toggleMenu()
+}
+const handleProfileClick = () => {
+  if (!user.isAuthenticated()) openLoginModal()
 }
 
 const linkList = [
-  { href: 'home', textContent: 'Home', containerClass: 'navigation__link' },
-  { href: 'shop', textContent: 'Shop', containerClass: 'navigation__link' },
-  { href: 'contact', textContent: 'Contact', containerClass: 'navigation__link' },
-  { href: 'cart', textContent: 'Cart', containerClass: 'navigation__link' },
+  {
+    href: 'home',
+    textContent: 'Home',
+    containerClass: 'navigation__link',
+    clickHandler: () => handleNavigationClick()
+  },
+  {
+    href: 'shop',
+    textContent: 'Shop',
+    containerClass: 'navigation__link',
+    clickHandler: () => handleNavigationClick()
+  },
+  {
+    href: 'contact',
+    textContent: 'Contact',
+    containerClass: 'navigation__link',
+    clickHandler: () => handleNavigationClick()
+  },
+  {
+    href: 'cart',
+    containerClass: 'navigation__link',
+    clickHandler: () => handleNavigationClick(),
+    iconComponent: CartIcon
+  },
   {
     href: '',
-    textContent: 'Profile',
     containerClass: 'navigation__link',
-    clickHandler: () => handleProfileClick()
+    clickHandler: () => handleProfileClick(),
+    iconComponent: UserIcon
   }
 ]
 
@@ -41,14 +63,18 @@ const isActive = (href) => computed(() => route.path === href)
     <GenericList
       :items="linkList"
       customClass="navigation__list"
-      itemClass="navigation__list-item text-xl"
+      itemClass="navigation__list-item text-2xl"
     >
       <template v-slot="{ item }">
         <GenericLink
           v-bind="item"
           @click="item.clickHandler ? item.clickHandler() : {}"
           :class="{ 'active-link': isActive(item.href).value }"
-        />
+        >
+          <template v-slot:icon>
+            <component :is="item.iconComponent" />
+          </template>
+        </GenericLink>
       </template>
     </GenericList>
   </nav>

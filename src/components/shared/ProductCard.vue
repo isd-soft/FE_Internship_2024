@@ -2,7 +2,7 @@
 import { ref, computed } from 'vue'
 import ProductLabel from './ProductLabel.vue'
 import { useModal } from 'vue-final-modal'
-import ModalProduct from './ModalProduct.vue'
+import ProductModal from './ProductModal.vue'
 
 import LoginModal from '../authentication/LoginModal.vue'
 import { useUserStore } from '@/stores/userStore'
@@ -100,7 +100,7 @@ const {open: OpenLoginModal} = useModal({
 
 
 const { open: OpenProductModal } = useModal({
-  component: ModalProduct,
+  component: ProductModal,
   attrs: {
     id: props.id,
     imageUrl: props.imageUrl,
