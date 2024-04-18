@@ -148,10 +148,6 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
 </template>
 
 <style lang="scss" scoped>
-span {
-  height: 12px;
-}
-
 .register-container {
   // padding: 5rem 6rem 4rem 6rem;
   padding: 50px 60px 40px 60px;
@@ -222,6 +218,7 @@ span {
     font-size: 12px;
     margin-bottom: 1px;
     padding-left: 4px;
+    height: 12px;
   }
 }
 
@@ -261,7 +258,6 @@ span {
       flex-direction: column;
     }
     .register-form {
-      
       &__input {
         padding: 12px 12px;
         width: min(350px, 80vw);

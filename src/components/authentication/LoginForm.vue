@@ -72,7 +72,9 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
         @focus="$emit('inputStart')"
       />
 
-      <span class="text-sm login-form__error">{{ isFailure ? 'Incorrect Username or Password' : '' }}</span>
+      <span class="text-sm login-form__error">{{
+        isFailure ? 'Incorrect Username or Password' : ''
+      }}</span>
 
       <button class="text-sm primary-button .text-sm login-form__submit-button">Log In</button>
     </form>
@@ -83,9 +85,6 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
 </template>
 
 <style lang="scss" scoped>
-span {
-  min-height: 3rem;
-}
 
 .login-container {
   // padding: 5rem 3.8rem 4rem 4rem;
@@ -138,6 +137,7 @@ span {
   }
 
   &__error {
+    min-height: 30px;
     color: var(--color-candy-pink);
     padding-left: 4px;
     font-size: 12px;
@@ -158,16 +158,15 @@ span {
 }
 
 @media only screen and (max-width: 991px) {
-  .login-container{
+  .login-container {
     &__title {
       font-size: 30px;
     }
     &__description {
       font-size: 14px;
     }
-
   }
-  .login-form{
+  .login-form {
     &__input {
       font-size: 14px;
     }
@@ -179,14 +178,14 @@ span {
 
     &__error {
       margin-bottom: 3px;
+      min-height: 20px;
     }
-
   }
 }
 
 @media only screen and (max-width: 575px) {
   .login-container {
-    padding: 5rem;
+    padding: 0 5rem;
     display: flex;
     flex-direction: column;
   }
@@ -197,14 +196,13 @@ span {
       width: min(350px, 80vw);
     }
     &__error {
-        margin-bottom: 2px;
-      }
+      margin-bottom: 2px;
+    }
 
-      &__submit-button {
-        padding: 12px min(90px, 25vw);
-        white-space: nowrap;
-      }
+    &__submit-button {
+      padding: 12px min(90px, 25vw);
+      white-space: nowrap;
+    }
   }
-
 }
 </style>

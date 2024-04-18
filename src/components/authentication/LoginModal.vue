@@ -112,7 +112,7 @@ onUnmounted(() => window.removeEventListener('resize', updateMediaFlag))
     }
 
     &__toggle-container {
-      padding: 30px 30px 0 0;
+      padding: 30px min(30px, 4vw) 0 0;
       width: 100%;
       display: flex;
       justify-content: flex-end;
@@ -120,8 +120,8 @@ onUnmounted(() => window.removeEventListener('resize', updateMediaFlag))
     }
 
     &__toggle {
-      height: 40px;
-      width: 40px;
+      height: 35px;
+      width: 35px;
       &.cross {
         fill: var(--color-granite-gray);
       }
