@@ -11,12 +11,15 @@ import GenericLink from '../generics/GenericLink.vue'
 import CartIcon from '../../assets/icons/CartIcon.svg'
 import UserIcon from '../../assets/icons/UserIcon.svg'
 import LoginModal from '../authentication/LoginModal.vue'
+import UserMenu from './UserMenu.vue'
 import { useModal } from 'vue-final-modal'
 import MenuIcon from '../../assets/icons/MenuIcon.svg'
 import CrossIcon from '../../assets/icons/CrossIcon.svg'
 import HeaderAdaptiveNavigation from './HeaderAdaptiveNavigation.vue'
 
 const headerRef = ref(null)
+const userMenuToggle = ref(false)
+const userMenuRef = ref(null)
 const { flag: mediaFlag, toggle: updateMediaFlag } = mediaFlagInstruments
 const { flag: isMenuIconVisible, toggle: menuToggle } = menuToggleInstruments
 const user = useUserStore()
@@ -31,6 +34,14 @@ const scrollTriggerHeight = computed(() => {
 
 const handleScroll = () => {
   state.shrinkHeader = window.scrollY > scrollTriggerHeight.value
+}
+
+const changeUserMenuToggle = () => (userMenuToggle.value = !userMenuToggle.value)
+
+const onDocumentClick = (e) => {
+  if (userMenuRef.value && userMenuRef.value.$el && !userMenuRef.value.$el.contains(e.target) && userMenuToggle.value) {
+    userMenuToggle.value = false
+  }
 }
 
 const updateOverlayPosition = () => {
@@ -63,6 +74,7 @@ const updateFollowingBlockPadding = () => {
 }
 
 onMounted(() => {
+  window.addEventListener('click', onDocumentClick, true)
   window.addEventListener('resize', updateMediaFlag)
   window.addEventListener('resize', updateFollowingBlockPadding)
   window.addEventListener('resize', updateOverlayPosition)
@@ -84,6 +96,7 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
+  window.removeEventListener('click', onDocumentClick, true)
   window.removeEventListener('resize', updateMediaFlag)
   window.removeEventListener('resize', updateFollowingBlockPadding)
   window.removeEventListener('resize', updateOverlayPosition)
@@ -116,11 +129,18 @@ const { open: openLoginModal } = useModal({
         <GenericLink href="/cart" containerClass="header__link">
           <CartIcon class="header__link-item" />
         </GenericLink>
-        <GenericLink containerClass="header__link" @click = "user.logout()">
-          <UserIcon class="header__link-item" />
+          <GenericLink containerClass="header__link" @click = "changeUserMenuToggle()">
+          <UserIcon class="header__link-item" v-show="isMenuVisible"/>
         </GenericLink>
       </div>
-      <span class = "header__login-button text-md" v-else @click = "openLoginModal">Login</span>
+      <span
+        class="header__login-button text-md"
+        v-show="isMenuVisible"
+        v-else
+        @click="openLoginModal"
+        >Login</span
+      >
+      <UserMenu v-show="userMenuToggle" ref="userMenuRef" class = "header__user-options-menu"/>
       <div class="header__overlay" v-if="!isMenuIconVisible" @click="toggleMenu" />
       <HeaderAdaptiveNavigation
         :class="{
@@ -174,11 +194,17 @@ const { open: openLoginModal } = useModal({
     height: 2.47rem;
   }
 
+  &__user-options-menu{
+    position: absolute;
+    top:100px;
+    right: 1.1%;
+  }
+
   &__container-toggle {
     display: none;
   }
 
-  &__login-button{
+  &__login-button {
     display: block;
     font-weight: 500;
     cursor: pointer;
