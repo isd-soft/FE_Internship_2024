@@ -94,13 +94,6 @@ onUnmounted(() => {
   }
 })
 
-const authCheck = (event) => {
-  if(!user.isAuthenticated()){ 
-    event.preventDefault()
-    openLoginModal()
-  }
-}
-
 const { open: openLoginModal } = useModal({
   component: LoginModal,
   attrs: {}
@@ -119,14 +112,15 @@ const { open: openLoginModal } = useModal({
     <div class="header__container container">
       <HeaderLogo />
       <HeaderNavigation v-show="isMenuVisible" />
-      <div class="header__link-wrapper" v-show="isMenuVisible">
-        <GenericLink href="/cart" containerClass="header__link" @click = "$event => authCheck($event)">
+      <div class="header__link-wrapper" v-show="isMenuVisible" v-if="user.isAuthenticated()">
+        <GenericLink href="/cart" containerClass="header__link">
           <CartIcon class="header__link-item" />
         </GenericLink>
-        <GenericLink containerClass="header__link" @click="openLoginModal">
+        <GenericLink containerClass="header__link" @click = "user.logout()">
           <UserIcon class="header__link-item" />
         </GenericLink>
       </div>
+      <span class = "header__login-button text-md" v-else @click = "openLoginModal">Login</span>
       <div class="header__overlay" v-if="!isMenuIconVisible" @click="toggleMenu" />
       <HeaderAdaptiveNavigation
         :class="{
@@ -182,6 +176,12 @@ const { open: openLoginModal } = useModal({
 
   &__container-toggle {
     display: none;
+  }
+
+  &__login-button{
+    display: block;
+    font-weight: 500;
+    cursor: pointer;
   }
 }
 
