@@ -75,6 +75,7 @@ const checkRole = (item, role) => item.roles.find(i => i.role === role) ? true :
     border-radius: 10px;
     height: 5rem;
     align-items: center;
+    padding: 0 2rem;
 
     &__first-name,
     &__last-name,

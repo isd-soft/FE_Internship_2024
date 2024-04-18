@@ -68,7 +68,7 @@ const handleRoleUpdate = (item) => {
     display: flex;
     flex-direction: column;
     row-gap: 2.5rem;
-    text-align: center;
+    text-align: start;
 
     &__title {
         text-align: start;
@@ -80,12 +80,17 @@ const handleRoleUpdate = (item) => {
         grid-template-columns: repeat(7, minmax(0, 1fr)) 5rem;
         background-color: var(--color-linen);
         align-items: center;
+        padding: 0 2rem;
     }
 
     &__list {
         display: flex;
         flex-direction: column;
         row-gap: 2.5rem;
+    }
+
+    &__role {
+        text-align: center;
     }
 }
 
