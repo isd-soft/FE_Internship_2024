@@ -23,7 +23,7 @@ const productList = computed(() => Array.from(productStore.productMap.values())
         </template>
       </GenericList>
 
-      <button class="product-section__button text-sm" @click="$router.push('shop')">Show more</button>
+      <button class="product-section__button text-sm secondary-button" @click="$router.push('shop')">Show more</button>
     </div>
   </section>
 </template>
@@ -59,13 +59,11 @@ const productList = computed(() => Array.from(productStore.productMap.values())
       display: flex;
     }
 
-    &__button {
-      font-weight: 600;
-      color: var(--color-uc-gold);
-      padding: 12px 5%;
-      border: 1px solid var(--color-uc-gold);
-      background-color: var(--color-white);
-    }
+  }
+
+  &__button {
+    padding: 1.2rem 7.8rem;
+    border: 1px solid var(--color-uc-gold);
   }
 }
 
