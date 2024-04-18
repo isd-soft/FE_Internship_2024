@@ -9,7 +9,7 @@ import { useUserStore } from '@/stores/userStore'
 import { useCartStore } from '@/stores/cartStore'
 import GenericToast from '../generics/GenericToast.vue'
 
-import CartIcon from '../../assets/icons/CartIcon.svg';
+import CartAddIcon from '../../assets/icons/CartAddIcon.svg';
 
 const userStore = useUserStore()
 const cartStore = useCartStore()
@@ -121,7 +121,7 @@ const { open: OpenProductModal } = useModal({
     </div>
 
     <button class="product-card__cart-button" @click="addProduct">
-      <CartIcon width="3.6rem" height="3.6rem"/>
+      <CartAddIcon width="3.6rem" height="3.6rem"/>
     </button>
 
     <div class="product-card__text-wrapper">
