@@ -2,6 +2,7 @@ import "normalize.css"
 import './styles/main.scss'
 import 'vue-final-modal/style.css'
 import ToastPlugin from 'vue-toast-notification';
+import { createPersistedState } from "pinia-plugin-persistedstate";
 
 
 import { createApp } from 'vue'
@@ -15,8 +16,9 @@ import router from './router'
 
 const app = createApp(App)
 const vfm = createVfm()
-
-app.use(createPinia())
+const pinia = createPinia()
+pinia.use(createPersistedState({storage: sessionStorage}))
+app.use(pinia)
 app.use(router)
 app.use(vfm)
 app.use(ToastPlugin);

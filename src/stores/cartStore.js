@@ -3,6 +3,7 @@ import { defineStore } from 'pinia'
 import { useProductStore } from './productStore'
 import { mapFromJson } from '@/utils/mapFromJson'
 import { mapToJson } from '@/utils/mapToJson'
+import { useUserStore } from './userStore'
 
 export const useCartStore = defineStore('cart', () => {
   const productMap = ref(new Map())
@@ -21,6 +22,7 @@ export const useCartStore = defineStore('cart', () => {
     return parseFloat((subtotal.value + delivery.value).toFixed(2))
   })
   const productStore = useProductStore()
+  const userStore = useUserStore()
 
   const addProduct = (product) => {
     if (!(productMap.value instanceof Map)) productMap.value = new Map()
@@ -61,6 +63,10 @@ export const useCartStore = defineStore('cart', () => {
 
   //Called during login/register to create cart or retrieve from localStorage
   const getCart = (usrId) => {
+    if(usrId === undefined) {
+      usrId = userStore.user.id 
+    }
+
     userId.value = usrId
     const cart = localStorage.getItem(userId.value)
     console.log(cart)
