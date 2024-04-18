@@ -34,7 +34,7 @@ const categoryList = [
         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
       </p>
 
-      <Swiper v-if="width < 376" class="category-section__slider" :grab-cursor="true" :slides-per-group="1"
+      <Swiper v-if="width < 576" class="category-section__slider" :grab-cursor="true" :slides-per-group="1"
         :slides-per-view="1" loop>
         <SwiperSlide v-for="(category, index) in categoryList" :key="index">
           <CategoryCard v-bind="category" />

@@ -55,7 +55,7 @@ const props = defineProps({
   }
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 991px) {
   .label {
     width: clamp(36px, 6.25vw, 48px);
     height: clamp(36px, 6.25vw, 48px);
@@ -67,7 +67,7 @@ const props = defineProps({
   }
 }
 
-@media only screen and (max-width: 375px) {
+@media only screen and (max-width: 575px) {
   .label {
     width: clamp(36px, 12.8vw, 48px);
     height: clamp(36px, 12.8vw, 48px);

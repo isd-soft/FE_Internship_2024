@@ -163,7 +163,7 @@ console.log(pageList(pageNumber));
     }
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 901px) {
     .shop-section {
         &__list {
             padding: 60px 40px;
@@ -173,7 +173,7 @@ console.log(pageList(pageNumber));
     }
 }
 
-@media only screen and (max-width: 375px) {
+@media only screen and (max-width: 575px) {
     .shop-section {
         &__list {
             padding: 40px 20px;
