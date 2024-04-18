@@ -251,11 +251,11 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
 
   @media only screen and (max-width: 575px) {
     .register-container {
-      padding: 3rem 5rem;
+      padding: 0 5rem;
       display: flex;
       flex-direction: column;
-      justify-content: start;
-      height: calc(100% - 65px);
+      justify-content: center;
+      height: calc(100% - 80px);
       align-items: center;
     }
     .register-form {
