@@ -64,7 +64,7 @@ const router = createRouter({
       {
         path: 'products',
         name: 'products',
-        component: AdminProductList //add component when it will appear
+        component: AdminProductList
       },
       {
         path: 'contact-settings',
@@ -74,7 +74,7 @@ const router = createRouter({
       {
         path: 'users',
         name: 'users',
-        component: AdminUserList //add component when it will appear
+        component: AdminUserList
       }
     ]
     }
