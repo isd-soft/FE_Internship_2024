@@ -93,6 +93,7 @@ onUnmounted(() => window.removeEventListener('resize', updateMediaFlag))
   &__content {
     background-color: var(--color-old-lace);
     border-radius: 10px;
+    overflow: auto;
   }
 }
 
@@ -105,10 +106,11 @@ onUnmounted(() => window.removeEventListener('resize', updateMediaFlag))
     backdrop-filter: blur(0px);
 
     &__content {
-      width: 100vw;
-      height: 100vh;
+      width: 100%;
+      height: 100%;
       justify-content: center;
       align-items: center;
+      border-radius: 0;
     }
 
     &__toggle-container {
