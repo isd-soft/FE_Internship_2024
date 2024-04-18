@@ -5,7 +5,6 @@ import ToggleButton from '@/components/shared/ToggleButton.vue';
 import { useModal } from 'vue-final-modal'
 import AdminUserModal from './AdminUserModal.vue'
 import { watch, ref } from 'vue';
-import { useWindowSize } from '@vueuse/core';
 
 const props = defineProps({
     className: String,
@@ -29,7 +28,7 @@ const toggleModal = () => {
 const { open } = useModal({
     component: AdminUserModal,
     attrs: {
-        user: user.value,
+        user: user,
         updateRole: updateRole,
         deleteUser: deleteUser,
     }
@@ -38,8 +37,6 @@ const { open } = useModal({
 const splitDate = (date) => date.split('T');
 
 const checkRole = (item, role) => item.roles.find(i => i.role === role) ? true : false
-
-const { width } = useWindowSize()
 </script>
 
 <template>
@@ -53,7 +50,7 @@ const { width } = useWindowSize()
             <br>
             {{ splitDate(user.createdAt)[0] }}
         </div>
-        <div class="admin-user__last-update">
+        <div class="admin-user__updated-at">
             {{ splitDate(user.updatedAt)[1].slice(0, 5) }}
             <br>
             {{ splitDate(user.updatedAt)[0] }}
@@ -84,7 +81,7 @@ const { width } = useWindowSize()
     &__username,
     &__email,
     &__created-at,
-    &__last-update,
+    &__updated-at,
     &__delete {
         padding: 0 0.5rem;
         height: min-content;
@@ -115,21 +112,25 @@ const { width } = useWindowSize()
         padding: 1rem 0.5rem;
         display: none;
         justify-content: center;
+        cursor: pointer;
     }
 
     &__first-name,
     &__last-name,
     &__username,
     &__email {
+        overflow-y: hidden;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
 
         &:hover,
         &:focus {
-            overflow: visible;
+            overflow: scroll;
             white-space: normal;
-            scrollbar-width: 0;
+            text-overflow: unset;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
 
             &::-webkit-scrollbar {
                 display: none;
@@ -153,7 +154,7 @@ const { width } = useWindowSize()
 
         &__first-name,
         &__last-name,
-        &__last-update {
+        &__updated-at {
             display: none;
         }
     }

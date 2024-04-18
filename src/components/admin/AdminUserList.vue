@@ -15,11 +15,14 @@ const roles = computed(() => adminStore.userRole)
 const checkRole = (item, role) => item.roles.find(i => i.role === role) ? true : false
 
 const updateRole = (item) => {
+    console.log("---------------------------------------")
     if (checkRole(item, 'ADMIN')) {
+        console.log("user is admin")
         const newItem = { ...item, roles: item.roles.filter(role => role.role !== 'ADMIN') }
         console.log(newItem)
         adminStore.updateUsers(newItem)
     } else {
+        console.log("user is not admin")
         const adminRole = roles.value.find(role => role.role === 'ADMIN')
         const newItem = { ...item, roles: [...item.roles, { id: adminRole.id, role: adminRole.role }] }
         console.log(newItem)
@@ -46,7 +49,7 @@ const handleRoleUpdate = (item) => {
             <span class="admin-user-section__username">Username</span>
             <span class="admin-user-section__email">Email</span>
             <span class="admin-user-section__created-at">Created at</span>
-            <span class="admin-user-section__last-update">Last updated</span>
+            <span class="admin-user-section__updated-at">Last updated</span>
             <span class="admin-user-section__role">Admin role</span>
             <span class="admin-user-section__delete"></span>
         </div>
@@ -96,7 +99,7 @@ const handleRoleUpdate = (item) => {
 
         &__first-name,
         &__last-name,
-        &__last-update {
+        &__updated-at {
             display: none;
         }
     }
