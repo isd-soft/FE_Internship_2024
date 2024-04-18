@@ -1,10 +1,11 @@
 <script setup>
 import TrashIcon from '@/assets/icons/TrashIcon.svg';
+import EditIcon from '@/assets/icons/EditIcon.svg';
 import ToggleButton from '@/components/shared/ToggleButton.vue';
-import { useWindowSize } from '@vueuse/core';
 import { useModal } from 'vue-final-modal'
 import AdminUserModal from './AdminUserModal.vue'
 import { watch, ref } from 'vue';
+import { useWindowSize } from '@vueuse/core';
 
 const props = defineProps({
     className: String,
@@ -21,15 +22,24 @@ watch(() => props.user, () => {
 
 const { updateRole, deleteUser } = props
 
-const { width } = useWindowSize()
-
 const toggleModal = () => {
     open()
 }
 
+const { open } = useModal({
+    component: AdminUserModal,
+    attrs: {
+        user: user.value,
+        updateRole: updateRole,
+        deleteUser: deleteUser,
+    }
+})
+
 const splitDate = (date) => date.split('T');
 
 const checkRole = (item, role) => item.roles.find(i => i.role === role) ? true : false
+
+const { width } = useWindowSize()
 </script>
 
 <template>
@@ -54,11 +64,20 @@ const checkRole = (item, role) => item.roles.find(i => i.role === role) ? true :
         <div class="admin-user__delete">
             <TrashIcon @click="deleteUser(id)" />
         </div>
+        <div class="admin-user__edit">
+            <EditIcon @click="toggleModal()" />
+        </div>
     </div>
 </template>
 
 <style lang="scss" scoped>
 .admin-user {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr)) 5rem;
+    border: 1px solid var(--color-uc-gold);
+    border-radius: 10px;
+    height: 5rem;
+    align-items: center;
 
     &__first-name,
     &__last-name,
@@ -91,6 +110,13 @@ const checkRole = (item, role) => item.roles.find(i => i.role === role) ? true :
         }
     }
 
+    &__edit {
+        height: 100%;
+        padding: 1rem 0.5rem;
+        display: none;
+        justify-content: center;
+    }
+
     &__first-name,
     &__last-name,
     &__username,
@@ -118,6 +144,34 @@ const checkRole = (item, role) => item.roles.find(i => i.role === role) ? true :
         display: flex;
         justify-content: center;
         align-items: center;
+    }
+}
+
+@media only screen and (max-width: 991px) {
+    .admin-user {
+        grid-template-columns: repeat(4, minmax(0, 1fr)) 5rem;
+
+        &__first-name,
+        &__last-name,
+        &__last-update {
+            display: none;
+        }
+    }
+}
+
+@media only screen and (max-width: 575px) {
+    .admin-user {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) 5rem;
+
+        &__created-at,
+        &__delete,
+        &__role {
+            display: none;
+        }
+
+        &__edit {
+            display: flex;
+        }
     }
 }
 </style>

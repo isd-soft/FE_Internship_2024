@@ -5,17 +5,12 @@ const vfm = useVfm()
 const closeModal = () => vfm.closeAll(vfm.openedModals)
 
 const props = defineProps({
-    username: String,
-    email: String,
-    firstName: String,
-    lastName: String,
-    createdAt: String,
-    updatedAt: String,
-    updateUser: Function,
-    deleteUser: Function
+    user: Object,
+    updateRole: Function,
+    deleteUser: Function,
 })
 
-const { username, email, firstName, lastName, createdAt, updatedAt } = props
+const { user, updateRole, deleteUser } = props
 
 </script>
 
@@ -23,12 +18,12 @@ const { username, email, firstName, lastName, createdAt, updatedAt } = props
     <VueFinalModal class="admin-user-modal" content-class="admin-user-modal__container" overlay-transition="vfm-fade"
         content-transition="vfm-fade" @clickOutside="$emit('close')">
         <section>
-            <h3>{{ username }}</h3>
-            <h3>{{ email }}</h3>
-            <h5>{{ firstName }}</h5>
-            <h5>{{ lastName }}</h5>
-            <h5>{{ createdAt }}</h5>
-            <h5>{{ updatedAt }}</h5>
+            <h3>{{ user.username }}</h3>
+            <h3>{{ user.email }}</h3>
+            <h5>{{ user.firstName }}</h5>
+            <h5>{{ user.lastName }}</h5>
+            <h5>{{ user.createdAt }}</h5>
+            <h5>{{ user.updatedAt }}</h5>
         </section>
     </VueFinalModal>
 </template>
@@ -38,12 +33,9 @@ const { username, email, firstName, lastName, createdAt, updatedAt } = props
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--color-warm-ivory);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
+    background-color: transparent;
 
     &__container {
-        border: 1px solid deeppink;
         display: flex;
         align-items: center;
         justify-content: center;
