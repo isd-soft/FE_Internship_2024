@@ -13,6 +13,15 @@ import AdminProductList from '@/components/admin/AdminProductList.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
+  scrollBehavior(to, from, savedPosition){
+    if(savedPosition){
+      return savedPosition
+    }
+    return {
+      top: 0,
+      behavior: 'smooth'
+    }
+  },
   routes: [
     {
       path: '/',
@@ -50,7 +59,7 @@ const router = createRouter({
       name: 'admin',
       redirect: {name: 'products'},
       component: AdminView,
-      // meta: { requiresAdmin: true },
+      meta: { requiresAdmin: true },
       children:[
       {
         path: 'products',
@@ -72,21 +81,17 @@ const router = createRouter({
   ]
 })
 
-// router.isReady().then(() => {
   router.beforeEach(async(to, from) => {
   if (to.matched.some((record) => record.meta.requiresAuth)) {
-    const canAccess = await authGuard(to, from)
-    console.log("Can access?")
+    let canAccess = await authGuard(to, from)
     if(!canAccess) return {name : 'shop'}
-
-    if (to.matched.some((record) => record.meta.requiresAdmin)) {
-      const canAccess = await adminGuard(to, from)
-      if(!canAccess) return {name : 'shop'}
-    } 
+  } 
+  else if (to.matched.some((record) => record.meta.requiresAdmin)) {
+    const canAccess = await adminGuard(to, from)
+    if(!canAccess) return {name : 'home'}
   } 
  
 })
 
-// })
 
 export default router
