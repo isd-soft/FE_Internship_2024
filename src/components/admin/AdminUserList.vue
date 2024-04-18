@@ -1,9 +1,12 @@
 <script setup>
-import GenericList from '../generics/GenericList.vue';
-import TrashIcon from '@/assets/icons/TrashIcon.svg';
-import ToggleButton from '@/components/shared/ToggleButton.vue';
 import { useAdminUserStore } from "../../stores/adminUserStore.js";
 import { computed } from 'vue';
+import { useWindowSize } from '@vueuse/core';
+import { useModal } from 'vue-final-modal'
+import AdminUserModal from './AdminUserModal.vue'
+import AdminUser from './AdminUser.vue'
+
+const { width } = useWindowSize()
 
 const adminStore = useAdminUserStore()
 
@@ -14,8 +17,6 @@ const users = computed(() => adminStore.users)
 adminStore.getUserRole() //Delete this. Will be called from Admin View once
 
 const roles = computed(() => adminStore.userRole)
-
-const splitDate = (date) => date.split('T');
 
 const checkRole = (item, role) => item.roles.find(i => i.role === role) ? true : false
 
@@ -32,50 +33,43 @@ const updateRole = (item) => {
     }
 }
 
-const deleteUser = (id) => {
-    console.log("delete user", id)
-    adminStore.deleteUser(id)
+const handleDelete = (id) => {
+    confirm('Are you sure you want to delete this user?') ? adminStore.deleteUser(id) : null
 }
+
+const handleRoleUpdate = (item) => {
+    confirm('Are you sure you want to update this user role?') ? updateRole(item) : null
+}
+
+const toggleModal = () => {
+    open()
+}
+
+const { open } = useModal({
+    component: AdminUserModal,
+})
 </script>
 
 <template>
     <section class="main__section section admin-user-section">
-        <h1 class="text-5xl admin-user-section__title">Users</h1>
+        <h1 class="text-5xl admin-user-section__title">Users {{ width }}</h1>
         <div class="text-sm admin-user-section__table-header">
             <span class="admin-user-section__first-name">First Name</span>
             <span class="admin-user-section__last-name">Last Name</span>
             <span class="admin-user-section__username">Username</span>
             <span class="admin-user-section__email">Email</span>
             <span class="admin-user-section__created-at">Created at</span>
-            <span class="admin-user-section__last-updated">Last updated</span>
+            <span class="admin-user-section__last-update">Last updated</span>
             <span class="admin-user-section__role">Admin role</span>
             <span class="admin-user-section__delete"></span>
         </div>
-        <GenericList :items="users" tag="ul" :keyProp="id" custom-class="text-xs admin-user-section__list"
-            item-class="admin-user-section__list-item">
-            <template v-slot="{ item }">
-                <div class="admin-user-section__first-name">{{ item.firstName }}</div>
-                <div class="admin-user-section__last-name">{{ item.lastName }}</div>
-                <div class="admin-user-section__username">{{ item.username }}</div>
-                <div class="admin-user-section__email">{{ item.email }}</div>
-                <div class="admin-user-section__created-at">
-                    {{ splitDate(item.createdAt)[1].slice(0, 5) }}
-                    <br>
-                    {{ splitDate(item.createdAt)[0] }}
-                </div>
-                <div class="admin-user-section__last-update">
-                    {{ splitDate(item.updatedAt)[1].slice(0, 5) }}
-                    <br>
-                    {{ splitDate(item.updatedAt)[0] }}
-                </div>
-                <div class="admin-user-section__role">
-                    <ToggleButton :state="checkRole(item, 'ADMIN')" @click="updateRole(item)" />
-                </div>
-                <div class=" admin-user-section__delete">
-                    <TrashIcon @click="deleteUser(item.id)" />
-                </div>
-            </template>
-        </GenericList>
+        <ul class="text-xs admin-user-section__list">
+            <li v-for="item in users" :key="item.id" class="admin-user-section__list-item"
+                @click="width < 991 && toggleModal()">
+                <AdminUser :user="item" :updateRole="handleRoleUpdate" :deleteUser="handleDelete"
+                    className="admin-user-section__user-card" />
+            </li>
+        </ul>
     </section>
 </template>
 
@@ -86,17 +80,6 @@ const deleteUser = (id) => {
     grid-template-columns: repeat(7, minmax(0, 1fr)) 5rem;
     row-gap: 2.5rem;
     text-align: center;
-
-    &__first-name,
-    &__last-name,
-    &__username,
-    &__email,
-    &__created-at,
-    &__last-update,
-    &__role,
-    &__delete {
-        padding: 0 0.5rem;
-    }
 
     &__title {
         grid-column: 1 / span 8;
@@ -119,7 +102,7 @@ const deleteUser = (id) => {
         row-gap: inherit;
     }
 
-    &:deep(.admin-user-section__list-item) {
+    &__list-item {
         height: 5rem;
         grid-column: 1 / span 8;
         display: grid;
@@ -129,106 +112,69 @@ const deleteUser = (id) => {
         border-radius: 10px;
     }
 
-    &__delete {
-        height: 50%;
-        display: flex;
-        justify-content: center;
-
-        svg {
-            fill: var(--color-uc-gold);
-            cursor: pointer;
-
-            &:hover {
-                fill: var(--color-dark-charcoal);
-            }
-
-            &:active {
-                fill: var(--color-uc-gold);
-            }
-        }
-    }
-
-    &__first-name,
-    &__last-name,
-    &__username,
-    &__email {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        margin-left: 0.5rem;
-
-
-        &:hover,
-        &:focus {
-            overflow: scroll;
-            text-overflow: inherit;
-
-            &::-webkit-scrollbar {
-                display: none;
-            }
-        }
-    }
-
-    &__role {
-        width: 100%;
+    &__user-card {
         height: 100%;
-        padding: 1rem;
+        align-items: center;
+        grid-column: 1 / span 8;
+        display: grid;
+        grid-template-columns: inherit;
     }
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 991px) {
     .admin-user-section {
+        padding: 60px 40px 60px calc(10rem + 10px);
         grid-template-columns: repeat(4, minmax(0, 1fr)) 5rem;
 
-        &__title {
-            grid-column: 1 / span 5;
-        }
-
         &__table-header {
+            font-size: 12px;
             grid-column: 1 / span 5;
-            // height: 200%;
-            grid-template-rows: repeat(2, minmax(0, 1fr));
+            grid-template-columns: inherit;
         }
 
         &__list {
             grid-column: 1 / span 5;
+            grid-template-columns: inherit;
         }
 
         &:deep(.admin-user-section__list-item) {
             grid-column: 1 / span 5;
-            grid-template-rows: repeat(2, minmax(0, 1fr));
         }
 
-        &__first-name {
-            grid-row: 1;
-        }
-
-        &__last-name {
-            grid-row: 2;
-        }
-
-        &__username {
-            grid-row: 1;
-        }
-
-        &__email {
-            grid-row: 2;
-        }
-
-        &__created-at {
-            grid-row: 1;
-        }
-
+        &__first-name,
+        &__last-name,
         &__last-update {
-            grid-row: 2;
+            display: none;
+        }
+    }
+}
+
+@media only screen and (max-width: 575px) {
+    .admin-user-section {
+        padding: 40px 20px 40px calc(10rem + 10px);
+        grid-template-columns: repeat(2, minmax(0, 1fr)) 5rem;
+
+        &__table-header {
+            font-size: 10px;
+            grid-column: 1 / span 3;
+            grid-template-columns: inherit;
         }
 
-        &__role {
-            grid-row: 1 / span 2;
+        &__list {
+            grid-column: 1 / span 3;
+            grid-template-columns: inherit;
         }
 
-        &__delete {
-            grid-row: 1 / span 2;
+        &:deep(.admin-user-section__list-item) {
+            grid-column: 1 / span 3;
+        }
+
+        &__first-name,
+        &__last-name,
+        &__email,
+        &__last-update,
+        &__created-at {
+            display: none;
         }
     }
 }
