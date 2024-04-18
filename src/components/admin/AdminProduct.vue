@@ -47,7 +47,7 @@ const token = useUserStore().token.key
 const deletionFlag = ref(false)
 const toastPreset = ref({})
 
-watch(deletionFlag, () => deletionFlag ? productStore.initStore() : null)
+watch(deletionFlag, () => deletionFlag ? productStore.initStore() : null) //Delete this
 
 const handleDeletion = () => {
     if (deletionFlag.value) deletionFlag.value = false

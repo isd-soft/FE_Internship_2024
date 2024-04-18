@@ -54,8 +54,14 @@ export const useContactStore=defineStore("contactStore",()=>{
         const phones=contactInformation.value.phoneNumber.map(item=>{ return item.replace(/^(\+\d{3})(\d{3})(\d{2})(\d{3})$/, '($1)-$2-$3-$4')})
         return phones
     })
+
+    //From Websocket
+    const changeContactInformation = (info) => {
+        console.log("Changing contact info ", info.value)
+        contactInformation.value = info.value
+    }
     
     return {
-        contactInformation,loader,fetchContactInformation,getFormatAddress,getFormatPhones,postContactInfo
+        contactInformation,loader,fetchContactInformation,getFormatAddress,getFormatPhones,postContactInfo, changeContactInformation
     }
 })
