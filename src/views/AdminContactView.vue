@@ -1,56 +1,52 @@
 <script setup>
 import { useContactStore } from "@/stores/contactStore";
-import { onBeforeMount,ref } from "vue";
+import { onBeforeMount,ref,computed } from "vue";
 import Loader from "@/assets/icons/LoaderIcon.svg"
+import GenericToast from '@/components/generics/GenericToast.vue'
 const store = useContactStore()
-
-
 
 onBeforeMount(()=>{
         store.fetchContactInformation()
     })
-
-// const schema = yup.object({
-// address: yup.string().required("This field is required"),
-// country: yup.string().required(),
-// geoCoordinates: yup.string(),
-// phoneNumber1: yup.string(),
-// phoneNumber2: yup.string(),
-// email1: yup.string().required().email(),
-// email2: yup.string().email(),
-// })
 
 const hourFriday1=ref("09:00")
 const hourFriday2=ref("22:00")
 const hourSaturday1=ref("09:00")
 const hourSaturday2=ref("20:00")
 const edit=ref(true)
-
-// const {  handleSubmit,defineField } = useForm({
-//     validationSchema: schema,
-// })
+const submitSuccess = ref(false)
+const submitFinished = ref(false)
 
 const onEdit=()=>{
     edit.value=!edit.value
 }
 
 const onSubmit=()=>{
-    console.log('submit')
     store
     .postContactInfo([`Monday-Friday: ${hourFriday1.value} - ${hourFriday2.value}`,`Saturday-Sunday: ${hourSaturday1.value} - ${hourSaturday2.value}`])
-    .then((res) => (res ? console.log('success') : console.log('failure')))
-    .catch(() => console.log('failure'))
-}
+    .then((res) => {if(res){
+        submitSuccess.value = true 
+        submitFinished.value = true
+    }
+    else{
+        submitFinished.value = true
+    }}).catch(() => {submitFinished.value = true
+})} 
 
 const onCancel=()=>{
+    submitFinished.value = false
     edit.value=!edit.value
     store.fetchContactInformation()
 }
 
-// const [address,addressAttributeList] = defineField('address', {
-//     validateOnModelUpdate: false
-    
-// })
+const toastType = computed(() => {
+        return submitSuccess.value ? 'success' : 'error'
+    })
+
+const toastMessage = computed(() => {
+    return submitSuccess.value ? 'Submit Successful' : 'Submit Failed'
+})
+
 </script>
 <template>
     <section class="admin-contact" v-if="store.loader">
@@ -58,13 +54,14 @@ const onCancel=()=>{
             <div class="admin-contact__name">
                 <h3 class="admin-contact__name-text text-4xl">Contact Information</h3>
             </div>
-                <form class="admin-contact__form-wrapper" @submit="onSubmit">
+            <GenericToast v-if="submitFinished" :message="toastMessage" :type="toastType" />
+                <form class="admin-contact__form-wrapper">
                     <div class="admin-contact__field">
                         <label for="address" class="admin-contact__label text-sm">Address</label>
                         <input
                         type="text"
                         v-model="store.contactInformation.address"
-                        :name="address"
+                        name="address"
                         class="admin-contact__input text-sm"
                         :disabled="edit"
                         required
@@ -147,7 +144,6 @@ const onCancel=()=>{
                         <input 
                             type="email"
                             class="admin-contact__input text-sm" 
-                            :name="email1"
                             v-model="store.contactInformation.email[0]"
                             :disabled="edit"
                             >
