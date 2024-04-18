@@ -9,21 +9,21 @@ import { useUserStore } from '@/stores/userStore'
 import { useCartStore } from '@/stores/cartStore'
 import GenericToast from '../generics/GenericToast.vue'
 
+import CartAddIcon from '../../assets/icons/CartAddIcon.svg';
+
 const userStore = useUserStore()
 const cartStore = useCartStore()
 
-const hoverFlag = ref(false)
 const toastFlag = ref(false)
 
 const determineType = (p) => {
-  if(p.discount > 0) return 'discount'
+  if (p.discount > 0) return 'discount'
   else if (p.isNew) return 'new'
   else return 'stock'
 }
 
 const productType = computed(() => determineType(props))
 
-// eslint-disable-next-line no-unused-vars
 const props = defineProps({
   id: String,
   imageUrl: String,
@@ -53,20 +53,10 @@ const props = defineProps({
     type: String,
     required: false
   }
-  // value: {
-  //   type: Number,
-  //   validator: (value) => value >= 0
-  // },
-  // productType: {
-  //   type: String,
-  //   validator: (value) => ['discount', 'stock', 'new'].includes(value)
-  // },
 })
 
-const convertPrice = (value) =>
-  value ? '$' + value.toLocaleString('en-US').replace(/,/g, '.') : ''
+const convertPrice = value => '$' + value.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
 
-const truncateDescription = (text) => text.substring(0, 49).concat("...")
 
 const addToCart = () => {
   cartStore.addProduct({
@@ -76,7 +66,6 @@ const addToCart = () => {
     code: props.code,
     description: props.description,
     price: props.price,
-    oldPrice: props.oldPrice,
     stock: props.stock,
     rating: props.rating,
     discount: props.discount,
@@ -86,15 +75,15 @@ const addToCart = () => {
   })
 }
 
-const addProduct = () =>{
+const addProduct = () => {
   if (!userStore.isAuthenticated()) OpenLoginModal()
   else {
     toastFlag.value = true
     addToCart()
-}
+  }
 }
 
-const {open: OpenLoginModal} = useModal({
+const { open: OpenLoginModal } = useModal({
   component: LoginModal
 })
 
@@ -107,8 +96,8 @@ const { open: OpenProductModal } = useModal({
     name: props.name,
     code: props.code,
     description: props.description,
-    price: convertPrice(props.price),
-    oldPrice: convertPrice(props.oldPrice),
+    price: convertPrice(props.price - props.price * props.discount / 100),
+    oldPrice: convertPrice(props.price),
     stock: props.stock,
     rating: props.rating,
     discount: props.discount,
@@ -121,13 +110,19 @@ const { open: OpenProductModal } = useModal({
 </script>
 
 <template>
-  <div
-    class="product-list-section__card product-card"
-    @mouseenter="hoverFlag = true"
-    @mouseleave="hoverFlag = false"
-  >
-  <GenericToast v-if="toastFlag" message="Product added to cart" type="info" />
-    <img class="product-card__image" :src="imageUrl" :alt="name" />
+  <div class="product-list-section__card product-card">
+    <GenericToast v-if="toastFlag" message="Product added to cart" type="info" />
+    <div class="product-card__image" :style="{ backgroundImage: `url(${imageUrl})` }" />
+
+    <div class="product-card__overlay text-lg" @click="OpenProductModal">
+      <!-- <button class="product-card__button text-sm" @click="addProduct">Add to cart</button>
+      <button class="product-card__button text-sm" @click="OpenProductModal">Details</button> -->
+      Click for Details
+    </div>
+
+    <button class="product-card__cart-button" @click="addProduct">
+      <CartAddIcon width="3.6rem" height="3.6rem"/>
+    </button>
 
     <div class="product-card__text-wrapper">
       <h3 class="product-card__title text-lg">
@@ -135,26 +130,21 @@ const { open: OpenProductModal } = useModal({
       </h3>
 
       <span class="product-card__description text-sm">
-        {{ truncateDescription(description) }}
+        {{ code }}
       </span>
 
       <div class="product-card__price-wrapper">
         <span class="product-card__price text-md">
-          {{ convertPrice(price) }}
+          {{ convertPrice(price - price * discount / 100) }}
         </span>
 
         <span class="product-card__old-price text-sm">
-          {{ convertPrice(oldPrice) }}
+          {{ convertPrice(price) }}
         </span>
       </div>
     </div>
 
-    <ProductLabel :type="productType" :value="discount"/>
-
-    <div v-show="hoverFlag" class="product-card__overlay">
-      <button class="product-card__button text-sm" @click="addProduct">Add to cart</button>
-      <button class="product-card__button text-sm" @click="OpenProductModal">Details</button>
-    </div>
+    <ProductLabel :type="productType" :value="discount" />
   </div>
 </template>
 
@@ -163,24 +153,34 @@ const { open: OpenProductModal } = useModal({
   position: relative;
   display: flex;
   flex-direction: column;
+  width: inherit;
+  height: 100%;
+  transition: transform 0.3s ease-in-out;
+
+  &:hover {
+    transform: scale(1.05);
+  }
 
   &__image {
     width: 100%;
     aspect-ratio: 95/100;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+
+    &:hover+.product-card__overlay {
+      display: flex;
+    }
   }
 
   &__text-wrapper {
     display: flex;
     flex-direction: column;
-    row-gap: 8px;
-    padding: 6%;
-    padding-bottom: 7%;
+    row-gap: 0.8rem;
+    padding: 1.6rem;
+    padding-bottom: 3rem;
     background-color: var(--color-cultured);
     height: 100%;
-
-    @media only screen and (max-width: 375px) {
-      align-items: center;
-    }
   }
 
   &__title {
@@ -191,16 +191,14 @@ const { open: OpenProductModal } = useModal({
   &__description {
     font-weight: 500;
     color: var(--color-taupe-gray);
-    // text-overflow: ellipsis;
-    // white-space: nowrap;
-    // overflow: hidden;
+    margin-bottom: 1.6rem;
   }
 
   &__price-wrapper {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    column-gap: 16px;
+    column-gap: 1.6rem;
     margin-top: auto;
 
   }
@@ -216,20 +214,36 @@ const { open: OpenProductModal } = useModal({
     color: var(--color-silver-foil);
   }
 
+  &__cart-button {
+    position: absolute;
+    bottom: 2.4rem;
+    right: 2.4rem;
+  }
+
   &__overlay {
+    font-weight: 500;
+    color: var(--color-white);
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 10;
-    display: flex;
+    z-index: 1000;
+    display: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    row-gap: 16px;
+    row-gap: 1.6rem;
     width: 100%;
-    height: 100%;
-    background-color: var(--color-taupe-gray);
-    opacity: 72%;
+    aspect-ratio: 95/100;
+    background-color: rgba(#898989, $alpha: 0.7);
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+
+    cursor: pointer;
+
+    &:hover {
+      display: flex;
+      opacity: 1;
+    }
   }
 
   &__button {
@@ -239,6 +253,13 @@ const { open: OpenProductModal } = useModal({
     width: 70%;
     padding: 12px 0;
     background-color: var(--color-white);
+    opacity: 1;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  .product-card__text-wrapper {
+    align-items: center;
   }
 }
 </style>

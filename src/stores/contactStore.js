@@ -21,7 +21,6 @@ export const useContactStore=defineStore("contactStore",()=>{
         
     }
     const postContactInfo = async (workHours) => {
-    loader.value = false
     const result = await postContactInfoRequest(
         
         JSON.stringify({
@@ -38,8 +37,8 @@ export const useContactStore=defineStore("contactStore",()=>{
         })
     ,userStore.token.key)
     if (result) {
+        console.log('result')
         contactInformation.value = result.value
-        loader.value = true
         return true
     }
     console.log('Something went wrong')
