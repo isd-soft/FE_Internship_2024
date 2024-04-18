@@ -1,4 +1,6 @@
 <script setup>
+import { watch, ref } from 'vue';
+
 const props = defineProps({
     state: {
         type: Boolean,
@@ -22,20 +24,22 @@ const props = defineProps({
     }
 })
 
-const { state, onColor, offColor, toggleColor, outline } = props;
+const active = ref(props.state);
 
-const getButtonState = () => state ? '--on' : '--off';
+watch(() => props.state, () => {
+    active.value = props.state;
+})
 
-const initialColor = () => state ? offColor : onColor;
+const { onColor, offColor, toggleColor, outline } = props;
 
-const finalColor = () => state ? onColor : offColor;
+const getButtonState = () => active.value ? '--on' : '--off';
 </script>
 
 <template>
-    <button :style="{ outline: outline, '--initial-color': initialColor(), '--final-color': finalColor() }"
-        :class="['toggle-button']">
+    <button :style="{ outline: outline, '--initial-color': onColor, '--final-color': offColor }"
+        :class="['toggle-button', 'toggle-button' + getButtonState()]">
         <div :class="['toggle-button__wrapper', 'toggle-button__wrapper' + getButtonState()]">
-            <div class="toggle-button__toggler" :style="{ backgroundColor: toggleColor }"></div>
+            <div class="toggle-button__toggler" :style="{ backgroundColor: toggleColor, color: 'white' }"></div>
         </div>
     </button>
 </template>
@@ -46,10 +50,9 @@ const finalColor = () => state ? onColor : offColor;
     aspect-ratio: 2 / 1;
     border-radius: 25% / 50%;
     overflow: hidden;
-    animation: color-change 0.3s ease-in-out forwards;
     cursor: pointer;
 
-    @keyframes color-change {
+    @keyframes color-off {
         0% {
             background-color: var(--initial-color);
         }
@@ -57,6 +60,24 @@ const finalColor = () => state ? onColor : offColor;
         100% {
             background-color: var(--final-color);
         }
+    }
+
+    @keyframes color-on {
+        0% {
+            background-color: var(--final-color);
+        }
+
+        100% {
+            background-color: var(--initial-color);
+        }
+    }
+
+    &--on {
+        animation: color-on 0.3s ease-in-out forwards;
+    }
+
+    &--off {
+        animation: color-off 0.3s ease-in-out forwards;
     }
 
     &__wrapper {

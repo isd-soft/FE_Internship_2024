@@ -38,13 +38,6 @@ export const bindEvents = () => {
         } else if (update.event === 'DELETE') adminUserStore.deleteUserWeb(update.instances[0].id) //Maybe
         break
       }
-      case 'AuthUserRole': {
-        if (update.event === 'UPDATE' && userStore.isAdmin())
-          adminUserStore.addRoleToUser(update.instances.userId, update.instances.roleId)
-        else if (update.event === 'DELETE' && userStore.isAdmin())
-          adminUserStore.deleteUserRoleWeb(update.lookup.userId, update.lookup.roleId[0])
-        break
-      }
       case 'Setting': {
         if (update.event === 'UPDATE') contactStore.changeContactInformation(update.instances[0])
         break

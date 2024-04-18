@@ -20,9 +20,6 @@ export const useAdminUserStore = defineStore('adminuser', () => {
   //If no, then call getUser again
   const updateUsers = async (modifiedUser) => {
     const response = await updateUserRequest(JSON.stringify(modifiedUser), userStore.token.key)
-    const index = users.value.findIndex((user) => user.id === modifiedUser.id)
-    users.value[index] = modifiedUser
-    if (response) console.log('User updated')
     return response
   }
 
@@ -45,22 +42,12 @@ export const useAdminUserStore = defineStore('adminuser', () => {
     console.log('User added: ', users.value)
   }
 
-  //This is not getting called
-  const updateUserRoleWeb = (usrId, roleId) => {
-    const index = users.value.findIndex((user) => user.id === usrId)
-    const role = userRole.value.filter((r) => r.id === roleId)[0]
-    users.value[index].roles.push(role)
-    console.log('User role updated: ', users.value[index])
-  }
-
   const deleteUserWeb = (usrId) => {
     const index = users.value.findIndex((user) => user.id === usrId)
     console.log('Deleting user: ', usrId)
     users.value.splice(index, 1)
   }
 
-  //This is not called
-  const deleteUserRoleWeb = (usrId, roleId) => {}
   return {
     users,
     userRole,
@@ -69,8 +56,6 @@ export const useAdminUserStore = defineStore('adminuser', () => {
     deleteUser,
     getUserRole,
     addUserWeb,
-    updateUserRoleWeb,
-    deleteUserWeb,
-    deleteUserRoleWeb
+    deleteUserWeb
   }
 })
