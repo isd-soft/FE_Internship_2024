@@ -8,7 +8,10 @@ const isFailure = ref(false)
 
 const schema = yup.object({
   username: yup.string().required(),
-  password: yup.string().min(6, 'Password must contain at least 6 characters').required('Password must not be empty')
+  password: yup
+    .string()
+    .min(6, 'Password must contain at least 6 characters')
+    .required('Password must not be empty')
 })
 
 const { defineField, errors, handleSubmit } = useForm({
@@ -25,16 +28,19 @@ const [password, passwordAttributeList] = defineField('password', {
 const onSubmit = handleSubmit((values) => {
   const userStore = useUserStore()
   const { username, password } = values
-  userStore.login(username, password).then(res => {
-    if(res) emit('success') 
-    else {
+  userStore
+    .login(username, password)
+    .then((res) => {
+      if (res) emit('success')
+      else {
+        emit('failure')
+        isFailure.value = true
+      }
+    })
+    .catch((err) => {
       emit('failure')
       isFailure.value = true
-    }
-  }).catch(err => {
-    emit('failure') 
-    isFailure.value = true
-  })
+    })
 })
 
 const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
@@ -46,8 +52,8 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
     <p class="text-sm login-container__description">Sign in to continue</p>
     <form @submit="onSubmit" class="login-container__form login-form">
       <input
-        class="login-form__input"
-        :class="{'login-form__input--error': errors.username}"
+        class="text-sm login-form__input"
+        :class="{ 'login-form__input--error': errors.username }"
         v-model="username"
         v-bind="usernameAttributeList"
         name="username"
@@ -56,8 +62,8 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
         @focus="$emit('inputStart')"
       />
       <input
-        class="login-form__input"
-        :class="{'login-form__input--error': errors.password}"
+        class="text-sm login-form__input"
+        :class="{ 'login-form__input--error': errors.password }"
         v-model="password"
         v-bind="passwordAttributeList"
         name="password"
@@ -66,43 +72,45 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
         @focus="$emit('inputStart')"
       />
 
-      <span class="login-form__error">{{isFailure? "Incorrect Username or Password":""}}</span>
+      <span class="text-sm login-form__error">{{
+        isFailure ? 'Incorrect Username or Password' : ''
+      }}</span>
 
-      <button class="primary-button login-form__submit-button">Log In</button>
+      <button class="text-sm primary-button .text-sm login-form__submit-button">Log In</button>
     </form>
-    <button class="login-container__toggle-button" @click="$emit('changeModal')">
+    <button class="text-xs login-container__toggle-button" @click="$emit('changeModal')">
       Not a user? Sign Up!
     </button>
   </div>
 </template>
 
 <style lang="scss" scoped>
-span{
-  min-height: 3rem;
-}
-
 
 .login-container {
-  padding: 5rem 3.8rem 4rem 4rem;
+  // padding: 5rem 3.8rem 4rem 4rem;
+  padding: 50px 38px 40px 40px;
 
   &__title {
     color: var(--color-uc-gold);
-    margin-bottom: 1rem;
+    margin-bottom: 10px;
+    font-size: 32px;
   }
 
   &__description {
-    margin-bottom: 5rem;
+    margin-bottom: 50px;
+    font-size: 16px;
   }
 
   &__toggle-button {
-    font-size: 1.2rem;
+    font-size: 12px;
     border: none;
     background: none;
     width: 100%;
+    font-size: 12px;
     text-decoration: underline transparent;
-    transition: .2s ease-out;
+    transition: 0.2s ease-out;
 
-    &:hover{
+    &:hover {
       text-decoration: underline black;
     }
   }
@@ -114,35 +122,87 @@ span{
 
   &__input {
     border: 1px solid var(--color-quick-silver);
-    border-radius: 1rem;
-    padding: 1.5rem 1.2rem;
-    font-size: 1.6rem;
-    margin-bottom: 0.8rem;
-
+    border-radius: 10px;
+    padding: 15px 12px;
+    font-size: 16px;
+    margin-bottom: 16px;
 
     ::placeholder {
       color: var(--color-quick-silver);
     }
 
-    &--error{
-      outline: 3px solid var(--color-candy-pink);
+    &--error {
+      outline: 2px solid var(--color-candy-pink);
     }
   }
 
   &__error {
+    min-height: 30px;
     color: var(--color-candy-pink);
-    font-size: 1.4rem;
-    padding-left: 0.4rem;
+    padding-left: 4px;
+    font-size: 12px;
   }
 
   &__submit-button {
-    margin-top: 9.5rem;
-    margin-bottom: 1rem;
-    padding: 1.2rem 10.5rem;
+    // margin-top: 9.5rem;
+    // margin-bottom: 1rem;
+    margin-top: 24px;
+    margin-bottom: 10px;
+    padding: 12px 130px;
+    font-size: 16px;
+    align-self: center;
     color: var(--color-white);
     background-color: var(--color-uc-gold);
-    font-size: 1.6rem;
     border: 1px solid var(--color-uc-gold);
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  .login-container {
+    &__title {
+      font-size: 30px;
+    }
+    &__description {
+      font-size: 14px;
+    }
+  }
+  .login-form {
+    &__input {
+      font-size: 14px;
+    }
+    &__submit-button {
+      margin-top: 18px;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    &__error {
+      margin-bottom: 3px;
+      min-height: 20px;
+    }
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  .login-container {
+    padding: 0 5rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .login-form {
+    &__input {
+      padding: 12px 12px;
+      width: min(350px, 80vw);
+    }
+    &__error {
+      margin-bottom: 2px;
+    }
+
+    &__submit-button {
+      padding: 12px min(90px, 25vw);
+      white-space: nowrap;
+    }
   }
 }
 </style>
