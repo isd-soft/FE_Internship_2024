@@ -7,7 +7,7 @@ import CrossIcon from '../../assets/icons/CrossIcon.svg'
 import { useUserStore } from '../../stores/userStore'
 import GenericToast from '../generics/GenericToast.vue'
 import { useProductStore } from '../../stores/productStore'
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
 
 
 const vfm = useVfm()
@@ -75,17 +75,16 @@ const submit = handleSubmit(values => {
     action(values, token)
         .then(response =>
             response
-                ? toastPreset.value = { message: `${props.newProductFlag ? 'CREATE' : 'PATCH'}SUCCESS!`, type: 'success' }
-                : toastPreset.value = { message: `${props.newProductFlag ? 'CREATE' : 'PATCH'}FAILURE!`, type: 'error' })
-        .catch(error =>
-            toastPreset.value = { message: `${props.newProductFlag ? 'CREATE' : 'PATCH'} ERROR!` + error, type: 'error' })
+                ? toastPreset.value = { message: `Product ${props.newProductFlag ? 'added' : 'modified'} successfully!`, type: 'success' }
+                : toastPreset.value = { message: `Failed to ${props.newProductFlag ? 'add' : 'modify'} the product!`, type: 'error' }
+        )
+        .catch(error => toastPreset.value = { message: `Failed to ${props.newProductFlag ? 'add' : 'modify'} the product: ${error}`, type: 'error' }
+        )
         .finally(() => {
             submitCompletionFlag.value = true
             if (props.newProductFlag) setTimeout(() => vfm.closeAll(vfm.openedModals), 100)
         })
 })
-
-watch(submitCompletionFlag, () => productStore.initStore()) //Delete this
 
 const formatDate = (date) => new Date(date).toLocaleDateString('en-GB').replace(/\//g, '.')
 

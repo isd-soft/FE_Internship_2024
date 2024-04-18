@@ -6,7 +6,7 @@ import AdminProductModal from './AdminProductModal.vue'
 import { useProductStore } from '../../stores/productStore';
 import { useUserStore } from '../../stores/userStore';
 import GenericToast from '../generics/GenericToast.vue';
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 
 const props = defineProps({
     headingFlag: Boolean,
@@ -47,8 +47,6 @@ const token = useUserStore().token.key
 const deletionFlag = ref(false)
 const toastPreset = ref({})
 
-watch(deletionFlag, () => deletionFlag ? productStore.initStore() : null) //Delete this
-
 const handleDeletion = () => {
     if (deletionFlag.value) deletionFlag.value = false
 
@@ -56,11 +54,11 @@ const handleDeletion = () => {
         ? productStore.deleteProductFromServer(props.id, token)
             .then(result =>
                 toastPreset.value = result
-                    ? { message: 'Product deleted successfully', type: 'success' }
-                    : { message: 'Error while deleting the product', type: 'error' }
+                    ? { message: 'Product deleted successfully!', type: 'success' }
+                    : { message: 'Error while deleting the product: ', type: 'error' }
             )
             .catch(error =>
-                toastPreset.value = { message: 'Error: ' + error, type: 'error' }
+                toastPreset.value = { message: 'Error while deleting the product: ' + error, type: 'error' }
             )
             .finally(() =>
                 deletionFlag.value = true
