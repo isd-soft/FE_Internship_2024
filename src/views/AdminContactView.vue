@@ -123,7 +123,7 @@ const toastMessage = computed(() => {
                             <input 
                             type="tel" 
                             id="phone" 
-                            name="Phones"
+                            name="phones"
                             class="admin-contact__input-plus text-sm" 
                             v-model="store.contactInformation.phoneNumber[0]"
                             :disabled="edit"
@@ -135,7 +135,7 @@ const toastMessage = computed(() => {
                         <input 
                             type="tel" 
                             id="phone" 
-                            name="Phones"
+                            name="phones"
                             class="admin-contact__input text-sm" 
                             v-model="store.contactInformation.phoneNumber[1]"
                             :disabled="edit"
