@@ -2,7 +2,7 @@
 import { useAdminUserStore } from "../../stores/adminUserStore.js";
 import { computed } from 'vue';
 import { useWindowSize } from '@vueuse/core';
-import AdminUser from './AdminUser.vue'
+import AdminUserCard from './AdminUserCard.vue'
 
 const { width } = useWindowSize()
 
@@ -55,7 +55,7 @@ const handleRoleUpdate = (item) => {
         </div>
         <ul class="text-xs admin-user-section__list">
             <li v-for="item in users" :key="item.id" class="admin-user-section__list-item">
-                <AdminUser :user="item" :updateRole="handleRoleUpdate" :deleteUser="handleDelete"
+                <AdminUserCard :user="item" :updateRole="handleRoleUpdate" :deleteUser="handleDelete"
                     className="admin-user-section__user-card" />
             </li>
         </ul>
