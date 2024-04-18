@@ -14,7 +14,7 @@ export const useCartStore = defineStore('cart', () => {
   })
 
   const delivery = computed(() => {
-    return parseFloat((subtotal.value / 10).toFixed(2))
+    return parseFloat(Math.max(subtotal.value / 10, 100).toFixed(2))
   })
 
   const total = computed(() => {
