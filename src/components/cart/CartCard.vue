@@ -63,11 +63,17 @@ const handleBlur = (event) => {
     parseInt(nonZeroValue)
   )
 }
+
+const handleProductDelete = () => cartStore.deleteProduct(props.id)
 </script>
 
 <template>
   <div class="cart-list__card cart-card">
-    <GenericToast v-if="toastFlag && !quantityChangeSuccessFlag" :message="toastMessage" :type="toastType" />
+    <GenericToast
+      v-if="toastFlag && !quantityChangeSuccessFlag"
+      :message="toastMessage"
+      :type="toastType"
+    />
 
     <img class="cart-card__image" :src="imageUrl" :alt="name" />
 
@@ -94,8 +100,8 @@ const handleBlur = (event) => {
 
     <span class="cart-card__subtotal text-sm"> ${{ (price * quantity).toFixed(2) }} </span>
 
-    <button class="cart-card__delete-button">
-      <TrashIcon width="2.8rem" height="2.8rem" />
+    <button class="cart-card__delete-button delete-button" @click="handleProductDelete">
+      <TrashIcon class="delete-button__icon" width="2.8rem" height="2.8rem" />
     </button>
   </div>
 </template>
@@ -138,9 +144,20 @@ const handleBlur = (event) => {
   &__subtotal {
     grid-column: 5;
   }
+}
 
-  &__delete-button {
-    grid-column: 6;
+.delete-button {
+  grid-column: 6;
+
+  &__icon {
+    fill: var(--color-uc-gold);
+
+    &:hover {
+      fill: var(--color-dark-charcoal);
+    }
+    &:active {
+      fill: var(--color-uc-gold);
+    }
   }
 }
 

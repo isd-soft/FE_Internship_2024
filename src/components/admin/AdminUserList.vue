@@ -7,11 +7,11 @@ import { computed } from 'vue';
 
 const adminStore = useAdminUserStore()
 
-adminStore.getUsers()
+adminStore.getUsers() //Delete this. Will be called from admin view
 
 const users = computed(() => adminStore.users)
 
-adminStore.getUserRole()
+adminStore.getUserRole() //Delete this. Will be called from Admin View once
 
 const roles = computed(() => adminStore.userRole)
 

@@ -7,7 +7,6 @@ import AdminProduct from './AdminProduct.vue';
 import AdminProductModal from './AdminProductModal.vue';
 
 const productStore = useProductStore()
-productStore.initStore()
 
 const productList = computed(() => Array.from(productStore.productMap).map(product => product[1]))
 

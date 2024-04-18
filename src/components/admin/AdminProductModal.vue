@@ -85,7 +85,7 @@ const submit = handleSubmit(values => {
         })
 })
 
-watch(submitCompletionFlag, () => productStore.initStore())
+watch(submitCompletionFlag, () => productStore.initStore()) //Delete this
 
 const formatDate = (date) => new Date(date).toLocaleDateString('en-GB').replace(/\//g, '.')
 
