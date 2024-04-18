@@ -90,7 +90,6 @@ const router = createRouter({
     const canAccess = await adminGuard(to, from)
     if(!canAccess) return {name : 'home'}
   } 
- 
 })
 
 

@@ -16,10 +16,6 @@
     const submitSuccess = ref(false)
     const submitFinished = ref(false)
 
-
-    // const contactInfo = computed(()=>{
-    //     return store.contactInformation
-    // })
     
     const toastType = computed(() => {
         return submitSuccess.value ? 'success' : 'error'
@@ -111,7 +107,7 @@
             display: grid;
             grid-template-rows: repeat(2, minmax(0, 1fr));
             grid-template-columns: repeat(2, minmax(0, 1fr));
-            row-gap: 2.4rem;
+            row-gap: 1.4rem;
             column-gap: 3.6rem;
         }
         &__map{
@@ -159,12 +155,6 @@
                 flex-direction: column;
             }
             &__info-wrapper{
-            //last version
-            // display: flex;
-            // flex-direction: column;
-            // gap: 4.2rem; 
-            // flex-wrap: wrap;
-            //new version
             display: grid;
             grid-template-columns: repeat(1, minmax(0, 1fr));
             gap: 4.2rem;
