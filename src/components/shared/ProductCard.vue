@@ -180,7 +180,6 @@ const { open: OpenProductModal } = useModal({
     padding: 1.6rem;
     padding-bottom: 3rem;
     background-color: var(--color-cultured);
-    height: 100%;
   }
 
   &__title {
