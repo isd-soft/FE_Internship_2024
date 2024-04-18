@@ -96,7 +96,7 @@ const checkout = () => {
 @media only screen and (max-width: 768px) {
   .cart-total {
     width: 100%;
-    padding: 1.5rem;
+    padding: 3rem 1.5rem;
     gap: 2rem;
 
     &__title,

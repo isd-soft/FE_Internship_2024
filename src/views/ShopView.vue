@@ -28,7 +28,6 @@ const { width } = useWindowSize();
 
 
 const productStore = useProductStore()
-productStore.initStore()
 
 const productList = computed(() => {
   return Array.from(productStore.productMap.values())
