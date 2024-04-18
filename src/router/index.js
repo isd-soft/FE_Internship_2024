@@ -69,7 +69,7 @@ const router = createRouter({
       {
         path: 'contact-settings',
         name: 'contact-settings',
-        component: AdminContactPage
+        component: AdminContactView
       },
       {
         path: 'users',
