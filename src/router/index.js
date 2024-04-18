@@ -7,9 +7,9 @@ import DefaultView from '../views/DefaultView.vue'
 import { authGuard } from './authGuard'
 import { adminGuard } from './adminGuard'
 import { createRouter, createWebHistory } from 'vue-router'
-import BannerSection from '@/components/shared/BannerSection.vue'
-import ProductCard from '@/components/shared/ProductCard.vue'
-import AdminContactPage from '@/components/admin/AdminContactPage.vue'
+import AdminContactView from '@/views/AdminContactView.vue'
+import AdminUserList from '@/components/admin/AdminUserList.vue'
+import AdminProductList from '@/components/admin/AdminProductList.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -48,24 +48,24 @@ const router = createRouter({
     {
       path: '/admin',
       name: 'admin',
-      redirect: {path: 'admin/products'},
+      redirect: {path: 'products'},
       component: AdminView,
       // meta: { requiresAdmin: true },
       children:[
       {
         path: 'products',
         name: 'products',
-        component: BannerSection //add component when it will appear
+        component: AdminProductList //add component when it will appear
       },
       {
         path: 'contact-settings',
         name: 'contact-settings',
-        component: AdminContactPage //add component when it will appear
+        component: AdminContactView //add component when it will appear
       },
       {
         path: 'users',
         name: 'users',
-        component: ProductCard //add component when it will appear
+        component: AdminUserList //add component when it will appear
       }
     ]
     }

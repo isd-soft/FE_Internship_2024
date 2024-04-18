@@ -15,23 +15,27 @@ const icons = {
   AdminContactIcon
 }
 
+const createPath = (pathname) => `${new URL(location.href).origin}/admin/${pathname}`;
+
+console.log(createPath('products'));
+
 const linkList = reactive([
   {
-    href: 'admin/products',
+    href: 'products',
     textContent: 'Products',
     textClass: 'navigation__link-text text-lg',
     containerClass: 'navigation__link',
     icon: 'ProductIcon'
   },
   {
-    href: 'admin/users',
+    href: 'users',
     textContent: 'Users',
     textClass: 'navigation__link-text text-lg',
     containerClass: 'navigation__link',
     icon: 'AdminUserIcon'
   },
   {
-    href: 'admin/contacts',
+    href: 'contact-settings',
     textContent: 'Contacts',
     textClass: 'navigation__link-text text-lg',
     containerClass: 'navigation__link',
@@ -42,11 +46,7 @@ const linkList = reactive([
 
 <template>
   <nav class="aside__navigation navigation">
-    <GenericList
-      :items="linkList"
-      customClass="navigation__list"
-      itemClass="navigation__list-item text-sm"
-    >
+    <GenericList :items="linkList" customClass="navigation__list" itemClass="navigation__list-item text-sm">
       <template v-slot="{ item }">
         <GenericLink v-bind="item">
           <component :is="icons[item.icon]" />

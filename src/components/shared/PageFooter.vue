@@ -1,6 +1,8 @@
 <script setup>
 import GenericLink from '@/components/generics/GenericLink.vue'
 import GenericList from '@/components/generics/GenericList.vue'
+import { useRoute,onBeforeRouteLeave, onBeforeRouteUpdate } from 'vue-router';
+import { ref } from 'vue';
 const linkList = [
   {
     href: '/',
@@ -35,10 +37,26 @@ const helpLinkList = [
     containerClass: 'footer__link text-sm '
   }
 ]
+
+const route=useRoute();
+const itsHome=ref(false)
+if(route.path == '/home'){
+    itsHome.value=true
+}
+onBeforeRouteUpdate((to)=>{
+  console.log(to.name)
+  if(to.name=="home"){
+    itsHome.value=true
+  }
+  else{
+    itsHome.value=false
+  }
+})
+
 </script>
 
 <template>
-  <footer class="footer">
+  <footer class="footer" :class="{active:itsHome}">
     <div class="footer__container container">
       <div class="footer__top-line">
         <div class="footer__adress-wrapper">
@@ -88,8 +106,10 @@ const helpLinkList = [
 </template>
 
 <style lang="scss" scoped>
-.footer {
+.active{
   border-top: 1px solid var(--color-quick-silver);
+}
+.footer {
   padding: 3.8rem 10rem;
 
   &__container {

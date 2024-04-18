@@ -3,18 +3,22 @@ import { useForm } from 'vee-validate'
 import * as yup from 'yup'
 
 const schema = yup.object({
-    name:  yup.string().required(),
-    email: yup.string().email().required(),
-    subject: yup.string().required(),
-    message: yup.string().required()
+    name:  yup.string().required("This field is empty!"),
+    email: yup.string().email("Please write your email correctly").required("This field is empty!"),
+    subject: yup.string(),
+    message: yup.string().required("This field is empty!")
 })
 
+
 const { defineField, errors, handleSubmit,resetForm } = useForm({
-    validationSchema: schema
+    validationSchema: schema,
+    
 })
+
 
 const [name, nameAttributeList] = defineField('name', {
     validateOnModelUpdate: false
+    
 })
 
 const [email, emailAttributeList] = defineField('email', {
@@ -30,7 +34,6 @@ const [message, messageAttributeList] = defineField('message', {
 })
 
 const onSubmit = handleSubmit((values) => {
-    const { name, email, subject, message } = values
     const result=true
     result ? emit('success') : emit('failure')
     alert(JSON.stringify(values, null, 2));
@@ -43,78 +46,109 @@ const emit = defineEmits(['success', 'failure', 'inputStart'])
 <template>
     <form @submit="onSubmit" class="form-wrapper">
         <div class="form-wrapper__field">
-            <label for="name" class="form-wrapper__label text-sm">Your name</label>
-            <input 
-            type="text" 
-            class="form-wrapper__input text-sm"
-            placeholder="ABC"
-            v-model="name"
-            v-bind="nameAttributeList"
-            name="name"
-            @focus="$emit('inputStart')"/>
-            <span class="form-wrapper__error text-sm">{{ errors.name }}</span>
+            <label for="name" class="form-wrapper__label text-sm">Your name*</label>
+            <div class="form-wrapper__field-wrapper">
+                <input 
+                    type="text" 
+                    class="form-wrapper__input text-sm"
+                    :class="{errorfield:errors.name}"
+                    placeholder="ABC"
+                    v-model="name"
+                    v-bind="nameAttributeList"
+                    name="name"
+                    @focus="$emit('inputStart')"/>
+                <span class="form-wrapper__error text-sm">{{ errors.name }}</span>
+            </div>
         </div>
         <div class="form-wrapper__field">
-            <label for="email" class="form-wrapper__label text-sm">Email address</label>
-            <input 
-                type="email"
-                class="form-wrapper__input text-sm" 
-                placeholder="abs@def.com"
-                v-model="email"
-                v-bind="emailAttributeList"
-                name="email"
-                @focus="$emit('inputStart')"/>
-            <span class="form-wrapper__error text-sm">{{ errors.email }}</span>
+            <label for="email" class="form-wrapper__label text-sm">Email address*</label>
+            <div class="form-wrapper__field-wrapper">
+                <input 
+                    type="email"
+                    class="form-wrapper__input text-sm"
+                    :class="{errorfield:errors.email}"
+                    placeholder="abs@def.com"
+                    v-model="email"
+                    v-bind="emailAttributeList"
+                    name="email"
+                    @focus="$emit('inputStart')"/>
+                <span class="form-wrapper__error text-sm">{{ errors.email }}</span>
+            </div>
+            
         </div>
         <div class="form-wrapper__field">
             <label for="subject" class="form-wrapper__label text-sm">Subject</label>
-            <input 
-                type="text" 
-                class="form-wrapper__input text-sm" 
-                placeholder="This is an optional"
-                v-model="subject"
-                v-bind="subjectAttributeList"
-                name="subject"
-                @focus="$emit('inputStart')"/>
-            <span class="form-wrapper__error text-sm">{{ errors.subject }}</span>
+            <div class="form-wrapper__field-wrapper">
+                <input 
+                    type="text" 
+                    class="form-wrapper__input text-sm"
+                    :class="{errorfield:errors.subject}"
+                    placeholder="This is an optional"
+                    v-model="subject"
+                    v-bind="subjectAttributeList"
+                    name="subject"
+                    @focus="$emit('inputStart')"/>
+                <span class="form-wrapper__error text-sm">{{ errors.subject }}</span>
+            </div>
+            
         </div>
-        <div class="form-wrapper__field">
-            <label for="message" class="form-wrapper__label text-sm">Message</label>
+        <div class="form-wrapper__textarea-wrapper">
+            <label for="message" class="form-wrapper__label text-sm">Message*</label>
+            <div class="form-wrapper__textarea-field">
             <textarea 
                 type="text" 
-                rows="5" 
-                class="form-wrapper__input text-sm" 
+                class="form-wrapper__input text-sm"
+                :class="{errorfield:errors.message}"
                 placeholder="Hi! i’d like to ask about"
                 v-model="message"
                 v-bind="messageAttributeList"
                 name="message"
+                rows="5"
                 @focus="$emit('inputStart')"/>
-            <span class="form-wrapper__error text-sm">{{ errors.message }}</span>
+            <span class="form-wrapper__error text-sm"> {{ errors.message }}</span>
+            </div>
+        
         </div>
         <button  class="form-wrapper__button text-sm primary-button" >Submit</button>
+        <span class="form-wrapper__warning text-sm">* means the frield is required</span>
     </form>
 </template>
 
 <style lang="scss" scoped>
 .form-wrapper{
-    display: flex;
-    gap: 1.5rem;
-    width: 60%;
-    max-width: 635px;
-    flex-direction: column;
+    &__field-wrapper{
+        display: flex;
+        flex-direction: column;
+        gap: 1.2rem;
+    }
     &__field{
         display: flex;
         flex-direction: column;
-        gap: 22px;
+        gap: 2.2rem;
+        grid-column: 1 / 1;
+    }
+    &__textarea-wrapper{
+        display: flex;
+        flex-direction: column;
+        gap: 2.2rem;
+        grid-column: 2 / 2;
+        grid-row: 1 / span 3;
+    }
+    &__textarea-field{
+        display: flex;
+        flex-direction: column;
+        gap: 1.2rem;
+        height: 100%;
     }
     &__label{
         font-weight: 500;
     }
     &__input{
-        padding: 20px 35px;
+        padding: 15px 35px;
         border: 1px solid var(--color-quick-silver);
         border-radius: .75rem;
         resize: none;
+        height: 100%;
         &::placeholder {
             color: var(--color-quick-silver);
         }
@@ -125,13 +159,20 @@ const emit = defineEmits(['success', 'failure', 'inputStart'])
     &__button{
         border-radius: .5rem;
         padding: 1.4rem 9rem;
+        grid-column: 2 / 2;
+
     
+    }
+    &__warning{
+        grid-column: 2 / 2;
     }
     &__error {
         color: var(--color-candy-pink);
-        margin-bottom: 0.8rem;
         padding-left: 0.4rem;
         }
+}
+.errorfield{
+    border: 1px solid var(--color-candy-pink);
 }
 @media only screen and (max-width: 768px) {
     .form-wrapper{
@@ -139,6 +180,7 @@ const emit = defineEmits(['success', 'failure', 'inputStart'])
             font-size: 2.4rem;
         }
         &__input{
+            padding: 15px;
             font-size: 2.4rem;
         }
         &__error{
