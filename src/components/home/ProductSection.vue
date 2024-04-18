@@ -5,11 +5,9 @@ import { computed } from 'vue'
 import { useProductStore } from '@/stores/productStore.js'
 
 const productStore = useProductStore()
-productStore.initStore()
 
-const productList = computed(() => {
-  return Array.from(productStore.productMap.values())
-})
+const productList = computed(() => Array.from(productStore.productMap.values())
+)
 
 </script>
 

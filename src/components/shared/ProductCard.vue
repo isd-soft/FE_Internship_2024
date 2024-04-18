@@ -9,6 +9,8 @@ import { useUserStore } from '@/stores/userStore'
 import { useCartStore } from '@/stores/cartStore'
 import GenericToast from '../generics/GenericToast.vue'
 
+import CartIcon from '../../assets/icons/CartIcon.svg';
+
 const userStore = useUserStore()
 const cartStore = useCartStore()
 
@@ -27,7 +29,7 @@ const props = defineProps({
   imageUrl: String,
   name: String,
   code: String,
-  code: String,
+  description: String,
   price: Number,
   oldPrice: {
     type: Number,
@@ -118,6 +120,10 @@ const { open: OpenProductModal } = useModal({
       Click for Details
     </div>
 
+    <button class="product-card__cart-button" @click="addProduct">
+      <CartIcon width="3.6rem" height="3.6rem"/>
+    </button>
+
     <div class="product-card__text-wrapper">
       <h3 class="product-card__title text-lg">
         {{ name }}
@@ -206,6 +212,12 @@ const { open: OpenProductModal } = useModal({
     font-weight: 400;
     text-decoration-line: line-through;
     color: var(--color-silver-foil);
+  }
+
+  &__cart-button {
+    position: absolute;
+    bottom: 2.4rem;
+    right: 2.4rem;
   }
 
   &__overlay {
