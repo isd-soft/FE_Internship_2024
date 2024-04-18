@@ -110,7 +110,7 @@ const emit = defineEmits(['success', 'failure', 'inputStart'])
         
         </div>
         <button  class="form-wrapper__button text-sm primary-button" >Submit</button>
-        <span class="form-wrapper__warning text-sm">* means the frield is required</span>
+        <span class="form-wrapper__warning text-sm">* the field is required</span>
     </form>
 </template>
 

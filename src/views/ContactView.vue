@@ -10,14 +10,12 @@
     import Loader from "@/assets/icons/LoaderIcon.svg"
     import GenericToast from '@/components/generics/GenericToast.vue'
     import { useContactStore } from "@/stores/contactStore";
-    import { ref, computed, onBeforeMount } from 'vue'
+    import { ref, computed } from 'vue'
 
     const store = useContactStore()
     const submitSuccess = ref(false)
     const submitFinished = ref(false)
-    onBeforeMount(()=>{
-        store.fetchContactInformation() 
-    })
+
 
     // const contactInfo = computed(()=>{
     //     return store.contactInformation
