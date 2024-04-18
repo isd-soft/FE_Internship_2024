@@ -44,7 +44,6 @@ if(route.path == '/home'){
     itsHome.value=true
 }
 onBeforeRouteUpdate((to)=>{
-  console.log(to.name)
   if(to.name=="home"){
     itsHome.value=true
   }
