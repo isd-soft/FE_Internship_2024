@@ -13,6 +13,8 @@ socket.connect()
 
 bindEvents()
 socket.emit('test');
+
+// window.scrollTo(0, 1)
 //Hot reload preparations
 
 </script>
