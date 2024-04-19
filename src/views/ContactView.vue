@@ -78,7 +78,7 @@
         padding: 38px 191px 63px 191px;
         display: flex;
         flex-direction: column;
-        align-items: center;
+        //align-items: center;
         gap: 7rem;
         }
         &__text-wrapper{
@@ -92,7 +92,6 @@
             color: var(--color-quick-silver);
         }
         &__section{
-            width: 80%;
             display: flex;
             flex-direction: column;
             gap: 7rem;
@@ -117,7 +116,7 @@
             margin-bottom: -5px;
         }
     }
-    @media only screen and (max-width: 768px) {
+    @media only screen and (max-width: 991px) {
         .contact{
             &__container{
                 padding: 4rem;
