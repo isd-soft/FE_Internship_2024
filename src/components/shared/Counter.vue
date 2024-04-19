@@ -28,8 +28,8 @@ function decreaseCount() {
     align-items: center;
     column-gap: 2.35rem;
     border-radius: 1.43rem;
-    height: auto;
-    border: 1px solid var(--color-quick-silver);
+    max-height: 5rem;
+    border: 1px solid var(--color-black);
     padding: 1rem;
 
     &__button-action{
