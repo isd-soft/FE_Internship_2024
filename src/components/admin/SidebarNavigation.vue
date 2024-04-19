@@ -82,30 +82,21 @@ const linkList = reactive([
     font-weight: 500;
   }
 
+  &__svg-icon-wrapper{
+    min-width: 2.25rem;
+    max-width: 2.25rem;
+  }
+
   &__list-item {
-    // .contact-icon {
-    //   min-width: 2rem;
-    //   min-height: 3.5rem;
-    //   fill: var(--color-uc-gold);
-    // }
+    .icon {
+      width: 100%;
+      height: 100%;
+      fill: var(--color-uc-gold);
+    }
 
     .active-icon {
       fill: var(--color-white);
     }
-
-    // .adminuser-icon {
-    //   min-width: 3.2rem;
-    //   max-width: 3.2rem;
-    //   max-height: 3.7rem;
-    //   min-height: 3.7rem;
-    //   fill: var(--color-uc-gold);
-    // }
-
-    // .product-icon {
-    //   min-width: 3.2rem;
-    //   min-height: 3.2rem;
-    //   fill: var(--color-uc-gold);
-    // }
   }
 }
 </style>
