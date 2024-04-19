@@ -104,7 +104,6 @@ const handleDeletion = () => {
     display: inherit;
     grid-template-columns: inherit;
     width: 100%;
-    border-radius: 10px;
 }
 
 .admin-product-heading__category,
@@ -121,8 +120,9 @@ const handleDeletion = () => {
 }
 
 .admin-product-card {
-    border: 1px solid var(--color-uc-gold);
     padding: 1rem;
+    border: 1px solid var(--color-uc-gold);
+    border-radius: 10px;
 
     &__image {
         width: 7.5rem;
