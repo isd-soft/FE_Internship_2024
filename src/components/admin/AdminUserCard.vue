@@ -41,19 +41,14 @@ const checkRole = (item, role) => item.roles.find(i => i.role === role) ? true :
 
 <template>
     <div :class="['admin-user', props.className]">
+        <div class="admin-user__username">{{ user.username }}</div>
         <div class="admin-user__first-name">{{ user.firstName }}</div>
         <div class="admin-user__last-name">{{ user.lastName }}</div>
-        <div class="admin-user__username">{{ user.username }}</div>
         <div class="admin-user__email">{{ user.email }}</div>
         <div class="admin-user__created-at">
             {{ splitDate(user.createdAt)[1].slice(0, 5) }}
             <br>
             {{ splitDate(user.createdAt)[0] }}
-        </div>
-        <div class="admin-user__updated-at">
-            {{ splitDate(user.updatedAt)[1].slice(0, 5) }}
-            <br>
-            {{ splitDate(user.updatedAt)[0] }}
         </div>
         <div class="admin-user__role">
             <ToggleButton :state="checkRole(user, 'ADMIN')" @click="updateRole(user)" />
@@ -70,11 +65,12 @@ const checkRole = (item, role) => item.roles.find(i => i.role === role) ? true :
 <style lang="scss" scoped>
 .admin-user {
     display: grid;
-    grid-template-columns: repeat(7, minmax(0, 1fr)) 5rem;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) 12.5rem 7.5rem 5rem;
     border: 1px solid var(--color-uc-gold);
     border-radius: 10px;
     padding: 1.5rem 2rem;
-    min-height: 5rem;
+    height: auto;
+    min-height: 50px;
     align-items: center;
 
     &__first-name,
@@ -86,12 +82,13 @@ const checkRole = (item, role) => item.roles.find(i => i.role === role) ? true :
     &__role,
     &__delete,
     &__edit {
+        // border: 1px solid deeppink;
         padding: 0 0.5rem;
         height: min-content;
     }
 
     &__delete {
-        height: 100%;
+        height: 2.5rem;
         display: flex;
         justify-content: center;
 
@@ -110,7 +107,7 @@ const checkRole = (item, role) => item.roles.find(i => i.role === role) ? true :
     }
 
     &__edit {
-        height: 100%;
+        height: 2rem;
         display: none;
         justify-content: center;
         cursor: pointer;
@@ -140,29 +137,33 @@ const checkRole = (item, role) => item.roles.find(i => i.role === role) ? true :
     }
 
     &__role {
-        width: 100%;
-        height: 100%;
+        height: 2.5rem;
         display: flex;
         justify-content: center;
-        align-items: center;
+
     }
 }
 
 @media only screen and (max-width: 991px) {
     .admin-user {
-        grid-template-columns: repeat(4, minmax(0, 1fr)) 5rem;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) 75px 75px 50px;
 
         &__first-name,
         &__last-name,
         &__updated-at {
             display: none;
         }
+
+        &__role,
+        &__delete {
+            height: 20px;
+        }
     }
 }
 
 @media only screen and (max-width: 575px) {
     .admin-user {
-        grid-template-columns: repeat(2, minmax(0, 1fr)) 5rem;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) 50px;
 
         &__created-at,
         &__delete,
