@@ -3,7 +3,7 @@
 </script>
 
 <template>
-    <GenericLink href="/admin/product" containerClass="aside__logo text-2xl">
+    <GenericLink href="/admin/products" containerClass="aside__logo text-2xl">
         <img src="/logo_image.png" class="aside__logo-image" alt="logo">
         <span class="aside__logo-text">Furniro</span>
     </GenericLink>

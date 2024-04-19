@@ -47,7 +47,7 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
 </script>
 
 <template>
-  <div class="auth-modal__content login-container">
+  <div class="login-container">
     <h1 class="text-xl login-container__title">Welcome</h1>
     <p class="text-sm login-container__description">Sign in to continue</p>
     <form @submit="onSubmit" class="login-container__form login-form">
@@ -85,7 +85,6 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
 </template>
 
 <style lang="scss" scoped>
-
 .login-container {
   // padding: 5rem 3.8rem 4rem 4rem;
   padding: 50px 38px 40px 40px;
@@ -188,12 +187,16 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
     padding: 0 5rem;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: calc(100% - 65px);
   }
 
   .login-form {
     &__input {
       padding: 12px 12px;
       width: min(350px, 80vw);
+      margin-bottom: 20px;
     }
     &__error {
       margin-bottom: 2px;

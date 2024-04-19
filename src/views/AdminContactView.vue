@@ -1,6 +1,7 @@
 <script setup>
 import { useContactStore } from "@/stores/contactStore";
 import { ref,computed } from "vue";
+import Plus from "@/assets/icons/PlusIcon.svg"
 import Loader from "@/assets/icons/LoaderIcon.svg"
 import GenericToast from '@/components/generics/GenericToast.vue'
 const store = useContactStore()
@@ -12,9 +13,18 @@ const hourSaturday2=ref("20:00")
 const edit=ref(true)
 const submitSuccess = ref(false)
 const submitFinished = ref(false)
+const plusFieldtel = ref(false)
+const plusFieldemail = ref(false)
 
 const onEdit=()=>{
     edit.value=!edit.value
+}
+
+const onPlusFieldtel=()=>{
+    plusFieldtel.value=!plusFieldtel.value
+}
+const onPlusFieldemail=()=>{
+    plusFieldemail.value=!plusFieldemail.value
 }
 
 const onSubmit=()=>{
@@ -48,7 +58,7 @@ const toastMessage = computed(() => {
     <section class="admin-contact" v-if="store.loader">
         <div class="admin-contact__container">
             <div class="admin-contact__name">
-                <h3 class="admin-contact__name-text text-4xl">Contact Information</h3>
+                <h3 class="admin-contact__name-text text-5xl">Contact Information</h3>
             </div>
             <GenericToast v-if="submitFinished" :message="toastMessage" :type="toastType" />
                 <form class="admin-contact__form-wrapper">
@@ -109,22 +119,28 @@ const toastMessage = computed(() => {
                     
                     <div class="admin-contact__field">
                         <label for="Phones" class="admin-contact__label text-sm">Phone Numbers</label>
-                        <input 
-                            type="tel" 
-                            id="phone" 
-                            name="Phones"
-                            class="admin-contact__input text-sm" 
-                            v-model="store.contactInformation.phoneNumber[0]"
-                            :disabled="edit"
-                            />
+                        <div class="admin-contact__field-svg">
                             <input 
                             type="tel" 
                             id="phone" 
-                            name="Phones"
+                            name="phones"
+                            class="admin-contact__input-plus text-sm" 
+                            v-model="store.contactInformation.phoneNumber[0]"
+                            :disabled="edit"
+                        />
+                        <div  class="admin-contact__svg-wrapper" :style="edit?'pointer-events: none; background-color: var(--color-old-lace)':''">
+                            <Plus class="admin-contact__svg" @click="onPlusFieldtel"/>
+                        </div>
+                        </div>
+                        <input 
+                            type="tel" 
+                            id="phone" 
+                            name="phones"
                             class="admin-contact__input text-sm" 
                             v-model="store.contactInformation.phoneNumber[1]"
                             :disabled="edit"
-                            />
+                            :style="plusFieldtel ? '' : 'display:none' "
+                        />
                     </div>
                     <div class="admin-contact__field">
                         <label for="Coordinates" class="admin-contact__label text-sm">Coordinates</label>
@@ -137,18 +153,24 @@ const toastMessage = computed(() => {
                     </div>
                     <div class="admin-contact__field">
                         <label for="email" class="admin-contact__label text-sm">Email address</label>
-                        <input 
-                            type="email"
-                            class="admin-contact__input text-sm" 
-                            v-model="store.contactInformation.email[0]"
-                            :disabled="edit"
-                            >
+                        <div class="admin-contact__field-svg">
                             <input 
+                                type="email"
+                                class="admin-contact__input-plus text-sm" 
+                                v-model="store.contactInformation.email[0]"
+                                :disabled="edit"
+                            >
+                            <div class="admin-contact__svg-wrapper" :style="edit?'pointer-events: none; background-color: var(--color-old-lace)':''">
+                                <Plus class="admin-contact__svg" @click="onPlusFieldemail" />
+                            </div>
+                        </div>
+                        <input 
                             type="email"
                             class="admin-contact__input text-sm" 
                             v-model="store.contactInformation.email[1]"
                             :disabled="edit"
-                            >
+                            :style="plusFieldemail ? '' : 'display:none' "
+                        >
                     </div>
                     
                 </form>
@@ -166,7 +188,6 @@ const toastMessage = computed(() => {
 
 <style lang="scss" scoped>
     .admin-contact{
-        background-color: var(--color-linen);
         &__container{
             display: flex;
             flex-direction: column;
@@ -190,13 +211,28 @@ const toastMessage = computed(() => {
             width: 45%;
             gap: 22px;
         }
+        &__field-svg{
+            display: flex;
+        }
+        &__svg-wrapper{
+            display: flex; 
+            align-items: center; 
+            border:1px solid var(--color-uc-gold); 
+            border-radius: 0 10px 10px 0; 
+            border-left:0;
+            padding-right: 10px;
+        }
+        &__svg{
+            width: 25px;
+            cursor: pointer;
+        }
         &__label{
             font-weight: 500;
         }
         &__input{
             padding: 10px 15px;
-            border: 1px solid var(--color-quick-silver);
-            border-radius: .75rem;
+            border: 1px solid var(--color-uc-gold);
+            border-radius: 10px;
             resize: none;
             &::placeholder {
                 color: var(--color-quick-silver);
@@ -204,7 +240,26 @@ const toastMessage = computed(() => {
             &:focus{
                 border: 1px solid var(--color-uc-gold);
             }
-
+            &:disabled{
+                background-color: var(--color-old-lace);
+            }
+        }
+        &__input-plus{
+            padding: 10px 15px;
+            border: 1px solid var(--color-uc-gold);
+            resize: none;
+            width: 95%; 
+            border-radius: 10px 0 0 10px; 
+            border-right:0;
+            &::placeholder {
+                color: var(--color-quick-silver);
+            }
+            &:focus{
+                border: 1px solid var(--color-uc-gold);
+            }
+            &:disabled{
+                background-color: var(--color-old-lace);
+            }
         }
         &__time-wrapper{
             display: flex;
@@ -254,6 +309,7 @@ const toastMessage = computed(() => {
 }
 @media only screen and (max-width:786px) {
     .admin-contact{
+
         &__field{
             width: 100%;
         }
@@ -265,12 +321,16 @@ const toastMessage = computed(() => {
     }
 }
 @media only screen and (max-width:476px) {
-    .admin-contact{
+    .admin-contact{        
+        &__container{
+            padding: 5rem 5rem 0 10rem;
+        }
         &__form-wrapper{
             width: 100%;
         }
         &__time-wrapper{
             flex-direction: column;
+            gap: 2rem;
         }
         &__buttons-wrapper{
             flex-direction: column;

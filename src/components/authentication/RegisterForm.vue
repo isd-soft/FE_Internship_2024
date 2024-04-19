@@ -62,7 +62,7 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
 </script>
 
 <template>
-  <div class="auth-modal__content register-container">
+  <div class="register-container">
     <h1 class="text-xl register-container__title">Discover</h1>
     <p class="text-sm register-container__description">Create an account to shop</p>
     <form @submit="onSubmit" class="register-container__form register-form">
@@ -153,6 +153,7 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
   padding: 50px 60px 40px 60px;
   display: flex;
   flex-direction: column;
+  
 
   &__title {
     color: var(--color-uc-gold);
@@ -249,13 +250,13 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
   }
 
   @media only screen and (max-width: 575px) {
-    span {
-      height: 17px;
-    }
     .register-container {
       padding: 0 5rem;
       display: flex;
       flex-direction: column;
+      justify-content: center;
+      height: calc(100% - 80px);
+      align-items: center;
     }
     .register-form {
       &__input {
@@ -264,6 +265,7 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
       }
       &__error {
         margin-bottom: 2px;
+        height: 17px;
       }
 
       &__submit-button {
