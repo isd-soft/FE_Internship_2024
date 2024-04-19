@@ -6,8 +6,7 @@ import { useProductStore } from '@/stores/productStore.js'
 
 const productStore = useProductStore()
 
-const productList = computed(() => Array.from(productStore.productMap.values())
-)
+const productList = computed(() => Array.from(productStore.productMap.values()).slice(0, 8))
 
 </script>
 

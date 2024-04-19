@@ -27,7 +27,7 @@ const urls = swiperImagesUrls
             </button>
             <swiper
             class="examples-section__swiper"
-            :slides-per-view="width > 375 ? 2 : 1"
+            :slides-per-view="width > 575 ? 2 : 1"
             :space-between="24"
             :pagination="{ 
                 clickable: true,
