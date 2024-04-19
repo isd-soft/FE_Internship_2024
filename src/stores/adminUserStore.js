@@ -35,16 +35,13 @@ export const useAdminUserStore = defineStore('adminuser', () => {
 
   //WebSocket functions:
   const addUserWeb = (usr) => {
-    console.log('Hello from AddUserWeb ', usr)
     const index = users.value.findIndex((user) => user.id === usr.id)
     if (index === -1) users.value.push(usr)
     else users.value[index] = usr
-    console.log('User added: ', users.value)
   }
 
   const deleteUserWeb = (usrId) => {
     const index = users.value.findIndex((user) => user.id === usrId)
-    console.log('Deleting user: ', usrId)
     users.value.splice(index, 1)
   }
 
