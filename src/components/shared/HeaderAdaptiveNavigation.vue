@@ -4,7 +4,7 @@ import GenericList from '../generics/GenericList.vue'
 import CartIcon from '../../assets/icons/CartIcon.svg'
 import UserIcon from '../../assets/icons/UserIcon.svg'
 import { useUserStore } from '@/stores/userStore'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { computed } from 'vue'
 import { useModal } from 'vue-final-modal'
 import { toggleMenu } from '@/utils/toggleMenu'
@@ -12,14 +12,26 @@ import LoginModal from '../authentication/LoginModal.vue'
 
 const user = useUserStore()
 const route = useRoute()
+const router = useRouter()
 
-const { open: openLoginModal } = useModal({ component: LoginModal })
+const { open: openLoginModal} = useModal({ component: LoginModal , attrs:{onClosed(){
+  toggleMenu()
+}}})
+
 
 const handleNavigationClick = () => {
   toggleMenu()
 }
 const handleProfileClick = () => {
   if (!user.isAuthenticated()) openLoginModal()
+}
+
+const handleCartClick = () => {
+  if (!user.isAuthenticated()) openLoginModal()
+  else {
+    toggleMenu()
+    router.push({ name: 'cart' })
+  }
 }
 
 const linkList = [
@@ -40,18 +52,6 @@ const linkList = [
     textContent: 'Contact',
     containerClass: 'navigation__link',
     clickHandler: () => handleNavigationClick()
-  },
-  {
-    href: 'cart',
-    containerClass: 'navigation__link',
-    clickHandler: () => handleNavigationClick(),
-    iconComponent: CartIcon
-  },
-  {
-    href: '',
-    containerClass: 'navigation__link',
-    clickHandler: () => handleProfileClick(),
-    iconComponent: UserIcon
   }
 ]
 
@@ -71,12 +71,17 @@ const isActive = (href) => computed(() => route.path === href)
           @click="item.clickHandler ? item.clickHandler() : {}"
           :class="{ 'active-link': isActive(item.href).value }"
         >
-          <template v-slot:icon>
-            <component :is="item.iconComponent" />
-          </template>
         </GenericLink>
       </template>
     </GenericList>
+    <div class="navigation__icon-wrapper">
+      <GenericLink containerClass="navigation__link" @click="handleCartClick">
+        <CartIcon class="navigation__link-icon" />
+      </GenericLink>
+      <GenericLink containerClass="navigation__link" @click="handleProfileClick">
+        <UserIcon class="navigation__link-icon" />
+      </GenericLink>
+    </div>
   </nav>
 </template>
 
@@ -87,6 +92,28 @@ const isActive = (href) => computed(() => route.path === href)
   height: 100%;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+
+  &__icon-wrapper {
+    margin-top: 7rem;
+    width: 13rem;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__link-icon {
+    width: 35px;
+    height: 35px;
+    transition: 0.2s ease;
+
+    &:hover {
+      fill: var(--color-uc-gold);
+    }
+
+    &:active {
+      fill: var(--color-black);
+    }
+  }
 }
 .navigation__list {
   display: flex;
