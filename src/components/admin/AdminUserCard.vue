@@ -51,7 +51,8 @@ const checkRole = (item, role) => item.roles.find(i => i.role === role) ? true :
             {{ splitDate(user.createdAt)[0] }}
         </div>
         <div class="admin-user__role">
-            <ToggleButton :state="checkRole(user, 'ADMIN')" @click="updateRole(user)" />
+            ADMIN:
+            <ToggleButton :state="checkRole(user, 'ADMIN')" @click="updateRole(user)" class="admin-user__role-toggle" />
         </div>
         <div class="admin-user__delete">
             <TrashIcon @click="deleteUser(id)" />
@@ -65,12 +66,12 @@ const checkRole = (item, role) => item.roles.find(i => i.role === role) ? true :
 <style lang="scss" scoped>
 .admin-user {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr)) 12.5rem 7.5rem 5rem;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) 12.5rem 12.5rem 5rem;
     border: 1px solid var(--color-uc-gold);
     border-radius: 10px;
-    padding: 1.5rem 2rem;
+    padding: 0.5rem;
     height: auto;
-    min-height: 50px;
+    min-height: 60px;
     align-items: center;
 
     &__first-name,
@@ -82,7 +83,6 @@ const checkRole = (item, role) => item.roles.find(i => i.role === role) ? true :
     &__role,
     &__delete,
     &__edit {
-        // border: 1px solid deeppink;
         padding: 0 0.5rem;
         height: min-content;
     }
@@ -140,7 +140,12 @@ const checkRole = (item, role) => item.roles.find(i => i.role === role) ? true :
         height: 2.5rem;
         display: flex;
         justify-content: center;
+        gap: 0.5rem;
+        align-items: center;
+    }
 
+    &__role-toggle {
+        height: 1.5rem;
     }
 }
 
@@ -157,6 +162,10 @@ const checkRole = (item, role) => item.roles.find(i => i.role === role) ? true :
         &__role,
         &__delete {
             height: 20px;
+        }
+
+        &__role-toggle {
+            height: 12px;
         }
     }
 }
