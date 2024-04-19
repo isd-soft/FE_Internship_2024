@@ -1,10 +1,7 @@
 <script setup>
 import { useAdminUserStore } from "../../stores/adminUserStore.js";
 import { computed } from 'vue';
-import { useWindowSize } from '@vueuse/core';
 import AdminUserCard from './AdminUserCard.vue'
-
-const { width } = useWindowSize()
 
 const adminStore = useAdminUserStore()
 
@@ -15,17 +12,13 @@ const roles = computed(() => adminStore.userRole)
 const checkRole = (item, role) => item.roles.find(i => i.role === role) ? true : false
 
 const updateRole = (item) => {
-    console.log("---------------------------------------")
     if (checkRole(item, 'ADMIN')) {
-        console.log("user is admin")
         const newItem = { ...item, roles: item.roles.filter(role => role.role !== 'ADMIN') }
-        console.log(newItem)
         adminStore.updateUsers(newItem)
     } else {
-        console.log("user is not admin")
+
         const adminRole = roles.value.find(role => role.role === 'ADMIN')
         const newItem = { ...item, roles: [...item.roles, { id: adminRole.id, role: adminRole.role }] }
-        console.log(newItem)
         adminStore.updateUsers(newItem)
     }
 }
