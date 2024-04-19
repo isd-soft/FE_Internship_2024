@@ -178,7 +178,7 @@ const emit = defineEmits(['success', 'failure', 'inputStart'])
 .errorfield{
     border: 1px solid var(--color-candy-pink);
 }
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 991px) {
     .form-wrapper{
         &__label{
             font-size: 2.4rem;
