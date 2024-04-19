@@ -14,7 +14,10 @@ const user = useUserStore()
 const route = useRoute()
 const router = useRouter()
 
-const { open: openLoginModal } = useModal({ component: LoginModal })
+const { open: openLoginModal} = useModal({ component: LoginModal , attrs:{onClosed(){
+  toggleMenu()
+}}})
+
 
 const handleNavigationClick = () => {
   toggleMenu()
