@@ -6,7 +6,7 @@ import AdminProductModal from './AdminProductModal.vue'
 import { useProductStore } from '../../stores/productStore';
 import { useUserStore } from '../../stores/userStore';
 import GenericToast from '../generics/GenericToast.vue';
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 
 const props = defineProps({
     headingFlag: Boolean,
@@ -47,8 +47,6 @@ const token = useUserStore().token.key
 const deletionFlag = ref(false)
 const toastPreset = ref({})
 
-watch(deletionFlag, () => deletionFlag ? productStore.initStore() : null) //Delete this
-
 const handleDeletion = () => {
     if (deletionFlag.value) deletionFlag.value = false
 
@@ -56,11 +54,11 @@ const handleDeletion = () => {
         ? productStore.deleteProductFromServer(props.id, token)
             .then(result =>
                 toastPreset.value = result
-                    ? { message: 'Product deleted successfully', type: 'success' }
-                    : { message: 'Error while deleting the product', type: 'error' }
+                    ? { message: 'Product deleted successfully!', type: 'success' }
+                    : { message: 'Error while deleting the product: ', type: 'error' }
             )
             .catch(error =>
-                toastPreset.value = { message: 'Error: ' + error, type: 'error' }
+                toastPreset.value = { message: 'Error while deleting the product: ' + error, type: 'error' }
             )
             .finally(() =>
                 deletionFlag.value = true
@@ -85,13 +83,15 @@ const handleDeletion = () => {
             {{ category }}
         </span>
 
-        <button @click="open" class="text-sm admin-product-card__patch-button">
-            <EditIcon width="2.4rem" height="2.4rem" />
-        </button>
+        <div class="admin-product-card__button-wrapper">
+            <button @click="open" class="text-sm admin-product-card__patch-button">
+                <EditIcon width="2.4rem" height="2.4rem" />
+            </button>
 
-        <button @click="handleDeletion" class="text-sm admin-product-card__delete-button">
-            <TrashIcon width="2.4rem" height="2.4rem" />
-        </button>
+            <button @click="handleDeletion" class="text-sm admin-product-card__delete-button">
+                <TrashIcon width="2.4rem" height="2.4rem" />
+            </button>
+        </div>
 
         <GenericToast v-if="deletionFlag" v-bind="toastPreset" />
     </div>
@@ -103,6 +103,8 @@ const handleDeletion = () => {
     grid-column: span 8;
     display: inherit;
     grid-template-columns: inherit;
+    width: 100%;
+    border-radius: 10px;
 }
 
 .admin-product-heading__category,
@@ -110,17 +112,12 @@ const handleDeletion = () => {
     justify-self: center;
     align-self: center;
     display: block;
-    overflow: hidden;
     text-align: center;
 }
 
 .admin-product-heading {
     background-color: var(--color-linen);
     padding: 2rem 1rem;
-
-    &__category:last-child {
-        grid-column: span 2;
-    }
 }
 
 .admin-product-card {
@@ -130,6 +127,33 @@ const handleDeletion = () => {
     &__image {
         width: 7.5rem;
         height: 7.5rem;
+        border-radius: 10px;
+    }
+
+    &__button-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 1.6rem;
+    }
+}
+
+@media only screen and (max-width: 991px) {
+
+    .admin-product-card__code,
+    .admin-product-card__stock,
+    .admin-product-heading__category:nth-child(2),
+    .admin-product-heading__category:nth-child(5) {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 575px) {
+
+    .admin-product-card__price,
+    .admin-product-card__discount,
+    .admin-product-heading__category:nth-child(4),
+    .admin-product-heading__category:nth-child(6) {
+        display: none;
     }
 }
 </style>

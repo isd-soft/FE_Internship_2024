@@ -16,17 +16,17 @@ const valueAttr = props.type === 'checkbox' ? { value: props.checkboxValue } : n
 
 <template>
     <div class="admin-product-form__field-wrapper">
-        <label :for="name" class="admin-product-form__field-title text-xs">
+        <label :for="name" class="admin-product-form__field-title">
             {{ title }}:
         </label>
 
-        <Field :as="tag ? tag : 'input'" :id="name" class="admin-product-form__field text-xs"
+        <Field :as="tag ? tag : 'input'" :id="name" class="admin-product-form__field"
             :class="`admin-product-form__${name}`" :placeholder="placeholder" :name="name" :type="type"
             :uncheckedValue="false" v-bind="valueAttr" />
 
         <label v-if="type === 'checkbox'" :for="name" class="admin-product-form__checkbox-label"></label>
 
-        <ErrorMessage class="admin-product-form__error text-xs" :name="name" />
+        <ErrorMessage class="admin-product-form__error" :name="name" />
     </div>
 </template>
 
@@ -48,14 +48,16 @@ const valueAttr = props.type === 'checkbox' ? { value: props.checkboxValue } : n
     }
 
     &__field-title {
+        font-size: 1.2rem;
         font-weight: 500;
         width: 8rem;
         text-align: center;
     }
 
     &__field {
+        font-size: 1.2rem;
         border: 1px solid var(--color-quick-silver);
-        border-radius: 1rem;
+        border-radius: 10px;
         padding: 0.75rem 0.6rem;
         flex-grow: 1;
 
@@ -78,7 +80,7 @@ const valueAttr = props.type === 'checkbox' ? { value: props.checkboxValue } : n
         width: 3.5rem;
         height: 3.5rem;
         border: 1px solid var(--color-quick-silver);
-        border-radius: 1rem;
+        border-radius: 10px;
     }
 
     &__checkbox-label::after {
@@ -118,5 +120,31 @@ const valueAttr = props.type === 'checkbox' ? { value: props.checkboxValue } : n
         color: var(--color-candy-pink);
     }
 
+}
+
+@media only screen and (max-width: 575px) {
+    .admin-product-form__field-wrapper {
+        flex-direction: column;
+
+        &:nth-child(1),
+        &:nth-child(2),
+        &:nth-child(3),
+        &:nth-child(4) {
+            grid-column: span 1;
+        }
+    }
+
+    .admin-product-form {
+        &__field {
+            font-size: 1.6rem;
+            width: 100%;
+        }
+
+        &__error {
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+        }
+    }
 }
 </style>

@@ -43,7 +43,7 @@ const { open } = useModal({
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 5rem;
+    gap: 2.5rem;
     padding: 3rem 5rem 3rem 13rem;
 
     &__add-button {
@@ -51,18 +51,47 @@ const { open } = useModal({
         width: fit-content;
         padding: 0.75rem 5rem;
         background-color: var(--color-uc-gold);
+        border-radius: 10px;
     }
 }
 
 .admin-product-list {
     display: grid;
-    grid-template-columns: repeat(8, 1fr);
-    gap: 2rem;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2.5rem;
 
     & :deep(.admin-product-list__item) {
         grid-column: span 8;
         display: inherit;
         grid-template-columns: inherit;
+    }
+}
+
+@media only screen and (max-width: 991px) {
+    .admin-product-list {
+        grid-template-columns: repeat(5, 1fr);
+
+        & :deep(.admin-product-list__item) {
+            grid-column: span 6;
+        }
+    }
+}
+
+@media only screen and (max-width: 575px) {
+    .admin-product-section {
+        align-items: stretch;
+    }
+
+    .admin-product-list {
+        grid-template-columns: repeat(3, 1fr);
+
+        & :deep(.admin-product-list__item) {
+            grid-column: span 4;
+        }
+    }
+
+    .admin-product-section__add-button {
+        width: 100%;
     }
 }
 </style>
