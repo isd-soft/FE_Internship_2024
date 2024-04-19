@@ -43,8 +43,7 @@ const { open } = useModal({
     display: flex;
     flex-direction: column;
     gap: 2.5rem;
-    padding: 3rem;
-    padding-left: 13rem;
+    padding: 5rem 3rem 5rem 13rem;
 
     &__add-button {
         font-weight: 700;
