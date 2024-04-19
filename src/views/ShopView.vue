@@ -19,7 +19,8 @@ const productList = computed(() => {
 const currentPage = ref(1);
 
 const productOnPage = () => {
-    if (width.value < 575) {
+
+    if (width.value < 768) {
         return 8
     }
 
@@ -142,8 +143,7 @@ const goFirstPage = () => currentPage.value = 1
         display: grid;
         grid-template-columns: repeat(5, minmax(0, 1fr));
         grid-template-rows: auto;
-        column-gap: 3.2rem;
-        row-gap: 4rem;
+        gap: 4rem;
         padding: 2rem 10rem;
         margin-bottom: 3rem;
     }
@@ -152,6 +152,7 @@ const goFirstPage = () => currentPage.value = 1
         width: 100%;
         display: flex;
         justify-content: center;
+        align-items: center;
         gap: 2.5rem;
     }
 
@@ -159,7 +160,7 @@ const goFirstPage = () => currentPage.value = 1
         background-color: var(--color-linen);
         color: (--color-black);
         border-radius: 10px;
-        font-size: 2rem;
+        font-size: 1.6rem;
         padding: 0 1.5rem;
         min-width: 4.5rem;
         height: 4.5rem;
@@ -180,6 +181,8 @@ const goFirstPage = () => currentPage.value = 1
     }
 
     &__button--active {
+        min-width: 5rem;
+        height: 5rem;
         background-color: var(--color-uc-gold);
         color: var(--color-white);
     }
@@ -198,9 +201,19 @@ const goFirstPage = () => currentPage.value = 1
     .shop-section {
         &__list {
             padding: 60px 40px;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .shop-section {
+        &__list {
+            padding: 60px 40px;
             grid-template-columns: repeat(2, minmax(0, 1fr));
         }
     }
+
 }
 
 @media only screen and (max-width: 575px) {
