@@ -57,7 +57,7 @@ const handleRoleUpdate = (item) => {
 
 <style lang="scss" scoped>
 .admin-user-section {
-    padding: 5rem 10rem 5rem calc(10rem + 10px);
+    padding: 5rem 10rem 5rem 13rem;
     display: flex;
     flex-direction: column;
     row-gap: 2.5rem;
@@ -89,7 +89,7 @@ const handleRoleUpdate = (item) => {
 
 @media only screen and (max-width: 991px) {
     .admin-user-section {
-        padding: 60px 40px 60px calc(10rem + 10px);
+        padding: 60px 40px 60px 13rem;
 
         &__table-header {
             grid-template-columns: repeat(4, minmax(0, 1fr)) 5rem;
