@@ -15,9 +15,9 @@ const icons = {
   AdminContactIcon
 }
 
-const createPath = (pathname) => `${new URL(location.href).origin}/admin/${pathname}`;
+const createPath = (pathname) => `${new URL(location.href).origin}/admin/${pathname}`
 
-console.log(createPath('products'));
+console.log(createPath('products'))
 
 const linkList = reactive([
   {
@@ -46,10 +46,16 @@ const linkList = reactive([
 
 <template>
   <nav class="aside__navigation navigation">
-    <GenericList :items="linkList" customClass="navigation__list" itemClass="navigation__list-item text-sm">
+    <GenericList
+      :items="linkList"
+      customClass="navigation__list"
+      itemClass="navigation__list-item text-sm"
+    >
       <template v-slot="{ item }">
         <GenericLink v-bind="item">
-          <component :is="icons[item.icon]" />
+          <div class="navigation__svg-icon-wrapper">
+            <component :is="icons[item.icon]" />
+          </div>
         </GenericLink>
       </template>
     </GenericList>
@@ -77,29 +83,29 @@ const linkList = reactive([
   }
 
   &__list-item {
-    .contact-icon {
-      min-width: 2rem;
-      min-height: 3.5rem;
-      fill: var(--color-uc-gold);
-    }
+    // .contact-icon {
+    //   min-width: 2rem;
+    //   min-height: 3.5rem;
+    //   fill: var(--color-uc-gold);
+    // }
 
     .active-icon {
       fill: var(--color-white);
     }
 
-    .adminuser-icon {
-      min-width: 3.2rem;
-      max-width: 3.2rem;
-      max-height: 3.7rem;
-      min-height: 3.7rem;
-      fill: var(--color-uc-gold);
-    }
+    // .adminuser-icon {
+    //   min-width: 3.2rem;
+    //   max-width: 3.2rem;
+    //   max-height: 3.7rem;
+    //   min-height: 3.7rem;
+    //   fill: var(--color-uc-gold);
+    // }
 
-    .product-icon {
-      min-width: 3.2rem;
-      min-height: 3.2rem;
-      fill: var(--color-uc-gold);
-    }
+    // .product-icon {
+    //   min-width: 3.2rem;
+    //   min-height: 3.2rem;
+    //   fill: var(--color-uc-gold);
+    // }
   }
 }
 </style>
