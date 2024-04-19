@@ -18,6 +18,7 @@ const plusFieldemail = ref(false)
 
 const onEdit=()=>{
     edit.value=!edit.value
+    console.log(edit.value)
 }
 
 const onPlusFieldtel=()=>{
@@ -43,6 +44,9 @@ const onCancel=()=>{
     submitFinished.value = false
     edit.value=!edit.value
     store.fetchContactInformation()
+    console.log(edit.value)
+    plusFieldtel.value=false
+    plusFieldtel.value=false
 }
 
 const toastType = computed(() => {
@@ -97,7 +101,6 @@ const toastMessage = computed(() => {
                         <label for="Work time" class="admin-contact__label text-sm">Work Time</label>
                         <div class="admin-contact__time-wrapper">
                             <span class="admin-contact__time-text text-sm">Monday-Friday:</span>
-                            
                             <div class="admin-contact__hours-wrapper">
                                 <input type="time" class="admin-contact__input text-sm" v-model="hourFriday1" :disabled="edit">
                                 <p class="text-4xl">-</p>
@@ -153,24 +156,52 @@ const toastMessage = computed(() => {
                     </div>
                     <div class="admin-contact__field">
                         <label for="email" class="admin-contact__label text-sm">Email address</label>
-                        <div class="admin-contact__field-svg">
-                            <input 
+                        <div class="admin-contact__field-svg" v-if="store.contactInformation.email.length == 1">
+                            <input v-if="edit"
+                            type="tel" 
+                            id="phone" 
+                            name="phones"
+                            class="admin-contact__input-plus-none text-sm" 
+                            v-model="store.contactInformation.email[0]"
+                            :disabled="edit"
+                            />
+                            <div style="width: 100%;" v-else>
+                                <div class="admin-contact__field-svg">
+                                    <input 
+                                    type="email"
+                                    class="admin-contact__input-plus text-sm" 
+                                    v-model="store.contactInformation.email[0]"
+                                    :disabled="edit"
+                                    >
+                                    <div class="admin-contact__svg-wrapper" :style="edit?'pointer-events: none; background-color: var(--color-old-lace)':''">
+                                        <Plus class="admin-contact__svg" @click="onPlusFieldemail" />
+                                    </div>
+                                </div>
+                                <input 
                                 type="email"
-                                class="admin-contact__input-plus text-sm" 
-                                v-model="store.contactInformation.email[0]"
+                                class="admin-contact__input text-sm" 
+                                v-model="store.contactInformation.email[1]"
                                 :disabled="edit"
+                                :style="plusFieldemail ? 'width:100%' : 'display:none' " 
                             >
-                            <div class="admin-contact__svg-wrapper" :style="edit?'pointer-events: none; background-color: var(--color-old-lace)':''">
-                                <Plus class="admin-contact__svg" @click="onPlusFieldemail" />
                             </div>
                         </div>
-                        <input 
+                        <div class="admin-contact__field" style="width: 100%;" v-else>
+                            <input 
+                            type="email" 
+                            id="phone" 
+                            name="phones"
+                            class="admin-contact__input-plus-none text-sm" 
+                            v-model="store.contactInformation.email[0]"
+                            :disabled="edit"/>
+                            <input 
                             type="email"
                             class="admin-contact__input text-sm" 
                             v-model="store.contactInformation.email[1]"
                             :disabled="edit"
-                            :style="plusFieldemail ? '' : 'display:none' "
-                        >
+                            >
+                        </div>
+                        
                     </div>
                     
                 </form>
@@ -199,6 +230,7 @@ const toastMessage = computed(() => {
             flex-wrap: wrap;
             column-gap: 5rem;
             row-gap: 2rem;
+            justify-content: space-between;
             
         }
         &__city-country-wrapper{
@@ -213,17 +245,18 @@ const toastMessage = computed(() => {
         }
         &__field-svg{
             display: flex;
+            width: 100%;
         }
         &__svg-wrapper{
             display: flex; 
             align-items: center; 
             border:1px solid var(--color-uc-gold); 
             border-radius: 0 10px 10px 0; 
+            padding-right: 1rem;
             border-left:0;
-            padding-right: 10px;
         }
         &__svg{
-            width: 25px;
+            width: 18px;
             cursor: pointer;
         }
         &__label{
@@ -248,12 +281,22 @@ const toastMessage = computed(() => {
             padding: 10px 15px;
             border: 1px solid var(--color-uc-gold);
             resize: none;
-            width: 95%; 
+            width: 100%;
             border-radius: 10px 0 0 10px; 
             border-right:0;
-            &::placeholder {
-                color: var(--color-quick-silver);
+            &:focus{
+                border: 1px solid var(--color-uc-gold);
             }
+            &:disabled{
+                background-color: var(--color-old-lace);
+            }
+        }
+        &__input-plus-none{
+            padding: 10px 15px;
+            border: 1px solid var(--color-uc-gold);
+            resize: none;
+            width: 100%;
+            border-radius: 10px;
             &:focus{
                 border: 1px solid var(--color-uc-gold);
             }
@@ -262,8 +305,8 @@ const toastMessage = computed(() => {
             }
         }
         &__time-wrapper{
-            display: flex;
-            justify-content: space-between;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
         }
         &__time-text{
             display:flex;
@@ -271,11 +314,12 @@ const toastMessage = computed(() => {
         }
         &__hours-wrapper{
             display: flex;
+            width: 100%;
         }
         &__buttons-wrapper{
             display: flex;
-            justify-content: end;
-            gap: 5rem;
+            justify-content:end;
+            gap: 2rem;
         }
         &__button{
             border-radius: 1rem;
@@ -300,16 +344,8 @@ const toastMessage = computed(() => {
 .errorfield{
     border: 1px solid var(--color-candy-pink);
 }
-@media only screen and (max-width:1024px) {
+@media only screen and (max-width:901px) {
     .admin-contact{
-        &__form-wrapper{
-            flex-direction: column;
-        }
-    }
-}
-@media only screen and (max-width:786px) {
-    .admin-contact{
-
         &__field{
             width: 100%;
         }
@@ -318,9 +354,18 @@ const toastMessage = computed(() => {
             flex-direction: column;
             gap: 22px;
         }
+        &__svg{
+            width: 15px;
+        }
+        &__buttons-wrapper{
+            justify-content: center;
+        }
+        &__time-wrapper{
+            grid-template-columns: 1fr 3fr;
+        }
     }
 }
-@media only screen and (max-width:476px) {
+@media only screen and (max-width:575px) {
     .admin-contact{        
         &__container{
             padding: 5rem 5rem 0 10rem;
@@ -329,11 +374,14 @@ const toastMessage = computed(() => {
             width: 100%;
         }
         &__time-wrapper{
-            flex-direction: column;
+            grid-template-columns: 1fr;
             gap: 2rem;
         }
         &__buttons-wrapper{
             flex-direction: column;
+        }
+        &__button{
+            width: 100%;
         }
     }
 }

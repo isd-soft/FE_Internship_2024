@@ -30,8 +30,8 @@ export const useContactStore=defineStore("contactStore",()=>{
             country: contactInformation.value.country,
             city: contactInformation.value.city,
             geoCoordinates:contactInformation.value.geoCoordinates,
-            phoneNumber: contactInformation.value.phoneNumber,
-            email: contactInformation.value.email,
+            phoneNumber: contactInformation.value.phoneNumber.filter(item=>item),
+            email: contactInformation.value.email.filter(item=>item),
             workTime: workHours
         }
         })
@@ -53,6 +53,15 @@ export const useContactStore=defineStore("contactStore",()=>{
         const phones=contactInformation.value.phoneNumber.map(item=>{ return item.replace(/^(\+\d{3})(\d{3})(\d{2})(\d{3})$/, '($1)-$2-$3-$4')})
         return phones
     })
+    const getArraylenghtTel=computed(()=>{
+        
+        return contactInformation.value.phoneNumber.length
+    })
+
+    const getArrayLengthEmail=()=>{
+        
+        return contactInformation.value.email.length
+    }
 
     //From Websocket
     const changeContactInformation = (info) => {

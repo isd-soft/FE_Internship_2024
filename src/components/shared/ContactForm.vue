@@ -105,7 +105,7 @@ const emit = defineEmits(['success', 'failure', 'inputStart'])
                 name="message"
                 rows="5"
                 @focus="$emit('inputStart')"/>
-            <span class="form-wrapper__error text-xs"> {{ errors.message }}</span>
+            <span class="form-wrapper__error text-xs" style="top:2%"> {{ errors.message }}</span>
             </div>
         </div>
             <div class="form-wrapper__button-text-wrapper">
@@ -170,16 +170,15 @@ const emit = defineEmits(['success', 'failure', 'inputStart'])
     }
     &__error {
         color: var(--color-candy-pink);
-        padding-left: 0.4rem;
         position: absolute;
-        top: 0;
+        top: 5%;
         right: 0;
         }
 }
 .errorfield{
     border: 1px solid var(--color-candy-pink);
 }
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 900px) {
     .form-wrapper{
         &__label{
             font-size: 2.4rem;
@@ -189,10 +188,7 @@ const emit = defineEmits(['success', 'failure', 'inputStart'])
             font-size: 2.4rem;
         }
         &__error{
-            font-size: 2.4rem;
-        }
-        &__button{
-            font-size: 4rem;
+            font-size:1.7rem
         }
     }
 }
