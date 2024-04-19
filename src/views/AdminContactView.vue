@@ -344,7 +344,7 @@ const toastMessage = computed(() => {
 .errorfield{
     border: 1px solid var(--color-candy-pink);
 }
-@media only screen and (max-width:901px) {
+@media only screen and (max-width:991px) {
     .admin-contact{
         &__field{
             width: 100%;

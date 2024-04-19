@@ -116,7 +116,7 @@
             margin-bottom: -5px;
         }
     }
-    @media only screen and (max-width: 900px) {
+    @media only screen and (max-width: 991px) {
         .contact{
             &__container{
                 padding: 4rem;
