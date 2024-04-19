@@ -78,8 +78,8 @@ const linkList = reactive([
 
   &__list-item {
     .contact-icon {
-      min-width: 3rem;
-      min-height: 4.8rem;
+      min-width: 2rem;
+      min-height: 3.5rem;
       fill: var(--color-uc-gold);
     }
 
@@ -89,6 +89,8 @@ const linkList = reactive([
 
     .adminuser-icon {
       min-width: 3.2rem;
+      max-width: 3.2rem;
+      max-height: 3.7rem;
       min-height: 3.7rem;
       fill: var(--color-uc-gold);
     }
