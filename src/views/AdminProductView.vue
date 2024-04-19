@@ -2,9 +2,9 @@
 import { useProductStore } from '@/stores/productStore';
 import { computed } from 'vue';
 import { useModal } from 'vue-final-modal'
-import GenericList from '../generics/GenericList.vue';
-import AdminProduct from './AdminProduct.vue';
-import AdminProductModal from './AdminProductModal.vue';
+import GenericList from '../components/generics/GenericList.vue';
+import AdminProduct from '../components/admin/AdminProduct.vue';
+import AdminProductModal from '../components/admin/AdminProductModal.vue';
 
 const productStore = useProductStore()
 
@@ -33,7 +33,7 @@ const { open } = useModal({
         </GenericList>
 
         <button class="admin-product-section__add-button text-lg" @click="open">
-            ADD PRODUCT
+            Add Product
         </button>
     </section>
 </template>
@@ -42,12 +42,14 @@ const { open } = useModal({
 .admin-product-section {
     display: flex;
     flex-direction: column;
-    align-items: center;
     gap: 2.5rem;
-    padding: 3rem 5rem 3rem 13rem;
+    padding: 3rem;
+    padding-left: 13rem;
 
     &__add-button {
+        font-weight: 700;
         color: var(--color-white);
+        align-self: center;
         width: fit-content;
         padding: 0.75rem 5rem;
         background-color: var(--color-uc-gold);

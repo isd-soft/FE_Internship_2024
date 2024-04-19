@@ -9,7 +9,7 @@ import { adminGuard } from './adminGuard'
 import { createRouter, createWebHistory } from 'vue-router'
 import AdminContactView from '@/views/AdminContactView.vue'
 import AdminUserView from '@/components/admin/AdminUserView.vue'
-import AdminProductList from '@/components/admin/AdminProductList.vue'
+import AdminProductView from '@/views/AdminProductView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -64,7 +64,7 @@ const router = createRouter({
       {
         path: 'products',
         name: 'products',
-        component: AdminProductList
+        component: AdminProductView
       },
       {
         path: 'contact-settings',
