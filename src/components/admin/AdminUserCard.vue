@@ -73,9 +73,9 @@ const checkRole = (item, role) => item.roles.find(i => i.role === role) ? true :
     grid-template-columns: repeat(7, minmax(0, 1fr)) 5rem;
     border: 1px solid var(--color-uc-gold);
     border-radius: 10px;
-    height: 5rem;
+    padding: 1.5rem 2rem;
+    min-height: 5rem;
     align-items: center;
-    padding: 0 2rem;
 
     &__first-name,
     &__last-name,
@@ -83,14 +83,15 @@ const checkRole = (item, role) => item.roles.find(i => i.role === role) ? true :
     &__email,
     &__created-at,
     &__updated-at,
-    &__delete {
+    &__role,
+    &__delete,
+    &__edit {
         padding: 0 0.5rem;
         height: min-content;
     }
 
     &__delete {
         height: 100%;
-        padding: 1rem 0.5rem;
         display: flex;
         justify-content: center;
 
@@ -110,7 +111,6 @@ const checkRole = (item, role) => item.roles.find(i => i.role === role) ? true :
 
     &__edit {
         height: 100%;
-        padding: 1rem 0.5rem;
         display: none;
         justify-content: center;
         cursor: pointer;
@@ -142,7 +142,6 @@ const checkRole = (item, role) => item.roles.find(i => i.role === role) ? true :
     &__role {
         width: 100%;
         height: 100%;
-        padding: 1rem 0.5rem;
         display: flex;
         justify-content: center;
         align-items: center;

@@ -41,7 +41,7 @@ const handleRoleUpdate = (item) => {
 
 <template>
     <section class="main__section section admin-user-section">
-        <h1 class="text-5xl admin-user-section__title">Users {{ width }}</h1>
+        <h1 class="text-5xl admin-user-section__title">Users</h1>
 
         <div class="text-sm admin-user-section__table-header">
             <span class="admin-user-section__first-name">First Name</span>
