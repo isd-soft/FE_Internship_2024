@@ -29,7 +29,7 @@ const onSubmit = handleSubmit((values) => {
   const userStore = useUserStore()
   const { username, password } = values
   userStore
-    .login(username, password)
+    .login(username.trim(), password.trim())
     .then((res) => {
       if (res) emit('success')
       else {

@@ -53,7 +53,7 @@ const onSubmit = handleSubmit((values) => {
   const userStore = useUserStore()
   const { email, username, password, firstName, lastName } = values
   userStore
-    .register(email, username, password, firstName, lastName)
+    .register(email.trim(), username.trim(), password.trim(), firstName.trim(), lastName.trim())
     .then((res) => (res ? emit('success') : emit('failure')))
     .catch((err) => emit('failure'))
 })

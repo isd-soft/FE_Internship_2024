@@ -18,52 +18,101 @@ const productList = computed(() => {
 
 const currentPage = ref(1);
 
-const pageNumber = Math.ceil(productList.value.length / 16);
-
-const getButtonNumberList = () => {
-    let value = currentPage.value - 1
-
-    if (currentPage.value > pageNumber - 2) {
-        value = pageNumber - 2
+const productOnPage = () => {
+    if (width.value < 575) {
+        return 8
     }
 
-    if (currentPage.value === 1) {
+    if (width.value < 991) {
+        return 12
+    }
+
+    if (width.value < 1300) {
+        return 16
+    }
+
+    return 25
+}
+
+const pageNumber = () => Math.ceil(productList.value.length / productOnPage());
+
+const getButtonNumberList = () => {
+    let value = currentPage.value - 2
+
+    if (currentPage.value < 3) {
         value = 1
     }
 
-    if (pageNumber < 3) {
-        return Array.from({ length: pageNumber }, (_, index) => index + 1)
+    if (currentPage.value > pageNumber() - 2) {
+        value = pageNumber() - 4
     }
 
-    if (width.value < 769) {
-        return [currentPage.value]
+    if (pageNumber() < 5) {
+        return Array.from({ length: pageNumber() }, (_, index) => index + 1)
     }
 
-    return Array.from({ length: 3 }, (_, index) => value + index)
+    if (width.value < 575) {
+        let value = currentPage.value - 1
+
+        if (currentPage.value < 2) {
+            value = 1
+        }
+
+        if (currentPage.value > pageNumber() - 1) {
+            value = pageNumber() - 2
+        }
+
+        if (pageNumber() < 3) {
+            return Array.from({ length: pageNumber() }, (_, index) => index + 1)
+        }
+
+        return Array.from({ length: 3 }, (_, index) => value + index)
+    }
+
+    return Array.from({ length: 5 }, (_, index) => value + index)
 }
 
 const pageList = (pageNumber) => {
-    const lowerBound = 16 * (pageNumber - 1)
+    const lowerBound = productOnPage() * (pageNumber - 1)
 
-    const upperBound = productList.value.length > 16 * pageNumber ? 16 * pageNumber : productList.value.length
+    const upperBound = productList.value.length > productOnPage() * pageNumber ? productOnPage() * pageNumber : productList.value.length
 
     return productList.value.slice(lowerBound, upperBound)
 }
 
-const nextPage = () => (currentPage.value < productList.value.length / 16) && currentPage.value++
-
-
-const prevPage = () => currentPage.value > 1 && currentPage.value--
-
 const goToPage = (number) => currentPage.value = number;
-
-const nextActive = () => currentPage.value < pageNumber ? '' : '--disabled';
-
-const prevActive = () => currentPage.value > 1 ? '' : '--disabled';
 
 const pageActive = (number) => {
     return currentPage.value === number ? '--active' : '';
 }
+
+const firstPageState = () => {
+    if (currentPage.value > 3) {
+        return ''
+    }
+
+    if (width.value < 575 && currentPage.value > 2) {
+        return ''
+    }
+
+    return '--disabled'
+}
+
+const lastPageState = () => {
+    if (currentPage.value < pageNumber() - 2) {
+        return ''
+    }
+
+    if (width.value < 575 && currentPage.value < pageNumber() - 1) {
+        return ''
+    }
+
+    return '--disabled'
+}
+
+const goLastPage = () => currentPage.value = pageNumber()
+
+const goFirstPage = () => currentPage.value = 1
 </script>
 
 <template>
@@ -76,12 +125,12 @@ const pageActive = (number) => {
             </template>
         </GenericList>
         <div class="shop-section__button-wrapper">
-            <button :class="['shop-section__button', 'shop-section__button' + prevActive()]"
-                @click="prevPage">Prev</button>
+            <button :class="['shop-section__button', 'shop-section__button' + firstPageState()]"
+                @click="goFirstPage()">First</button>
             <button :class="['shop-section__button', 'shop-section__button' + pageActive(number)]"
                 v-for="number in getButtonNumberList()" :key="number" @click="goToPage(number)">{{ number }}</button>
-            <button :class="['shop-section__button', 'shop-section__button' + nextActive()]"
-                @click="nextPage">Next</button>
+            <button :class="['shop-section__button', 'shop-section__button' + lastPageState()]"
+                @click="goLastPage()">Last</button>
         </div>
     </section>
     <AdvantageSection />
@@ -91,7 +140,8 @@ const pageActive = (number) => {
 .shop-section {
     &__list {
         display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        grid-template-rows: auto;
         column-gap: 3.2rem;
         row-gap: 4rem;
         padding: 2rem 10rem;
@@ -102,7 +152,7 @@ const pageActive = (number) => {
         width: 100%;
         display: flex;
         justify-content: center;
-        gap: 4rem;
+        gap: 2.5rem;
     }
 
     &__button {
@@ -110,9 +160,9 @@ const pageActive = (number) => {
         color: (--color-black);
         border-radius: 10px;
         font-size: 2rem;
-        padding: 0 2.5rem;
-        min-width: 6rem;
-        height: 6rem;
+        padding: 0 1.5rem;
+        min-width: 4.5rem;
+        height: 4.5rem;
 
         &:hover {
             background-color: var(--color-uc-gold);
@@ -135,12 +185,20 @@ const pageActive = (number) => {
     }
 }
 
+@media only screen and (max-width: 1300px) {
+    .shop-section {
+        &__list {
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+
+        }
+    }
+}
+
 @media only screen and (max-width: 991px) {
     .shop-section {
         &__list {
             padding: 60px 40px;
             grid-template-columns: repeat(2, minmax(0, 1fr));
-            grid-template-rows: auto;
         }
     }
 }
