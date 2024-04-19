@@ -3,7 +3,7 @@ import GenericLink from '../generics/GenericLink.vue';
 </script>
 
 <template>
-    <GenericLink href="/admin/contact-settings" containerClass="header__logo text-2xl" textContent="Furniro">
+    <GenericLink href="/home" containerClass="header__logo text-2xl" textContent="Furniro">
         <img src="/logo_image.png" class="header__logo-image" alt="logo">
     </GenericLink>
 </template>
