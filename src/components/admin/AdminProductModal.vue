@@ -99,7 +99,7 @@ const formatDate = (date) => new Date(date).toLocaleDateString('en-GB').replace(
         <form v-if="!newProductFlag" class="admin-product-modal__form admin-product-form" @submit="submit"
             @reset="reset">
             <div class=" admin-product-form__metadata-wrapper">
-                <h2 class="admin-product-form__title text-3xl">
+                <h2 class="admin-product-form__title">
                     {{ name }}
                 </h2>
 
@@ -171,7 +171,7 @@ const formatDate = (date) => new Date(date).toLocaleDateString('en-GB').replace(
     }
 
     &__image {
-        width: 60rem;
+        width: 55rem;
         aspect-ratio: 1/1;
         object-fit: cover;
     }
@@ -189,6 +189,7 @@ const formatDate = (date) => new Date(date).toLocaleDateString('en-GB').replace(
     flex-direction: column;
     padding: 2rem;
     justify-content: space-between;
+    width: 50%;
 
     &--new {
         padding: 4rem 8rem;
@@ -202,6 +203,7 @@ const formatDate = (date) => new Date(date).toLocaleDateString('en-GB').replace(
     }
 
     &__title {
+        font-size: 4rem;
         font-weight: 400;
 
         &--new {
@@ -229,7 +231,7 @@ const formatDate = (date) => new Date(date).toLocaleDateString('en-GB').replace(
     &__submit-button,
     &__reset-button {
         padding: 0.75rem 2.5rem;
-        border-radius: 1rem;
+        border-radius: 10px;
         font-weight: 500;
     }
 
@@ -250,6 +252,63 @@ const formatDate = (date) => new Date(date).toLocaleDateString('en-GB').replace(
         color: var(--color-uc-gold);
         border: 1px solid var(--color-uc-gold);
         justify-self: flex-start;
+    }
+}
+
+@media only screen and (max-width: 991px) {
+    .admin-product-modal {
+        &__container {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        &__image {
+            width: 100%;
+            aspect-ratio: 2/1;
+        }
+    }
+
+    .admin-product-form {
+        width: 100%;
+
+        &__metadata-wrapper {
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        &__input-wrapper {
+            grid-template-columns: 1fr;
+        }
+    }
+}
+
+@media only screen and (max-width: 575px) {
+    .admin-product-modal {
+        &__container {
+            width: 80%
+        }
+
+        &__image {
+            display: none;
+        }
+    }
+
+    .admin-product-form {
+        &__title {
+            max-width: 70%;
+            text-align: center;
+            font-size: 3.2rem;
+        }
+
+        &__button-wrapper {
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        &__submit-button,
+        &__reset-button {
+            width: 100%;
+        }
     }
 }
 </style>
