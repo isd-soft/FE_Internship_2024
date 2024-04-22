@@ -61,7 +61,7 @@ export const useContactStore = defineStore('contactStore', () => {
   const changeContactInformation = (info) => {
     console.log('Changing contact info ', info.value)
     contactInformation.value = info.value
-    adminNotificationStore.addNotification({ message: 'CONTACT INFORMATION CHANGED', type: 'info' })
+    adminNotificationStore.addNotification({ message: 'Contact information updated', type: 'info' })
   }
 
   return {

@@ -45,18 +45,29 @@ export const useProductStore = defineStore('product', () => {
   const addproductMap = (productArray) => {
     if (!productMap.value) productMap.value = new Map()
     for (let product of productArray) {
-      if (productMap.value.get(product.id)) adminNotificationStore.addNotification({message: `PRODUCT UPDATED:</br> ${product.code} \n`, type: 'info'})
-      else adminNotificationStore.addNotification({message: `PRODUCT ADDED:</br> ${product.code}`, type: 'success'})
+      if (productMap.value.get(product.id))
+        adminNotificationStore.addNotification({
+          message: `Product updated</br> Code:${product.code} \n`,
+          type: 'info'
+        })
+      else
+        adminNotificationStore.addNotification({
+          message: `Product added</br> Code:${product.code}`,
+          type: 'success'
+        })
       product.price = normalizePrice(product.price)
       product.discount = parseInt(product.discount)
       productMap.value.set(product.id, product)
     }
-    console.log('PRODUCT UPDATED: ', productMap.value)
+    console.log('Product updated: ', productMap.value)
   }
 
   const removeproductMap = (productId) => {
     console.log('Deleting product ', productId)
-    adminNotificationStore.addNotification({message: `PRODUCT DELETED:</br> ${productMap.value.get(productId).code} \n`, type: 'error'})
+    adminNotificationStore.addNotification({
+      message: `Product deleted</br> Code: ${productMap.value.get(productId).code} \n`,
+      type: 'error'
+    })
     productMap.value.delete(productId)
   }
   // Those functions are to be used by Admin:
