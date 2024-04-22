@@ -4,6 +4,8 @@ import { VueFinalModal, useVfm } from 'vue-final-modal'
 import LoginModal from '../authentication/LoginModal.vue'
 import { useModal } from 'vue-final-modal'
 import { useCartStore } from '@/stores/cartStore'
+import GenericToast from '../generics/GenericToast.vue'
+import { ref } from 'vue'
 import Counter from './Counter.vue'
 import StarRating from './StarRating.vue'
 import ClosingIcon from '../../assets/icons/CrossIcon.svg'
@@ -13,28 +15,33 @@ const { open: openLoginModal } = useModal({
   component: LoginModal
 })
 
+const addCardToggle = ref(false)
 const user = useUserStore()
 const cart = useCartStore()
 const reviews = () => Math.floor(Math.random() * 20)
 
 const isAuthenticated = () => {
-  if (!user.isAuthenticated()) openLoginModal()
-  else {
+  if (!user.isAuthenticated()) {
+    openLoginModal()
+  } else {
     cart.addProduct({
-    id: props.id,
-    imageUrl: props.imageUrl,
-    name: props.name,
-    code: props.code,
-    description: props.description,
-    price: props.price,
-    stock: props.stock,
-    rating: props.rating,
-    discount: props.discount,
-    isNew: props.isNew,
-    createdAt: props.createdAt,
-    updatedAt: props.updatedAt
+      id: props.id,
+      imageUrl: props.imageUrl,
+      name: props.name,
+      code: props.code,
+      description: props.description,
+      price: props.price,
+      stock: props.stock,
+      rating: props.rating,
+      discount: props.discount,
+      isNew: props.isNew,
+      createdAt: props.createdAt,
+      updatedAt: props.updatedAt
     })
-    close()
+    addCardToggle.value = true
+    setTimeout(() => {
+      close()
+    }, 100)
   }
 }
 
@@ -88,6 +95,7 @@ const close = () => {
     content-transition="vfm-fade"
     @clickOutside="emit('close')"
   >
+    <GenericToast v-if="addCardToggle" message="Product added to cart" type="success" />
     <img :src="imageUrl" class="product-modal__photo" alt="Product Image" />
     <ClosingIcon class="product-modal__cross" @click="close()" />
     <div class="product-modal__detail">
