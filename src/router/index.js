@@ -26,12 +26,12 @@ const router = createRouter({
     {
       path: '/',
       name: 'default',
-      redirect: {path: '/home'},
+      // redirect: {path: '/home'},
       component: DefaultView,
       // meta: { requiresAdmin: true },
       children:[
         {
-          path: 'home',
+          path: '',
           name: 'home',
           component: HomeView
         },

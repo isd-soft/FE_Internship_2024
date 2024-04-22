@@ -7,7 +7,7 @@ import { useRoute } from 'vue-router'
 const route = useRoute()
 
 const linkList = [
-  { href: 'home', textContent: 'Home', containerClass: 'navigation__link' },
+  { href: '/', textContent: 'Home', containerClass: 'navigation__link' },
   { href: 'shop', textContent: 'Shop', containerClass: 'navigation__link' },
   { href: 'contact', textContent: 'Contact', containerClass: 'navigation__link' }
 ]
