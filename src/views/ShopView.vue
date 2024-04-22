@@ -143,7 +143,7 @@ const goFirstPage = () => currentPage.value = 1
         display: grid;
         grid-template-columns: repeat(5, minmax(0, 1fr));
         grid-template-rows: auto;
-        gap: 4rem;
+        gap: 3rem;
         padding: 2rem 10rem;
         margin-bottom: 3rem;
     }
