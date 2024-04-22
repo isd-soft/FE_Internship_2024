@@ -1,11 +1,15 @@
 <script setup>
 import { ref, watch } from 'vue'
-import ToggleButton from './ToggleButton.vue';
 
 const props = defineProps({
     pageNumber: Number,
     currentPage: Number,
     buttonNumber: Number,
+    scrollToTop: {
+        type: Boolean,
+        default: true,
+        required: false
+    },
     goToPage: Function,
     goToLastPage: Function,
     goToFirstPage: Function
@@ -59,7 +63,7 @@ const showLastButton = () => {
     return currentPage.value < pageNumber.value - distance ? '' : '--disabled'
 }
 
-const scrollToTop = () => {
+const scroll = () => {
     setTimeout(() => {
         window.scrollTo({
             top: 0,
@@ -70,17 +74,17 @@ const scrollToTop = () => {
 
 const goToPage = (number) => {
     props.goToPage(number)
-    scrollToTop()
+    props.scrollToTop && scroll()
 }
 
 const goToLastPage = () => {
     props.goToLastPage()
-    scrollToTop()
+    props.scrollToTop && scroll()
 }
 
 const goToFirstPage = () => {
     props.goToFirstPage()
-    scrollToTop()
+    props.scrollToTop && scroll()
 }
 
 </script>
@@ -106,6 +110,7 @@ const goToFirstPage = () => {
     display: flex;
     justify-content: center;
     align-items: center;
+    min-height: 5rem;
     gap: 2.5rem;
 
     &__button {
@@ -116,6 +121,8 @@ const goToFirstPage = () => {
         height: 4.5rem;
         font-size: 1.6rem;
         padding: 0 1.5rem;
+        transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, min-width 0.3s ease-in-out,
+            height 0.3s ease-in-out;
 
         &:hover {
             background-color: var(--color-uc-gold);

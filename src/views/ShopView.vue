@@ -19,8 +19,6 @@ const productList = computed(() => {
 
 const currentPage = ref(1)
 
-const paginationRef = ref(null)
-
 const productOnPage = () => {
 
     if (width.value < 768) {
@@ -48,25 +46,16 @@ const pageList = (pageNumber) => {
     return productList.value.slice(lowerBound, upperBound)
 }
 
-const scrollToPagination = () => {
-    setTimeout(() => {
-        paginationRef.value.scrollIntoView({ behavior: 'instant', block: 'center' })
-    }, 0)
-}
-
 const goToPage = (number) => {
     currentPage.value = number
-    // scrollToPagination()
 }
 
 const goLastPage = () => {
     currentPage.value = pageNumber()
-    // scrollToPagination()
 }
 
 const goFirstPage = () => {
     currentPage.value = 1
-    // scrollToPagination()
 }
 </script>
 
@@ -80,7 +69,7 @@ const goFirstPage = () => {
             </template>
         </GenericList>
         <FirstLastPagination :pageNumber="pageNumber()" :buttonNumber="width > 575 ? 5 : 3" :currentPage="currentPage"
-            :goToPage="goToPage" :goToFirstPage="goFirstPage" :goToLastPage="goLastPage" ref="paginationRef" />
+            :goToPage="goToPage" :goToFirstPage="goFirstPage" :goToLastPage="goLastPage" />
     </section>
     <AdvantageSection />
 </template>
