@@ -40,7 +40,7 @@ const helpLinkList = [
 
 const route=useRoute();
 const itsHome=ref(false)
-if(route.path == '/home'){
+if(route.path == '/'){
     itsHome.value=true
 }
 onBeforeRouteUpdate((to)=>{

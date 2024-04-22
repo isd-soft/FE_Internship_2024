@@ -9,7 +9,7 @@ import GenericLink from '../generics/GenericLink.vue'
   <aside class="aside">
     <SidebarLogo />
     <SidebarNavigation />
-    <GenericLink href="/home" containerClass="aside__button">
+    <GenericLink href="/" containerClass="aside__button">
       <div class="aside__logout-svg-wrapper">
         <LogoutIcon />
       </div>

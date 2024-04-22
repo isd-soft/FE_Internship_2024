@@ -69,10 +69,10 @@ export const useUserStore = defineStore(
   {
     persist: {
       afterRestore: (ctx) => {
-        // setTimeout(() => {
-        const cart = useCartStore()
-        cart.getCart()
-        // }, 1000)
+        setTimeout(() => {
+          const cart = useCartStore()
+          cart.getCart()
+        }, 1000)
       }
     }
   }

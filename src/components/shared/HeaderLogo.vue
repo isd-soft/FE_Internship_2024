@@ -8,7 +8,7 @@ const props = defineProps({
 </script>
 
 <template>
-    <GenericLink href="/home" :class="['header__logo', { 'header__logo--shrink': shrink }]" textContent="Furniro">
+    <GenericLink href="/" :class="['header__logo', { 'header__logo--shrink': shrink }]" textContent="Furniro">
         <img src="/logo_image.png" :class="['header__logo-image', { 'header__logo-image--shrink': shrink }]" alt="logo">
     </GenericLink>
 </template>
