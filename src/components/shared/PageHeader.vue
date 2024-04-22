@@ -143,9 +143,9 @@ const { open: openLoginModal } = useModal({
         <GenericLink href="/cart" containerClass="header__link">
           <CartIcon class="header__link-item" />
         </GenericLink>
-        <GenericLink containerClass="header__link" @click="changeUserMenuToggle()">
+        <button containerClass="header__link" @click="changeUserMenuToggle()">
           <UserIcon class="header__link-item" v-show="isMenuVisible" />
-        </GenericLink>
+        </button>
       </div>
       <button
         class="header__login-button text-sm"
@@ -193,6 +193,8 @@ const { open: openLoginModal } = useModal({
   &__link-wrapper {
     display: flex;
     align-items: center;
+    justify-content: space-evenly;
+    width: 160px;
     column-gap: 24px;
   }
 
@@ -302,12 +304,36 @@ const { open: openLoginModal } = useModal({
   }
 }
 
+.router-link-exact-active{
+  fill: var(--color-uc-gold)
+}
+
 @media (max-width: 575px) {
   .header {
     &__navigation-collapse {
       width: 100%;
       left: 0;
+      bottom: -100%;
+      transform: translateY(100%)
     }
+
+    @keyframes expandMenu {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0%);
+    }
+  }
+
+  @keyframes collapseMenu {
+    from {
+      transform: translateY(0%);
+    }
+    to {
+      transform: translateY(100%);
+    }
+  }
   }
 }
 
