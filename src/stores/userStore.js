@@ -72,7 +72,7 @@ export const useUserStore = defineStore(
         // setTimeout(() => {
         const cart = useCartStore()
         cart.getCart()
-        // }, 100)
+        // }, 1000)
       }
     }
   }
