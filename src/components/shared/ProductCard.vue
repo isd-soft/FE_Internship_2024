@@ -182,6 +182,8 @@ const { open: OpenProductModal } = useModal({
     display: flex;
     flex-direction: column;
     row-gap: 0.8rem;
+    height: 100%;
+    max-height: 40%;
     padding: 16px;
     background-color: var(--color-cultured);
   }
@@ -279,9 +281,13 @@ const { open: OpenProductModal } = useModal({
 }
 
 @media only screen and (max-width: 575px) {
+  .product-card:hover {
+    transform: none;
+  }
+
   .product-card__cart-button {
     width: 48px;
     height: 48px;
-  } 
+  }
 }
 </style>

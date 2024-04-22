@@ -4,8 +4,10 @@ import { getUrlFromString } from '../../utils/getUrlFromString.js'
 import GenericList from '../generics/GenericList.vue'
 import { useWindowSize } from '@vueuse/core'
 import { Swiper, SwiperSlide } from 'swiper/vue'
+import { Pagination } from 'swiper/modules'
+
 import 'swiper/css'
-import 'swiper/css/effect-cards'
+import 'swiper/css/pagination'
 
 const { width } = useWindowSize();
 
@@ -35,7 +37,7 @@ const categoryList = [
       </p>
 
       <Swiper v-if="width < 576" class="category-section__slider" :grab-cursor="true" :slides-per-group="1"
-        :slides-per-view="1" loop>
+        :slides-per-view="1" loop :pagination="{ clickable: true }" :modules="[Pagination]">
         <SwiperSlide v-for="(category, index) in categoryList" :key="index">
           <CategoryCard v-bind="category" />
         </SwiperSlide>
@@ -91,6 +93,45 @@ const categoryList = [
 
   &__slider {
     width: 100%;
+  }
+}
+</style>
+
+<style lang="scss">
+.category-section__slider {
+  .swiper-pagination {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    margin-top: 32px;
+
+    .swiper-pagination-bullet {
+      width: 1.1rem;
+      height: 1.1rem;
+      background-color: var(--color-light-silver);
+      opacity: 1;
+      margin: 0;
+    }
+
+    .swiper-pagination-bullet-active {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 2.6rem;
+      height: 2.6rem;
+      background-color: transparent;
+      border: 1px solid var(--color-uc-gold);
+
+      &::after {
+        content: '';
+        width: 1.1rem;
+        height: 1.1rem;
+        background-color: var(--color-uc-gold);
+        border-radius: 50%;
+      }
+    }
   }
 }
 </style>
