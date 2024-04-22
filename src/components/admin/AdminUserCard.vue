@@ -51,8 +51,9 @@ const checkRole = (item, role) => item.roles.find(i => i.role === role) ? true :
             {{ splitDate(user.createdAt)[0] }}
         </div>
         <div class="admin-user__role">
-            ADMIN:
-            <ToggleButton :state="checkRole(user, 'ADMIN')" @click="updateRole(user)" class="admin-user__role-toggle" />
+            <label class="admin-user__role-toggle-label" for="admin-user-toggle">ADMIN:</label>
+            <ToggleButton :state="checkRole(user, 'ADMIN')" @click="updateRole(user)" class="admin-user__role-toggle"
+                id="admin-user-toggle" />
         </div>
         <div class="admin-user__delete" @click="deleteUser(user.id)">
             <TrashIcon />
