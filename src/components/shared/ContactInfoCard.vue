@@ -41,11 +41,13 @@ defineProps({
         margin-right: 12px;
     }
     &__title{
-        margin:0;
+        margin-bottom: 10px;
         font-weight: 500;
     }
+    &__about-wrapper{
+        margin-bottom: 5px;
+    }
     &__about{
-        margin: 0;
         font-weight: 300;
         text-decoration: none;
         color: var(--color-black);
@@ -57,11 +59,15 @@ defineProps({
 @media only screen and (max-width: 768px) {
     .info-card{
         &__title{
-            font-size: 4.8rem;
-        }
-        &__about{
-            font-size: 2rem;
+            font-size: 3.6rem;
         }
     }
 }
+@media only screen and (max-width: 424px) {
+    .info-card{
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
 </style>
