@@ -8,7 +8,7 @@ import { useWindowSize } from '@vueuse/core';
 import { computed } from 'vue'
 import { useProductStore } from '@/stores/productStore.js'
 
-const { width } = useWindowSize();
+const { width } = useWindowSize()
 
 const productStore = useProductStore()
 
@@ -16,7 +16,9 @@ const productList = computed(() => {
     return Array.from(productStore.productMap.values())
 })
 
-const currentPage = ref(1);
+const currentPage = ref(1)
+
+const paginationRef = ref(null)
 
 const productOnPage = () => {
 
@@ -81,10 +83,19 @@ const pageList = (pageNumber) => {
     return productList.value.slice(lowerBound, upperBound)
 }
 
-const goToPage = (number) => currentPage.value = number;
+const scrollToPagination = () => {
+    setTimeout(() => {
+        paginationRef.value.scrollIntoView({ behavior: 'instant', block: 'center' })
+    }, 0)
+}
+
+const goToPage = (number) => {
+    currentPage.value = number
+    scrollToPagination()
+}
 
 const pageActive = (number) => {
-    return currentPage.value === number ? '--active' : '';
+    return currentPage.value === number ? '--active' : ''
 }
 
 const firstPageState = () => {
@@ -111,9 +122,15 @@ const lastPageState = () => {
     return '--disabled'
 }
 
-const goLastPage = () => currentPage.value = pageNumber()
+const goLastPage = () => {
+    currentPage.value = pageNumber()
+    scrollToPagination()
+}
 
-const goFirstPage = () => currentPage.value = 1
+const goFirstPage = () => {
+    currentPage.value = 1
+    scrollToPagination()
+}
 </script>
 
 <template>
@@ -125,7 +142,7 @@ const goFirstPage = () => currentPage.value = 1
                 <ProductCard v-bind="item" />
             </template>
         </GenericList>
-        <div class="shop-section__button-wrapper">
+        <div class="shop-section__button-wrapper" ref="paginationRef">
             <button :class="['shop-section__button', 'shop-section__button' + firstPageState()]"
                 @click="goFirstPage()">First</button>
             <button :class="['shop-section__button', 'shop-section__button' + pageActive(number)]"
