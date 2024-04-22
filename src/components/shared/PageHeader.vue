@@ -39,7 +39,12 @@ const handleScroll = () => {
 const changeUserMenuToggle = () => (userMenuToggle.value = !userMenuToggle.value)
 
 const onDocumentClick = (e) => {
-  if (userMenuRef.value && userMenuRef.value.$el && !userMenuRef.value.$el.contains(e.target) && userMenuToggle.value) {
+  if (
+    userMenuRef.value &&
+    userMenuRef.value.$el &&
+    !userMenuRef.value.$el.contains(e.target) &&
+    userMenuToggle.value
+  ) {
     userMenuToggle.value = false
   }
 }
@@ -122,37 +127,42 @@ const { open: openLoginModal } = useModal({
     ref="headerRef"
     class="header"
   >
+    <HeaderAdaptiveNavigation
+      :class="{
+        'header__navigation-collapse': true,
+        'menu-open': menuState.menuState === 'open',
+        'menu-closed': menuState.menuState === 'closed',
+        'menu-active': menuState.menuState === 'open'
+      }"
+      v-if="!isMenuIconVisible"
+    />
     <div class="header__container container">
-      <HeaderLogo />
+      <HeaderLogo :shrink="state.shrinkHeader" />
       <HeaderNavigation v-show="isMenuVisible" />
       <div class="header__link-wrapper" v-show="isMenuVisible" v-if="user.isAuthenticated()">
         <GenericLink href="/cart" containerClass="header__link">
           <CartIcon class="header__link-item" />
         </GenericLink>
-          <GenericLink containerClass="header__link" @click = "changeUserMenuToggle()">
-          <UserIcon class="header__link-item" v-show="isMenuVisible"/>
+        <GenericLink containerClass="header__link" @click="changeUserMenuToggle()">
+          <UserIcon class="header__link-item" v-show="isMenuVisible" />
         </GenericLink>
       </div>
-      <span
-        class="header__login-button text-md"
+      <button
+        class="header__login-button text-sm"
         v-show="isMenuVisible"
         v-else
         @click="openLoginModal"
-        >Login</span
       >
-      <UserMenu v-show="userMenuToggle" ref="userMenuRef" class = "header__user-options-menu"/>
+        Login
+      </button>
+      <UserMenu v-show="userMenuToggle" ref="userMenuRef" class="header__user-options-menu" />
       <div class="header__overlay" v-if="!isMenuIconVisible" @click="toggleMenu" />
-      <HeaderAdaptiveNavigation
-        :class="{
-          'header__navigation-collapse': true,
-          'menu-open': menuState.menuState === 'open',
-          'menu-closed': menuState.menuState === 'closed',
-          'menu-active': menuState.menuState === 'open'
-        }"
-        v-if="!isMenuIconVisible"
-      />
-      <MenuIcon v-if="isMenuIconVisible" class="header__container-toggle" @click="toggleMenu" />
-      <CrossIcon v-else class="header__container-toggle" @click="toggleMenu" />
+      <button v-if="isMenuIconVisible" class="header__container-toggle" @click="toggleMenu">
+        <MenuIcon />
+      </button>
+      <button v-else class="header__container-toggle" @click="toggleMenu">
+        <CrossIcon />
+      </button>
     </div>
   </header>
 </template>
@@ -165,6 +175,7 @@ const { open: openLoginModal } = useModal({
   width: 100%;
   z-index: 999;
   &__container {
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -191,13 +202,17 @@ const { open: openLoginModal } = useModal({
 
   &__link-item {
     width: auto;
-    height: 2.47rem;
+    height: 24px;
+    transition: fill 0.25s ease-in-out;
+
+    &:hover {
+      fill: var(--color-uc-gold);
+    }
   }
 
-  &__user-options-menu{
+  &__user-options-menu {
     position: absolute;
-    top:100px;
-    right: 1.1%;
+    top: 100px;
   }
 
   &__container-toggle {
@@ -206,8 +221,12 @@ const { open: openLoginModal } = useModal({
 
   &__login-button {
     display: block;
-    font-weight: 500;
     cursor: pointer;
+    transition: color 0.25s ease-in-out;
+
+    &:hover {
+      color: var(--color-uc-gold);
+    }
   }
 }
 
