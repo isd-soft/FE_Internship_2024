@@ -54,8 +54,8 @@ const checkRole = (item, role) => item.roles.find(i => i.role === role) ? true :
             ADMIN:
             <ToggleButton :state="checkRole(user, 'ADMIN')" @click="updateRole(user)" class="admin-user__role-toggle" />
         </div>
-        <div class="admin-user__delete">
-            <TrashIcon @click="deleteUser(id)" />
+        <div class="admin-user__delete" @click="deleteUser(user.id)">
+            <TrashIcon />
         </div>
         <div class="admin-user__edit">
             <EditIcon @click="toggleModal()" />

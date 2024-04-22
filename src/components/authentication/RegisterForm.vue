@@ -2,6 +2,7 @@
 import { useForm } from 'vee-validate'
 import * as yup from 'yup'
 import { useUserStore } from '../../stores/userStore'
+import GenericLink from '../generics/GenericLink.vue'
 
 const schema = yup.object({
   firstName: yup.string().required('This is a required field'),
@@ -141,19 +142,21 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
     <button class="text-sm primary-button register-form__submit-button" @click="onSubmit">
       Sign Up
     </button>
-    <p class="text-xs register-container__toggle-button" @click="$emit('changeModal')">
-      Already have an account? Log In!
-    </p>
+    <span class="text-xs register-container__toggle-button" @click="$emit('changeModal')">
+      <p class="register-container__toggle-text">Already have an account?</p>
+      <GenericLink class="register-container__toggle-link">Log In!</GenericLink>
+    </span>
   </div>
 </template>
 
 <style lang="scss" scoped>
 .register-container {
-  // padding: 5rem 6rem 4rem 6rem;
-  padding: 50px 60px 40px 60px;
   display: flex;
   flex-direction: column;
-  
+  justify-content: center;
+  align-items: center;
+  padding: 10px 60px 40px 60px;
+  display: flex;
 
   &__title {
     color: var(--color-uc-gold);
@@ -171,13 +174,27 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
     background: none;
     width: 100%;
     font-size: 12px;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+  }
+
+  &__toggle-text {
+    font-size: 12px;
+    margin-right: 3px;
+  }
+
+  &__toggle-link {
+    font-size: 12px;
     text-decoration: underline transparent;
     transition: 0.2s ease-out;
+    color: var(--color-black);
 
     &:hover {
       cursor: pointer;
       text-decoration: underline black;
+    }
+    &:active {
+      color: var(--color-black);
     }
   }
 }
@@ -186,20 +203,21 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
   display: grid;
   grid-template-rows: repeat(3, 3fr 1fr);
   grid-auto-flow: column;
-  grid-column-gap: 30px;
+  grid-column-gap: 16px;
 
   &__input {
     border: 1px solid var(--color-quick-silver);
     border-radius: 10px;
-    padding: 15px 12px;
-    font-size: 16px;
+    padding: 12px 12px;
+    font-size: 14px;
     margin-bottom: 2px;
     ::placeholder {
       color: var(--color-quick-silver);
     }
 
     &--error {
-      outline: 2px solid var(--color-candy-pink);
+      border: 1px solid var(--color-candy-pink);
+      outline: 1px solid var(--color-candy-pink);
     }
   }
 
@@ -216,10 +234,9 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
 
   &__error {
     color: var(--color-candy-pink);
-    font-size: 12px;
-    margin-bottom: 1px;
+    font-size: 10px;
     padding-left: 4px;
-    height: 12px;
+    height: 16px;
   }
 }
 
@@ -252,9 +269,6 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
   @media only screen and (max-width: 575px) {
     .register-container {
       padding: 0 5rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
       height: calc(100% - 80px);
       align-items: center;
     }
