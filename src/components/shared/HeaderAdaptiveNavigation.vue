@@ -9,10 +9,16 @@ import { computed } from 'vue'
 import { useModal } from 'vue-final-modal'
 import { toggleMenu } from '@/utils/toggleMenu'
 import LoginModal from '../authentication/LoginModal.vue'
+import { useCartStore } from '@/stores/cartStore.js'
 
 const user = useUserStore()
 const route = useRoute()
 const router = useRouter()
+const cartStore = useCartStore()
+
+const cartItemNumber = computed(() => {
+    return Array.from(cartStore.productMap).length
+})
 
 const { open: openLoginModal} = useModal({ component: LoginModal , attrs:{onClosed(){
   toggleMenu()
@@ -76,6 +82,7 @@ const isActive = (href) => computed(() => route.path === href)
     </GenericList>
     <div class="navigation__icon-wrapper">
       <GenericLink containerClass="navigation__link" @click="handleCartClick">
+        <span class="navigation__cart-quantity text-xs" v-if="cartItemNumber > 0">{{ cartItemNumber }} </span>
         <CartIcon class="navigation__link-icon" />
       </GenericLink>
       <GenericLink containerClass="navigation__link" @click="handleProfileClick">
@@ -100,6 +107,9 @@ const isActive = (href) => computed(() => route.path === href)
     display: flex;
     justify-content: space-between;
   }
+  &__link{
+    position: relative;
+  }
 
   &__link-icon {
     width: 35px;
@@ -113,6 +123,19 @@ const isActive = (href) => computed(() => route.path === href)
     &:active {
       fill: var(--color-black);
     }
+  }
+  &__cart-quantity{
+    position: absolute;
+    display: flex;
+    color: var(--color-white);
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-uc-gold);
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    right: -10px;
+    top: -6px;
   }
 }
 .navigation__list {
