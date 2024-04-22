@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/valid-template-root -->
 <script setup>
 import { onMounted } from 'vue'
 import { useToast } from 'vue-toast-notification'
@@ -5,7 +6,7 @@ import 'vue-toast-notification/dist/theme-default.css'
 
 function createToast(duration, message, position, type) {
   const $toast = useToast()
-  let instance = $toast.open({
+  $toast.open({
     message: message,
     duration: duration,
     position: "bottom-right",
@@ -20,7 +21,7 @@ onMounted(() => {
 const props = defineProps({
   duration: {
     type: Number,
-    default: 10000
+    default: 3000
   },
   message: {
     type: String,
@@ -34,13 +35,17 @@ const props = defineProps({
 })
 </script>
 
+<template>
+  
+</template>
+
 <style lang="scss">
 .v-toast {
   &__item {
-    min-height: 80px;
-    min-width: 294px;
+    min-height: 60px;
+    min-width: 190px;
     font-family: 'Poppins', sans-serif;
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     font-weight: 500;
     justify-content: center;
 

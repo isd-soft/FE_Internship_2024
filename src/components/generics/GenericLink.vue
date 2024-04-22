@@ -2,56 +2,36 @@
 const props = defineProps({
   textContent: {
     type: String,
-    default: '',
+    default: ''
   },
   href: {
     type: String,
-    default: '#',
+    default: '#'
   },
   containerClass: {
     type: String,
-    default: '',
+    default: ''
   },
   textFirst: {
     type: Boolean,
-    default: false,
+    default: false
   },
-});
+  textClass: {
+    type: String,
+    default: ''
+  }
+})
 </script>
 
 <template>
-  <a :href="props.href" :class="props.containerClass" @click = "$router.push(props.href)">
+  <RouterLink :to="props.href" :class="props.containerClass" @click="$router.push(props.href)">
     <template v-if="props.textFirst">
-      {{ props.textContent }}
+      <span :class="textClass">{{ props.textContent }}</span>
       <slot></slot>
     </template>
     <template v-else>
       <slot></slot>
-      {{ props.textContent }}
+      <span :class="textClass">{{ props.textContent }}</span>
     </template>
-  </a>
+  </RouterLink>
 </template>
-
-<style lang="scss" scoped>
-  a{
-    text-decoration: none;
-    color: black;
-  }
-</style>
-
-<!-- use define props instead of export default
-
-Text-content
-children
-href
-container
-text-first
-text-class
-базовая конфигурация для линка
-
-GenericList
-tag = ol/ul/div
-is_vertical flag
-class
-items
-базовая конфигурация для списков -->

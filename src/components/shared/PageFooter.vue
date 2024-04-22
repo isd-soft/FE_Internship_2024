@@ -1,6 +1,8 @@
 <script setup>
 import GenericLink from '@/components/generics/GenericLink.vue'
 import GenericList from '@/components/generics/GenericList.vue'
+import { useRoute, onBeforeRouteUpdate } from 'vue-router';
+import { ref } from 'vue';
 const linkList = [
   {
     href: '/',
@@ -35,10 +37,25 @@ const helpLinkList = [
     containerClass: 'footer__link text-sm '
   }
 ]
+
+const route=useRoute();
+const itsHome=ref(false)
+if(route.path == '/home'){
+    itsHome.value=true
+}
+onBeforeRouteUpdate((to)=>{
+  if(to.name=="home"){
+    itsHome.value=true
+  }
+  else{
+    itsHome.value=false
+  }
+})
+
 </script>
 
 <template>
-  <footer class="footer">
+  <footer class="footer" :class="{active:itsHome}">
     <div class="footer__container container">
       <div class="footer__top-line">
         <div class="footer__adress-wrapper">
@@ -73,7 +90,7 @@ const helpLinkList = [
           <h3 class="footer__list-title text-sm">Newsletter</h3>
 
           <form class="footer__form text-sm" action="submit">
-            <input class="footer__input text-sm" type="text" placeholder="Enter your Email Address" />
+            <input class="footer__input text-xs" type="text" placeholder="Enter your Email Address" />
 
             <button class="footer__button text-sm" type="submit">SUBSCRIBE</button>
           </form>
@@ -88,48 +105,29 @@ const helpLinkList = [
 </template>
 
 <style lang="scss" scoped>
-.footer {
+.active{
   border-top: 1px solid var(--color-quick-silver);
+}
+.footer {
+  padding: 3.8rem 10rem;
+
   &__container {
     display: flex;
     flex-direction: column;
-    width: calc(100% - 140px);
-    margin: 0 auto;
-  }
-  @media screen and (max-width: 768px){
-    &__container{
-      margin: 5%;
-      width: 100%;
-    } 
   }
   
 
   &__top-line {
-    width: 80%;
     display: flex;
     justify-content: space-between;
-    padding: 38px 0 48px 0;
+    padding-bottom: 5rem;
+    border-bottom: 1px solid var(--color-quick-silver);
   }
-  @media screen and (max-width: 768px)  {
-      &__top-line {
-        width: 100%;
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        row-gap: 40px;
-      }
-    }
 
   &__adress-wrapper{
     display: flex;
     flex-direction: column;
     row-gap: 50px;
-  }
-  @media  screen and (max-width: 768px) {
-    &__adress-wrapper{
-      grid-column: 1 / span 2;
-      row-gap: 25px;
-    }
-    
   }
 
   &__adress-title {
@@ -140,33 +138,17 @@ const helpLinkList = [
   &__adress{
     color: var(--color-quick-silver);
   }
-
-  &__navigation{
-    display: flex;
-    flex-direction: column;
-    gap: 55px;
-  }
-  @media screen and (max-width: 768px){
-    &__navigation{
-      gap: 25px
-    }
-  }
   
   &__list-title {
     font-weight: 500;
     color: var(--color-quick-silver);
+    margin-bottom: 5.5rem;
   }
 
   &__list{
     display: flex;
     flex-direction: column;
-    gap: 44px;
-  }
-  @media screen and (max-width: 768px) {
-    &__list{
-      gap: 22px;
-    }
-    
+    gap: 5rem;
   }
 
   &__link {
@@ -177,30 +159,11 @@ const helpLinkList = [
   &__news-wrapper{
     display: flex;
     flex-direction: column;
-    gap: 51px;
-  }
-  @media screen and (max-width: 768px) {
-    &__news-wrapper{
-      gap: 25px;
-      grid-column: 1 / span 2;
-    }
-    
-  }
-
-  &__list-title{
-    color: var(--color-quick-silver);
+    gap: 5rem;
   }
   &__form{
     display: flex;
-    gap: 11px;
-  }
-  
-  @media screen and (max-width: 768px) {
-    &__form{
-      //align-items: center;
-      flex-direction: column;
-    }
-    
+    gap: 1rem;
   }
 
   &__input{
@@ -208,13 +171,9 @@ const helpLinkList = [
     border-bottom: 1px solid var(--color-black); 
     &:focus{
       border-bottom: 1px solid var(--color-black); 
-      }
-  }
-  @media screen and (max-width: 768px){
-    &__input{
-      width: 25rem;
     }
   }
+
   &__button{
     border: none; 
     border-bottom: 1px solid var(--color-black);
@@ -223,19 +182,57 @@ const helpLinkList = [
     font-weight: 500;
     cursor: pointer;
   }
-  @media screen and (max-width: 768px){
-    &__button{
-      width: 13rem;
-    }
-  }
+
   &__bottom-line{
-    padding: 35px 0 38px 0;
-    border-top: 1px solid var(--color-quick-silver);
+    margin-top: 3.5rem;
   }
 
   &__copyright {
     color: var(--color-black);
   }
-  
+}
+
+@media screen and (max-width: 991px) {
+  .footer {
+    padding: 20px 40px;
+
+    &__top-line {
+      display: grid;
+      grid-template-columns: 50% 50%;
+      row-gap: 20px;
+    }
+
+    &__adress-wrapper {
+      grid-column: 1 / span 2;
+      display: grid;
+      grid-template-columns: inherit;
+      justify-content: space-between;
+      padding-bottom: 20px;
+    }
+
+    &__navigation {
+      padding-bottom: 20px;
+    }
+
+    &__news-wrapper {
+      gap: 0;
+    }
+    &__list{
+    gap: 3.5rem;
+    }
+    &__list-title {
+    margin-bottom: 3.5rem;
+    }
+  }
+}
+
+@media only screen and (max-width: 475px) {
+  .footer {
+    padding: 20px;
+    &__adress-wrapper{
+    display: flex;
+    row-gap: 25px;
+  }
+  }
 }
 </style>

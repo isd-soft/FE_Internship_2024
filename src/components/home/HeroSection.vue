@@ -1,24 +1,22 @@
-<script setup>
-
-</script>
+<script setup></script>
 
 <template>
   <section class="main__section section hero-section">
-      <div class="hero-section__wrapper">
-        <span class="text-sm hero-section__label">New Arrival</span>
-        <h1 class="text-5xl hero-section__title">Discover Our 
-          <br>
-          New Collection</h1>
-        <p class="text-sm hero-section__description">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec
-          ullamcorper mattis.
-        </p>
-        <button class="text-sm hero-section__button" @click="$router.push('shop')">BUY NOW</button>
-      </div>
+    <div class="hero-section__wrapper">
+      <span class="text-sm hero-section__label">New Arrival</span>
+      <h1 class="text-5xl hero-section__title">
+        Discover Our
+        <br />
+        New Collection
+      </h1>
+      <p class="text-sm hero-section__description">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec
+        ullamcorper mattis.
+      </p>
+      <button class="text-sm primary-button hero-section__button" @click="$router.push('shop')">BUY NOW</button>
+    </div>
   </section>
 </template>
-
-
 
 <style lang="scss" scoped>
 .hero-section {
@@ -26,7 +24,7 @@
   background-size: cover;
   background-position: center bottom;
   background-repeat: no-repeat;
-  height: calc(100vh - 100px);
+  min-height: calc(100vh - 100px);
   display: flex;
   justify-content: end;
   align-items: end;
@@ -34,7 +32,7 @@
 
   &__wrapper {
     background-color: var(--color-old-lace);
-    padding: 40px;
+    padding: 60px 40px 40px 40px;
     border-radius: 10px;
     width: 50%;
   }
@@ -56,17 +54,17 @@
   }
 
   &__button {
-    background-color: var(--color-uc-gold);
-    border: 1px solid var(--color-uc-gold);
-    color: var(--color-white);
-    font-weight: 700;
+  //   background-color: var(--color-uc-gold);
+  //   border: 1px solid var(--color-uc-gold);
+  //   color: var(--color-white);
+  //   font-weight: 700;
     padding: 2.5rem 7.2rem;
 
-    &:hover{
-      color: var(--color-uc-gold);
-      background-color: var(--color-white) ;
-      cursor: pointer;
-    }
+  //   &:hover {
+  //     color: var(--color-uc-gold);
+  //     background-color: var(--color-white);
+  //     cursor: pointer;
+  //   }
   }
 }
 
@@ -75,14 +73,22 @@
     padding: 40px;
     justify-content: center;
     align-items: center;
-  
+
     &__wrapper {
       width: 100%;
+      padding: 40px;
     }
 
-    &__title, &__description, &__button, &__label {
+    &__title,
+    &__description,
+    &__button,
+    &__label {
       display: block;
       text-align: center;
+    }
+
+    &__title{
+      font-size: 4.5rem;
     }
 
     &__description {
@@ -114,6 +120,7 @@
 
     &__title {
       margin-bottom: 24px;
+      font-size: 3.6rem;
     }
 
     &__button {
@@ -121,6 +128,4 @@
     }
   }
 }
-
 </style>
-

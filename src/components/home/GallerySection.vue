@@ -13,36 +13,34 @@ const urls = mozaicImagesUrls
 </script>
 
 <template>
-    <section v-if="width > 375" class="main__section section gallery-section">
+    <section v-if="width > 576" class="main__section section gallery-section">
         <div class="gallery-section__container container">
             <div class="gallery-section__text-wrapper">
                 <span class="text-md gallery-section__overline">Share your setup with</span>
                 <h2 class="text-3xl gallery-section__title">#FurniroFurniture</h2>
             </div>
-            <div class="gallery-section__image-wrapper" v-for="(url, index) in urls" :key="index" :style="{backgroundImage: `url(${getUrlFromString(url.url)})`}"></div>
+            <div class="gallery-section__image-wrapper" v-for="(url, index) in urls" :key="index"
+                :style="{ backgroundImage: `url(${getUrlFromString(url.url)})` }"></div>
         </div>
     </section>
     <section v-else class="main_section section gallery-section-mobile">
         <div class="gallery-section-mobile__text-wrapper">
-                <span class="text-md gallery-section-mobile__overline">Share your setup with</span>
-                <h2 class="text-3xl gallery-section-mobile__title">#FurniroFurniture</h2>
+            <span class="text-md gallery-section-mobile__overline">Share your setup with</span>
+            <h2 class="text-3xl gallery-section-mobile__title">#FurniroFurniture</h2>
         </div>
-        <swiper 
-        class="gallery-section-mobile__container container"
-        :effect="'cards'"
-        :modules="[EffectCards]"
-        :grab-cursor="true"
-        >
-            <swiper-slide v-for="(url, index) in urls" :key="index" :style="{backgroundImage: `url(${getUrlFromString(url.url)})`}" class="gallery-section-mobile__image-wrapper">
+        <swiper class="gallery-section-mobile__container container" :effect="'cards'" :modules="[EffectCards]"
+            :grab-cursor="true" :pagination="{ clickable: true }">
+            <swiper-slide v-for="(url, index) in urls" :key="index"
+                :style="{ backgroundImage: `url(${getUrlFromString(url.url)})` }"
+                class="gallery-section-mobile__image-wrapper">
             </swiper-slide>
-            <div class="swiper-pagination" slot="pagination"></div>
         </swiper>
     </section>
 </template>
 
 <style lang="scss" scoped>
 .gallery-section {
-    height: calc(100vh - 120px);
+    height: calc(100vh - 100px);
     width: 100%;
     overflow-x: hidden;
     display: flex;
@@ -51,7 +49,7 @@ const urls = mozaicImagesUrls
     &__container {
         flex: 0 0 auto;
         /* width: 1800px; */
-        width: 120%;
+        width: clamp(130vh, 120%, 120%);
         height: 100%;
         display: grid;
         grid-template-columns: repeat(12, 1fr);
@@ -128,9 +126,19 @@ const urls = mozaicImagesUrls
     }
 }
 
+@media only screen and (max-width: 768px) {
+    .gallery-section {
+        height: 60vh;
+
+        &__container {
+            width: 120vh
+        }
+    }
+}
+
 .gallery-section-mobile {
     width: 100%;
-    height: 100vh;
+    height: calc((100vh - 50px) * 0.75);
     padding: 20px;
     gap: 20px;
     display: flex;
@@ -145,7 +153,7 @@ const urls = mozaicImagesUrls
     &__image-wrapper {
         background-size: cover;
         background-position: center;
-        border-radius: 20px;
+        border-radius: 10px;
     }
 
     &__text-wrapper {

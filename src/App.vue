@@ -1,21 +1,30 @@
 <script setup>
-import PageHeader from './components/shared/PageHeader.vue'
-import PageFooter from './components/shared/PageFooter.vue'
 import {ModalsContainer} from 'vue-final-modal'
+import { socket , bindEvents} from "@/socket";
+import {useProductStore} from '@/stores/productStore.js'
+import { useContactStore } from "@/stores/contactStore";
+
+const productStore = useProductStore()
+const contactStore = useContactStore()
+contactStore.fetchContactInformation()
+productStore.initStore()
+socket.off()
+socket.connect()
+
+bindEvents()
+socket.emit('test');
+
+// window.scrollTo(0, 1)
+//Hot reload preparations
 
 </script>
 
-<!-- TEMPORARY RENDER IN THE APP COMPONENT. -->
-
-<!-- TODO: SET THE COMPONENTS IN THE CORESPONDING VIEWS. APPLY THE ROUTER IN THE APP COMPONENT AFTER THAT. -->
 
 <template>
   <div>
-    <PageHeader />
-    <RouterView />
-    <PageFooter />
     <ModalsContainer />
-  </div> 
+    <RouterView />
+  </div>
 </template>
 
 <style lang="scss"></style>
