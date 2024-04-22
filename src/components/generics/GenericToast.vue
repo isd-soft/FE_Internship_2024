@@ -45,7 +45,7 @@ const props = defineProps({
     min-height: 60px;
     min-width: 190px;
     font-family: 'Poppins', sans-serif;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     font-weight: 500;
     justify-content: center;
 

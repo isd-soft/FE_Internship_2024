@@ -1,10 +1,13 @@
 <script setup>
 import TrashIcon from '../../assets/icons/TrashIcon.svg'
 import { useCartStore } from '@/stores/cartStore'
+import { useProductStore } from '@/stores/productStore'
 import GenericToast from '../generics/GenericToast.vue'
 import { ref, computed } from 'vue'
 
 const cartStore = useCartStore()
+const productStore = useProductStore()
+
 const props = defineProps({
   id: String,
   imageUrl: String,
@@ -17,7 +20,7 @@ const quantityChangeSuccessFlag = ref(false)
 const toastFlag = ref(false)
 
 const toastType = computed(() => {
-  return quantityChangeSuccessFlag.value ? 'info' : 'warning'
+  return quantityChangeSuccessFlag.value ? 'info' : 'error'
 })
 const toastMessage = computed(() => {
   return quantityChangeSuccessFlag.value ? 'Product quantity changed' : 'Could not add product'
@@ -84,7 +87,11 @@ const handleProductDelete = () => cartStore.deleteProduct(props.id)
     <span class="cart-card__price text-sm"> ${{ price }} </span>
 
     <div class="cart-card__counter counter">
-      <button class="counter__button-action text-sm" @click="changeQuantity(quantity - 1)">
+      <button
+        class="counter__button-action text-sm"
+        :disabled="quantity <= 0"
+        @click="changeQuantity(quantity - 1)"
+      >
         -
       </button>
       <input
@@ -93,7 +100,11 @@ const handleProductDelete = () => cartStore.deleteProduct(props.id)
         class="cart-card__quantity text-xs"
         :value="quantity"
       />
-      <button class="counter__button-action text-sm" @click="changeQuantity(quantity + 1)">
+      <button
+        :disabled="!productStore.isAvailable(props.id, quantity + 1)"
+        class="counter__button-action text-sm"
+        @click="changeQuantity(quantity + 1)"
+      >
         +
       </button>
     </div>
@@ -167,6 +178,12 @@ const handleProductDelete = () => cartStore.deleteProduct(props.id)
   justify-content: space-evenly;
   margin: 0 auto;
   width: 100%;
+
+  &__button-action{
+    &:disabled{
+      visibility: hidden ;
+    }
+  }
 }
 
 @media only screen and (max-width: 768px) {

@@ -2,9 +2,9 @@
 import AdminSidebar from '@/components/admin/AdminSidebar.vue';
 import { useAdminUserStore } from "../stores/adminUserStore.js";
 
-const adminStore = useAdminUserStore()
-adminStore.getUsers()
-adminStore.getUserRole()
+const adminUserStore = useAdminUserStore()
+adminUserStore.getUsers()
+adminUserStore.getUserRole()
 
 </script>
 
