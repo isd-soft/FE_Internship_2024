@@ -69,7 +69,7 @@ const checkRole = (item, role) => item.roles.find(i => i.role === role) ? true :
     grid-template-columns: repeat(4, minmax(0, 1fr)) 12.5rem 12.5rem 5rem;
     border: 1px solid var(--color-uc-gold);
     border-radius: 10px;
-    padding: 0.5rem;
+    padding: 1rem;
     height: auto;
     min-height: 60px;
     align-items: center;

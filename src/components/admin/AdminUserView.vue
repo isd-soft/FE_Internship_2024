@@ -67,12 +67,12 @@ const handleRoleUpdate = (item) => {
 
     &__table-header {
         min-height: 60px;
-        height: auto;
+        height: 6rem;
         display: grid;
         grid-template-columns: repeat(4, minmax(0, 1fr)) 12.5rem 17.5rem;
         background-color: var(--color-linen);
         align-items: center;
-        padding: 0.5rem 1rem;
+        padding: 1rem;
     }
 
     &__list {
