@@ -4,11 +4,15 @@ import GenericList from '../generics/GenericList.vue'
 import CartCard from './CartCard.vue'
 import { useCartStore } from '@/stores/cartStore';
 import { computed } from 'vue';
+import { useProductStore } from '@/stores/productStore';
 
 const cartStore = useCartStore()
+const productStore = useProductStore()
 
 const cartItemList = computed(() => {
-    return Array.from(cartStore.productMap.values())
+    cartStore.clean()
+    const fullCart = Array.from(cartStore.productMap.values())
+    return fullCart.filter((product) => productStore.productExists(product.id))
 })
 
 // const mockCartData = [

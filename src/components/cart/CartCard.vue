@@ -4,6 +4,7 @@ import { useCartStore } from '@/stores/cartStore'
 import { useProductStore } from '@/stores/productStore'
 import GenericToast from '../generics/GenericToast.vue'
 import { ref, computed } from 'vue'
+import ProductCard from '../shared/ProductCard.vue'
 
 const cartStore = useCartStore()
 const productStore = useProductStore()
@@ -71,7 +72,7 @@ const handleProductDelete = () => cartStore.deleteProduct(props.id)
 </script>
 
 <template>
-  <div class="cart-list__card cart-card">
+  <div v-if="productStore.loader" class="cart-list__card cart-card">
     <GenericToast
       v-if="toastFlag && !quantityChangeSuccessFlag"
       :message="toastMessage"
