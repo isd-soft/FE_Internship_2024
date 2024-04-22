@@ -40,42 +40,6 @@ const productOnPage = () => {
 
 const pageNumber = () => Math.ceil(productList.value.length / productOnPage());
 
-const getButtonNumberList = () => {
-    let value = currentPage.value - 2
-
-    if (currentPage.value < 3) {
-        value = 1
-    }
-
-    if (currentPage.value > pageNumber() - 2) {
-        value = pageNumber() - 4
-    }
-
-    if (pageNumber() < 5) {
-        return Array.from({ length: pageNumber() }, (_, index) => index + 1)
-    }
-
-    if (width.value < 575) {
-        let value = currentPage.value - 1
-
-        if (currentPage.value < 2) {
-            value = 1
-        }
-
-        if (currentPage.value > pageNumber() - 1) {
-            value = pageNumber() - 2
-        }
-
-        if (pageNumber() < 3) {
-            return Array.from({ length: pageNumber() }, (_, index) => index + 1)
-        }
-
-        return Array.from({ length: 3 }, (_, index) => value + index)
-    }
-
-    return Array.from({ length: 5 }, (_, index) => value + index)
-}
-
 const pageList = (pageNumber) => {
     const lowerBound = productOnPage() * (pageNumber - 1)
 
@@ -92,45 +56,17 @@ const scrollToPagination = () => {
 
 const goToPage = (number) => {
     currentPage.value = number
-    scrollToPagination()
-}
-
-const pageActive = (number) => {
-    return currentPage.value === number ? '--active' : ''
-}
-
-const firstPageState = () => {
-    if (currentPage.value > 3) {
-        return ''
-    }
-
-    if (width.value < 575 && currentPage.value > 2) {
-        return ''
-    }
-
-    return '--disabled'
-}
-
-const lastPageState = () => {
-    if (currentPage.value < pageNumber() - 2) {
-        return ''
-    }
-
-    if (width.value < 575 && currentPage.value < pageNumber() - 1) {
-        return ''
-    }
-
-    return '--disabled'
+    // scrollToPagination()
 }
 
 const goLastPage = () => {
     currentPage.value = pageNumber()
-    scrollToPagination()
+    // scrollToPagination()
 }
 
 const goFirstPage = () => {
     currentPage.value = 1
-    scrollToPagination()
+    // scrollToPagination()
 }
 </script>
 
@@ -143,15 +79,8 @@ const goFirstPage = () => {
                 <ProductCard v-bind="item" />
             </template>
         </GenericList>
-        <div class="shop-section__button-wrapper" ref="paginationRef">
-            <button :class="['shop-section__button', 'shop-section__button' + firstPageState()]"
-                @click="goFirstPage()">First</button>
-            <button :class="['shop-section__button', 'shop-section__button' + pageActive(number)]"
-                v-for="number in getButtonNumberList()" :key="number" @click="goToPage(number)">{{ number }}</button>
-            <button :class="['shop-section__button', 'shop-section__button' + lastPageState()]"
-                @click="goLastPage()">Last</button>
-        </div>
-        <FirstLastPagination :pageNumber="pageNumber()" :buttonNumber="5" :currentPage="currentPage" />
+        <FirstLastPagination :pageNumber="pageNumber()" :buttonNumber="width > 575 ? 5 : 3" :currentPage="currentPage"
+            :goToPage="goToPage" :goToFirstPage="goFirstPage" :goToLastPage="goLastPage" ref="paginationRef" />
     </section>
     <AdvantageSection />
 </template>
@@ -161,7 +90,7 @@ const goFirstPage = () => {
     &__list {
         display: grid;
         grid-template-columns: repeat(5, minmax(0, 1fr));
-        grid-template-rows: auto;
+        grid-auto-rows: minmax(0, 1fr);
         gap: 3rem;
         padding: 2rem 10rem;
         margin-bottom: 3rem;

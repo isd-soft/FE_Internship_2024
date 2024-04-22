@@ -1,5 +1,6 @@
 <script setup>
 import { ref, watch } from 'vue'
+import ToggleButton from './ToggleButton.vue';
 
 const props = defineProps({
     pageNumber: Number,
@@ -7,8 +8,10 @@ const props = defineProps({
     buttonNumber: Number,
     goToPage: Function,
     goToLastPage: Function,
-    goToFirstPage: Function,
+    goToFirstPage: Function
 })
+
+const selfRef = ref(null)
 
 const currentPage = ref(props.currentPage)
 
@@ -28,14 +31,9 @@ watch(() => props.buttonNumber, () => {
     buttonNumber.value = props.buttonNumber
 })
 
-const { goToPage, goToLastPage, goToFirstPage } = props
-
-const pageActive = (number) => {
-    return currentPage.value === number ? '--active' : '';
-}
+const distance = Math.floor(buttonNumber.value / 2)
 
 const getButtonNumberList = () => {
-    const distance = Math.floor(buttonNumber.value / 2)
     let value = currentPage.value - distance
 
     if (currentPage.value < distance + 1) {
@@ -46,38 +44,65 @@ const getButtonNumberList = () => {
         value = pageNumber.value - buttonNumber.value + 1
     }
 
-    console.log('pageNumber', pageNumber.value)
-    console.log('buttonNumber', buttonNumber.value)
-    console.log('currentPage', currentPage.value)
-    console.log('distance', distance)
-    console.log('value', value)
-
     return Array.from({ length: props.buttonNumber }, (_, index) => value + index)
 }
 
 const isActive = (number) => {
-    console.log('isActive', currentPage.value, currentPage.value === number)
     return currentPage.value === number ? '--active' : '';
+}
+
+const showFirstButton = () => {
+    return currentPage.value > distance + 1 ? '' : '--disabled'
+}
+
+const showLastButton = () => {
+    return currentPage.value < pageNumber.value - distance ? '' : '--disabled'
+}
+
+const scrollToTop = () => {
+    setTimeout(() => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        })
+    }, 0)
+}
+
+const goToPage = (number) => {
+    props.goToPage(number)
+    scrollToTop()
+}
+
+const goToLastPage = () => {
+    props.goToLastPage()
+    scrollToTop()
+}
+
+const goToFirstPage = () => {
+    props.goToFirstPage()
+    scrollToTop()
 }
 
 </script>
 
 <template>
-    <div class="first-last-pagination">
-        <button class="first-last-pagination__button">First</button>
+    <div class="first-last-pagination" ref="selfRef">
+        <button :class="['first-last-pagination__button', 'first-last-pagination__button' + showFirstButton()]"
+            @click="goToFirstPage()">First</button>
         <div class="first-last-pagination__button-wrapper">
             <button v-for="number in getButtonNumberList()" :key="number"
-                :class="['first-last-pagination__button', 'first-last-pagination__button' + isActive(number)]">{{
-                number
-            }}</button>
+                :class="['first-last-pagination__button', 'first-last-pagination__button' + isActive(number)]"
+                @click="goToPage(number)">
+                {{ number }}
+            </button>
         </div>
-        <button class="first-last-pagination__button">Last</button>
+        <button :class="['first-last-pagination__button', 'first-last-pagination__button' + showLastButton()]"
+            @click="goToLastPage()">Last</button>
     </div>
 </template>
 
 <style lang="scss" scoped>
 .first-last-pagination {
-    border: 1px solid deeppink;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -107,6 +132,10 @@ const isActive = (number) => {
             color: var(--color-white);
             min-width: 5rem;
             height: 5rem;
+        }
+
+        &--disabled {
+            visibility: hidden;
         }
     }
 
