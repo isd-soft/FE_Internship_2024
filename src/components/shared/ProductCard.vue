@@ -204,13 +204,10 @@ const { open: OpenProductModal } = useModal({
   }
 
   &__bottom-wrapper {
-    margin-top: 100%;
     display: flex;
     align-items: flex-end;
     flex-wrap: wrap;
-    gap: 10px;
     margin-top: auto;
-
   }
 
   &__price-wrapper {
@@ -234,8 +231,8 @@ const { open: OpenProductModal } = useModal({
   }
 
   &__cart-button {
-    width: 24px;
-    height: 24px;
+    width: 36px;
+    height: 36px;
     padding: 0.2rem;
     padding-bottom: 0;
     margin-left: auto;
@@ -246,7 +243,7 @@ const { open: OpenProductModal } = useModal({
     }
 
     &:hover {
-      transform: scale(2);
+      transform: scale(1.10);
     }
 
     &--disabled {
