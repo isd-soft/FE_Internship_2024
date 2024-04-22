@@ -219,6 +219,7 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
     padding: 12px 12px;
     font-size: 14px;
     margin-bottom: 2px;
+    min-width: 260px;
     ::placeholder {
       color: var(--color-quick-silver);
     }
