@@ -27,9 +27,8 @@ const user = useUserStore()
 const cartStore = useCartStore()
 
 const cartItemNumber = computed(() => {
-    return Array.from(cartStore.productMap).length
+  return Array.from(cartStore.productMap).length
 })
-
 
 const state = reactive({
   shrinkHeader: false
@@ -43,17 +42,10 @@ const handleScroll = () => {
   state.shrinkHeader = window.scrollY > scrollTriggerHeight.value
 }
 
-const changeUserMenuToggle = () => (userMenuToggle.value = !userMenuToggle.value)
-
-const onDocumentClick = (e) => {
-  if (
-    userMenuRef.value &&
-    userMenuRef.value.$el &&
-    !userMenuRef.value.$el.contains(e.target) &&
-    userMenuToggle.value
-  ) {
-    userMenuToggle.value = false
-  }
+const changeUserMenuToggle = () => {
+  console.log('Before toggle:', userMenuToggle.value);
+  userMenuToggle.value = !userMenuToggle.value;
+  console.log('After toggle:', userMenuToggle.value);
 }
 
 const updateOverlayPosition = () => {
@@ -86,7 +78,7 @@ const updateFollowingBlockPadding = () => {
 }
 
 onMounted(() => {
-  window.addEventListener('click', onDocumentClick, true)
+  // window.addEventListener('click', onDocumentClick, true)
   window.addEventListener('resize', updateMediaFlag)
   window.addEventListener('resize', updateFollowingBlockPadding)
   window.addEventListener('resize', updateOverlayPosition)
@@ -108,7 +100,7 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
-  window.removeEventListener('click', onDocumentClick, true)
+  // window.removeEventListener('click', onDocumentClick, true)
   window.removeEventListener('resize', updateMediaFlag)
   window.removeEventListener('resize', updateFollowingBlockPadding)
   window.removeEventListener('resize', updateOverlayPosition)
@@ -126,9 +118,6 @@ const { open: openLoginModal } = useModal({
 </script>
 
 <template>
-  <div>
-
-  </div>
   <header
     :class="[
       'header',
@@ -151,7 +140,9 @@ const { open: openLoginModal } = useModal({
       <HeaderNavigation v-show="isMenuVisible" />
       <div class="header__link-wrapper" v-show="isMenuVisible" v-if="user.isAuthenticated()">
         <GenericLink href="/cart" containerClass="header__link">
-          <span class="header__cart-quantity text-xs" v-if="cartItemNumber > 0">{{ cartItemNumber }} </span>
+          <span class="header__cart-quantity text-xs" v-if="cartItemNumber > 0"
+            >{{ cartItemNumber }}
+          </span>
           <CartIcon class="header__link-item" />
         </GenericLink>
         <button containerClass="header__link" @click="changeUserMenuToggle()">
@@ -166,7 +157,7 @@ const { open: openLoginModal } = useModal({
       >
         Login
       </button>
-      <UserMenu v-show="userMenuToggle" ref="userMenuRef" class="header__user-options-menu" />
+      <UserMenu v-show="userMenuToggle" ref="userMenuRef" :class="['header__user-options-menu', { 'header__user-options-menu--shrink': state.shrinkHeader }]" @logout = "changeUserMenuToggle" />
       <div class="header__overlay" v-if="!isMenuIconVisible" @click="toggleMenu" />
       <button v-if="isMenuIconVisible" class="header__container-toggle" @click="toggleMenu">
         <MenuIcon />
@@ -227,6 +218,13 @@ const { open: openLoginModal } = useModal({
   &__user-options-menu {
     position: absolute;
     top: 100px;
+    right: 0%;
+    transition:top 0.25s ease-in-out;
+
+    &--shrink{
+      top: 50px;
+    }
+
   }
 
   &__container-toggle {
@@ -237,12 +235,14 @@ const { open: openLoginModal } = useModal({
     display: block;
     cursor: pointer;
     transition: color 0.25s ease-in-out;
+    font-size: 16px;
+    width: 160px;
 
     &:hover {
       color: var(--color-uc-gold);
     }
   }
-  &__cart-quantity{
+  &__cart-quantity {
     position: absolute;
     display: flex;
     color: var(--color-white);
@@ -329,8 +329,8 @@ const { open: openLoginModal } = useModal({
   }
 }
 
-.router-link-exact-active{
-  fill: var(--color-uc-gold)
+.router-link-exact-active {
+  fill: var(--color-uc-gold);
 }
 
 @media (max-width: 575px) {
@@ -339,26 +339,26 @@ const { open: openLoginModal } = useModal({
       width: 100%;
       left: 0;
       bottom: -100%;
-      transform: translateY(100%)
+      transform: translateY(100%);
     }
 
     @keyframes expandMenu {
-    from {
-      transform: translateY(100%);
+      from {
+        transform: translateY(100%);
+      }
+      to {
+        transform: translateY(0%);
+      }
     }
-    to {
-      transform: translateY(0%);
-    }
-  }
 
-  @keyframes collapseMenu {
-    from {
-      transform: translateY(0%);
+    @keyframes collapseMenu {
+      from {
+        transform: translateY(0%);
+      }
+      to {
+        transform: translateY(100%);
+      }
     }
-    to {
-      transform: translateY(100%);
-    }
-  }
   }
 }
 

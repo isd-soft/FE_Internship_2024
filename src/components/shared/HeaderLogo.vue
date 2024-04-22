@@ -20,6 +20,7 @@ const props = defineProps({
     font-size: 36px;
     column-gap: 5px;
     font-weight: 700;
+    width: 188px;
     transition: font-size 0.25s linear;
     color: var(--color-black);
 
@@ -30,6 +31,7 @@ const props = defineProps({
 .header__logo-image{
     height: 50px;
     width: 50px;
+    transition: height 0.25s ease-in-out, width 0.25s ease-in-out;
 
     &--shrink{
         height: 40px;
