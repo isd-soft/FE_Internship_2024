@@ -70,6 +70,7 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
       <input
         class="text-sm register-form__input"
         :class="{ 'register-form__input--error': errors.email }"
+        style="grid-column: 1 /1"
         v-model="email"
         v-bind="emailAttributeList"
         name="email"
@@ -77,35 +78,12 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
         placeholder="Email"
         @focus="$emit('inputStart')"
       />
-      <span class="register-form__error">{{ errors.email }}</span>
-
-      <input
-        class="text-sm register-form__input"
-        :class="{ 'register-form__input--error': errors.firstName }"
-        v-model="firstName"
-        v-bind="firstNameAttributeList"
-        name="firstName"
-        type="text"
-        placeholder="First Name"
-        @focus="$emit('inputStart')"
-      />
-      <span class="register-form__error">{{ errors.firstName }}</span>
-
-      <input
-        class="text-sm register-form__input"
-        :class="{ 'register-form__input--error': errors.password }"
-        v-model="password"
-        v-bind="passwordAttributeList"
-        name="password"
-        type="password"
-        placeholder="Password"
-        @focus="$emit('inputStart')"
-      />
-      <span class="register-form__error">{{ errors.password }}</span>
+      <span class="register-form__error" style="grid-column: 1 /1">{{ errors.email }}</span>
 
       <input
         class="text-sm register-form__input"
         :class="{ 'register-form__input--error': errors.username }"
+        style="grid-column: 2 / 2"
         v-model="username"
         v-bind="usernameAttributeList"
         name="username"
@@ -113,11 +91,25 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
         placeholder="Username"
         @focus="$emit('inputStart')"
       />
-      <span class="register-form__error">{{ errors.username }}</span>
+      <span class="register-form__error" style="grid-column: 2 /2">{{ errors.username }}</span>
+
+      <input
+        class="text-sm register-form__input"
+        :class="{ 'register-form__input--error': errors.firstName }"
+        v-model="firstName"
+        v-bind="firstNameAttributeList"
+        style="grid-column: 1 /1"
+        name="firstName"
+        type="text"
+        placeholder="First Name"
+        @focus="$emit('inputStart')"
+      />
+      <span style="grid-column: 1 /1" class="register-form__error">{{ errors.firstName }}</span>
 
       <input
         class="text-sm register-form__input"
         :class="{ 'register-form__input--error': errors.lastName }"
+        style="grid-column: 2 / 2"
         v-model="lastName"
         v-bind="lastNameAttributeList"
         name="lastName"
@@ -125,11 +117,25 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
         placeholder="Last Name"
         @focus="$emit('inputStart')"
       />
-      <span class="register-form__error">{{ errors.lastName }}</span>
+      <span class="register-form__error" style="grid-column: 2 /2">{{ errors.lastName }}</span>
+
+      <input
+        class="text-sm register-form__input"
+        :class="{ 'register-form__input--error': errors.password }"
+        style="grid-column: 1 / 1"
+        v-model="password"
+        v-bind="passwordAttributeList"
+        name="password"
+        type="password"
+        placeholder="Password"
+        @focus="$emit('inputStart')"
+      />
+      <span style="grid-column: 1 /1" class="register-form__error">{{ errors.password }}</span>
 
       <input
         class="text-sm register-form__input"
         :class="{ 'register-form__input--error': errors.confirmPassword }"
+        style="grid-column: 2 / 2"
         v-model="confirmPassword"
         v-bind="confirmPasswordAttributeList"
         name="confirmPassword"
@@ -137,7 +143,9 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
         placeholder="Confirm Password"
         @focus="$emit('inputStart')"
       />
-      <span class="register-form__error">{{ errors.confirmPassword }}</span>
+      <span style="grid-column: 2 /2" class="register-form__error">{{
+        errors.confirmPassword
+      }}</span>
     </form>
     <button class="text-sm primary-button register-form__submit-button" @click="onSubmit">
       Sign Up
