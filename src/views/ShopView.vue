@@ -3,6 +3,7 @@ import BannerSection from '@/components/shared/BannerSection.vue';
 import AdvantageSection from '@/components/shared/AdvantageSection.vue';
 import GenericList from '@/components/generics/GenericList.vue';
 import ProductCard from '@/components/shared/ProductCard.vue';
+import FirstLastPagination from '@/components/shared/FirstLastPagination.vue';
 import { ref } from 'vue';
 import { useWindowSize } from '@vueuse/core';
 import { computed } from 'vue'
@@ -150,6 +151,7 @@ const goFirstPage = () => {
             <button :class="['shop-section__button', 'shop-section__button' + lastPageState()]"
                 @click="goLastPage()">Last</button>
         </div>
+        <FirstLastPagination :pageNumber="pageNumber()" :buttonNumber="5" :currentPage="currentPage" />
     </section>
     <AdvantageSection />
 </template>
