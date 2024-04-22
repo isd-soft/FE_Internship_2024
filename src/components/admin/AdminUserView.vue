@@ -34,17 +34,15 @@ const handleRoleUpdate = (item) => {
 
 <template>
     <section class="main__section section admin-user-section">
-        <h1 class="text-5xl admin-user-section__title">Users</h1>
+        <h1 class="text-xl admin-user-section__title">Users</h1>
 
         <div class="text-sm admin-user-section__table-header">
+            <span class="admin-user-section__username">Username</span>
             <span class="admin-user-section__first-name">First Name</span>
             <span class="admin-user-section__last-name">Last Name</span>
-            <span class="admin-user-section__username">Username</span>
             <span class="admin-user-section__email">Email</span>
             <span class="admin-user-section__created-at">Created at</span>
-            <span class="admin-user-section__updated-at">Last updated</span>
-            <span class="admin-user-section__role">Admin role</span>
-            <span class="admin-user-section__delete"></span>
+            <span class="admin-user-section__role">Actions</span>
         </div>
         <ul class="text-xs admin-user-section__list">
             <li v-for="item in users" :key="item.id" class="admin-user-section__list-item">
@@ -57,7 +55,7 @@ const handleRoleUpdate = (item) => {
 
 <style lang="scss" scoped>
 .admin-user-section {
-    padding: 5rem 10rem 5rem 13rem;
+    padding: 1.5rem 3rem 3rem 13rem;
     display: flex;
     flex-direction: column;
     row-gap: 2.5rem;
@@ -68,12 +66,13 @@ const handleRoleUpdate = (item) => {
     }
 
     &__table-header {
-        height: 5rem;
+        min-height: 60px;
+        height: 6rem;
         display: grid;
-        grid-template-columns: repeat(7, minmax(0, 1fr)) 5rem;
+        grid-template-columns: repeat(4, minmax(0, 1fr)) 12.5rem 17.5rem;
         background-color: var(--color-linen);
         align-items: center;
-        padding: 0 2rem;
+        padding: 1rem;
     }
 
     &__list {
@@ -89,10 +88,9 @@ const handleRoleUpdate = (item) => {
 
 @media only screen and (max-width: 991px) {
     .admin-user-section {
-        padding: 60px 40px 60px 13rem;
 
         &__table-header {
-            grid-template-columns: repeat(4, minmax(0, 1fr)) 5rem;
+            grid-template-columns: repeat(2, minmax(0, 1fr)) 75px 125px;
         }
 
         &__first-name,
@@ -105,10 +103,9 @@ const handleRoleUpdate = (item) => {
 
 @media only screen and (max-width: 575px) {
     .admin-user-section {
-        padding: 40px 20px 40px calc(10rem);
 
         &__table-header {
-            grid-template-columns: repeat(2, minmax(0, 1fr)) 5rem;
+            grid-template-columns: repeat(2, minmax(0, 1fr)) 50px;
         }
 
         &__created-at,
