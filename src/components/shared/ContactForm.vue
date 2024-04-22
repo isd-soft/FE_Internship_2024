@@ -88,7 +88,6 @@ const emit = defineEmits(['success', 'failure', 'inputStart'])
                     v-bind="subjectAttributeList"
                     name="subject"
                     @focus="$emit('inputStart')"/>
-                <span class="form-wrapper__error text-xs">{{ errors.subject }}</span>
             </div>
             
         </div>
@@ -125,32 +124,31 @@ const emit = defineEmits(['success', 'failure', 'inputStart'])
     &__field{
         display: flex;
         flex-direction: column;
-        gap: 1.4rem;
+        gap: 0.5rem;
         grid-column: 1 / 1;
         position: relative;
     }
     &__textarea-wrapper{
         display: flex;
         flex-direction: column;
-        gap: 1.4rem;
-        grid-column: 2 / 2;
+        gap: 0.5rem;        
+        grid-column: 2 / 2;        
         grid-row: 1 / span 2;
-        position: relative;
     }
-    &__textarea-field{
+    &__textarea-field{        
         display: flex;
         flex-direction: column;
-        gap: 1.2rem;
         height: 100%;
     }
     &__label{
         font-weight: 500;
     }
     &__input{
-        padding: 15px 35px;
+        padding: 12px 12px;
         border: 1px solid var(--color-quick-silver);
-        border-radius: .75rem;
+        border-radius: 10px;
         resize: none;
+        margin-bottom: 2px;
         height: 100%;
         &::placeholder {
             color: var(--color-quick-silver);
@@ -170,26 +168,13 @@ const emit = defineEmits(['success', 'failure', 'inputStart'])
     }
     &__error {
         color: var(--color-candy-pink);
-        position: absolute;
-        top: 5%;
-        right: 0;
+        font-size: 10px;
+        padding-left: 4px;
+        height: 16px;
         }
 }
 .errorfield{
     border: 1px solid var(--color-candy-pink);
 }
-@media only screen and (max-width: 991px) {
-    .form-wrapper{
-        &__label{
-            font-size: 2.4rem;
-        }
-        &__input{
-            padding: 15px;
-            font-size: 2.4rem;
-        }
-        &__error{
-            font-size:1.7rem
-        }
-    }
-}
+
 </style>

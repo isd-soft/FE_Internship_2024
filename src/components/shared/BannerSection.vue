@@ -73,7 +73,11 @@ defineProps({
         }
     }
 }
-
+@media screen and (max-width: 1024px){
+    .banner-section{
+        margin-bottom: 30px;
+    }
+}
 @media screen and (max-width: 768px) {
     .banner-section {
         &__container{

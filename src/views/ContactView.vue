@@ -53,7 +53,7 @@
                 <div class="contact__info-wrapper"> 
                     <ContactInfoCard  :icon="MapPointIcon" infoTitle="Address" :infoText="store.getFormatAddress" href="#" styles="pointer-events: none; cursor: default;"/>
                     <ContactInfoCard  :icon="PhoneIcon" infoTitle="Phone"   :infoText="store.getFormatPhones" href="tel:"/>
-                    <ContactInfoCard  :icon="EmailIcon" infoTitle="Emails" :infoText="store.contactInformation.email" href="mailto:"/>
+                    <ContactInfoCard  :icon="EmailIcon" infoTitle="Email" :infoText="store.contactInformation.email" href="mailto:"/>
                     <ContactInfoCard  :icon="ClockIcon" infoTitle="Working Time" :infoText="store.contactInformation.workTime" href="#" styles="pointer-events: none; cursor: default;"/>
                 </div>
                 <GenericToast v-if="submitFinished" :message="toastMessage" :type="toastType" />
@@ -65,6 +65,7 @@
             </div>
         </div>
         <iframe class="contact__map" :src="store.contactInformation.geoCoordinates"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <iframe class="contact__map"  src="https://www.google.com/maps/d/embed?mid=17jNyaHP10LzMJyfHbyTJ6QTy3aBAgbg&ehbc=2E312F&noprof=1" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         <AdvantageSection class="contact__advantage-section"/>
     </div>
     <div v-else class="loader">
@@ -78,7 +79,6 @@
         padding: 38px 191px 63px 191px;
         display: flex;
         flex-direction: column;
-        //align-items: center;
         gap: 7rem;
         }
         &__text-wrapper{
@@ -113,19 +113,21 @@
             width: 100%;
             height: 520px;
             filter: grayscale(40%);
+            margin-top: 50px;
             margin-bottom: -5px;
         }
     }
-    @media only screen and (max-width: 991px) {
+    @media screen and (max-width: 991px) {
+        .contact{
+            &__container{
+                padding: 4rem 15rem;
+            }
+        }
+    }
+    @media only screen and (max-width: 768px) {
         .contact{
             &__container{
                 padding: 4rem;
-            }
-            &__tagline{
-                font-size: 6rem;
-            }
-            &__recommendation{
-                font-size: 2.8rem;
             }
             &__section{
                 width: 100%;
