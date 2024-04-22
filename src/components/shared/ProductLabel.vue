@@ -18,9 +18,8 @@ const props = defineProps({
 
   <div v-else-if="props.type === 'new'" class="text-sm label label__new">New</div>
 
-  <div v-else class="text-sm label label__stock">
-    {{ props.value }}
-    <span class="label__specification">Available</span>
+  <div v-else-if="props.type === 'stock'" class="text-sm label label__stock">
+    <span class="label__specification">Out of<br />stock</span>
   </div>
 </template>
 
@@ -43,15 +42,15 @@ const props = defineProps({
   }
 
   &__new {
-    background-color: var(--color-blue-green);
+    background-color: var(--color-violet-blue);
   }
 
   &__discount {
-    background-color: var(--color-candy-pink);
+    background-color: var(--color-blue-green);
   }
 
   &__stock {
-    background-color: var(--color-granite-gray);
+    background-color: var(--color-candy-pink);
   }
 }
 
@@ -63,6 +62,7 @@ const props = defineProps({
 
     &__specification {
       font-size: clamp(6px, 1vw, 8px);
+      text-align: center;
     }
   }
 }

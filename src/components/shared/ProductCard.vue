@@ -16,13 +16,15 @@ const cartStore = useCartStore()
 
 const toastFlag = ref(false)
 
-const determineType = (p) => {
-  if (p.discount > 0) return 'discount'
-  else if (p.isNew) return 'new'
-  else return 'stock'
+const determineType = product => {
+  if (!product.stock) return 'stock'
+  if (product.isNew) return 'new'
+  if (product.discount) return 'discount'
 }
 
 const productType = computed(() => determineType(props))
+
+const stockFlag = computed(() => !props.stock)
 
 const props = defineProps({
   id: String,
@@ -56,7 +58,6 @@ const props = defineProps({
 })
 
 const convertPrice = value => '$' + value.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
-
 
 const addToCart = () => {
   cartStore.addProduct({
@@ -111,34 +112,34 @@ const { open: OpenProductModal } = useModal({
 
 <template>
   <div class="product-list-section__card product-card">
-    <GenericToast v-if="toastFlag" message="Product added to cart" type="info" />
-    <div class="product-card__image" :style="{ backgroundImage: `url(${imageUrl})` }" />
+    <GenericToast v-if="toastFlag" message="Product added to cart" type="success" />
+    <div :class="{ 'product-card__image--grayscale': stockFlag }" class="product-card__image"
+      :style="{ backgroundImage: `url(${imageUrl})` }" />
 
     <div class="product-card__overlay text-lg" @click="OpenProductModal">
-      <!-- <button class="product-card__button text-sm" @click="addProduct">Add to cart</button>
-      <button class="product-card__button text-sm" @click="OpenProductModal">Details</button> -->
       Click for Details
     </div>
 
     <div class="product-card__text-wrapper">
-      <h3 class="product-card__title text-lg">
+      <h3 class="product-card__title">
         {{ name }}
       </h3>
 
-      <span class="product-card__description text-sm">
+      <span class="product-card__code">
         {{ code }}
       </span>
 
       <div class="product-card__price-wrapper">
-        <span class="product-card__price text-md">
+        <span class="product-card__price">
           {{ convertPrice(price - price * discount / 100) }}
         </span>
 
-        <span class="product-card__old-price text-sm">
+        <span class="product-card__old-price">
           {{ convertPrice(price) }}
         </span>
 
-        <button class="product-card__cart-button" @click="addProduct">
+        <button :disabled="stockFlag" :class="{ 'product-card__cart-button--disabled': stockFlag }"
+          class="product-card__cart-button" @click="addProduct">
           <CartAddIcon />
         </button>
       </div>
@@ -168,6 +169,10 @@ const { open: OpenProductModal } = useModal({
     background-size: cover;
     background-position: center center;
 
+    &--grayscale {
+      filter: grayscale(1);
+    }
+
     &:hover+.product-card__overlay {
       display: flex;
     }
@@ -177,17 +182,19 @@ const { open: OpenProductModal } = useModal({
     display: flex;
     flex-direction: column;
     row-gap: 0.8rem;
-    padding: 1.6rem;
-    padding-bottom: 3rem;
+    padding: 16px;
     background-color: var(--color-cultured);
   }
 
   &__title {
+    font-size: 24px;
     font-weight: 600;
     color: var(--color-granite-gray);
+    text-transform: uppercase;
   }
 
-  &__description {
+  &__code {
+    font-size: 16px;
     font-weight: 500;
     color: var(--color-taupe-gray);
     margin-bottom: 1.6rem;
@@ -195,28 +202,53 @@ const { open: OpenProductModal } = useModal({
 
   &__price-wrapper {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     flex-wrap: wrap;
-    column-gap: 1.6rem;
+    gap: 10px;
     margin-top: auto;
 
   }
 
   &__price {
+    font-size: 20px;
     font-weight: 600;
     color: var(--color-dark-charcoal);
   }
 
   &__old-price {
+    font-size: 20px;
     font-weight: 400;
     text-decoration-line: line-through;
     color: var(--color-silver-foil);
   }
 
   &__cart-button {
-    width: 2.4rem;
-    height: 2.4rem;
-    margin-left: auto
+    width: 24px;
+    height: 24px;
+    padding: 0.2rem;
+    padding-bottom: 0;
+    margin-left: auto;
+    transition: transform 0.3s ease-in-out;
+
+    & svg {
+      fill: var(--color-uc-gold);
+    }
+
+    &:hover {
+      transform: scale(2);
+    }
+
+    &--disabled {
+      cursor: not-allowed;
+
+      &:hover {
+        transform: none;
+      }
+
+      & svg {
+        fill: var(--color-silver-foil);
+      }
+    }
   }
 
   &__overlay {
@@ -244,21 +276,12 @@ const { open: OpenProductModal } = useModal({
       opacity: 1;
     }
   }
-
-  &__button {
-    font-weight: 600;
-    line-height: 150%;
-    color: var(--color-uc-gold);
-    width: 70%;
-    padding: 12px 0;
-    background-color: var(--color-white);
-    opacity: 1;
-  }
 }
 
 @media only screen and (max-width: 575px) {
-  .product-card__text-wrapper {
-    align-items: center;
-  }
+  .product-card__cart-button {
+    width: 48px;
+    height: 48px;
+  } 
 }
 </style>
