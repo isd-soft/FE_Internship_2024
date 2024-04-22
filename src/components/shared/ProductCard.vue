@@ -129,15 +129,16 @@ const { open: OpenProductModal } = useModal({
         {{ code }}
       </span>
 
-      <div class="product-card__price-wrapper">
-        <span class="product-card__price">
-          {{ convertPrice(price - price * discount / 100) }}
-        </span>
+      <div class="product-card__bottom-wrapper">
+        <div class="product-card__price-wrapper">
+          <span class="product-card__price">
+            {{ convertPrice(price - price * discount / 100) }}
+          </span>
 
-        <span class="product-card__old-price">
-          {{ convertPrice(price) }}
-        </span>
-
+          <span class="product-card__old-price">
+            {{ convertPrice(price) }}
+          </span>
+        </div>
         <button :disabled="stockFlag" :class="{ 'product-card__cart-button--disabled': stockFlag }"
           class="product-card__cart-button" @click="addProduct">
           <CartAddIcon />
@@ -155,6 +156,7 @@ const { open: OpenProductModal } = useModal({
   display: flex;
   flex-direction: column;
   width: inherit;
+  min-height: 100%;
   height: 100%;
   transition: transform 0.3s ease-in-out;
 
@@ -179,11 +181,10 @@ const { open: OpenProductModal } = useModal({
   }
 
   &__text-wrapper {
+    height: 100%;
     display: flex;
     flex-direction: column;
     row-gap: 0.8rem;
-    height: 100%;
-    max-height: 40%;
     padding: 16px;
     background-color: var(--color-cultured);
   }
@@ -202,13 +203,21 @@ const { open: OpenProductModal } = useModal({
     margin-bottom: 1.6rem;
   }
 
-  &__price-wrapper {
+  &__bottom-wrapper {
+    margin-top: 100%;
     display: flex;
     align-items: flex-end;
     flex-wrap: wrap;
     gap: 10px;
     margin-top: auto;
 
+  }
+
+  &__price-wrapper {
+    width: calc(100% - 48px);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
   }
 
   &__price {
