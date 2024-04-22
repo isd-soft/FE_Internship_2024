@@ -65,7 +65,6 @@
             </div>
         </div>
         <iframe class="contact__map" :src="store.contactInformation.geoCoordinates"  style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        <iframe class="contact__map"  src="https://www.google.com/maps/d/embed?mid=17jNyaHP10LzMJyfHbyTJ6QTy3aBAgbg&ehbc=2E312F&noprof=1" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         <AdvantageSection class="contact__advantage-section"/>
     </div>
     <div v-else class="loader">
@@ -120,7 +119,7 @@
     @media screen and (max-width: 991px) {
         .contact{
             &__container{
-                padding: 4rem 15rem;
+                padding: 4rem 5rem;
             }
         }
     }

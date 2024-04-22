@@ -34,6 +34,7 @@ const onSubmit=()=>{
     .then((res) => {if(res){
         submitSuccess.value = true 
         submitFinished.value = true
+        edit.value=!edit.value
     }
     else{
         submitFinished.value = true
@@ -100,50 +101,71 @@ const toastMessage = computed(() => {
                     <div class="admin-contact__field">
                         <label for="Work time" class="admin-contact__label text-sm">Work Time</label>
                         <div class="admin-contact__time-wrapper">
-                            <span class="admin-contact__time-text text-sm">Monday-Friday:</span>
                             <div class="admin-contact__hours-wrapper">
                                 <input type="time" class="admin-contact__input text-sm" v-model="hourFriday1" :disabled="edit">
-                                <p class="text-4xl">-</p>
+                                <p class="text-2xl">-</p>
                                 <input type="time" class="admin-contact__input text-sm" v-model="hourFriday2" :disabled="edit">
                             </div>
+                            <span class="admin-contact__time-text text-sm">Monday-Friday</span>
                             
                         </div>
                         <div class="admin-contact__time-wrapper">
-                            <span class="admin-contact__time-text text-sm">Saturday-Sunday:</span>
                             
                             <div class="admin-contact__hours-wrapper">
                                 <input type="time" class="admin-contact__input text-sm" v-model="hourSaturday1" :disabled="edit">
-                                <p class="text-4xl">-</p>
+                                <p class="text-3xl">-</p>
                                 <input type="time" class="admin-contact__input text-sm" v-model="hourSaturday2" :disabled="edit">
                             </div>
-                            
+
+                            <span class="admin-contact__time-text text-sm">Saturday-Sunday</span>
                         </div>
                     </div>
                     
-                    <div class="admin-contact__field">
-                        <label for="Phones" class="admin-contact__label text-sm">Phone Numbers</label>
-                        <div class="admin-contact__field-svg">
-                            <input 
-                            type="tel" 
-                            id="phone" 
-                            name="phones"
-                            class="admin-contact__input-plus text-sm" 
-                            v-model="store.contactInformation.phoneNumber[0]"
-                            :disabled="edit"
-                        />
-                        <div  class="admin-contact__svg-wrapper" :style="edit?'pointer-events: none; background-color: var(--color-old-lace)':''">
-                            <Plus class="admin-contact__svg" @click="onPlusFieldtel"/>
-                        </div>
+                    <div class="admin-contact__field" v-if="store.contactInformation.phoneNumber.length == 1">
+                        <div class="admin-contact__label-wrapper">
+                            <label for="Phones" class="admin-contact__label text-sm">Phone Number</label>
+                            <button  type="button" class="admin-contact__svg-wrapper" :style="edit?'display: none':''" @click="onPlusFieldtel">
+                                <Plus class="admin-contact__svg" />
+                            </button>
                         </div>
                         <input 
-                            type="tel" 
-                            id="phone" 
-                            name="phones"
-                            class="admin-contact__input text-sm" 
-                            v-model="store.contactInformation.phoneNumber[1]"
-                            :disabled="edit"
-                            :style="plusFieldtel ? '' : 'display:none' "
+                        type="tel" 
+                        id="phone" 
+                        name="phones"
+                        class="admin-contact__input text-sm" 
+                        v-model="store.contactInformation.phoneNumber[0]"
+                        :disabled="edit"
+                        />                        
+                        <input 
+                        type="tel"  
+                        name="phones"
+                        class="admin-contact__input text-sm" 
+                        v-model="store.contactInformation.phoneNumber[1]"
+                        :disabled="edit"
+                        :style="plusFieldtel ? '' : 'display:none' "
                         />
+
+                    </div>
+                    <div class="admin-contact__field" v-else>
+                        <div class="admin-contact__label-wrapper">
+                            <label for="Phones" class="admin-contact__label text-sm">Phone Number</label>
+                        </div>
+                        <input 
+                        type="tel" 
+                        id="phone" 
+                        name="phones"
+                        class="admin-contact__input text-sm" 
+                        v-model="store.contactInformation.phoneNumber[0]"
+                        :disabled="edit"
+                        />                        
+                        <input 
+                        type="tel"  
+                        name="phones"
+                        class="admin-contact__input text-sm" 
+                        v-model="store.contactInformation.phoneNumber[1]"
+                        :disabled="edit"
+                        />
+
                     </div>
                     <div class="admin-contact__field">
                         <label for="Coordinates" class="admin-contact__label text-sm">Coordinates</label>
@@ -154,61 +176,55 @@ const toastMessage = computed(() => {
                             v-model="store.contactInformation.geoCoordinates"
                             :disabled="edit"/>
                     </div>
-                    <div class="admin-contact__field">
-                        <label for="email" class="admin-contact__label text-sm">Email address</label>
-                        <div class="admin-contact__field-svg" v-if="store.contactInformation.email.length == 1">
-                            <input v-if="edit"
-                            type="tel" 
-                            id="phone" 
-                            name="phones"
-                            class="admin-contact__input-plus-none text-sm" 
-                            v-model="store.contactInformation.email[0]"
-                            :disabled="edit"
-                            />
-                            <div style="width: 100%;" v-else>
-                                <div class="admin-contact__field-svg">
-                                    <input 
-                                    type="email"
-                                    class="admin-contact__input-plus text-sm" 
-                                    v-model="store.contactInformation.email[0]"
-                                    :disabled="edit"
-                                    >
-                                    <div class="admin-contact__svg-wrapper" :style="edit?'pointer-events: none; background-color: var(--color-old-lace)':''">
-                                        <Plus class="admin-contact__svg" @click="onPlusFieldemail" />
-                                    </div>
-                                </div>
-                                <input 
-                                type="email"
-                                class="admin-contact__input text-sm" 
-                                v-model="store.contactInformation.email[1]"
-                                :disabled="edit"
-                                :style="plusFieldemail ? 'width:100%' : 'display:none' " 
-                            >
-                            </div>
+                    <div class="admin-contact__field" v-if="store.contactInformation.email.length == 1">
+                        <div class="admin-contact__label-wrapper">
+                            <label for="email" class="admin-contact__label text-sm">Email address</label>
+                            <button type="button" class="admin-contact__svg-wrapper" @click="onPlusFieldemail">
+                                <Plus class="admin-contact__svg" :style="edit?'display: none':''"/>
+                            </button>
                         </div>
-                        <div class="admin-contact__field" style="width: 100%;" v-else>
-                            <input 
-                            type="email" 
-                            id="phone" 
-                            name="phones"
-                            class="admin-contact__input-plus-none text-sm" 
-                            v-model="store.contactInformation.email[0]"
-                            :disabled="edit"/>
-                            <input 
-                            type="email"
-                            class="admin-contact__input text-sm" 
-                            v-model="store.contactInformation.email[1]"
-                            :disabled="edit"
-                            >
-                        </div>
-                        
+                        <input 
+                        type="tel" 
+                        id="phone" 
+                        name="phones"
+                        class="admin-contact__input text-sm" 
+                        v-model="store.contactInformation.email[0]"
+                        :disabled="edit"
+                        />                        
+                        <input 
+                        type="email" 
+                        id="phone" 
+                        name="phones"
+                        class="admin-contact__input text-sm" 
+                        v-model="store.contactInformation.email[1]"
+                        :disabled="edit"
+                        :style="plusFieldemail ? '' : 'display:none' "/>                    
                     </div>
-                    
+                    <div class="admin-contact__field" v-else>
+                        <div class="admin-contact__label-wrapper">
+                            <label for="email" class="admin-contact__label text-sm">Email address</label>
+                        </div>
+                        <input 
+                        type="tel" 
+                        id="phone" 
+                        name="phones"
+                        class="admin-contact__input text-sm" 
+                        v-model="store.contactInformation.email[0]"
+                        :disabled="edit"
+                        />                        
+                        <input 
+                        type="email" 
+                        id="phone" 
+                        name="phones"
+                        class="admin-contact__input text-sm" 
+                        v-model="store.contactInformation.email[1]"
+                        :disabled="edit"/>                    
+                    </div>
                 </form>
             <div class="admin-contact__buttons-wrapper">
-                    <button class="admin-contact__button button_modify primary-button " @click="onEdit" :style="edit ? '' : 'display:none' " >Edit</button> 
-                    <button class="admin-contact__button button_edit primary-button " @click="onSubmit" :style="edit ? 'display:none': '' " >Modify</button>
-                    <button class="admin-contact__button button_cancel primary-button " @click="onCancel" :style="edit ? 'display:none': '' ">Cancel</button>
+                    <button class="admin-contact__button primary-button " @click="onEdit" :style="edit ? '' : 'display:none' " >Edit</button> 
+                    <button class="admin-contact__button primary-button " @click="onSubmit" :style="edit ? 'display:none': '' " >Apply</button>
+                    <button class="admin-contact__button button_cancel primary-button" @click="onCancel" :style="edit ? 'display:none': '' ">Cancel</button>
                     </div>
             </div>
     </section>
@@ -243,29 +259,27 @@ const toastMessage = computed(() => {
             width: 45%;
             gap: 22px;
         }
-        &__field-svg{
-            display: flex;
-            width: 100%;
-        }
         &__svg-wrapper{
-            display: flex; 
-            align-items: center; 
-            border:1px solid var(--color-uc-gold); 
-            border-radius: 0 10px 10px 0; 
-            padding-right: 1rem;
-            border-left:0;
+            display: flex;
+            padding-right: 10px;
         }
         &__svg{
             width: 18px;
             cursor: pointer;
         }
+        &__label-wrapper{
+            display: flex;
+            justify-content: space-between;
+        }
         &__label{
             font-weight: 500;
         }
         &__input{
-            padding: 10px 15px;
+            padding: 12px 12px;
             border: 1px solid var(--color-uc-gold);
             border-radius: 10px;
+            font-size: 14px;
+            margin-bottom: 2px;
             resize: none;
             &::placeholder {
                 color: var(--color-quick-silver);
@@ -277,36 +291,9 @@ const toastMessage = computed(() => {
                 background-color: var(--color-old-lace);
             }
         }
-        &__input-plus{
-            padding: 10px 15px;
-            border: 1px solid var(--color-uc-gold);
-            resize: none;
-            width: 100%;
-            border-radius: 10px 0 0 10px; 
-            border-right:0;
-            &:focus{
-                border: 1px solid var(--color-uc-gold);
-            }
-            &:disabled{
-                background-color: var(--color-old-lace);
-            }
-        }
-        &__input-plus-none{
-            padding: 10px 15px;
-            border: 1px solid var(--color-uc-gold);
-            resize: none;
-            width: 100%;
-            border-radius: 10px;
-            &:focus{
-                border: 1px solid var(--color-uc-gold);
-            }
-            &:disabled{
-                background-color: var(--color-old-lace);
-            }
-        }
         &__time-wrapper{
             display: grid;
-            grid-template-columns: 1fr 2fr;
+            grid-template-columns: 2fr 1fr;
         }
         &__time-text{
             display:flex;
@@ -314,6 +301,7 @@ const toastMessage = computed(() => {
         }
         &__hours-wrapper{
             display: flex;
+            gap: 1rem;
             width: 100%;
         }
         &__buttons-wrapper{
@@ -332,13 +320,6 @@ const toastMessage = computed(() => {
     &:hover {
     background-color: var(--color-white);
     color: var(--color-candy-pink);
-    }
-}
-.button_edit{
-    background-color: var(--color-blue-green);
-    &:hover {
-    background-color: var(--color-white);
-    color: var(--color-blue-green);
     }
 }
 .errorfield{

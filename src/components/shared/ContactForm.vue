@@ -144,6 +144,7 @@ const emit = defineEmits(['success', 'failure', 'inputStart'])
         font-weight: 500;
     }
     &__input{
+        font-size: 14px;
         padding: 12px 12px;
         border: 1px solid var(--color-quick-silver);
         border-radius: 10px;
