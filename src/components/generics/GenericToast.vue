@@ -42,10 +42,10 @@ const props = defineProps({
 <style lang="scss">
 .v-toast {
   &__item {
-    min-height: 80px;
-    min-width: 294px;
+    min-height: 60px;
+    min-width: 190px;
     font-family: 'Poppins', sans-serif;
-    font-size: 1.6rem;
+    font-size: 1.2rem;
     font-weight: 500;
     justify-content: center;
 
