@@ -138,7 +138,7 @@ const urls = mozaicImagesUrls
 
 .gallery-section-mobile {
     width: 100%;
-    height: calc(100vh - 50px);
+    height: calc((100vh - 50px) * 0.75);
     padding: 20px;
     gap: 20px;
     display: flex;

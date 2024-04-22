@@ -58,21 +58,18 @@ const urls = swiperImagesUrls
         height: max-content;
         display: flex;
         flex-direction: column;
+
     }
 
     &__title {
         font-weight: 700;
         color: var(--color-dark-charcoal);
-        margin-bottom: 0.8rem;
+        margin-bottom: 1.6rem;
     }
 
     &__description {
         color: var(--color-granite-gray);
-        margin-bottom: 2.5rem;
-    }
-
-    &__button {
-        margin-bottom: 6.8rem;
+        margin-bottom: 5rem;
     }
 
     &__container {
@@ -106,7 +103,7 @@ const urls = swiperImagesUrls
     visibility: hidden;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 991px) {
     .examples-section {
         flex-direction: column-reverse;
         height: calc(100vh - 50px);
@@ -134,7 +131,7 @@ const urls = swiperImagesUrls
     }
 }
 
-@media only screen and (max-width: 375px) {
+@media only screen and (max-width: 575px) {
     .examples-section {
         padding: 40px 20px;
 
@@ -181,7 +178,7 @@ const urls = swiperImagesUrls
     }
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 992px) {
     .examples-section__swiper {
         .swiper-pagination {
             width: 100%;
