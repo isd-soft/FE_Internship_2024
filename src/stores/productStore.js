@@ -4,10 +4,12 @@ import { getProductListRequest } from '../axios/getProductListRequest'
 import { createProductRequest } from '../axios/createProductRequest'
 import { updateProductRequest } from '../axios/updateProductRequest'
 import { deleteProductRequest } from '../axios/deleteProductRequest'
+import { useAdminNotificationStore } from './adminNotificationStore'
 
 export const useProductStore = defineStore('product', () => {
   const productMap = ref(new Map())
   const loader = ref(false)
+  const adminNotificationStore = useAdminNotificationStore()
 
   // Called in App.vue rn to fetch products
   const initStore = async () => {
@@ -43,6 +45,8 @@ export const useProductStore = defineStore('product', () => {
   const addproductMap = (productArray) => {
     if (!productMap.value) productMap.value = new Map()
     for (let product of productArray) {
+      if (productMap.value.get(product.id)) adminNotificationStore.addNotification({message: `PRODUCT UPDATED: ${product.code} \n`, type: 'info'})
+      else adminNotificationStore.addNotification({message: `PRODUCT ADDED: ${product.code} \n`, type: 'success'})
       product.price = normalizePrice(product.price)
       product.discount = parseInt(product.discount)
       productMap.value.set(product.id, product)
@@ -52,6 +56,7 @@ export const useProductStore = defineStore('product', () => {
 
   const removeproductMap = (productId) => {
     console.log('Deleting product ', productId)
+    adminNotificationStore.addNotification({message: `PRODUCT DELETED: ${productMap.value.get(productId).code} \n`, type: 'error'})
     productMap.value.delete(productId)
   }
   // Those functions are to be used by Admin:

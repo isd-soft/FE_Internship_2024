@@ -5,11 +5,13 @@ import { updateUserRequest } from '@/axios/updateUserRequest'
 import { deleteUserRequest } from '@/axios/deleteUserRequest'
 import { getUserRoleRequest } from '@/axios/getUserRoleRequest'
 import { useUserStore } from './userStore'
+import { useAdminNotificationStore } from './adminNotificationStore'
 
 export const useAdminUserStore = defineStore('adminuser', () => {
   const users = ref([])
   const userRole = ref({})
   const userStore = useUserStore()
+  const adminNotificationStore = useAdminNotificationStore()
 
   const getUsers = async () => {
     const response = await getUserListRequest(userStore.token.key)
@@ -36,12 +38,21 @@ export const useAdminUserStore = defineStore('adminuser', () => {
   //WebSocket functions:
   const addUserWeb = (usr) => {
     const index = users.value.findIndex((user) => user.id === usr.id)
-    if (index === -1) users.value.push(usr)
-    else users.value[index] = usr
+    if (index === -1) {
+      users.value.push(usr)
+      adminNotificationStore.addNotification({
+        message: `USER CREATED:\n ${usr.id}`,
+        type: 'success'
+      })
+    } else {
+      users.value[index] = usr
+      adminNotificationStore.addNotification({ message: `USER UPDATED: \n ${usr.username} `, type: 'info' })
+    }
   }
 
   const deleteUserWeb = (usrId) => {
     const index = users.value.findIndex((user) => user.id === usrId)
+    adminNotificationStore.addNotification({ message: `USER DELETED: \n ${users.value[index].username} `, type: 'error' })
     users.value.splice(index, 1)
   }
 

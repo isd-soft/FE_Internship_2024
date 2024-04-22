@@ -99,6 +99,7 @@ const handleProductDelete = () => cartStore.deleteProduct(props.id)
         @input="handleInput($event)"
         class="cart-card__quantity text-xs"
         :value="quantity"
+        maxlength="3"
       />
       <button
         :disabled="!productStore.isAvailable(props.id, quantity + 1)"
@@ -142,7 +143,7 @@ const handleProductDelete = () => cartStore.deleteProduct(props.id)
   &__quantity {
     text-align: center;
     display: block;
-    width: 3.1rem;
+    width: 3.6rem;
     height: 3.1rem;
     border: 1px solid var(--color-quick-silver);
     border-radius: 1rem;
@@ -179,9 +180,13 @@ const handleProductDelete = () => cartStore.deleteProduct(props.id)
   margin: 0 auto;
   width: 100%;
 
-  &__button-action{
-    &:disabled{
-      visibility: hidden ;
+  &__button-action {
+    &:hover {
+      color: var(--color-uc-gold);
+    }
+
+    &:disabled {
+      visibility: hidden;
     }
   }
 }
