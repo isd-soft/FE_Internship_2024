@@ -20,7 +20,7 @@ const isActive = (href) => computed(() => route.path === href)
     <GenericList
       :items="linkList"
       customClass="navigation__list"
-      itemClass="navigation__list-item text-sm"
+      itemClass="navigation__list-item"
     >
       <template v-slot="{ item }">
         <GenericLink v-bind="item" :class="{ 'active-link': isActive(item.href).value }" />
@@ -39,6 +39,11 @@ const isActive = (href) => computed(() => route.path === href)
 
 .navigation__link {
   color: var(--color-black);
+  transition: color 0.25s ease-in-out;
+  font-size: 16px;
+  &:hover{
+    color: var(--color-uc-gold)
+  }
 }
 
 .router-link-exact-active {

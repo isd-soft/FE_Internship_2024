@@ -124,6 +124,10 @@ const isActive = (href) => computed(() => route.path === href)
 }
 .navigation__link {
   color: var(--color-black);
+  transition: color 0.25s ease-in-out;
+  &:hover{
+    color: var(--color-uc-gold)
+  }
 }
 .router-link-exact-active {
   color: var(--color-uc-gold);
