@@ -3,6 +3,7 @@ import { useForm } from 'vee-validate'
 import * as yup from 'yup'
 import { ref, computed } from 'vue'
 import { useUserStore } from '../../stores/userStore'
+import GenericLink from '../generics/GenericLink.vue';
 
 const isFailure = ref(false)
 
@@ -78,16 +79,22 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
 
       <button class="text-sm primary-button .text-sm login-form__submit-button">Log In</button>
     </form>
-    <button class="text-xs login-container__toggle-button" @click="$emit('changeModal')">
-      Not a user? Sign Up!
-    </button>
+    <span class="login-container__toggle-button" @click="$emit('changeModal')">
+      <p class="login-container__toggle-text">
+        Not a user?
+      </p>
+       <GenericLink class="login-container__toggle-link"> Sign Up!</GenericLink>
+    </span>
   </div>
 </template>
 
 <style lang="scss" scoped>
 .login-container {
-  // padding: 5rem 3.8rem 4rem 4rem;
-  padding: 50px 38px 40px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 38px 40px 40px;
 
   &__title {
     color: var(--color-uc-gold);
@@ -96,7 +103,7 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
   }
 
   &__description {
-    margin-bottom: 50px;
+    margin-bottom: 30px;
     font-size: 16px;
   }
 
@@ -106,11 +113,27 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
     background: none;
     width: 100%;
     font-size: 12px;
+    display: flex;
+    justify-content: center;
+  }
+
+    &__toggle-text {
+    font-size: 12px;
+    margin-right: 3px;
+  }
+
+  &__toggle-link {
+    font-size: 12px;
     text-decoration: underline transparent;
     transition: 0.2s ease-out;
+    color: var(--color-black);
 
     &:hover {
+      cursor: pointer;
       text-decoration: underline black;
+    }
+    &:active {
+      color: var(--color-black);
     }
   }
 }
@@ -122,8 +145,8 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
   &__input {
     border: 1px solid var(--color-quick-silver);
     border-radius: 10px;
-    padding: 15px 12px;
-    font-size: 16px;
+    padding: 12px 12px;
+    font-size: 14px;
     margin-bottom: 16px;
 
     ::placeholder {
@@ -131,7 +154,8 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
     }
 
     &--error {
-      outline: 2px solid var(--color-candy-pink);
+      border: 1px solid var(--color-candy-pink);
+      outline: 1px solid var(--color-candy-pink);
     }
   }
 
@@ -139,7 +163,7 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
     min-height: 30px;
     color: var(--color-candy-pink);
     padding-left: 4px;
-    font-size: 12px;
+    font-size: 10px;
   }
 
   &__submit-button {
@@ -185,10 +209,6 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
 @media only screen and (max-width: 575px) {
   .login-container {
     padding: 0 5rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
     height: calc(100% - 65px);
   }
 
