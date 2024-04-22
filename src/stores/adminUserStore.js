@@ -41,18 +41,18 @@ export const useAdminUserStore = defineStore('adminuser', () => {
     if (index === -1) {
       users.value.push(usr)
       adminNotificationStore.addNotification({
-        message: `USER CREATED:\n ${usr.id}`,
+        message: `USER CREATED:</br> ${usr.id}`,
         type: 'success'
       })
     } else {
       users.value[index] = usr
-      adminNotificationStore.addNotification({ message: `USER UPDATED: \n ${usr.username} `, type: 'info' })
+      adminNotificationStore.addNotification({ message: `USER UPDATED:</br> ${usr.username} `, type: 'info' })
     }
   }
 
   const deleteUserWeb = (usrId) => {
     const index = users.value.findIndex((user) => user.id === usrId)
-    adminNotificationStore.addNotification({ message: `USER DELETED: \n ${users.value[index].username} `, type: 'error' })
+    adminNotificationStore.addNotification({ message: `USER DELETED:</br> ${users.value[index].username} `, type: 'error' })
     users.value.splice(index, 1)
   }
 
