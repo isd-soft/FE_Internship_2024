@@ -1,7 +1,7 @@
 <script setup>
 import GenericLink from '@/components/generics/GenericLink.vue'
 import GenericList from '@/components/generics/GenericList.vue'
-import { useRoute,onBeforeRouteLeave, onBeforeRouteUpdate } from 'vue-router';
+import { useRoute, onBeforeRouteUpdate } from 'vue-router';
 import { ref } from 'vue';
 const linkList = [
   {
@@ -90,7 +90,7 @@ onBeforeRouteUpdate((to)=>{
           <h3 class="footer__list-title text-sm">Newsletter</h3>
 
           <form class="footer__form text-sm" action="submit">
-            <input class="footer__input text-sm" type="text" placeholder="Enter your Email Address" />
+            <input class="footer__input text-xs" type="text" placeholder="Enter your Email Address" />
 
             <button class="footer__button text-sm" type="submit">SUBSCRIBE</button>
           </form>
@@ -161,10 +161,6 @@ onBeforeRouteUpdate((to)=>{
     flex-direction: column;
     gap: 5rem;
   }
-
-  &__list-title{
-    color: var(--color-quick-silver);
-  }
   &__form{
     display: flex;
     gap: 1rem;
@@ -196,7 +192,7 @@ onBeforeRouteUpdate((to)=>{
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 991px) {
   .footer {
     padding: 20px 40px;
 
@@ -221,12 +217,22 @@ onBeforeRouteUpdate((to)=>{
     &__news-wrapper {
       gap: 0;
     }
+    &__list{
+    gap: 3.5rem;
+    }
+    &__list-title {
+    margin-bottom: 3.5rem;
+    }
   }
 }
 
-@media only screen and (max-width: 375px) {
+@media only screen and (max-width: 475px) {
   .footer {
     padding: 20px;
+    &__adress-wrapper{
+    display: flex;
+    row-gap: 25px;
+  }
   }
 }
 </style>
