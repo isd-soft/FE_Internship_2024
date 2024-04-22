@@ -16,6 +16,7 @@ import { useModal } from 'vue-final-modal'
 import MenuIcon from '../../assets/icons/MenuIcon.svg'
 import CrossIcon from '../../assets/icons/CrossIcon.svg'
 import HeaderAdaptiveNavigation from './HeaderAdaptiveNavigation.vue'
+import { useCartStore } from '@/stores/cartStore.js'
 
 const headerRef = ref(null)
 const userMenuToggle = ref(false)
@@ -23,6 +24,12 @@ const userMenuRef = ref(null)
 const { flag: mediaFlag, toggle: updateMediaFlag } = mediaFlagInstruments
 const { flag: isMenuIconVisible, toggle: menuToggle } = menuToggleInstruments
 const user = useUserStore()
+const cartStore = useCartStore()
+
+const cartItemNumber = computed(() => {
+    return Array.from(cartStore.productMap).length
+})
+
 
 const state = reactive({
   shrinkHeader: false
@@ -119,6 +126,9 @@ const { open: openLoginModal } = useModal({
 </script>
 
 <template>
+  <div>
+
+  </div>
   <header
     :class="[
       'header',
@@ -141,6 +151,7 @@ const { open: openLoginModal } = useModal({
       <HeaderNavigation v-show="isMenuVisible" />
       <div class="header__link-wrapper" v-show="isMenuVisible" v-if="user.isAuthenticated()">
         <GenericLink href="/cart" containerClass="header__link">
+          <span class="header__cart-quantity text-xs" v-if="cartItemNumber > 0">{{ cartItemNumber }} </span>
           <CartIcon class="header__link-item" />
         </GenericLink>
         <button containerClass="header__link" @click="changeUserMenuToggle()">
@@ -200,6 +211,7 @@ const { open: openLoginModal } = useModal({
 
   &__link {
     color: var(--color-black);
+    position: relative;
   }
 
   &__link-item {
@@ -229,6 +241,19 @@ const { open: openLoginModal } = useModal({
     &:hover {
       color: var(--color-uc-gold);
     }
+  }
+  &__cart-quantity{
+    position: absolute;
+    display: flex;
+    color: var(--color-white);
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-uc-gold);
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    right: -10px;
+    top: -10px;
   }
 }
 
