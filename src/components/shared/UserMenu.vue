@@ -1,31 +1,21 @@
 <script setup>
 import GenericLink from '../generics/GenericLink.vue'
 import { useUserStore } from '@/stores/userStore.js'
-import GenericToast from '../generics/GenericToast.vue'
-import { ref} from 'vue'
+import {createToast} from '../generics/GenericToast.vue'
 
-const logout = ref(false)
 const user = useUserStore()
 
 const emit = defineEmits(['logout'])
 
 const handleLogout = () => {
-  logout.value = !logout.value
   user.logout()
-  setTimeout(() => {
-    logout.value = !logout.value
-  }, 100)
+  createToast("And do not appear on the doorstep of this house ever again", "success")
   emit('logout')
 }
 </script>
 
 <template>
   <div class="header__user-menu">
-    <GenericToast
-      v-if="logout"
-      type="success"
-      message="And do not appear on the doorstep of this house ever again"
-    />
     <GenericLink
       href="admin/products"
       containerClass="header__user-option text-xs"

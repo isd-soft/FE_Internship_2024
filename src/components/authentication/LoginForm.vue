@@ -44,7 +44,7 @@ const onSubmit = handleSubmit((values) => {
     })
 })
 
-const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
+const emit = defineEmits(['success', 'failure', 'changeModal'])
 </script>
 
 <template>
@@ -60,7 +60,6 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
         name="username"
         type="username"
         placeholder="Username"
-        @focus="$emit('inputStart')"
       />
       <input
         class="text-sm login-form__input"
@@ -70,7 +69,6 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
         name="password"
         placeholder="Password"
         type="password"
-        @focus="$emit('inputStart')"
       />
 
       <span class="text-sm login-form__error">{{

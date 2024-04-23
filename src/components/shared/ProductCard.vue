@@ -7,14 +7,12 @@ import ProductModal from './ProductModal.vue'
 import LoginModal from '../authentication/LoginModal.vue'
 import { useUserStore } from '@/stores/userStore'
 import { useCartStore } from '@/stores/cartStore'
-import GenericToast from '../generics/GenericToast.vue'
+import {createToast} from '../generics/GenericToast.vue'
 
 import CartAddIcon from '../../assets/icons/CartAddIcon.svg';
 
 const userStore = useUserStore()
 const cartStore = useCartStore()
-
-const toastFlag = ref(false)
 
 const determineType = product => {
   if (!product.stock) return 'stock'
@@ -79,8 +77,8 @@ const addToCart = () => {
 const addProduct = () => {
   if (!userStore.isAuthenticated()) OpenLoginModal()
   else {
-    toastFlag.value = true
     addToCart()
+    createToast("Product added to cart", "success")
   }
 }
 
@@ -112,7 +110,6 @@ const { open: OpenProductModal } = useModal({
 
 <template>
   <div class="product-list-section__card product-card">
-    <GenericToast v-if="toastFlag" message="Product added to cart" type="success" />
     <div :class="{ 'product-card__image--grayscale': stockFlag }" class="product-card__image"
       :style="{ backgroundImage: `url(${imageUrl})` }" />
 

@@ -8,32 +8,17 @@
     import PhoneIcon from "@/assets/icons/ContactPhoneIcon.svg"
     import EmailIcon from "@/assets/icons/ContactEmailIcon.svg"
     import Loader from "@/assets/icons/LoaderIcon.svg"
-    import GenericToast from '@/components/generics/GenericToast.vue'
+    import {createToast} from '@/components/generics/GenericToast.vue'
     import { useContactStore } from "@/stores/contactStore";
-    import { ref, computed } from 'vue'
 
     const store = useContactStore()
-    const submitSuccess = ref(false)
-    const submitFinished = ref(false)
-
-    
-    const toastType = computed(() => {
-        return submitSuccess.value ? 'success' : 'error'
-    })
-    const toastMessage = computed(() => {
-        return submitSuccess.value ? 'Submit Successful' : 'Submit Failed'
-    })
 
     const finishSubmitSuccess = () => {
-        submitSuccess.value = true
-        submitFinished.value = true
+        createToast('Submit Successful', 'success')
         }
 
         const finishSubmitFail = () => {
-            submitFinished.value = true
-        }
-        const refreshAttempt = () => {
-            submitFinished.value = false
+            createToast('Submit Failed', 'error')
         }
         
 </script>
@@ -54,10 +39,8 @@
                     <ContactInfoCard  :icon="EmailIcon" infoTitle="Email" :infoText="store.contactInformation.email" href="mailto:"/>
                     <ContactInfoCard  :icon="ClockIcon" infoTitle="Working Time" :infoText="store.contactInformation.workTime" href="#" styles="pointer-events: none; cursor: default;"/>
                 </div>
-                <GenericToast v-if="submitFinished" :message="toastMessage" :type="toastType" />
                 <ContactForm 
                     class="contact__form"
-                    @inputStart="refreshAttempt"
                     @success="finishSubmitSuccess"
                     @failure="finishSubmitFail"/>
             </div>
