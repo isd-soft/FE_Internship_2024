@@ -26,9 +26,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'default',
-      // redirect: {path: '/home'},
       component: DefaultView,
-      // meta: { requiresAdmin: true },
       children:[
         {
           path: '',
@@ -49,7 +47,7 @@ const router = createRouter({
           path: 'cart',
           name: 'cart',
           component: CartView,
-          meta: { requiresAuth: true } //Comment this if u need to access cart
+          meta: { requiresAuth: true }
         },
       ]
     },

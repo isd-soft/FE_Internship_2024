@@ -3,69 +3,51 @@ import EditIcon from '../../assets/icons/EditIcon.svg'
 import TrashIcon from '../../assets/icons/TrashIcon.svg'
 import { useModal } from 'vue-final-modal'
 import AdminProductModal from './AdminProductModal.vue'
-import { useProductStore } from '../../stores/productStore';
-import { useUserStore } from '../../stores/userStore';
-import GenericToast from '../generics/GenericToast.vue';
-import { ref } from 'vue';
+import { useProductStore } from '../../stores/productStore'
+import { useUserStore } from '../../stores/userStore'
+import { createToast } from '../generics/GenericToast.vue'
+import { ref } from 'vue'
 
 const props = defineProps({
-    headingFlag: Boolean,
-    imageUrl: String,
-    id: String,
-    description: String,
-    name: String,
-    price: Number,
-    stock: Number,
-    discount: Number,
-    code: String,
-    rating: Number,
-    isNew: Boolean,
-    createdAt: String,
-    updatedAt: String
+  headingFlag: Boolean,
+  imageUrl: String,
+  id: String,
+  description: String,
+  name: String,
+  price: Number,
+  stock: Number,
+  discount: Number,
+  code: String,
+  rating: Number,
+  isNew: Boolean,
+  createdAt: String,
+  updatedAt: String
 })
 
 const { open } = useModal({
-    component: AdminProductModal,
-    attrs: {
-        ...props
-    }
+  component: AdminProductModal,
+  attrs: {
+    ...props
+  }
 })
 
-const categoryList = [
-    'Image',
-    'Code',
-    'Name',
-    'Price',
-    'Stock',
-    'Discount',
-    'Actions'
-]
+const categoryList = ['Image', 'Code', 'Name', 'Price', 'Stock', 'Discount', 'Actions']
 
 const productStore = useProductStore()
 const token = useUserStore().token.key
 
-const deletionFlag = ref(false)
-const toastPreset = ref({})
-
 const handleDeletion = () => {
-    if (deletionFlag.value) deletionFlag.value = false
-
-    confirm('Are you sure you want to delete this product?')
-        ? productStore.deleteProductFromServer(props.id, token)
-            .then(result =>
-                toastPreset.value = result
-                    ? { message: 'Product deleted successfully!', type: 'success' }
-                    : { message: 'Error while deleting the product: ', type: 'error' }
-            )
-            .catch(error =>
-                toastPreset.value = { message: 'Error while deleting the product: ' + error, type: 'error' }
-            )
-            .finally(() =>
-                deletionFlag.value = true
-            )
-        : null
+  confirm('Are you sure you want to delete this product?')
+    ? productStore
+        .deleteProductFromServer(props.id, token)
+        .then((result) =>
+          result
+            ? createToast('Product deleted successfully!', 'success')
+            : createToast('Error while deleting the product: ', 'error')
+        )
+        .catch((error) => createToast('Error while deleting the product: ' + error, 'error'))
+    : null
 }
-
 </script>
 
 <template>
@@ -95,6 +77,7 @@ const handleDeletion = () => {
 
         <GenericToast v-if="deletionFlag" v-bind="toastPreset" />
     </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>
@@ -127,7 +110,7 @@ const handleDeletion = () => {
 .admin-product-card {
     border: 1px solid var(--color-uc-gold);
     border-radius: 10px;
-
+  }
     &__image {
         padding: 0;
         width: 5rem;

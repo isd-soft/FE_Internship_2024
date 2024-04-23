@@ -44,12 +44,10 @@ export const useUserStore = defineStore(
         loader.value = true
         return true
       }
-      console.log('Something went wrong')
       return false
     }
 
     const isAuthenticated = () => {
-      console.log('Checking auth')
       return token.value.key
     }
 

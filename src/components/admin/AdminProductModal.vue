@@ -5,7 +5,7 @@ import { useForm } from 'vee-validate'
 import * as Yup from 'yup'
 import CrossIcon from '../../assets/icons/CrossIcon.svg'
 import { useUserStore } from '../../stores/userStore'
-import GenericToast from '../generics/GenericToast.vue'
+import {createToast} from '../generics/GenericToast.vue'
 import { useProductStore } from '../../stores/productStore'
 import { ref } from 'vue'
 
@@ -60,13 +60,9 @@ const { handleSubmit, isSubmitting, setValues } = useForm({
 const productStore = useProductStore()
 const token = useUserStore().token.key
 
-const toastPreset = ref({})
-const submitCompletionFlag = ref(false)
-
 const reset = () => setValues(initialValues)
 
 const submit = handleSubmit(values => {
-    if (submitCompletionFlag.value) submitCompletionFlag.value = false
 
     const { updateProductToServer, addProductToServer } = productStore;
 
@@ -75,14 +71,13 @@ const submit = handleSubmit(values => {
     action(values, token)
         .then(response =>
             response
-                ? toastPreset.value = { message: `Product ${props.newProductFlag ? 'added' : 'modified'} successfully!`, type: 'success' }
-                : toastPreset.value = { message: `Failed to ${props.newProductFlag ? 'add' : 'modify'} the product!`, type: 'error' }
+                ? createToast(`Product ${props.newProductFlag ? 'added' : 'modified'} successfully!`, 'success' )
+                : createToast( `Failed to ${props.newProductFlag ? 'add' : 'modify'} the product!`, 'error' )
         )
-        .catch(error => toastPreset.value = { message: `Failed to ${props.newProductFlag ? 'add' : 'modify'} the product: ${error}`, type: 'error' }
+        .catch(error => createToast( `Failed to ${props.newProductFlag ? 'add' : 'modify'} the product: ${error}`,'error' )
         )
         .finally(() => {
-            submitCompletionFlag.value = true
-            if (props.newProductFlag) setTimeout(() => vfm.closeAll(vfm.openedModals), 100)
+            if (props.newProductFlag) vfm.closeAll(vfm.openedModals)
         })
 })
 
@@ -151,7 +146,6 @@ const formatDate = (date) => new Date(date).toLocaleDateString('en-GB').replace(
             <CrossIcon width="2.86rem" height="2.86rem" />
         </button>
 
-        <GenericToast v-if="submitCompletionFlag" v-bind="toastPreset" />
     </VueFinalModal>
 </template>
 

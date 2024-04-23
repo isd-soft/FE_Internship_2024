@@ -1,21 +1,18 @@
 <script setup>
 import { useCartStore } from '@/stores/cartStore'
-import { ref, computed } from 'vue'
-import GenericToast from '../generics/GenericToast.vue'
+import {createToast} from '../generics/GenericToast.vue'
 
 const cartStore = useCartStore()
 
-const toastFlag = ref(false)
 
 const checkout = () => {
   cartStore.removeCart()
-  toastFlag.value = true
+  if (cartStore.subtotal > 0) createToast("Checkout complete", "success")
 }
 </script>
 
 <template>
   <div class="cart-section__total cart-total">
-    <GenericToast v-if="toastFlag" message="Checkout complete" type="success" />
     <h3 class="cart-total__title text-xl">Cart Totals</h3>
 
     <div class="cart-total__category-wrapper">
@@ -93,7 +90,7 @@ const checkout = () => {
   }
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 991px) {
   .cart-total {
     width: 100%;
     padding: 3rem 1.5rem;
