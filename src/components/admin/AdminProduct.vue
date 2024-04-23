@@ -74,8 +74,6 @@ const handleDeletion = () => {
                 <TrashIcon />
             </button>
         </div>
-
-        <GenericToast v-if="deletionFlag" v-bind="toastPreset" />
     </div>
   </div>
 </template>
