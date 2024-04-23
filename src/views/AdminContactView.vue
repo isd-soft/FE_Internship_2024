@@ -351,6 +351,9 @@ const toastMessage = computed(() => {
         &__container{
             padding: 5rem 5rem 0 10rem;
         }
+        &__name-text{
+            font-size: 32px;
+        }
         &__form-wrapper{
             width: 100%;
         }
@@ -363,6 +366,10 @@ const toastMessage = computed(() => {
         }
         &__button{
             width: 100%;
+        }
+        &__hours-wrapper{
+            flex-direction: column;
+            text-align: center;
         }
     }
 }

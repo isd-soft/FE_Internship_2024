@@ -7,34 +7,34 @@ const linkList = [
   {
     href: '/',
     textContent: 'Home',
-    containerClass: 'footer__link text-sm '
+    containerClass: 'footer__link text-xs '
   },
   {
     href: '/shop',
     textContent: 'Shop',
-    containerClass: 'footer__link text-sm '
+    containerClass: 'footer__link text-xs '
   },
   {
     href: '/contact',
     textContent: 'Contact',
-    containerClass: 'footer__link text-sm '
+    containerClass: 'footer__link text-xs '
   }
 ]
 const helpLinkList = [
   {
     href: '#',
     textContent: 'Payment Options',
-    containerClass: 'footer__link text-sm '
+    containerClass: 'footer__link text-xs '
   },
   {
     href: '#',
     textContent: 'Returns',
-    containerClass: 'footer__link text-sm '
+    containerClass: 'footer__link text-xs '
   },
   {
     href: '#',
     textContent: 'Privacy Policies',
-    containerClass: 'footer__link text-sm '
+    containerClass: 'footer__link text-xs '
   }
 ]
 
@@ -61,13 +61,13 @@ onBeforeRouteUpdate((to)=>{
         <div class="footer__adress-wrapper">
           <h3 class="footer__adress-title text-lg">Furniro.</h3>
 
-          <address class="footer__adress text-sm">
+          <address class="footer__adress text-xs">
             400 University Drive Suite 200 Coral<br /> Gables,<br />FL 33134 USA
           </address>
         </div>
 
         <nav class="footer__navigation">
-          <h3 class="footer__list-title text-sm">Links</h3>
+          <h3 class="footer__list-title text-xs">Links</h3>
 
           <GenericList :items="linkList" customClass="footer__list" itemClass="footer__list-item">
             <template v-slot="{ item }">
@@ -77,7 +77,7 @@ onBeforeRouteUpdate((to)=>{
         </nav>
 
         <nav class="footer__navigation">
-          <h3 class="footer__list-title text-sm">Help</h3>
+          <h3 class="footer__list-title text-xs">Help</h3>
 
           <GenericList :items="helpLinkList" customClass="footer__list" itemClass="footer__list-item">
             <template v-slot="{ item }">
@@ -87,18 +87,18 @@ onBeforeRouteUpdate((to)=>{
         </nav>
 
         <div class="footer__news-wrapper">
-          <h3 class="footer__list-title text-sm">Newsletter</h3>
+          <h3 class="footer__list-title text-xs">Newsletter</h3>
 
-          <form class="footer__form text-sm" action="submit">
+          <form class="footer__form text-xs" action="submit">
             <input class="footer__input text-xs" type="text" placeholder="Enter your Email Address" />
 
-            <button class="footer__button text-sm" type="submit">SUBSCRIBE</button>
+            <button class="footer__button text-xs" type="submit">SUBSCRIBE</button>
           </form>
         </div>
       </div>
 
       <div class="footer__bottom-line">
-        <span class="footer__copyright text-sm"> 2024 furniro. All rights reserved </span>
+        <span class="footer__copyright text-xs"> 2024 furniro. All rights reserved </span>
       </div>
     </div>
   </footer>
@@ -109,7 +109,7 @@ onBeforeRouteUpdate((to)=>{
   border-top: 1px solid var(--color-quick-silver);
 }
 .footer {
-  padding: 3.8rem 10rem;
+  padding: 3rem 6rem;
 
   &__container {
     display: flex;
@@ -120,14 +120,14 @@ onBeforeRouteUpdate((to)=>{
   &__top-line {
     display: flex;
     justify-content: space-between;
-    padding-bottom: 5rem;
+    padding-bottom: 3rem;
     border-bottom: 1px solid var(--color-quick-silver);
   }
 
   &__adress-wrapper{
     display: flex;
     flex-direction: column;
-    row-gap: 50px;
+    row-gap: 25px;
   }
 
   &__adress-title {
@@ -142,13 +142,13 @@ onBeforeRouteUpdate((to)=>{
   &__list-title {
     font-weight: 500;
     color: var(--color-quick-silver);
-    margin-bottom: 5.5rem;
+    margin-bottom: 2.5rem;
   }
 
   &__list{
     display: flex;
     flex-direction: column;
-    gap: 5rem;
+    gap: 2rem;
   }
 
   &__link {
@@ -159,7 +159,7 @@ onBeforeRouteUpdate((to)=>{
   &__news-wrapper{
     display: flex;
     flex-direction: column;
-    gap: 5rem;
+    gap: 2.5rem;
   }
   &__form{
     display: flex;
@@ -233,6 +233,7 @@ onBeforeRouteUpdate((to)=>{
     display: flex;
     row-gap: 25px;
   }
+  
   }
 }
 </style>
