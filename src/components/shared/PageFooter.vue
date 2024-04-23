@@ -55,7 +55,7 @@ onBeforeRouteUpdate((to)=>{
 </script>
 
 <template>
-  <footer class="footer" :class="{active:itsHome}">
+  <footer class="footer section" :class="{active:itsHome}">
     <div class="footer__container container">
       <div class="footer__top-line">
         <div class="footer__adress-wrapper">

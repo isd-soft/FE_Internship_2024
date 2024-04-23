@@ -65,8 +65,6 @@ const productList = computed(() => Array.from(productStore.productMap.values()).
     flex-direction: column;
     align-items: center;
     gap: 32px;
-    width: 85%;
-    margin: 0 auto;
   }
 
   &__title {

@@ -2,7 +2,8 @@
 
 <template>
   <section class="main__section section hero-section">
-    <div class="hero-section__wrapper">
+    <div class="hero-section__container container">
+    <div class="hero-section__content-wrapper">
       <span class="text-sm hero-section__label">New Arrival</span>
       <h1 class="text-5xl hero-section__title">
         Discover Our
@@ -15,6 +16,7 @@
       </p>
       <button class="text-sm primary-button hero-section__button" @click="$router.push('shop')">BUY NOW</button>
     </div>
+  </div>
   </section>
 </template>
 
@@ -26,11 +28,18 @@
   background-repeat: no-repeat;
   min-height: calc(100vh - 100px);
   display: flex;
-  justify-content: end;
-  align-items: end;
-  padding: 120px 60px;
+  // padding: 120px 60px;
 
-  &__wrapper {
+  &__container{
+    margin-bottom: 120px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    min-height: 100%;
+  }
+
+  &__content-wrapper {
+    margin-top: auto;
     background-color: var(--color-old-lace);
     padding: 60px 40px 40px 40px;
     border-radius: 10px;
@@ -58,13 +67,13 @@
   }
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 1024px) {
   .hero-section {
     padding: 40px;
     justify-content: center;
     align-items: center;
 
-    &__wrapper {
+    &__content-wrapper {
       width: 100%;
       padding: 40px;
     }
@@ -77,44 +86,64 @@
       text-align: center;
     }
 
+    &__label{
+      font-size: 16px;
+    }
+
     &__title{
-      font-size: 4.5rem;
+      // font-size: 4.5rem;
+      font-size: 46px;
     }
 
     &__description {
-      max-width: 300px;
+      max-width: 500px;
       margin-left: auto;
       margin-right: auto;
+      font-size: 18px;
+    
     }
 
     &__button {
       margin: 0 auto;
+      font-size: 16px;
     }
   }
 }
 
-@media only screen and (max-width: 375px) {
+@media only screen and (max-width: 575px) {
   .hero-section {
     height: calc(100vh - 50px);
     padding: 20px;
     width: 100%;
 
-    &__wrapper {
+    &__container{
+      align-items: center;
+      margin-bottom: 0px;
+    }
+
+    &__content-wrapper {
       width: 100%;
       padding: 20px;
+      margin-top: 0;
     }
 
     &__label {
       margin-bottom: 8px;
+      font-size: 12px;
     }
 
     &__title {
       margin-bottom: 24px;
-      font-size: 3.6rem;
+      font-size: 24px;
+    }
+
+    &__description{
+      font-size: 14px;
     }
 
     &__button {
       width: 100%;
+      font-size: 12px;
     }
   }
 }

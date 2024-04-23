@@ -47,7 +47,7 @@
                 <p class="contact__recommendation text-sm">For More Information About Our Product & Services. Please Feel Free To Drop Us <br>
                     An Email. Our Staff Always Be There To Help You Out. Do Not Hesitate!</p>
             </div>
-            <div class="contact__section">
+            <div class="contact__section section">
                 <div class="contact__info-wrapper"> 
                     <ContactInfoCard  :icon="MapPointIcon" infoTitle="Address" :infoText="store.getFormatAddress" href="#" styles="pointer-events: none; cursor: default;"/>
                     <ContactInfoCard  :icon="PhoneIcon" infoTitle="Phone"   :infoText="store.getFormatPhones" href="tel:"/>

@@ -307,3 +307,10 @@ button {
   justify-content: center;
   align-items: center;
 }
+
+.container {
+  // padding: 0 calc((98vw - 1440px)/2);
+  width: 90%;
+  max-width: 1600px;
+  margin: 0 auto;
+}
