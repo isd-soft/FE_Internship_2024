@@ -12,13 +12,13 @@ const props = defineProps({
 </script>
 
 <template>
-  <div v-if="props.type === 'discount'" class="text-sm product-card__label label label__discount">
+  <div v-if="props.type === 'discount'" class="product-card__label label label__discount">
     -{{ props.value }}%
   </div>
 
-  <div v-else-if="props.type === 'new'" class="text-sm label label__new">New</div>
+  <div v-else-if="props.type === 'new'" class="label label__new">New</div>
 
-  <div v-else-if="props.type === 'stock'" class="text-sm label label__stock">
+  <div v-else-if="props.type === 'stock'" class="label label__stock">
     <span class="label__specification">Out of<br />stock</span>
   </div>
 </template>
@@ -33,12 +33,13 @@ const props = defineProps({
   position: absolute;
   top: 2.4rem;
   right: 2.4rem;
-  width: 4.8rem;
-  height: 4.8rem;
+  width: 48px;
+  height: 48px;
   border-radius: 100%;
+  font-size: 12px;
 
   &__specification {
-    font-size: .8rem;
+    font-size: 10px;
   }
 
   &__new {

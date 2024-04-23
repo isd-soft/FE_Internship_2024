@@ -14,7 +14,7 @@ const urls = mozaicImagesUrls
 
 <template>
     <section v-if="width > 576" class="main__section section gallery-section">
-        <div class="gallery-section__container container">
+        <div class="gallery-section__container full-container">
             <div class="gallery-section__text-wrapper">
                 <span class="text-md gallery-section__overline">Share your setup with</span>
                 <h2 class="text-3xl gallery-section__title">#FurniroFurniture</h2>
