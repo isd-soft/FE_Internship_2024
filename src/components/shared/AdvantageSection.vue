@@ -31,14 +31,14 @@ import SupportIcon from "@/assets/icons/AdvantageSupportIcon.svg"
     }
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 991px) {
     .advantage-section__container {
         grid-template-columns: repeat(2, 1fr);
         column-gap: 0;
     }
 }
 
-@media only screen and (max-width: 375px) {
+@media only screen and (max-width: 575px) {
     .advantage-section__container {
         grid-template-columns: 1fr;
     }

@@ -178,4 +178,13 @@ const emit = defineEmits(['success', 'failure'])
     border: 1px solid var(--color-candy-pink);
 }
 
+@media only screen and (max-width: 575px) {
+    .form-wrapper{
+
+    &__input{
+        font-size: 12px;
+    }
+}
+}
+
 </style>
