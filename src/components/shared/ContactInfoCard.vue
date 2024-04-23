@@ -123,6 +123,10 @@ defineProps({
 
 @media only screen and (max-width: 575px) {
   .info-card {
+    &__text-wrapper {
+      width: 100%;
+    }
+
     &__title-wrapper {
       flex-direction: column;
       align-items: center;
