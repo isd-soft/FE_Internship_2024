@@ -62,6 +62,7 @@ const goFirstPage = () => {
 <template>
     <BannerSection title="Shop" />
     <section class="main__section section shop-section">
+        <div class="shop-section__container container">
         <GenericList :items="pageList(currentPage)" key="id" customClass="shop-section__list"
             itemClass="shop-section__list-item">
             <template v-slot="{ item }">
@@ -70,18 +71,21 @@ const goFirstPage = () => {
         </GenericList>
         <FirstLastPagination :pageNumber="pageNumber()" :buttonNumber="width > 575 ? 5 : 3" :currentPage="currentPage"
             :goToPage="goToPage" :goToFirstPage="goFirstPage" :goToLastPage="goLastPage" />
-    </section>
+        </div>
+    
+        </section>
     <AdvantageSection />
 </template>
 
 <style lang="scss" scoped>
 .shop-section {
+
     &__list {
         display: grid;
         grid-template-columns: repeat(5, minmax(0, 1fr));
         grid-auto-rows: minmax(0, 1fr);
         gap: 3rem;
-        padding: 2rem 10rem;
+        // padding: 2rem 10rem;
         margin-bottom: 3rem;
     }
 
@@ -137,7 +141,7 @@ const goFirstPage = () => {
 @media only screen and (max-width: 991px) {
     .shop-section {
         &__list {
-            padding: 60px 40px;
+            // padding: 60px 40px;
             grid-template-columns: repeat(3, minmax(0, 1fr));
         }
     }
@@ -146,7 +150,7 @@ const goFirstPage = () => {
 @media only screen and (max-width: 768px) {
     .shop-section {
         &__list {
-            padding: 60px 40px;
+            // padding: 60px 40px;
             grid-template-columns: repeat(2, minmax(0, 1fr));
         }
     }
@@ -156,7 +160,7 @@ const goFirstPage = () => {
 @media only screen and (max-width: 575px) {
     .shop-section {
         &__list {
-            padding: 40px 20px;
+            // padding: 40px 20px;
             grid-template-columns: repeat(1, minmax(0, 1fr));
         }
     }
