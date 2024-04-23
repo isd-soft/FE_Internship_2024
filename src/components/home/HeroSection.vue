@@ -54,17 +54,7 @@
   }
 
   &__button {
-  //   background-color: var(--color-uc-gold);
-  //   border: 1px solid var(--color-uc-gold);
-  //   color: var(--color-white);
-  //   font-weight: 700;
     padding: 2.5rem 7.2rem;
-
-  //   &:hover {
-  //     color: var(--color-uc-gold);
-  //     background-color: var(--color-white);
-  //     cursor: pointer;
-  //   }
   }
 }
 

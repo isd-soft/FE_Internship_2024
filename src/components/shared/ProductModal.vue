@@ -184,8 +184,6 @@ const close = () => {
 
   &__photo {
     width: 45rem;
-    // min-width: 40rem;
-    // max-width: calc((100% - 50px) / 2);
     aspect-ratio: 1/1;
     object-fit: cover;
     border-radius: 0.5rem 0 0 0.5rem;

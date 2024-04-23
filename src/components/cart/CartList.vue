@@ -15,10 +15,6 @@ const cartItemList = computed(() => {
     return fullCart.filter((product) => productStore.productExists(product.id))
 })
 
-// const mockCartData = [
-//     { imageSrc: 'https://via.placeholder.com/100x100/CCCCCC/FFFFFF?text=Placeholder+Image', name: 'Asgaard sofa', price: 250000, quantity: 2 },
-//     { imageSrc: 'https://via.placeholder.com/100x100/CCCCCC/FFFFFF?text=Placeholder+Image', name: 'Asgaard sofa', price: 250000, quantity: 2 },
-// ]
 </script>
 
 <template>

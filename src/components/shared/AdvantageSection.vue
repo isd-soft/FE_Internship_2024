@@ -20,12 +20,8 @@ import SupportIcon from "@/assets/icons/AdvantageSupportIcon.svg"
 
 <style lang="scss" scoped>
 .advantage-section {
-    // display: flex;
-    // flex-wrap: wrap;
-    // justify-content: space-between;
     padding: 10rem 0;
     background-color: var(--color-linen);
-    // gap: 48px;
 
     &__container {
         display: grid;

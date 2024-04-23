@@ -16,17 +16,15 @@ const submitFinished = ref(false)
 const plusFieldtel = ref(false)
 const plusFieldemail = ref(false)
 
-const onEdit=()=>{
+const onEdit=()=>
     edit.value=!edit.value
-    console.log(edit.value)
-}
 
-const onPlusFieldtel=()=>{
+const onPlusFieldtel=()=>
     plusFieldtel.value=!plusFieldtel.value
-}
-const onPlusFieldemail=()=>{
+
+const onPlusFieldemail=()=>
     plusFieldemail.value=!plusFieldemail.value
-}
+
 
 const onSubmit=()=>{
     store
@@ -45,18 +43,17 @@ const onCancel=()=>{
     submitFinished.value = false
     edit.value=!edit.value
     store.fetchContactInformation()
-    console.log(edit.value)
     plusFieldtel.value=false
     plusFieldtel.value=false
 }
 
-const toastType = computed(() => {
-        return submitSuccess.value ? 'success' : 'error'
-    })
+const toastType = computed(() => 
+        submitSuccess.value ? 'success' : 'error'
+    )
 
-const toastMessage = computed(() => {
-    return submitSuccess.value ? 'Submit Successful' : 'Submit Failed'
-})
+const toastMessage = computed(() =>
+    submitSuccess.value ? 'Submit Successful' : 'Submit Failed'
+)
 
 </script>
 <template>

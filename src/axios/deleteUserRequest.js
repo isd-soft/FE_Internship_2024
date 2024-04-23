@@ -8,7 +8,6 @@ export const deleteUserRequest = async (token, userId) => {
     },
     data: userId
   })
-  console.log(response)
   if (response.status === 200) return true
   else return false
 }

@@ -25,10 +25,8 @@
     })
 
     const finishSubmitSuccess = () => {
-        console.log("It's Submited")
         submitSuccess.value = true
         submitFinished.value = true
-        //Needed to trigger Toast. The toast is not inside the Modal, but its appearance depends on submitFinished becoming true,
         }
 
         const finishSubmitFail = () => {
