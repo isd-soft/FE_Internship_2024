@@ -17,8 +17,6 @@ const icons = {
 
 const createPath = (pathname) => `${new URL(location.href).origin}/admin/${pathname}`
 
-console.log(createPath('products'))
-
 const linkList = reactive([
   {
     href: 'products',

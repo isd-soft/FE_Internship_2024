@@ -43,7 +43,7 @@ defineProps({
     }
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 991px) {
     .advantage-card {
         flex-direction: column;
 

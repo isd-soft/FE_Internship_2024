@@ -7,6 +7,4 @@ const axiosService = axios.create({
     }
 })
 
-//'X-Auth-Token' token necessary for some operations
-
 export default axiosService

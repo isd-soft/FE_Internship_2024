@@ -15,10 +15,6 @@ const cartItemList = computed(() => {
     return fullCart.filter((product) => productStore.productExists(product.id))
 })
 
-// const mockCartData = [
-//     { imageSrc: 'https://via.placeholder.com/100x100/CCCCCC/FFFFFF?text=Placeholder+Image', name: 'Asgaard sofa', price: 250000, quantity: 2 },
-//     { imageSrc: 'https://via.placeholder.com/100x100/CCCCCC/FFFFFF?text=Placeholder+Image', name: 'Asgaard sofa', price: 250000, quantity: 2 },
-// ]
 </script>
 
 <template>
@@ -53,9 +49,15 @@ const cartItemList = computed(() => {
     }
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 991px) {
     .cart-section__list-wrapper {
         width: 100%;
+    }
+}
+
+@media only screen and (max-width: 575px) {
+    .cart-section__list-wrapper {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
     }
 }
 </style>

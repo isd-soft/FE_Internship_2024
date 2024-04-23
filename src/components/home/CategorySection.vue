@@ -30,7 +30,7 @@ const categoryList = [
 <template>
   <section class="main__section section category-section">
     <div class="category-section__container container">
-      <h2 class="category-section__title text-xl">Browse the range</h2>
+      <h2 class="category-section__title text-3xl">Browse the range</h2>
 
       <p class="category-section__paragraph text-md">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
@@ -61,23 +61,21 @@ const categoryList = [
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 82%;
-    max-width: 1440px;
-    margin: 0 auto;
+
   }
 
   &__title {
     font-weight: 700;
     color: var(--color-dark-charcoal);
     margin: 0;
-    margin-bottom: 5%;
+    margin-bottom: 20px;
   }
 
   &__paragraph {
     font-weight: 400;
     color: var(--color-granite-gray);
     text-align: center;
-    margin-bottom: 5%;
+    margin-bottom: 60px;
 
   }
 

@@ -48,6 +48,10 @@ const getButtonNumberList = () => {
         value = pageNumber.value - buttonNumber.value + 1
     }
 
+    if (pageNumber.value < buttonNumber.value) {
+        return Array.from({ length: pageNumber.value }, (_, index) => index + 1)
+    }
+
     return Array.from({ length: props.buttonNumber }, (_, index) => value + index)
 }
 

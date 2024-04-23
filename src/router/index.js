@@ -8,7 +8,7 @@ import { authGuard } from './authGuard'
 import { adminGuard } from './adminGuard'
 import { createRouter, createWebHistory } from 'vue-router'
 import AdminContactView from '@/views/AdminContactView.vue'
-import AdminUserView from '@/components/admin/AdminUserView.vue'
+import AdminUserView from '@/views/AdminUserView.vue'
 import AdminProductView from '@/views/AdminProductView.vue'
 
 const router = createRouter({
@@ -26,9 +26,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'default',
-      // redirect: {path: '/home'},
       component: DefaultView,
-      // meta: { requiresAdmin: true },
       children:[
         {
           path: '',
@@ -49,7 +47,7 @@ const router = createRouter({
           path: 'cart',
           name: 'cart',
           component: CartView,
-          meta: { requiresAuth: true } //Comment this if u need to access cart
+          meta: { requiresAuth: true }
         },
       ]
     },

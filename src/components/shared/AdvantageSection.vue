@@ -7,11 +7,10 @@ import SupportIcon from "@/assets/icons/AdvantageSupportIcon.svg"
 </script>
 
 <template>
-    <section class="advantage-section">
+    <section class="advantage-section section">
         <div class="advantage-section__container container">
             <AdvantageCard :icon="TrophyIcon" name="High Quality" description="Crafted from top materials" />
             <AdvantageCard :icon="WarrantyIcon" name="Warranty Protection" description="Over 2 years" />
-            <!-- <AdvantageCard :icon="ShippingIcon" name="Free Shipping" description="Order over 150 $" /> -->
             <AdvantageCard :icon="ShippingIcon" name="Free Shipping" description="Order over 150 $" />
             <AdvantageCard :icon="SupportIcon" name="24 / 7 Support" description="Dedicated support" />
         </div>
@@ -20,12 +19,8 @@ import SupportIcon from "@/assets/icons/AdvantageSupportIcon.svg"
 
 <style lang="scss" scoped>
 .advantage-section {
-    // display: flex;
-    // flex-wrap: wrap;
-    // justify-content: space-between;
     padding: 10rem 0;
     background-color: var(--color-linen);
-    // gap: 48px;
 
     &__container {
         display: grid;
@@ -36,14 +31,14 @@ import SupportIcon from "@/assets/icons/AdvantageSupportIcon.svg"
     }
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 991px) {
     .advantage-section__container {
         grid-template-columns: repeat(2, 1fr);
         column-gap: 0;
     }
 }
 
-@media only screen and (max-width: 375px) {
+@media only screen and (max-width: 575px) {
     .advantage-section__container {
         grid-template-columns: 1fr;
     }

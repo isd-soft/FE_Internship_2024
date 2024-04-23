@@ -59,7 +59,7 @@ const onSubmit = handleSubmit((values) => {
     .catch((err) => emit('failure'))
 })
 
-const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
+const emit = defineEmits(['success', 'failure', 'changeModal'])
 </script>
 
 <template>
@@ -76,7 +76,6 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
         name="email"
         type="email"
         placeholder="Email"
-        @focus="$emit('inputStart')"
       />
       <span class="register-form__error" style="grid-column: 1 /1">{{ errors.email }}</span>
 
@@ -89,7 +88,6 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
         name="username"
         type="username"
         placeholder="Username"
-        @focus="$emit('inputStart')"
       />
       <span class="register-form__error" style="grid-column: 2 /2">{{ errors.username }}</span>
 
@@ -102,7 +100,6 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
         name="firstName"
         type="text"
         placeholder="First Name"
-        @focus="$emit('inputStart')"
       />
       <span style="grid-column: 1 /1" class="register-form__error">{{ errors.firstName }}</span>
 
@@ -115,7 +112,6 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
         name="lastName"
         type="text"
         placeholder="Last Name"
-        @focus="$emit('inputStart')"
       />
       <span class="register-form__error" style="grid-column: 2 /2">{{ errors.lastName }}</span>
 
@@ -128,7 +124,6 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
         name="password"
         type="password"
         placeholder="Password"
-        @focus="$emit('inputStart')"
       />
       <span style="grid-column: 1 /1" class="register-form__error">{{ errors.password }}</span>
 
@@ -141,7 +136,6 @@ const emit = defineEmits(['success', 'failure', 'changeModal', 'inputStart'])
         name="confirmPassword"
         type="password"
         placeholder="Confirm Password"
-        @focus="$emit('inputStart')"
       />
       <span style="grid-column: 2 /2" class="register-form__error">{{
         errors.confirmPassword

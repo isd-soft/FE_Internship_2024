@@ -36,11 +36,9 @@ export const useContactStore = defineStore('contactStore', () => {
       userStore.token.key
     )
     if (result) {
-      console.log('result')
       contactInformation.value = result.value
       return true
     }
-    console.log('Something went wrong')
     return false
   }
 
@@ -59,7 +57,6 @@ export const useContactStore = defineStore('contactStore', () => {
   })
   //From Websocket
   const changeContactInformation = (info) => {
-    console.log('Changing contact info ', info.value)
     contactInformation.value = info.value
     adminNotificationStore.addNotification({ message: 'Contact information updated', type: 'info' })
   }

@@ -18,8 +18,6 @@ export const useAdminUserStore = defineStore('adminuser', () => {
     if (response) users.value = response
   }
 
-  //After Update and delete a webhook should be triggered that changes those values I think?
-  //If no, then call getUser again
   const updateUsers = async (modifiedUser) => {
     const response = await updateUserRequest(JSON.stringify(modifiedUser), userStore.token.key)
     return response

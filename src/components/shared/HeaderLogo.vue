@@ -1,8 +1,7 @@
 <script setup>
 import GenericLink from '../generics/GenericLink.vue';
-import { defineProps } from 'vue';
 
-const props = defineProps({
+defineProps({
   shrink: Boolean
 });
 </script>
