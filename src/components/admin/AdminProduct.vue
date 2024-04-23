@@ -9,26 +9,26 @@ import { createToast } from '../generics/GenericToast.vue'
 import { ref } from 'vue'
 
 const props = defineProps({
-  headingFlag: Boolean,
-  imageUrl: String,
-  id: String,
-  description: String,
-  name: String,
-  price: Number,
-  stock: Number,
-  discount: Number,
-  code: String,
-  rating: Number,
-  isNew: Boolean,
-  createdAt: String,
-  updatedAt: String
+    headingFlag: Boolean,
+    imageUrl: String,
+    id: String,
+    description: String,
+    name: String,
+    price: Number,
+    stock: Number,
+    discount: Number,
+    code: String,
+    rating: Number,
+    isNew: Boolean,
+    createdAt: String,
+    updatedAt: String
 })
 
 const { open } = useModal({
-  component: AdminProductModal,
-  attrs: {
-    ...props
-  }
+    component: AdminProductModal,
+    attrs: {
+        ...props
+    }
 })
 
 const categoryList = ['Image', 'Code', 'Name', 'Price', 'Stock', 'Discount', 'Actions']
@@ -37,16 +37,16 @@ const productStore = useProductStore()
 const token = useUserStore().token.key
 
 const handleDeletion = () => {
-  confirm('Are you sure you want to delete this product?')
-    ? productStore
-        .deleteProductFromServer(props.id, token)
-        .then((result) =>
-          result
-            ? createToast('Product deleted successfully!', 'success')
-            : createToast('Error while deleting the product: ', 'error')
-        )
-        .catch((error) => createToast('Error while deleting the product: ' + error, 'error'))
-    : null
+    confirm('Are you sure you want to delete this product?')
+        ? productStore
+            .deleteProductFromServer(props.id, token)
+            .then((result) =>
+                result
+                    ? createToast('Product deleted successfully!', 'success')
+                    : createToast('Error while deleting the product: ', 'error')
+            )
+            .catch((error) => createToast('Error while deleting the product: ' + error, 'error'))
+        : null
 }
 </script>
 
@@ -75,7 +75,6 @@ const handleDeletion = () => {
             </button>
         </div>
     </div>
-  </div>
 </template>
 
 <style lang="scss" scoped>
@@ -108,7 +107,7 @@ const handleDeletion = () => {
 .admin-product-card {
     border: 1px solid var(--color-uc-gold);
     border-radius: 10px;
-  }
+
     &__image {
         padding: 0;
         width: 5rem;
@@ -178,9 +177,9 @@ const handleDeletion = () => {
 
 
 
-    .admin-product-card__code,
+    .admin-product-card__product,
     .admin-product-card__stock,
-    .admin-product-heading__category:nth-child(2),
+    .admin-product-heading__category:nth-child(3),
     .admin-product-heading__category:nth-child(5) {
         display: none;
     }
