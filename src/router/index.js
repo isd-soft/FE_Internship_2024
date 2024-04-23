@@ -8,7 +8,7 @@ import { authGuard } from './authGuard'
 import { adminGuard } from './adminGuard'
 import { createRouter, createWebHistory } from 'vue-router'
 import AdminContactView from '@/views/AdminContactView.vue'
-import AdminUserView from '@/components/admin/AdminUserView.vue'
+import AdminUserView from '@/views/AdminUserView.vue'
 import AdminProductView from '@/views/AdminProductView.vue'
 
 const router = createRouter({
