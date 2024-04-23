@@ -165,12 +165,35 @@ const handleProductDelete = () => cartStore.deleteProduct(props.id)
   }
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 991px) {
   .cart-card {
     &__image {
       width: 7.5rem;
       height: 7.5rem;
     }
   }
+}
+
+@media only screen and (max-width: 575px){
+  .cart-card {
+    grid-column: 1 / span 6;
+    &__image{
+      grid-column: span 2;
+      justify-self: center;
+    }
+
+    &__name {
+      display: none;
+    }
+
+    &__price{
+      display: none;
+    }
+  }
+
+  .counter{
+    grid-column: span 2;
+  }
+
 }
 </style>

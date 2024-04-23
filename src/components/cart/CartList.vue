@@ -49,9 +49,15 @@ const cartItemList = computed(() => {
     }
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 991px) {
     .cart-section__list-wrapper {
         width: 100%;
+    }
+}
+
+@media only screen and (max-width: 575px) {
+    .cart-section__list-wrapper {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
     }
 }
 </style>
