@@ -38,4 +38,20 @@ const categoryList = ['Product', 'Price', 'Quantity', 'Subtotal']
         }
     }
 }
+
+@media only screen and (max-width: 575px) {
+    .list-heading{
+    &__category:nth-child(1) {
+        grid-column: span 2
+    }
+
+    &__category:nth-child(2){
+        display: none;
+    }
+
+    &__category:nth-child(3){
+        grid-column: span 2;
+    }
+}
+}
 </style>

@@ -1,6 +1,6 @@
 <script setup>
 import { useContactStore } from "@/stores/contactStore";
-import { ref,computed } from "vue";
+import { ref} from "vue";
 import Plus from "@/assets/icons/PlusIcon.svg"
 import Loader from "@/assets/icons/LoaderIcon.svg"
 import {createToast} from '@/components/generics/GenericToast.vue'
@@ -14,17 +14,15 @@ const edit=ref(true)
 const plusFieldtel = ref(false)
 const plusFieldemail = ref(false)
 
-const onEdit=()=>{
+const onEdit=()=>
     edit.value=!edit.value
-    console.log(edit.value)
-}
 
-const onPlusFieldtel=()=>{
+const onPlusFieldtel=()=>
     plusFieldtel.value=!plusFieldtel.value
-}
-const onPlusFieldemail=()=>{
+
+const onPlusFieldemail=()=>
     plusFieldemail.value=!plusFieldemail.value
-}
+
 
 const onSubmit=()=>{
     store
@@ -41,7 +39,6 @@ const onSubmit=()=>{
 const onCancel=()=>{
     edit.value=!edit.value
     store.fetchContactInformation()
-    console.log(edit.value)
     plusFieldtel.value=false
     plusFieldtel.value=false
 }

@@ -178,7 +178,7 @@ const { open: OpenProductModal } = useModal({
   }
 
   &__text-wrapper {
-    height: 100%;
+    min-height: 180px;
     display: flex;
     flex-direction: column;
     row-gap: 0.8rem;
@@ -282,6 +282,13 @@ const { open: OpenProductModal } = useModal({
     }
   }
 }
+
+@media only screen and (max-width: 1440px) {
+  .product-card {
+    min-height: auto;
+  }
+}
+
 
 @media only screen and (max-width: 575px) {
   .product-card:hover {

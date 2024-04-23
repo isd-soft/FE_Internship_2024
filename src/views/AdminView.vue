@@ -14,7 +14,6 @@ const adminNotificationStore = useAdminNotificationStore()
 watch(
   () => adminNotificationStore.notificationList,
   () => {
-    console.log(adminNotificationStore.notificationList)
     createToast(
       adminNotificationStore.notificationList[adminNotificationStore.notificationList.length - 1]
         .message,

@@ -43,9 +43,7 @@ const handleScroll = () => {
 }
 
 const changeUserMenuToggle = () => {
-  console.log('Before toggle:', userMenuToggle.value);
   userMenuToggle.value = !userMenuToggle.value;
-  console.log('After toggle:', userMenuToggle.value);
 }
 
 const updateOverlayPosition = () => {
@@ -78,7 +76,6 @@ const updateFollowingBlockPadding = () => {
 }
 
 onMounted(() => {
-  // window.addEventListener('click', onDocumentClick, true)
   window.addEventListener('resize', updateMediaFlag)
   window.addEventListener('resize', updateFollowingBlockPadding)
   window.addEventListener('resize', updateOverlayPosition)
@@ -100,7 +97,6 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
-  // window.removeEventListener('click', onDocumentClick, true)
   window.removeEventListener('resize', updateMediaFlag)
   window.removeEventListener('resize', updateFollowingBlockPadding)
   window.removeEventListener('resize', updateOverlayPosition)

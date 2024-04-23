@@ -2,7 +2,6 @@
 import GenericLink from '../generics/GenericLink.vue'
 import { useUserStore } from '@/stores/userStore.js'
 import {createToast} from '../generics/GenericToast.vue'
-import { defineEmits } from 'vue'
 
 const user = useUserStore()
 

@@ -166,8 +166,6 @@ const emit = defineEmits(['success', 'failure', 'changeModal'])
   }
 
   &__submit-button {
-    // margin-top: 9.5rem;
-    // margin-bottom: 1rem;
     margin-top: 24px;
     margin-bottom: 10px;
     padding: 12px 130px;
