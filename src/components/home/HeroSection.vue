@@ -143,6 +143,7 @@
 
     &__button {
       width: 100%;
+      padding: 2rem 0;
       font-size: 12px;
     }
   }

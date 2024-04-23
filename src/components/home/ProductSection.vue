@@ -116,6 +116,15 @@ const productList = computed(() => Array.from(productStore.productMap.values()).
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+@media only screen and (max-width: 575px){
+  .product-section__button{
+    padding: 2rem 0;
+    width: 80%; 
+
+  }
+  
+}
 </style>
 
 <style lang="scss">

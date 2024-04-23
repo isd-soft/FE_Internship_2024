@@ -180,14 +180,16 @@ button {
   background-color: var(--color-uc-gold);
   border: 1px solid var(--color-uc-gold);
   color: var(--color-white);
-  padding: 2.5rem 4rem;
+  padding: 25px 40px;
   font-size: 1.6rem;
   font-weight: 700;
   width: fit-content;
+  transition: 0.2s ease-in-out;
 
   &:hover {
-    background-color: var(--color-white);
-    color: var(--color-uc-gold);
+    background-color: #9a7726;
+    // color: var(--color-uc-gold);
+    border: 1px solid #9a7726;
   }
 
   &:active {
@@ -216,6 +218,8 @@ button {
   color: var(--color-uc-gold);
   font-size: 1.6rem;
   font-weight: 500;
+  border: 1px solid var(--color-uc-gold);
+  transition: 0.2s ease-in-out;
 
   &:hover {
     background-color: var(--color-uc-gold);

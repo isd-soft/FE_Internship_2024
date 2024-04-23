@@ -175,6 +175,7 @@ const urls = swiperImagesUrls
 
     &__button {
       width: 80%;
+      padding: 2rem 0;
     }
 
     &__image-wrapper{
