@@ -1,38 +1,17 @@
 <!-- eslint-disable vue/valid-template-root -->
-<script setup>
-import { onMounted } from 'vue'
+<script>
 import { useToast } from 'vue-toast-notification'
 import 'vue-toast-notification/dist/theme-default.css'
 
-function createToast(duration, message, position, type) {
+export function createToast(message, type) {
   const $toast = useToast()
   $toast.open({
     message: message,
-    duration: duration,
+    duration: 3000,
     position: "bottom-right",
     type: type
   })
 }
-
-onMounted(() => {
-  createToast(props.duration, props.message, props.position, props.type)
-})
-
-const props = defineProps({
-  duration: {
-    type: Number,
-    default: 3000
-  },
-  message: {
-    type: String,
-    default: ''
-  },
-  type: {
-    type: String,
-    default: 'info',
-    validator: (value) => ['info', 'warning', 'success', 'error'].includes(value)
-  }
-})
 </script>
 
 <template>
