@@ -23,21 +23,21 @@ const linkList = reactive([
   {
     href: 'products',
     textContent: 'Products',
-    textClass: 'navigation__link-text text-lg',
+    textClass: 'navigation__link-text text-md',
     containerClass: 'navigation__link',
     icon: 'ProductIcon'
   },
   {
     href: 'users',
     textContent: 'Users',
-    textClass: 'navigation__link-text text-lg',
+    textClass: 'navigation__link-text text-md',
     containerClass: 'navigation__link',
     icon: 'AdminUserIcon'
   },
   {
     href: 'contact-settings',
     textContent: 'Contacts',
-    textClass: 'navigation__link-text text-lg',
+    textClass: 'navigation__link-text text-md',
     containerClass: 'navigation__link',
     icon: 'AdminContactIcon'
   }
@@ -69,7 +69,7 @@ const linkList = reactive([
   &__list {
     display: flex;
     flex-direction: column;
-    padding: 0 3.4rem 0 3.4rem;
+    padding: 0 2.35rem 0 2.35rem;
     row-gap: 4rem;
   }
 
@@ -78,8 +78,13 @@ const linkList = reactive([
     align-items: center;
     background-color: transparent;
     color: var(--color-black);
-    column-gap: 3rem;
-    font-weight: 500;
+    column-gap: 2rem;
+    font-weight: 400;
+    transition:color 0.25s ease-in-out;
+  }
+
+  &__link:hover{
+    color: var(--color-uc-gold);
   }
 
   &__svg-icon-wrapper{
@@ -97,6 +102,11 @@ const linkList = reactive([
     .active-icon {
       fill: var(--color-white);
     }
+  }
+
+  .router-link-exact-active{
+    color: var(--color-uc-gold);
+    font-weight: 600;
   }
 }
 </style>
