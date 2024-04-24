@@ -264,6 +264,14 @@ const { open: openLoginModal } = useModal({
   height: 50px;
 }
 
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+  opacity: 0;
+}
+
+
 @media only screen and (max-width: 992px) {
   .header {
     &__container {
@@ -381,66 +389,6 @@ const { open: openLoginModal } = useModal({
   stroke: var(--color-black);
   stroke-width: 2;
   stroke-linecap: round;
-
-  &:nth-child(1) {
-    @keyframes transformCross {
-      from {
-        transform: rotate(0) translate(0, 0);
-      }
-      to {
-        transform: rotate(45deg) translate(5px, -29%);
-      }
-    }
-    
-    @keyframes transformMenu {
-      from {
-        transform: rotate(45deg) translate(5px, -29%);
-      }
-      to {
-        transform: rotate(0) translate(0, 0);
-      }
-    }
-  }
-
-  &:nth-child(2) {
-    @keyframes transformCross {
-      from {
-        transform: rotate(0) translate(0, 0);
-      }
-      to {
-        transform: rotate(45deg) translate(5px, -50%);
-      }
-    }
-
-    @keyframes transformMenu {
-      from {
-        transform: rotate(45deg) translate(5px, -50%);
-      }
-      to {
-        transform: rotate(0) translate(0, 0);
-      }
-    }
-  }
-
-  &:nth-child(3) {
-    @keyframes transformCross {
-      from {
-        transform: rotate(0) translate(0, 0);
-      }
-      to {
-        transform: rotate(-45deg) translate(-12px, -2%);
-      }
-    }
-
-    @keyframes transformMenu {
-      from {
-        transform: rotate(-45deg) translate(-12px, -2%);
-      }
-      to {
-        transform: rotate(0) translate(0, 0);
-      }
-    }
-  }
 }
 
 .cross {
