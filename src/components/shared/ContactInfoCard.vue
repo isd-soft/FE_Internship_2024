@@ -31,14 +31,8 @@ defineProps({
         </h3>
       </div>
 
-      <a
-        v-for="item in infoText"
-        :key="item.id"
-        :href="href + item"
-        class="info-card__link"
-        :style="styles"
-        >{{ item }}</a
-      >
+      <a v-for="item in infoText" :key="item.id" :href="href + item" class="info-card__link" :style="styles">{{ item
+        }}</a>
     </div>
   </div>
 </template>
@@ -48,10 +42,17 @@ defineProps({
   display: flex;
   flex-direction: column;
 
+  &__icon {
+    width: 40px;
+    height: 40px;
+    fill: var(--color-black);
+  }
+
+
   &__title-wrapper {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     margin-bottom: 10px;
   }
 
@@ -70,8 +71,9 @@ defineProps({
     color: var(--color-black);
     display: block;
     width: fit-content;
-    padding-left: 35px;
-    margin-bottom: 6px;
+    padding-left: 50px;
+    margin-bottom: 12px;
+
     &:hover {
       color: var(--color-uc-gold);
     }
@@ -81,7 +83,8 @@ defineProps({
     }
   }
 }
-@media only screen and (max-width: 991px) {
+
+@media only screen and (max-width: 768px) {
   .info-card {
     &__title {
       text-align: center;
@@ -100,22 +103,26 @@ defineProps({
       flex-direction: column;
       align-items: center;
     }
-    &__title{
-        font-size: 20px;
+
+    &__title {
+      font-size: 24px;
     }
+
     &__link {
       width: 100%;
       padding-left: 0px;
       text-align: center;
       font-size: 14px;
-      
-    &:hover {
-      color: var(--color-uc-gold);
-    }
 
-    &:last-child {
-      margin-bottom: 0;
-    }
+      margin-bottom: 6px;
+
+      &:hover {
+        color: var(--color-uc-gold);
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
     }
   }
 }
