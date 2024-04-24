@@ -157,7 +157,6 @@ const goFirstPage = () => {
 @media only screen and (max-width: 575px) {
     .shop-section {
         &__list {
-            padding: 40px 20px;
             grid-template-columns: repeat(1, minmax(0, 1fr));
         }
     }
