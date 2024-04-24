@@ -139,9 +139,12 @@ const handleProductDelete = () => cartStore.deleteProduct(props.id)
 
 .delete-button {
   grid-column: 6;
+  height: 100%;
 
   &__icon {
-    stroke: var(--color-uc-gold);    
+    stroke: var(--color-uc-gold);   
+    height: 35px;
+
 
     &:hover {
       stroke: var(--color-dark-charcoal);
