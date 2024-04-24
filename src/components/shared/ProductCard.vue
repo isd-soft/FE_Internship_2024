@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
 import ProductLabel from './ProductLabel.vue'
 import { useModal } from 'vue-final-modal'
 import ProductModal from './ProductModal.vue'
@@ -7,7 +7,7 @@ import ProductModal from './ProductModal.vue'
 import LoginModal from '../authentication/LoginModal.vue'
 import { useUserStore } from '@/stores/userStore'
 import { useCartStore } from '@/stores/cartStore'
-import {createToast} from '../generics/GenericToast.vue'
+import { createToast } from '../generics/GenericToast.vue'
 
 import CartAddIcon from '../../assets/icons/CartAddIcon.svg';
 
@@ -228,8 +228,8 @@ const { open: OpenProductModal } = useModal({
   }
 
   &__cart-button {
-    width: 36px;
-    height: 36px;
+    width: 40px;
+    height: 40px;
     padding: 0.2rem;
     padding-bottom: 0;
     margin-left: auto;

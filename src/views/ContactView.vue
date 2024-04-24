@@ -28,8 +28,8 @@
         <BannerSection title="Contact"/>
         <div class="contact__container container">
             <div class="contact__text-wrapper">
-                <h3 class="contact__tagline text-2xl">Get In Touch With Us</h3>
-                <p class="contact__recommendation">For More Information About Our Product & Services. Please Feel Free To Drop Us <br>
+                <h3 class="contact__tagline">Get In Touch With Us</h3>
+                <p class="contact__recommendation">For More Information About Our Product & Services. Please Feel Free To Drop Us
                     An Email. Our Staff Always Be There To Help You Out. Do Not Hesitate!</p>
             </div>
             <div class="contact__section section">
@@ -56,28 +56,32 @@
 <style lang="scss" scoped>
     .contact{
         &__container{
-            // outline: 1px solid red;
-        // padding: 38px 191px 63px 191px;
+        padding: 0px 130px;
         display: flex;
         flex-direction: column;
-        gap: 7rem;
+        gap: 70px;
+        margin-bottom: 80px;
         }
         &__text-wrapper{
             text-align: center;
+            display: flex ;
+            flex-direction: column;
         }
         &__tagline{
             font-weight: 600;
             margin-bottom: 7px;
+            font-size: 36px;
         }
         &__recommendation{
             color: var(--color-quick-silver);
             font-size: 14px;
+            width: 60%;
+            align-self: center;
         }
         &__section{
             display: flex;
             flex-direction: column;
-            gap: 7rem;
-            
+            gap: 70px;    
         }
         &__info-wrapper{
             display: grid;
@@ -95,13 +99,29 @@
             width: 100%;
             height: 520px;
             filter: grayscale(40%);
-            margin-top: 50px;
             margin-bottom: -5px;
         }
     }
     @media screen and (max-width: 991px) {
         .contact{
+            &__container{
+                max-width: 878px;
+                padding: 0;
+                margin-bottom: 60px;
+                gap: 50px;
+            }
 
+            &__section{
+                gap: 50px;
+            }
+
+            &__tagline{
+                font-size: 24px;
+            }
+
+            &__recommendation{
+            width: 70%;
+        }
         }
     }
     @media only screen and (max-width: 768px) {
@@ -138,6 +158,16 @@
             grid-template-columns: repeat(1, minmax(0, 1fr));
             gap: 4.2rem;
             }
+
+            &__tagline{
+                font-size: 24px;
+            }
+
+            &__recommendation{
+                width: 80%;
+                // text-align: justify;
+                font-size: 12px;
+        }
         }
     }
 </style>

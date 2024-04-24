@@ -93,9 +93,10 @@ const handleProductDelete = () => cartStore.deleteProduct(props.id)
 <style lang="scss" scoped>
 .cart-card {
   grid-column: 1 / span 6;
+  column-gap: 10px;
   display: grid;
   grid-template-columns: inherit;
-  text-align: center;
+  text-align: left;
   align-items: center;
 
   &__image {
@@ -106,19 +107,22 @@ const handleProductDelete = () => cartStore.deleteProduct(props.id)
 
   &__name {
     grid-column: 2;
+    font-size: 14px;
   }
 
   &__price {
     grid-column: 3;
+    font-size: 14px;
   }
 
   &__quantity {
     text-align: center;
     display: block;
-    width: 3.6rem;
-    height: 3.1rem;
+    width: 36px;
+    height: 30px;
     border: 1px solid var(--color-quick-silver);
-    border-radius: 1rem;
+    border-radius: 10px;
+    font-size: 12px;
 
     &:focus {
       outline: none;
@@ -127,20 +131,26 @@ const handleProductDelete = () => cartStore.deleteProduct(props.id)
 
   &__subtotal {
     grid-column: 5;
+    text-align: right;
+    font-size: 14px;
+
   }
 }
 
 .delete-button {
   grid-column: 6;
+  height: 100%;
 
   &__icon {
-    fill: var(--color-uc-gold);
+    stroke: var(--color-uc-gold);   
+    height: 35px;
+
 
     &:hover {
-      fill: var(--color-dark-charcoal);
+      stroke: var(--color-dark-charcoal);
     }
     &:active {
-      fill: var(--color-uc-gold);
+      stroke: var(--color-uc-gold);
     }
   }
 }
@@ -148,11 +158,15 @@ const handleProductDelete = () => cartStore.deleteProduct(props.id)
 .counter {
   grid-column: 4;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
+  column-gap: 15px;
   margin: 0 auto;
   width: 100%;
+  font-size: 12px;
 
   &__button-action {
+    width: 30px;
+    font-size: 18px;
     &:hover {
       color: var(--color-uc-gold);
     }
@@ -169,6 +183,21 @@ const handleProductDelete = () => cartStore.deleteProduct(props.id)
       width: 7.5rem;
       height: 7.5rem;
     }
+
+    &__name, &__price, &__subtotal{
+      font-size: 12px;
+    }
+
+    &__quantity{
+      font-size: 10px;
+    }
+  }
+
+  .counter{
+
+    &__button-action {
+      font-size: 14px;
+    }
   }
 }
 
@@ -176,8 +205,7 @@ const handleProductDelete = () => cartStore.deleteProduct(props.id)
   .cart-card {
     grid-column: 1 / span 6;
     &__image{
-      grid-column: span 2;
-      justify-self: center;
+      justify-self: left;
     }
 
     &__name {
@@ -187,10 +215,27 @@ const handleProductDelete = () => cartStore.deleteProduct(props.id)
     &__price{
       display: none;
     }
+
+    &__subtotal{
+      text-align: left;
+      padding-left: 5px;
+    }
+
+    &__quantity {
+      width: min(40px, 25%);
+      height: 30px;
+      font-size: 10px;
+    }
+
   }
 
   .counter{
-    grid-column: span 2;
+    grid-column: span 3;
+    column-gap: min(10px, 1%);
+    font-size: 10px;
+    &__button-action {
+      width: min(35px, 20%);
+    }
   }
 
 }
