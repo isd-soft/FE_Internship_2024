@@ -47,14 +47,6 @@ defineProps({
 .info-card {
   display: flex;
   flex-direction: column;
-  // width: 100%; //remove me
-
-  // &__text-wrapper { //remove me
-  //   display: flex;
-  //   flex-direction: column;
-  //   width: 50%;
-  //   margin: 0 auto;
-  // }
 
   &__title-wrapper {
     display: flex;
@@ -79,7 +71,7 @@ defineProps({
     display: block;
     width: fit-content;
     padding-left: 35px;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
     &:hover {
       color: var(--color-uc-gold);
     }
@@ -89,29 +81,6 @@ defineProps({
     }
   }
 }
-// .info-card {
-//   display: flex;
-//   height: min-content;
-//   &__icon-wrapper {
-//     width: 30px;
-//     margin-right: 12px;
-//   }
-//   &__title {
-//     margin-bottom: 10px;
-//     font-weight: 500;
-//   }
-//   &__about-wrapper {
-//     margin-bottom: 5px;
-//   }
-//   &__about {
-//     font-weight: 300;
-//     text-decoration: none;
-//     color: var(--color-black);
-//     &:hover {
-//       color: var(--color-uc-gold);
-//     }
-//   }
-// }
 @media only screen and (max-width: 991px) {
   .info-card {
     &__title {
@@ -139,8 +108,8 @@ defineProps({
       padding-left: 0px;
       text-align: center;
       font-size: 14px;
-
       margin-bottom: 6px;
+      
     &:hover {
       color: var(--color-uc-gold);
     }
