@@ -336,6 +336,9 @@ const onCancel=()=>{
         &__container{
             padding: 5rem 5rem 0 10rem;
         }
+        &__name-text{
+            font-size: 32px;
+        }
         &__form-wrapper{
             width: 100%;
         }
@@ -348,6 +351,10 @@ const onCancel=()=>{
         }
         &__button{
             width: 100%;
+        }
+        &__hours-wrapper{
+            flex-direction: column;
+            text-align: center;
         }
     }
 }

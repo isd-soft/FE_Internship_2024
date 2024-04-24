@@ -3,8 +3,6 @@ import TrashIcon from '../../assets/icons/TrashIcon.svg'
 import { useCartStore } from '@/stores/cartStore'
 import { useProductStore } from '@/stores/productStore'
 import { createToast } from '../generics/GenericToast.vue'
-import { ref, computed } from 'vue'
-import ProductCard from '../shared/ProductCard.vue'
 
 const cartStore = useCartStore()
 const productStore = useProductStore()
