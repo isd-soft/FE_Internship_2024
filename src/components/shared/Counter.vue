@@ -2,20 +2,24 @@
 import { ref } from 'vue'
 
 defineProps({
-  isVisible: Boolean
+  isVisible: Boolean,
 })
 
 const count = ref(1)
 
 function increaseCount() {
   count.value++;
+  emit('countChanged', count.value)
 }
 
 function decreaseCount() {
   if (count.value > 1) {
     count.value--;
+    emit('countChanged', count.value)
   }
 }
+
+const emit = defineEmits(['countChanged'])
 </script>
 
 <template>

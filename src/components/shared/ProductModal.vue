@@ -9,7 +9,7 @@ import Counter from './Counter.vue'
 import StarRating from './StarRating.vue'
 import ClosingIcon from '../../assets/icons/CrossIcon.svg'
 import ProductChip from '../shared/ProductChip.vue'
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 
 const { open: openLoginModal } = useModal({
   component: LoginModal
@@ -19,6 +19,7 @@ const user = useUserStore()
 const cart = useCartStore()
 
 const reviews = Math.floor(Math.random() * 20)
+const quantity = ref(1)
 
 const isAuthenticated = () => {
   if (!user.isAuthenticated()) {
@@ -36,7 +37,8 @@ const isAuthenticated = () => {
       discount: props.discount,
       isNew: props.isNew,
       createdAt: props.createdAt,
-      updatedAt: props.updatedAt
+      updatedAt: props.updatedAt,
+      quantity: quantity
     })
 
     createToast("Product added to cart", "success")
@@ -49,7 +51,7 @@ const props = defineProps({
   name: String,
   code: String,
   description: String,
-  price: String,
+  price: Number,
   oldPrice: {
     type: String,
     required: false
@@ -84,8 +86,12 @@ const close = () => {
   vfm.closeAll(vfm.openedModals)
 }
 
+const changeQuantity = (count) => { quantity.value = count }
+
 const ratingFlag = reviews > 0 && Number(props.rating) > 0
 const stockFlag = computed(() => props.productType === 'stock')
+
+const convertPrice = value => '$' + value.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
 
 </script>
 
@@ -109,7 +115,7 @@ const stockFlag = computed(() => props.productType === 'stock')
 
       <div class="product-modal__price-wrapper">
         <span class="product-modal__price">
-          {{ price }}
+          {{ convertPrice(price - price * discount / 100) }}
         </span>
 
         <ProductChip :type="productType" :value="discount" />
@@ -142,7 +148,7 @@ const stockFlag = computed(() => props.productType === 'stock')
       </div>
 
       <div class="product-modal__button-wrapper">
-        <Counter :isVisible="!stockFlag" />
+        <Counter :isVisible="!stockFlag" @countChanged="changeQuantity" />
 
         <button :disabled="stockFlag" class="product-modal__add-button"
           :class="{ 'product-modal__add-button--disabled': stockFlag }" @click="isAuthenticated()">
@@ -188,7 +194,7 @@ const stockFlag = computed(() => props.productType === 'stock')
   }
 
   &__code {
-    font-size: 20px;
+    font-size: 14px;
     color: var(--color-taupe-gray);
     display: block;
     width: fit-content;
@@ -217,9 +223,9 @@ const stockFlag = computed(() => props.productType === 'stock')
 
   &__cross {
     position: absolute;
-    right: 1.5rem;
-    top: 1.5rem;
-    height: 2.86rem;
+    right: 30px;
+    top: 30px;
+    height: 30px;
     cursor: pointer;
   }
 
@@ -340,8 +346,7 @@ const stockFlag = computed(() => props.productType === 'stock')
     }
 
     &__cross {
-      right: 1rem;
-      top: 1rem;
+      top: 60px;
       fill: var(--color-white);
     }
 

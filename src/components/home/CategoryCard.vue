@@ -24,7 +24,7 @@ const props = defineProps({
   width: 100%;
 
   &__image {
-    width: 100%;
+    width: 30rem;
     height: 87%;
     border-radius: 10px;
     overflow: hidden;
@@ -34,6 +34,30 @@ const props = defineProps({
   &__title {
     font-weight: 600;
     color: var(--color-dark-charcoal);
+  }
+}
+
+@media only screen and (max-width:991px) {
+  .category-card {
+    &__image {
+      width: 25rem;
+    }
+  }
+}
+
+@media only screen and (max-width:768px) {
+  .category-card {
+    &__image {
+      width: 20rem;
+    }
+  }
+}
+
+@media only screen and (max-width:768px) {
+  .category-card {
+    &__image {
+      width: 100%;
+    }
   }
 }
 </style>

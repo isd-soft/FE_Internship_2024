@@ -19,7 +19,7 @@ const props = defineProps({
   <div v-else-if="props.type === 'new'" class="label label__new">New</div>
 
   <div v-else-if="props.type === 'stock'" class="label label__stock">
-    <span class="label__specification">Out of<br />stock</span>
+    <span class="label__specification">Sold out</span>
   </div>
 </template>
 
@@ -31,8 +31,8 @@ const props = defineProps({
   justify-content: center;
   flex-direction: column;
   position: absolute;
-  top: 2.4rem;
-  right: 2.4rem;
+  top: 1.4rem;
+  right: 1.4rem;
   width: 48px;
   height: 48px;
   border-radius: 100%;

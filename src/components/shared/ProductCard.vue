@@ -95,8 +95,7 @@ const { open: OpenProductModal } = useModal({
     name: props.name,
     code: props.code,
     description: props.description,
-    price: convertPrice(props.price - props.price * props.discount / 100),
-    oldPrice: convertPrice(props.price),
+    price: props.price,
     stock: props.stock,
     rating: props.rating,
     discount: props.discount,
@@ -187,14 +186,14 @@ const { open: OpenProductModal } = useModal({
   }
 
   &__title {
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 600;
     color: var(--color-granite-gray);
     text-transform: uppercase;
   }
 
   &__code {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 500;
     color: var(--color-taupe-gray);
     margin-bottom: 1.6rem;
@@ -215,21 +214,21 @@ const { open: OpenProductModal } = useModal({
   }
 
   &__price {
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 600;
     color: var(--color-dark-charcoal);
   }
 
   &__old-price {
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 400;
     text-decoration-line: line-through;
     color: var(--color-silver-foil);
   }
 
   &__cart-button {
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     padding: 0.2rem;
     padding-bottom: 0;
     margin-left: auto;

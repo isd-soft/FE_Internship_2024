@@ -15,7 +15,7 @@ const className = 'product-modal__chip--' + props.type
 const textContent = () => {
     const {type, value} = props
 
-    if (type === 'stock') return 'Out of Stock'
+    if (type === 'stock') return 'Sold Out'
     if (type === 'new') return 'New'
     return `-${value}%`
 }
@@ -35,7 +35,7 @@ const textContent = () => {
     display: block;
     width: fit-content;
     padding: 2px 10px;
-    border-radius: 10px;
+    border-radius: 5px;
 
     &--new {
         background-color: var(--color-violet-blue);

@@ -81,12 +81,9 @@ const categoryList = [
 
   &__list {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 20px;
     width: 100%;
-
-    & :deep(.category-section__list-item) {
-      width: 32%;
-    }
   }
 
   &__slider {

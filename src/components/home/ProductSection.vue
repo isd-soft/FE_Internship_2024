@@ -74,7 +74,7 @@ const productList = computed(() => Array.from(productStore.productMap.values()).
   &__list {
     display: grid;
     grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 32px;
+    gap: 20px;
     width: 100%;
     padding: 0;
     margin: 0;
