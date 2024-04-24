@@ -177,7 +177,7 @@ const handleDeletion = () => {
 
 
 
-    .admin-product-card__product,
+    .admin-product-card__name,
     .admin-product-card__stock,
     .admin-product-heading__category:nth-child(3),
     .admin-product-heading__category:nth-child(5) {
