@@ -60,7 +60,8 @@ const handleDeletion = () => {
         <img class="admin-product-card__image" :src="imageUrl" :alt="name" />
 
         <div v-for="(category, index) of [code, name, `${price} USD`, stock, discount ? discount : 'N/A']"
-            :class="`text-sm admin-product-card__${['code', 'name', 'price', 'stock', 'discount'][index]}`">
+            :class="`text-sm admin-product-card__${['code', 'name', 'price', 'stock', 'discount'][index]}`"
+            :key="index">
             {{ category }}
         </div>
 
@@ -150,7 +151,7 @@ const handleDeletion = () => {
 
         & svg {
             height: 100%;
-            fill: var(--color-uc-gold);
+            stroke: var(--color-uc-gold);
         }
     }
 
@@ -159,15 +160,15 @@ const handleDeletion = () => {
 
         & svg {
             height: 100%;
-            fill: var(--color-uc-gold);
+            stroke: var(--color-uc-gold);
         }
 
         &:hover svg {
-            fill: var(--color-dark-charcoal);
+            stroke: var(--color-dark-charcoal);
         }
 
         &:active svg {
-            fill: var(--color-uc-gold);
+            stroke: var(--color-uc-gold);
         }
     }
 

@@ -94,15 +94,15 @@ const checkRole = (item, role) => item.roles.find(i => i.role === role) ? true :
 
         svg {
             height: 100%;
-            fill: var(--color-uc-gold);
+            stroke: var(--color-uc-gold);
         }
 
         &:hover svg {
-            fill: var(--color-dark-charcoal);
+            stroke: var(--color-dark-charcoal);
         }
 
         &:active svg {
-            fill: var(--color-dark-charcoal);
+            stroke: var(--color-dark-charcoal);
         }
     }
 

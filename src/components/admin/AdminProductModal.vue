@@ -28,7 +28,7 @@ const props = defineProps({
     newProductFlag: Boolean
 })
 
-const { createdAt, updatedAt, headingFlag, ...initialValues } = props
+const { createdAt, updatedAt, ...initialValues } = props
 
 const validationSchema = Yup.object().shape({
     name: Yup.string().required('Name is required'),
