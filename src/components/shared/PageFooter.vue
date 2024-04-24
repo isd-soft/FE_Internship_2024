@@ -246,6 +246,10 @@ onBeforeRouteUpdate((to) => {
     &__adress {
       width: 100%;
     }
+
+    &__copyright {
+      padding-bottom: 3rem;
+    }
   }
 }
 </style>

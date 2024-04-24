@@ -1,46 +1,76 @@
 <script setup>
-import {ref} from 'vue'
+import { ref } from 'vue'
 
-const count = ref(0)
+defineProps({
+  isVisible: Boolean
+})
+
+const count = ref(1)
 
 function increaseCount() {
   count.value++;
 }
 
 function decreaseCount() {
-  if (count.value > 0) {
+  if (count.value > 1) {
     count.value--;
   }
 }
 </script>
 
 <template>
-    <div class="counter">
-        <button class="counter__button-action text-sm" @click = "decreaseCount">-</button>
-        <span class="counter__value text-md">{{ count }}</span>
-        <button class="counter__button-action text-sm" @click = "increaseCount">+</button>
-    </div>
+  <div v-if="isVisible" class="counter">
+    <button class="counter__button" @click="decreaseCount">
+      -
+    </button>
+
+    <span class="counter__value">
+      {{ count }}
+    </span>
+
+    <button class="counter__button" @click="increaseCount">
+      +
+    </button>
+  </div>
 </template>
 
 <style lang="scss" scoped>
-.counter{
+.counter {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border-radius: 10px;
+  border: 1px solid var(--color-black);
+  padding: 10px 15px;
+
+  &__button {
+    font-size: 16px;
+    background-color: var(--color-white);
+    transition: transform 0.3s ease-in-out;
+
+    &:hover {
+      transform: scale(1.5);
+    }
+  }
+
+  &__value {
+    font-size: 16px;
     display: flex;
+    width: 20px;
+    justify-content: center;
     align-items: center;
-    column-gap: 2.35rem;
-    border-radius: 1.43rem;
-    max-height: 5rem;
-    border: 1px solid var(--color-black);
-    padding: 1rem;
+  }
+}
 
-    &__button-action{
-      background-color: var(--color-white);
+@media only screen and (max-width: 575px) {
+  .counter {
+    &__button {
+      font-size: 12px;
     }
 
-    &__value{
-      display: flex;
-      width: 3.5rem;
-      justify-content: center;
-      align-items: center;
+    &__value {
+      font-size: 12px;
     }
+  }
 }
 </style>

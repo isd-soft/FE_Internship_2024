@@ -12,13 +12,19 @@ const props = defineProps({
 
 const className = 'product-modal__chip--' + props.type
 
-const textContent = props.value ? `-${props.value}` : props.type
+const textContent = () => {
+    const {type, value} = props
+
+    if (type === 'stock') return 'Out of Stock'
+    if (type === 'new') return 'New'
+    return `-${value}%`
+}
 
 </script>
 
 <template>
     <div :class="className" class="product-modal__chip">
-        {{ textContent }}
+        {{ textContent() }}
     </div>
 </template>
 
@@ -26,6 +32,8 @@ const textContent = props.value ? `-${props.value}` : props.type
 .product-modal__chip {
     font-size: 16px;
     color: var(--color-white);
+    display: block;
+    width: fit-content;
     padding: 2px 10px;
     border-radius: 10px;
 
