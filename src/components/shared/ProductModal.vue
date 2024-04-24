@@ -9,7 +9,7 @@ import { ref } from 'vue'
 import Counter from './Counter.vue'
 import StarRating from './StarRating.vue'
 import ClosingIcon from '../../assets/icons/CrossIcon.svg'
-import { toUppercaseUtil } from '../../utils/toUppercaseUtil.js'
+import {ProductChip}
 
 const { open: openLoginModal } = useModal({
   component: LoginModal
@@ -88,37 +88,49 @@ const close = () => {
 </script>
 
 <template>
-  <VueFinalModal
-    class="product-modal"
-    content-class="product-modal__content"
-    overlay-transition="vfm-fade"
-    content-transition="vfm-fade"
-    @clickOutside="emit('close')"
-  >
+  <VueFinalModal class="product-modal" content-class="product-modal__container" overlay-transition="vfm-fade"
+    content-transition="vfm-fade" @clickOutside="emit('close')">
     <GenericToast v-if="addCardToggle" message="Product added to cart" type="success" />
-    <img :src="imageUrl" class="product-modal__photo" alt="Product Image" />
+
     <ClosingIcon class="product-modal__cross" @click="close()" />
-    <div class="product-modal__detail">
-      <div class="product-modal__wrapper">
-        <span class="product-modal__header text-3xl">{{ name }}</span>
-        <span class="product-modal__price text-md">{{ price }}</span>
-        <span class="product-modal__description text-sm part">{{ description }}</span>
+
+    <img :src="imageUrl" class="product-modal__photo" alt="Product Image" />
+
+    <div class="product-modal__content-wrapper">
+
+      <h2 class="product-modal__title">
+        {{ name }}
+      </h2>
+
+      <span class="product-modal__code">
+        {{ code }}
+      </span>
+
+      <span class="product-modal__price">
+        {{ price }}
+      </span>
+
+      <span class="product-modal__description text-sm">
+        {{ description }}
+      </span>
+
+      <div v-if="Number(rating)" class="product-modal__review-wrapper">
+        <StarRating :ratingStars="Number(rating)" />
+
+        <span class="product-modal__review-separator" />
+
+        <span class="text-xs product-modal__review-count">
+          {{ reviews() }} Customer Review
+        </span>
       </div>
-      <div class="product-modal__wrapper">
-        <div class="product-modal__review part">
-          <StarRating :ratingStars="Number(rating)" />
-          <span class="product-modal__review-separator" />
-          <span class="text-xs product-modal__review-text">{{ reviews() }} Customer Review</span>
-        </div>
-        <span class="product-modal__section-header text-xs">State</span>
-        <span class="product-modal__product-type text-md">{{ toUppercaseUtil(productType) }}</span>
-        <span class="product-modal__section-header text-xs">Colors</span>
-        <div class="product-modal__color">
-          <div class="product-modal__color-item"></div>
-          <div class="product-modal__color-item"></div>
-          <div class="product-modal__color-item"></div>
-        </div>
+
+      <span class="product-modal__section-header text-xs">Colors</span>
+      <div class="product-modal__color">
+        <div class="product-modal__color-item"></div>
+        <div class="product-modal__color-item"></div>
+        <div class="product-modal__color-item"></div>
       </div>
+
       <div class="product-modal__bottom">
         <Counter />
         <button class="product-modal__bottom-cartadding text-md" @click="isAuthenticated()">
@@ -137,36 +149,43 @@ const close = () => {
   background-color: var(--color-warm-ivory);
   backdrop-filter: blur(12px);
 
-  &__header {
-    margin-top: 15px;
+  &__container {
+    position: relative;
+    display: flex;
+    width: fit-content;
+    max-width: 80%;
+    border-radius: 0.5rem;
+    background: var(--color-white);
+  }
+
+  &__content-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    padding: 30px;
+  }
+
+  &__title {
+    font-size: 30px;
+    font-weight: 400;
     display: block;
-    margin-bottom: 7.5px;
+    width: fit-content;
+  }
+
+  &__code {
+    font-size: 20px;
+    color: var(--color-taupe-gray);
+    display: block;
+    width: fit-content;
+    margin-bottom: 2rem;
   }
 
   &__price {
+    font-size: 20px;
     display: block;
+    width: fit-content;
     color: var(--color-taupe-gray);
-    margin-bottom: 15px;
-  }
-
-  &__content {
-    position: relative;
-    display: flex;
-    background: #fff;
-    border-radius: 0.5rem;
-    column-gap: 5rem;
-    width: fit-content;
-    max-width: 80%;
-  }
-
-  &__detail {
-    margin-top: 15px;
-    margin-right: 2.5rem;
-    padding: 0 15px 15px 0;
-    width: fit-content;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    margin-bottom: 1rem;
   }
 
   &__description {
@@ -191,14 +210,14 @@ const close = () => {
     border-radius: 0.5rem 0 0 0.5rem;
   }
 
-  &__review {
+  &__review-wrapper {
     display: flex;
     align-items: center;
     column-gap: 2rem;
     margin-bottom: 15px;
   }
 
-  &__review-text {
+  &__review-count {
     display: block;
     color: var(--color-taupe-gray);
   }
