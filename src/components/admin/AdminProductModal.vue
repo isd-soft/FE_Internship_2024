@@ -5,9 +5,8 @@ import { useForm } from 'vee-validate'
 import * as Yup from 'yup'
 import CrossIcon from '../../assets/icons/CrossIcon.svg'
 import { useUserStore } from '../../stores/userStore'
-import {createToast} from '../generics/GenericToast.vue'
+import { createToast } from '../generics/GenericToast.vue'
 import { useProductStore } from '../../stores/productStore'
-import { ref } from 'vue'
 
 
 const vfm = useVfm()
@@ -71,10 +70,10 @@ const submit = handleSubmit(values => {
     action(values, token)
         .then(response =>
             response
-                ? createToast(`Product ${props.newProductFlag ? 'added' : 'modified'} successfully!`, 'success' )
-                : createToast( `Failed to ${props.newProductFlag ? 'add' : 'modify'} the product!`, 'error' )
+                ? createToast(`Product ${props.newProductFlag ? 'added' : 'modified'} successfully!`, 'success')
+                : createToast(`Failed to ${props.newProductFlag ? 'add' : 'modify'} the product!`, 'error')
         )
-        .catch(error => createToast( `Failed to ${props.newProductFlag ? 'add' : 'modify'} the product: ${error}`,'error' )
+        .catch(error => createToast(`Failed to ${props.newProductFlag ? 'add' : 'modify'} the product: ${error}`, 'error')
         )
         .finally(() => {
             if (props.newProductFlag) vfm.closeAll(vfm.openedModals)
@@ -152,10 +151,11 @@ const formatDate = (date) => new Date(date).toLocaleDateString('en-GB').replace(
 <style lang="scss">
 .admin-product-modal {
     background-color: var(--color-warm-ivory);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
 
     &__container {
+        border-radius: 10px;
         position: absolute;
         top: 50%;
         left: 50%;
@@ -260,6 +260,10 @@ const formatDate = (date) => new Date(date).toLocaleDateString('en-GB').replace(
             width: 100%;
             aspect-ratio: 2/1;
         }
+
+        &__close-button svg {
+            fill: var(--color-white);
+        }
     }
 
     .admin-product-form {
@@ -279,7 +283,7 @@ const formatDate = (date) => new Date(date).toLocaleDateString('en-GB').replace(
 @media only screen and (max-width: 575px) {
     .admin-product-modal {
         &__container {
-            width: 80%
+            width: 90%
         }
 
         &__image {

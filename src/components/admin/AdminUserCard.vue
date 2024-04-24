@@ -107,12 +107,12 @@ const checkRole = (item, role) => item.roles.find(i => i.role === role) ? true :
     }
 
     &__edit {
-        height: 2rem;
+        height: 20px;
         display: none;
 
         & svg {
             height: 100%;
-            fill: var(--color-uc-gold);
+            stroke: var(--color-uc-gold);
         }
     }
 
@@ -184,7 +184,7 @@ const checkRole = (item, role) => item.roles.find(i => i.role === role) ? true :
         }
 
         &__edit {
-            display: flex;
+            display: block;
         }
     }
 }
