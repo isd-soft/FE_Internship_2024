@@ -38,7 +38,7 @@ const isAuthenticated = () => {
       isNew: props.isNew,
       createdAt: props.createdAt,
       updatedAt: props.updatedAt,
-      quantity: quantity
+      quantity: quantity.value
     })
 
     createToast("Product added to cart", "success")
