@@ -334,7 +334,7 @@ const onCancel=()=>{
 @media only screen and (max-width:575px) {
     .admin-contact{        
         &__container{
-            padding: 5rem 5rem 0 10rem;
+            padding: 1.5rem 3rem 3rem 3rem;
         }
         &__name-text{
             font-size: 32px;

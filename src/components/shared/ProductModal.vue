@@ -347,7 +347,7 @@ const convertPrice = value => '$' + value.toFixed(2).replace(/\B(?=(\d{3})+(?!\d
 
     &__cross {
       top: 60px;
-      fill: var(--color-white);
+      stroke: var(--color-white);
     }
 
     &__color-wrapper {
