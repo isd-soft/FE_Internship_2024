@@ -1,21 +1,16 @@
 <script setup>
-import { useRoute } from 'vue-router'
-import { reactive, computed } from 'vue'
+import { reactive } from 'vue'
 import ProductIcon from '../../assets/icons/ProductIcon.svg'
 import AdminContactIcon from '../../assets/icons/AdminContactIcon.svg'
 import AdminUserIcon from '../../assets/icons/AdminUserIcon.svg'
 import GenericList from '../generics/GenericList.vue'
 import GenericLink from '../generics/GenericLink.vue'
 
-const route = useRoute()
-
 const icons = {
   ProductIcon,
   AdminUserIcon,
   AdminContactIcon
 }
-
-const createPath = (pathname) => `${new URL(location.href).origin}/admin/${pathname}`
 
 const linkList = reactive([
   {
