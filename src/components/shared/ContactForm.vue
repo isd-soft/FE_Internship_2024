@@ -46,11 +46,11 @@ const emit = defineEmits(['success', 'failure'])
 <template>
     <form @submit="onSubmit" class="form-wrapper">
         <div class="form-wrapper__field">
-            <label for="name" class="form-wrapper__label text-sm">Your name*</label>
+            <label for="name" class="form-wrapper__label ">Your name*</label>
             <div class="form-wrapper__field-wrapper">
                 <input 
                     type="text" 
-                    class="form-wrapper__input text-sm"
+                    class="form-wrapper__input "
                     :class="{errorfield:errors.name}"
                     placeholder="ABC"
                     v-model="name"
@@ -61,11 +61,11 @@ const emit = defineEmits(['success', 'failure'])
             </div>
         </div>
         <div class="form-wrapper__field">
-            <label for="email" class="form-wrapper__label text-sm">Email address*</label>
+            <label for="email" class="form-wrapper__label ">Email address*</label>
             <div class="form-wrapper__field-wrapper">
                 <input 
                     type="email"
-                    class="form-wrapper__input text-sm"
+                    class="form-wrapper__input "
                     :class="{errorfield:errors.email}"
                     placeholder="abs@def.com"
                     v-model="email"
@@ -77,11 +77,11 @@ const emit = defineEmits(['success', 'failure'])
             
         </div>
         <div class="form-wrapper__field">
-            <label for="subject" class="form-wrapper__label text-sm">Subject</label>
+            <label for="subject" class="form-wrapper__label ">Subject</label>
             <div class="form-wrapper__field-wrapper">
                 <input 
                     type="text" 
-                    class="form-wrapper__input text-sm"
+                    class="form-wrapper__input "
                     :class="{errorfield:errors.subject}"
                     placeholder="This is an optional"
                     v-model="subject"
@@ -92,11 +92,11 @@ const emit = defineEmits(['success', 'failure'])
             
         </div>
         <div class="form-wrapper__textarea-wrapper">
-            <label for="message" class="form-wrapper__label text-sm">Message*</label>
+            <label for="message" class="form-wrapper__label ">Message*</label>
             <div class="form-wrapper__textarea-field">
             <textarea 
                 type="text" 
-                class="form-wrapper__input text-sm"
+                class="form-wrapper__input "
                 :class="{errorfield:errors.message}"
                 placeholder="Hi! i’d like to ask about"
                 v-model="message"
@@ -104,12 +104,12 @@ const emit = defineEmits(['success', 'failure'])
                 name="message"
                 rows="5"
                 />
-            <span class="form-wrapper__error text-xs" style="top:2%"> {{ errors.message }}</span>
+            <span class="form-wrapper__error" style="top:2%"> {{ errors.message }}</span>
             </div>
         </div>
             <div class="form-wrapper__button-text-wrapper">
-                <span class="form-wrapper__warning text-sm">* the field is required</span>
-                <button  class="form-wrapper__button text-sm primary-button" >Submit</button>
+                <span class="form-wrapper__warning ">* the field is required</span>
+                <button  class="form-wrapper__button  primary-button" >Submit</button>
             </div>
     </form>
 </template>
@@ -142,6 +142,7 @@ const emit = defineEmits(['success', 'failure'])
     }
     &__label{
         font-weight: 500;
+        font-size: 16px;
     }
     &__input{
         font-size: 14px;
@@ -164,8 +165,10 @@ const emit = defineEmits(['success', 'failure'])
         justify-content: space-between;
     }
     &__button{
-        border-radius: .5rem;
-        padding: 1.4rem 7rem;
+        border-radius: 5px;
+        padding: 14px 70px;
+        font-size: 16px;
+        font-weight: 400;
     }
     &__error {
         color: var(--color-candy-pink);
@@ -173,15 +176,35 @@ const emit = defineEmits(['success', 'failure'])
         padding-left: 4px;
         height: 16px;
         }
+
+        &__warning{
+            font-size: 12px;
+        }
 }
 .errorfield{
     border: 1px solid var(--color-candy-pink);
 }
 
+@media only screen and (max-width: 991px) {
+    .form-wrapper{
+        &__button{
+        font-size: 14px;
+    }
+}
+
+}
 @media only screen and (max-width: 575px) {
     .form-wrapper{
 
+    &__label{
+        font-size: 14px;
+    }
+
     &__input{
+        font-size: 12px;
+    }
+
+    &__button{
         font-size: 12px;
     }
 }

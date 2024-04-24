@@ -42,7 +42,7 @@ const handleCartClick = () => {
 
 const linkList = [
   {
-    href: 'home',
+    href: '/',
     textContent: 'Home',
     containerClass: 'navigation__link',
     clickHandler: () => handleNavigationClick()
