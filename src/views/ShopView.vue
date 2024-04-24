@@ -63,17 +63,18 @@ const goFirstPage = () => {
     <BannerSection title="Shop" />
     <section class="main__section section shop-section">
         <div class="shop-section__container container">
-        <GenericList :items="pageList(currentPage)" key="id" customClass="shop-section__list"
-            itemClass="shop-section__list-item">
-            <template v-slot="{ item }">
-                <ProductCard v-bind="item" />
-            </template>
-        </GenericList>
-        <FirstLastPagination :pageNumber="pageNumber()" :buttonNumber="width > 575 ? 5 : 3" :currentPage="currentPage"
-            :goToPage="goToPage" :goToFirstPage="goFirstPage" :goToLastPage="goLastPage" />
+            <GenericList :items="pageList(currentPage)" key="id" customClass="shop-section__list"
+                itemClass="shop-section__list-item">
+                <template v-slot="{ item }">
+                    <ProductCard v-bind="item" />
+                </template>
+            </GenericList>
+            <FirstLastPagination v-if="pageNumber() > 1" :pageNumber="pageNumber()" :buttonNumber="width > 575 ? 5 : 3"
+                :currentPage="currentPage" :goToPage="goToPage" :goToFirstPage="goFirstPage"
+                :goToLastPage="goLastPage" />
         </div>
-    
-        </section>
+
+    </section>
     <AdvantageSection />
 </template>
 

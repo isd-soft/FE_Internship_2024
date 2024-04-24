@@ -102,14 +102,6 @@ const goFirstPage = () => {
             height: 1.2rem;
             fill: var(--color-white);
         }
-
-        &:hover svg {
-            fill: var(--color-uc-gold);
-        }
-
-        &:active svg {
-            fill: var(--color-white);
-        }
     }
 }
 

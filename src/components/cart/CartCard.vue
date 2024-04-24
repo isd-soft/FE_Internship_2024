@@ -141,13 +141,13 @@ const handleProductDelete = () => cartStore.deleteProduct(props.id)
   grid-column: 6;
 
   &__icon {
-    fill: var(--color-uc-gold);
+    stroke: var(--color-uc-gold);    
 
     &:hover {
-      fill: var(--color-dark-charcoal);
+      stroke: var(--color-dark-charcoal);
     }
     &:active {
-      fill: var(--color-uc-gold);
+      stroke: var(--color-uc-gold);
     }
   }
 }
