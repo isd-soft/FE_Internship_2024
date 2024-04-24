@@ -92,4 +92,15 @@ const linkList = reactive([
     fill: var(--color-uc-gold)
   }
 }
+
+@media (max-width:575px){
+  .navigation{
+    margin-top: 0;
+
+    &__list{
+      flex-direction: row;
+      column-gap: 7rem;
+    }
+  }
+}
 </style>

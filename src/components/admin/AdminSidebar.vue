@@ -112,4 +112,44 @@ import GenericLink from '../generics/GenericLink.vue'
     transition-delay: 0.25s;
   }
 }
+
+@media (max-width:575px) {
+  .aside{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100vw;
+    height: 50px;
+    border-right: none;
+    border-bottom: 1px solid var(--color-uc-gold);
+
+    &__logo{
+      padding: 0;
+      padding-left: 20px;
+    }
+
+    &__button-text{
+      display: none;
+    }
+
+    & :deep(.navigation__link-text), & :deep(.aside__logo-text){
+      display: none;
+    }
+    
+    &:hover {
+      width: 100vw; /* Reset width to default state */
+
+      /* Reset child elements' styles to non-hovered state */
+      & :deep(.aside__button-text),
+      & :deep(.navigation__link-text),
+      & :deep(.aside__logo-text) {
+        opacity: 0;
+        visibility: hidden;
+        color: var(--color-black); /* Assuming default color is black */
+      }
+    }
+  }
+}
 </style>
