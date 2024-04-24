@@ -33,7 +33,7 @@ const cartItemList = computed(() => {
     width: 66%;
     display: grid;
     grid-template-columns: repeat(6, minmax(0, 1fr));
-    row-gap: 5rem;
+    row-gap: 40px;
 
     .cart-section__list {
         grid-column: 1 /span 6;
@@ -52,12 +52,15 @@ const cartItemList = computed(() => {
 @media only screen and (max-width: 991px) {
     .cart-section__list-wrapper {
         width: 100%;
+        row-gap: 20px;
     }
 }
 
 @media only screen and (max-width: 575px) {
     .cart-section__list-wrapper {
-        grid-template-columns: repeat(6, minmax(0, 1fr));
+        .cart-section__list {
+            column-gap: 10px;
+    }
     }
 }
 </style>

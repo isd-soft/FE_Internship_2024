@@ -25,8 +25,8 @@ import CartTotal from './CartTotal.vue'
 
 @media only screen and (max-width: 991px) {
     .cart-section__container {
-        flex-direction: column-reverse;
-        gap: 5rem;
+        flex-direction: column;
+        gap: 40px;
     }
 }
 </style>
