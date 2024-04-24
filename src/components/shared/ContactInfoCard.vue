@@ -47,14 +47,14 @@ defineProps({
 .info-card {
   display: flex;
   flex-direction: column;
-  width: 100%; //remove me
+  // width: 100%; //remove me
 
-  &__text-wrapper { //remove me
-    display: flex;
-    flex-direction: column;
-    width: 50%;
-    margin: 0 auto;
-  }
+  // &__text-wrapper { //remove me
+  //   display: flex;
+  //   flex-direction: column;
+  //   width: 50%;
+  //   margin: 0 auto;
+  // }
 
   &__title-wrapper {
     display: flex;

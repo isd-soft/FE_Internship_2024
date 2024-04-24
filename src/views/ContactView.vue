@@ -55,9 +55,13 @@
 
 <style lang="scss" scoped>
     .contact{
+        // display: flex;
+        // flex-direction: column;
         &__container{
             // outline: 1px solid red;
         // padding: 38px 191px 63px 191px;
+        // max-width: fit-content;
+        max-width: 1200px;
         display: flex;
         flex-direction: column;
         gap: 7rem;
@@ -101,7 +105,9 @@
     }
     @media screen and (max-width: 991px) {
         .contact{
-
+            &__container{
+                max-width: 878px
+            }
         }
     }
     @media only screen and (max-width: 768px) {
