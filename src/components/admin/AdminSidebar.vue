@@ -13,7 +13,7 @@ import GenericLink from '../generics/GenericLink.vue'
       <div class="aside__logout-svg-wrapper">
         <LogoutIcon />
       </div>
-      <span class="aside__button-text text-md">User</span>
+      <span class="aside__button-text text-sm">User</span>
     </GenericLink>
   </aside>
 </template>
@@ -21,7 +21,7 @@ import GenericLink from '../generics/GenericLink.vue'
 <style lang="scss" scoped>
 .aside {
   position: fixed;
-  width: 6.9rem;
+  width: 5.95rem;
   height: 100vh;
   border-right: 1px solid var(--color-uc-gold);
   display: flex;
@@ -52,20 +52,15 @@ import GenericLink from '../generics/GenericLink.vue'
   }
 
   &__logout-svg-wrapper {
-    min-width: 2.25rem;
-    max-width: 2.25rem;
-
-    .icon {
-      width: 100%;
-      height: 100%;
-    }
+    min-width: 1.9rem;
+    max-width: 1.9rem;
   }
 
   &__button {
     display: flex;
     align-items: center;
-    column-gap: 3rem;
-    padding: 0 0 0 2.4rem;
+    column-gap: 2rem;
+    padding: 0 0 0 2rem;
     font-weight: 500;
     margin-top: auto;
     margin-bottom: 1.9rem;
@@ -78,8 +73,7 @@ import GenericLink from '../generics/GenericLink.vue'
     font-weight: 400;
     transition:
       opacity 0.25s ease-in-out,
-      visibility 0s linear,
-      color 0.25s ease-in-out;
+      visibility 0s linear;
     visibility: hidden;
 
     &:hover {
@@ -89,14 +83,21 @@ import GenericLink from '../generics/GenericLink.vue'
 }
 
 .aside:hover {
-  width: 21rem;
+  width: 16rem;
+
+  & :deep(.aside__button) {
+    transition:
+      color 0.25s ease-in-out,
+      fill 0.25s ease-in-out;
+  }
 
   & :deep(.aside__button-text) {
     opacity: 1;
     visibility: visible;
     transition:
       opacity 0.25s ease-in-out 0.25s,
-      visibility 0s linear 0.25s;
+      visibility 0s linear 0.25s,
+      color 0.25s ease-in-out;
   }
 
   & :deep(.aside__logo-text) {
