@@ -29,23 +29,26 @@ const checkRole = (item, role) => item.roles.find(i => i.role === role) ? true :
         content-transition="vfm-fade" @clickOutside="$emit('close')">
         <section class="admin-user-modal__wrapper">
             <div class="admin-user-modal__close">
-                <CrossIcon @click="closeModal" />
+                <button class="admin-user-modal__close-button" @click="closeModal">
+                    <CrossIcon />
+                </button>
             </div>
             <h1 class="text-3xl admin-user-modal__title">User details</h1>
             <h3 class="admin-user-modal__field-name">Username:</h3>
-            <p class="admin-user-modal__username">{{ item.username }}</p>
+            <p class="admin-user-modal__field-content">{{ item.username }}</p>
             <h3 class="admin-user-modal__field-name">Email:</h3>
-            <p class="admin-user-modal__email">{{ item.email }}</p>
+            <p class="admin-user-modal__field-content">{{ item.email.split("@")[0] }}<wbr>@{{ item.email.split("@")[1] }}
+            </p>
             <h3 class="admin-user-modal__field-name">First Name:</h3>
-            <p class="admin-user-modal__first-name">{{ item.firstName }}</p>
+            <p class="admin-user-modal__field-content">{{ item.firstName }}</p>
             <h3 class="admin-user-modal__field-name">Last Name:</h3>
-            <p class="admin-user-modal__last-name">{{ item.lastName }}</p>
+            <p class="admin-user-modal__field-content">{{ item.lastName }}</p>
             <h3 class="admin-user-modal__field-name">Created at:</h3>
-            <p class="admin-user-modal__created-at">{{ item.createdAt.replace('T', ' ').slice(0, -8) }}</p>
+            <p class="admin-user-modal__field-content">{{ item.createdAt.replace('T', ' ').slice(0, -8) }}</p>
             <h3 class="admin-user-modal__field-name">Last updated:</h3>
-            <p class="admin-user-modal__updated-at">{{ item.updatedAt.replace('T', ' ').slice(0, -8) }}</p>
+            <p class="admin-user-modal__field-content">{{ item.updatedAt.replace('T', ' ').slice(0, -8) }}</p>
             <h3 class="admin-user-modal__field-name">Role:</h3>
-            <p class="admin-user-modal__role">{{ checkRole(item, 'ADMIN') ? 'ADMIN' : 'USER' }}</p>
+            <p class="admin-user-modal__field-content">{{ checkRole(item, 'ADMIN') ? 'ADMIN' : 'USER' }}</p>
             <button class="primary-button admin-user-modal__update-button" @click="updateRole(item)">{{ checkRole(item,
             'ADMIN') ? 'Remove priveleges' : 'Make ADMIN' }}</button>
             <button class="primary-button admin-user-modal__delete-button" @click="deleteUser(item.id)">Delete
@@ -56,6 +59,9 @@ const checkRole = (item, role) => item.roles.find(i => i.role === role) ? true :
 
 <style lang="scss">
 .admin-user-modal {
+    background-color: var(--color-warm-ivory);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -65,8 +71,12 @@ const checkRole = (item, role) => item.roles.find(i => i.role === role) ? true :
         grid-column: 1 / -1;
         display: flex;
         justify-content: flex-end;
-        height: 30px;
         margin-bottom: -10px;
+    }
+
+    &__close-button {
+        width: 30px;
+        height: 30px;
     }
 
     &__title {

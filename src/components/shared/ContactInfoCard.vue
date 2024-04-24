@@ -31,14 +31,8 @@ defineProps({
         </h3>
       </div>
 
-      <a
-        v-for="item in infoText"
-        :key="item.id"
-        :href="href + item"
-        class="info-card__link"
-        :style="styles"
-        >{{ item }}</a
-      >
+      <a v-for="item in infoText" :key="item.id" :href="href + item" class="info-card__link" :style="styles">{{ item
+        }}</a>
     </div>
   </div>
 </template>
@@ -49,7 +43,14 @@ defineProps({
   flex-direction: column;
   width: 100%; //remove me
 
-  &__text-wrapper { //remove me
+  &__icon {
+    width: 40px;
+    height: 40px;
+    fill: var(--color-black);
+  }
+
+  &__text-wrapper {
+    //remove me
     display: flex;
     flex-direction: column;
     width: 50%;
@@ -59,7 +60,7 @@ defineProps({
   &__title-wrapper {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     margin-bottom: 10px;
   }
 
@@ -78,8 +79,9 @@ defineProps({
     color: var(--color-black);
     display: block;
     width: fit-content;
-    padding-left: 35px;
+    padding-left: 50px;
     margin-bottom: 12px;
+
     &:hover {
       color: var(--color-uc-gold);
     }
@@ -89,29 +91,7 @@ defineProps({
     }
   }
 }
-// .info-card {
-//   display: flex;
-//   height: min-content;
-//   &__icon-wrapper {
-//     width: 30px;
-//     margin-right: 12px;
-//   }
-//   &__title {
-//     margin-bottom: 10px;
-//     font-weight: 500;
-//   }
-//   &__about-wrapper {
-//     margin-bottom: 5px;
-//   }
-//   &__about {
-//     font-weight: 300;
-//     text-decoration: none;
-//     color: var(--color-black);
-//     &:hover {
-//       color: var(--color-uc-gold);
-//     }
-//   }
-// }
+
 @media only screen and (max-width: 768px) {
   .info-card {
     &__title {
@@ -131,9 +111,11 @@ defineProps({
       flex-direction: column;
       align-items: center;
     }
-    &__title{
-        font-size: 24px;
+
+    &__title {
+      font-size: 24px;
     }
+
     &__link {
       width: 100%;
       padding-left: 0px;
@@ -141,13 +123,14 @@ defineProps({
       font-size: 14px;
 
       margin-bottom: 6px;
-    &:hover {
-      color: var(--color-uc-gold);
-    }
 
-    &:last-child {
-      margin-bottom: 0;
-    }
+      &:hover {
+        color: var(--color-uc-gold);
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
     }
   }
 }

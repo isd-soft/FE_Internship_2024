@@ -6,7 +6,6 @@ import AdminProductModal from './AdminProductModal.vue'
 import { useProductStore } from '../../stores/productStore'
 import { useUserStore } from '../../stores/userStore'
 import { createToast } from '../generics/GenericToast.vue'
-import { ref } from 'vue'
 
 const props = defineProps({
     headingFlag: Boolean,
@@ -61,7 +60,8 @@ const handleDeletion = () => {
         <img class="admin-product-card__image" :src="imageUrl" :alt="name" />
 
         <div v-for="(category, index) of [code, name, `${price} USD`, stock, discount ? discount : 'N/A']"
-            :class="`text-sm admin-product-card__${['code', 'name', 'price', 'stock', 'discount'][index]}`">
+            :class="`text-sm admin-product-card__${['code', 'name', 'price', 'stock', 'discount'][index]}`"
+            :key="index">
             {{ category }}
         </div>
 
@@ -81,7 +81,7 @@ const handleDeletion = () => {
 .admin-product-card,
 .admin-product-heading {
     display: grid;
-    grid-template-columns: 7.5rem repeat(3, minmax(0, 1fr)) repeat(3, 10rem);
+    grid-template-columns: 7.5rem minmax(0, 0.5fr) minmax(0, 1fr) minmax(0, 0.5fr) repeat(3, 10rem);
     align-items: center;
     padding: 0.5rem;
     min-height: 60px;
@@ -108,10 +108,34 @@ const handleDeletion = () => {
     border: 1px solid var(--color-uc-gold);
     border-radius: 10px;
 
+    &__name,
+    &__code,
+    &__price {
+        overflow-y: hidden;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        &:hover,
+        &:focus {
+            overflow: scroll;
+            white-space: normal;
+            text-overflow: unset;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+        }
+    }
+
     &__image {
         padding: 0;
         width: 5rem;
         height: 5rem;
+        min-width: 50px;
+        min-height: 50px;
         border-radius: 10px;
     }
 
@@ -127,7 +151,7 @@ const handleDeletion = () => {
 
         & svg {
             height: 100%;
-            fill: var(--color-uc-gold);
+            stroke: var(--color-uc-gold);
         }
     }
 
@@ -136,15 +160,15 @@ const handleDeletion = () => {
 
         & svg {
             height: 100%;
-            fill: var(--color-uc-gold);
+            stroke: var(--color-uc-gold);
         }
 
         &:hover svg {
-            fill: var(--color-dark-charcoal);
+            stroke: var(--color-dark-charcoal);
         }
 
         &:active svg {
-            fill: var(--color-uc-gold);
+            stroke: var(--color-uc-gold);
         }
     }
 
@@ -172,7 +196,21 @@ const handleDeletion = () => {
     .admin-product-heading {
         min-height: 50px;
         height: min-content;
-        grid-template-columns: 7.5rem repeat(4, minmax(0, 1fr));
+        grid-template-columns: 7.5rem repeat(2, minmax(0, 1fr)) 10rem 10rem;
+    }
+
+    .admin-product-card {
+        &__button-wrapper {
+            gap: 5px;
+        }
+
+        &__patch-button {
+            height: 20px;
+        }
+
+        &__delete-button {
+            height: 25px;
+        }
     }
 
 
@@ -190,12 +228,15 @@ const handleDeletion = () => {
     .admin-product-card,
     .admin-product-heading {
         padding: 0;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns: 50px minmax(0, 1fr) 60px;
         width: 100%;
+        text-align: center;
     }
 
     .admin-product-card {
         &__image {
+            height: 50px;
+            width: 50px;
             border-radius: 10px 0 0 10px;
         }
     }
