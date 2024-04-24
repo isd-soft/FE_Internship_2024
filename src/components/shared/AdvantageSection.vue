@@ -21,6 +21,7 @@ import SupportIcon from "@/assets/icons/AdvantageSupportIcon.svg"
 .advantage-section {
     padding: 10rem 0;
     background-color: var(--color-linen);
+    margin-bottom: 0;
 
     &__container {
         display: grid;

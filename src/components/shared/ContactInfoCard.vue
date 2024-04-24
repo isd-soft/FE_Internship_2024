@@ -41,7 +41,6 @@ defineProps({
 .info-card {
   display: flex;
   flex-direction: column;
-  // width: 100%; //remove me
 
   &__icon {
     width: 40px;
@@ -89,7 +88,7 @@ defineProps({
   .info-card {
     &__title {
       text-align: center;
-      font-size: 24px;
+      font-size: 20px;
     }
   }
 }
