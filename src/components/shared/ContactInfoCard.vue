@@ -112,11 +112,11 @@ defineProps({
 //     }
 //   }
 // }
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 991px) {
   .info-card {
     &__title {
       text-align: center;
-      font-size: 24px;
+      font-size: 20px;
     }
   }
 }
@@ -132,7 +132,7 @@ defineProps({
       align-items: center;
     }
     &__title{
-        font-size: 24px;
+        font-size: 20px;
     }
     &__link {
       width: 100%;
