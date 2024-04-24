@@ -69,7 +69,7 @@ const goFirstPage = () => {
                     <ProductCard v-bind="item" />
                 </template>
             </GenericList>
-            <FirstLastPagination :pageNumber="pageNumber()" :buttonNumber="width > 575 ? 5 : 3"
+            <FirstLastPagination v-if="pageNumber() > 1" :pageNumber="pageNumber()" :buttonNumber="width > 575 ? 5 : 3"
                 :currentPage="currentPage" :goToPage="goToPage" :goToFirstPage="goFirstPage"
                 :goToLastPage="goLastPage" />
         </div>
