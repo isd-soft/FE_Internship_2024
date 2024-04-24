@@ -24,8 +24,6 @@ const valueAttr = props.type === 'checkbox' ? { value: props.checkboxValue } : n
             :class="`admin-product-form__${name}`" :placeholder="placeholder" :name="name" :type="type"
             :uncheckedValue="false" v-bind="valueAttr" />
 
-        <label v-if="type === 'checkbox'" :for="name" class="admin-product-form__checkbox-label"></label>
-
         <ErrorMessage class="admin-product-form__error" :name="name" />
     </div>
 </template>
@@ -33,17 +31,18 @@ const valueAttr = props.type === 'checkbox' ? { value: props.checkboxValue } : n
 <style scoped lang="scss">
 .admin-product-form {
     &__field-wrapper {
-        position: relative;
         display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding-bottom: 2rem;
+        flex-direction: column;
 
-        &:nth-child(1),
-        &:nth-child(2),
         &:nth-child(3),
         &:nth-child(4) {
             grid-column: span 2;
+        }
+
+        &:nth-child(3) {
+            .admin-product-form__field {
+                height: 100px;
+            }
         }
     }
 
@@ -51,52 +50,22 @@ const valueAttr = props.type === 'checkbox' ? { value: props.checkboxValue } : n
         font-size: 1.2rem;
         font-weight: 500;
         width: 8rem;
-        text-align: center;
     }
 
     &__field {
-        font-size: 1.2rem;
+        font-size: 14px;
         border: 1px solid var(--color-quick-silver);
         border-radius: 10px;
-        padding: 0.75rem 0.6rem;
+        padding: 12px;
         flex-grow: 1;
 
         &::placeholder {
             color: var(--color-quick-silver);
         }
-
-        &:focus {
-            border: 1px solid var(--color-uc-gold);
-            outline: none;
-        }
     }
 
     &__description {
         resize: none;
-    }
-
-    &__checkbox-label {
-        position: relative;
-        width: 3.5rem;
-        height: 3.5rem;
-        border: 1px solid var(--color-quick-silver);
-        border-radius: 10px;
-    }
-
-    &__checkbox-label::after {
-        content: "";
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        z-index: 10;
-        width: 2rem;
-        height: 1rem;
-        border-bottom: 5px solid var(--color-uc-gold);
-        border-left: 5px solid var(--color-uc-gold);
-        transform: rotate(-45deg);
-        translate: -50% -60%;
-        opacity: 0;
-        cursor: pointer;
     }
 
     &__isNew {

@@ -7,6 +7,7 @@ import CrossIcon from '../../assets/icons/CrossIcon.svg'
 import { useUserStore } from '../../stores/userStore'
 import { createToast } from '../generics/GenericToast.vue'
 import { useProductStore } from '../../stores/productStore'
+import ToggleButton from '../generics/ToggleButton.vue'
 
 
 const vfm = useVfm()
@@ -48,7 +49,6 @@ const inputPresetList = [
     { title: 'Price', placeholder: '...', name: 'price' },
     { title: 'Stock', placeholder: '...', name: 'stock' },
     { title: 'Discount', placeholder: '...', name: 'discount' },
-    { title: 'New', placeholder: '...', name: 'isNew', type: 'checkbox', checkboxValue: props.newProductFlag ? true : props.isNew },
 ]
 
 const { handleSubmit, isSubmitting, setValues } = useForm({
@@ -92,22 +92,30 @@ const formatDate = (date) => new Date(date).toLocaleDateString('en-GB').replace(
 
         <form v-if="!newProductFlag" class="admin-product-modal__form admin-product-form" @submit="submit"
             @reset="reset">
+            <div class="admin-product-modal__close-button-wrapper">
+                <button type="button" class="admin-product-modal__close-button" @click="closeModal">
+                    <CrossIcon />
+                </button>
+            </div>
             <div class=" admin-product-form__metadata-wrapper">
                 <h2 class="admin-product-form__title">
                     {{ name }}
                 </h2>
 
-                <span class="admin-product-form__info text-sm">
-                    Created at: {{ formatDate(createdAt) }}
-                </span>
+                <div class="admin-product-form__dates">
+                    <span class="admin-product-form__info text-xs">
+                        Created at: {{ formatDate(createdAt) }}
+                    </span>
 
-                <span class="admin-product-form__info text-sm">
-                    Last update: {{ formatDate(updatedAt) }}
-                </span>
+                    <span class="admin-product-form__info text-xs">
+                        Last update: {{ formatDate(updatedAt) }}
+                    </span>
+                </div>
             </div>
 
             <div class="admin-product-form__input-wrapper">
                 <AdminProductInput v-for="(input, index) of inputPresetList" :key="`${name}_${index}`" v-bind="input" />
+                <ToggleButton :state="" title="New" />
             </div>
 
             <div class="admin-product-form__button-wrapper">
@@ -139,12 +147,6 @@ const formatDate = (date) => new Date(date).toLocaleDateString('en-GB').replace(
 
         </form>
 
-
-
-        <button class="admin-product-modal__close-button" @click="closeModal">
-            <CrossIcon width="2.86rem" height="2.86rem" />
-        </button>
-
     </VueFinalModal>
 </template>
 
@@ -153,160 +155,70 @@ const formatDate = (date) => new Date(date).toLocaleDateString('en-GB').replace(
     background-color: var(--color-warm-ivory);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     &__container {
-        border-radius: 10px;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        background-color: var(--color-white);
         display: flex;
-        background: var(--color-white);
+        border-radius: 10px;
     }
 
-    &__image {
-        width: 55rem;
-        aspect-ratio: 1/1;
-        object-fit: cover;
+    &__close-button-wrapper {
+        display: flex;
+        justify-content: flex-end;
     }
 
     &__close-button {
-        position: absolute;
-        top: 1.5rem;
-        right: 1.5rem;
-        z-index: 10;
+        width: 30px;
+        height: 30px;
+    }
+
+    &__form {
+        width: 50%;
+        padding: 2rem;
+    }
+
+    &__image {
+        width: 50%;
+        border-radius: 10px 0 0 10px;
     }
 }
 
 .admin-product-form {
     display: flex;
     flex-direction: column;
-    padding: 2rem;
-    justify-content: space-between;
-    width: 50%;
-
-    &--new {
-        padding: 4rem 8rem;
-    }
+    gap: 30px;
 
     &__metadata-wrapper {
         display: flex;
         flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5rem;
+    }
+
+    &__dates {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        color: var(--color-taupe-gray);
     }
 
     &__title {
-        font-size: 4rem;
-        font-weight: 400;
-
-        &--new {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-    }
-
-    &__info {
-        color: var(--color-taupe-gray);
+        font-size: 30px;
+        font-weight: 600;
     }
 
     &__input-wrapper {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        column-gap: 20px;
+        row-gap: 20px;
     }
 
     &__button-wrapper {
         display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 2.5rem;
-    }
-
-    &__submit-button,
-    &__reset-button {
-        padding: 0.75rem 2.5rem;
-        border-radius: 10px;
-        font-weight: 500;
-    }
-
-    &__submit-button {
-        background-color: var(--color-uc-gold);
-        color: var(--color-white);
-        justify-self: flex-end;
-
-        &--new {
-            width: fit-content;
-            padding: 0.75rem 5rem;
-            margin: 0 auto;
-        }
-    }
-
-    &__reset-button {
-        background-color: transparent;
-        color: var(--color-uc-gold);
-        border: 1px solid var(--color-uc-gold);
-        justify-self: flex-start;
-    }
-}
-
-@media only screen and (max-width: 991px) {
-    .admin-product-modal {
-        &__container {
-            flex-direction: column;
-            align-items: center;
-        }
-
-        &__image {
-            width: 100%;
-            aspect-ratio: 2/1;
-        }
-
-        &__close-button svg {
-            fill: var(--color-white);
-        }
-    }
-
-    .admin-product-form {
         width: 100%;
-
-        &__metadata-wrapper {
-            align-items: center;
-            margin-bottom: 2rem;
-        }
-
-        &__input-wrapper {
-            grid-template-columns: 1fr;
-        }
-    }
-}
-
-@media only screen and (max-width: 575px) {
-    .admin-product-modal {
-        &__container {
-            width: 90%
-        }
-
-        &__image {
-            display: none;
-        }
-    }
-
-    .admin-product-form {
-        &__title {
-            max-width: 70%;
-            text-align: center;
-            font-size: 3.2rem;
-        }
-
-        &__button-wrapper {
-            flex-direction: column;
-            gap: 1.25rem;
-        }
-
-        &__submit-button,
-        &__reset-button {
-            width: 100%;
-        }
+        justify-content: center;
     }
 }
 </style>
