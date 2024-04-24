@@ -71,7 +71,7 @@ defineProps({
     display: block;
     width: fit-content;
     padding-left: 35px;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
     &:hover {
       color: var(--color-uc-gold);
     }
@@ -108,7 +108,6 @@ defineProps({
       padding-left: 0px;
       text-align: center;
       font-size: 14px;
-      margin-bottom: 6px;
       
     &:hover {
       color: var(--color-uc-gold);
