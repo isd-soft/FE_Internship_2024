@@ -177,7 +177,7 @@ const { open: OpenProductModal } = useModal({
   }
 
   &__text-wrapper {
-    min-height: 180px;
+    min-height: 130px;
     display: flex;
     flex-direction: column;
     row-gap: 0.8rem;
