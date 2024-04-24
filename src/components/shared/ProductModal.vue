@@ -4,8 +4,7 @@ import { VueFinalModal, useVfm } from 'vue-final-modal'
 import LoginModal from '../authentication/LoginModal.vue'
 import { useModal } from 'vue-final-modal'
 import { useCartStore } from '@/stores/cartStore'
-import GenericToast from '../generics/GenericToast.vue'
-import { ref } from 'vue'
+import {createToast} from '../generics/GenericToast.vue'
 import Counter from './Counter.vue'
 import StarRating from './StarRating.vue'
 import ClosingIcon from '../../assets/icons/CrossIcon.svg'
@@ -15,7 +14,6 @@ const { open: openLoginModal } = useModal({
   component: LoginModal
 })
 
-const addCardToggle = ref(false)
 const user = useUserStore()
 const cart = useCartStore()
 const reviews = () => Math.floor(Math.random() * 20)
@@ -38,10 +36,8 @@ const isAuthenticated = () => {
       createdAt: props.createdAt,
       updatedAt: props.updatedAt
     })
-    addCardToggle.value = true
-    setTimeout(() => {
-      close()
-    }, 100)
+
+    createToast("Product added to cart","success")
   }
 }
 
@@ -90,7 +86,6 @@ const close = () => {
 <template>
   <VueFinalModal class="product-modal" content-class="product-modal__container" overlay-transition="vfm-fade"
     content-transition="vfm-fade" @clickOutside="emit('close')">
-    <GenericToast v-if="addCardToggle" message="Product added to cart" type="success" />
 
     <ClosingIcon class="product-modal__cross" @click="close()" />
 
@@ -203,8 +198,6 @@ const close = () => {
 
   &__photo {
     width: 45rem;
-    // min-width: 40rem;
-    // max-width: calc((100% - 50px) / 2);
     aspect-ratio: 1/1;
     object-fit: cover;
     border-radius: 0.5rem 0 0 0.5rem;

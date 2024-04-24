@@ -1,7 +1,6 @@
 import axiosService from './axios'
 
 export const getUserRoleRequest = async (token) => {
-  console.log(`Creating requests to get user list with ${token}`)
   const response = await axiosService.get('/auth/role/list', {
     headers: {
       'X-Auth-Token': token,

@@ -25,7 +25,6 @@ export const useProductStore = defineStore('product', () => {
       loader.value = true
     }
 
-    //console.log(productMap.value)
   }
 
   const normalizePrice = (price) => {
@@ -34,11 +33,15 @@ export const useProductStore = defineStore('product', () => {
   }
 
   const inStock = (productId) => {
-    return productMap.value.get(productId).stock > 0
+    return productExists(productId) && productMap.value.get(productId).stock > 0
+  }
+
+  const productExists = (productId) => {
+    return loader.value && productMap.value != undefined && productMap.value.has(productId)
   }
 
   const isAvailable = (productId, quantity) => {
-    return productMap.value.get(productId).stock >= quantity
+    return productExists(productId) && productMap.value.get(productId).stock >= quantity
   }
 
   // Those functions are to be used by WebSocket:
@@ -59,11 +62,9 @@ export const useProductStore = defineStore('product', () => {
       product.discount = parseInt(product.discount)
       productMap.value.set(product.id, product)
     }
-    console.log('Product updated: ', productMap.value)
   }
 
   const removeproductMap = (productId) => {
-    console.log('Deleting product ', productId)
     adminNotificationStore.addNotification({
       message: `Product deleted</br> Code: ${productMap.value.get(productId).code} \n`,
       type: 'error'
@@ -78,7 +79,7 @@ export const useProductStore = defineStore('product', () => {
   }
 
   const updateProductToServer = async (product, token) => {
-    const result = await updateProductRequest(JSON.stringify(product), token) //Must contain id of product and values to be changed
+    const result = await updateProductRequest(JSON.stringify(product), token)
     return result
   }
 
@@ -93,6 +94,7 @@ export const useProductStore = defineStore('product', () => {
     initStore,
     inStock,
     isAvailable,
+    productExists,
     addproductMap,
     removeproductMap,
     addProductToServer,

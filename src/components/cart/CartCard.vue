@@ -2,8 +2,7 @@
 import TrashIcon from '../../assets/icons/TrashIcon.svg'
 import { useCartStore } from '@/stores/cartStore'
 import { useProductStore } from '@/stores/productStore'
-import GenericToast from '../generics/GenericToast.vue'
-import { ref, computed } from 'vue'
+import { createToast } from '../generics/GenericToast.vue'
 
 const cartStore = useCartStore()
 const productStore = useProductStore()
@@ -16,24 +15,10 @@ const props = defineProps({
   quantity: Number
 })
 
-const quantityChangeSuccessFlag = ref(false)
-const toastFlag = ref(false)
-
-const toastType = computed(() => {
-  return quantityChangeSuccessFlag.value ? 'info' : 'error'
-})
-const toastMessage = computed(() => {
-  return quantityChangeSuccessFlag.value ? 'Product quantity changed' : 'Could not add product'
-})
-
 const changeQuantity = (newQuantity) => {
-  setTimeout(() => {
-    toastFlag.value = false
-  }, 10)
-
   if (newQuantity >= 0 && newQuantity < 1000)
-    quantityChangeSuccessFlag.value = cartStore.changeProductQuantity(props.id, newQuantity)
-  toastFlag.value = true
+    if (!cartStore.changeProductQuantity(props.id, newQuantity))
+      createToast('Could not add product', 'error')
 }
 
 const handleInput = (event) =>
@@ -42,10 +27,6 @@ const handleInput = (event) =>
     : (event.preventDefault(), (event.target.value = event.target.value.replace(/\D/g, '')))
 
 const handleBlur = (event) => {
-  setTimeout(() => {
-    toastFlag.value = false
-  }, 10)
-
   const startsWithZero = event.target.value.startsWith('0')
 
   const nonZeroValue = event.target.value.replace(/^0+/, '')
@@ -60,24 +41,15 @@ const handleBlur = (event) => {
   if (startsWithZero) {
     event.target.value = nonZeroValue
   }
-  toastFlag.value = true
-  quantityChangeSuccessFlag.value = cartStore.changeProductQuantity(
-    props.id,
-    parseInt(nonZeroValue)
-  )
+  if (!cartStore.changeProductQuantity(props.id, parseInt(nonZeroValue)))
+    createToast('Could not add product', 'error')
 }
 
 const handleProductDelete = () => cartStore.deleteProduct(props.id)
 </script>
 
 <template>
-  <div class="cart-list__card cart-card">
-    <GenericToast
-      v-if="toastFlag && !quantityChangeSuccessFlag"
-      :message="toastMessage"
-      :type="toastType"
-    />
-
+  <div v-if="productStore.loader" class="cart-list__card cart-card">
     <img class="cart-card__image" :src="imageUrl" :alt="name" />
 
     <span class="cart-card__name text-sm">
@@ -191,12 +163,35 @@ const handleProductDelete = () => cartStore.deleteProduct(props.id)
   }
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 991px) {
   .cart-card {
     &__image {
       width: 7.5rem;
       height: 7.5rem;
     }
   }
+}
+
+@media only screen and (max-width: 575px){
+  .cart-card {
+    grid-column: 1 / span 6;
+    &__image{
+      grid-column: span 2;
+      justify-self: center;
+    }
+
+    &__name {
+      display: none;
+    }
+
+    &__price{
+      display: none;
+    }
+  }
+
+  .counter{
+    grid-column: span 2;
+  }
+
 }
 </style>

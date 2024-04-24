@@ -40,7 +40,7 @@ const onSubmit = handleSubmit((values) => {
     resetForm();
 })
 
-const emit = defineEmits(['success', 'failure', 'inputStart'])
+const emit = defineEmits(['success', 'failure'])
 </script>
 
 <template>
@@ -56,7 +56,7 @@ const emit = defineEmits(['success', 'failure', 'inputStart'])
                     v-model="name"
                     v-bind="nameAttributeList"
                     name="name"
-                    @focus="$emit('inputStart')"/>
+                    />
                 <span class="form-wrapper__error text-xs">{{ errors.name }}</span>
             </div>
         </div>
@@ -71,7 +71,7 @@ const emit = defineEmits(['success', 'failure', 'inputStart'])
                     v-model="email"
                     v-bind="emailAttributeList"
                     name="email"
-                    @focus="$emit('inputStart')"/>
+                    />
                 <span class="form-wrapper__error text-xs">{{ errors.email }}</span>
             </div>
             
@@ -87,7 +87,7 @@ const emit = defineEmits(['success', 'failure', 'inputStart'])
                     v-model="subject"
                     v-bind="subjectAttributeList"
                     name="subject"
-                    @focus="$emit('inputStart')"/>
+                    />
             </div>
             
         </div>
@@ -103,7 +103,7 @@ const emit = defineEmits(['success', 'failure', 'inputStart'])
                 v-bind="messageAttributeList"
                 name="message"
                 rows="5"
-                @focus="$emit('inputStart')"/>
+                />
             <span class="form-wrapper__error text-xs" style="top:2%"> {{ errors.message }}</span>
             </div>
         </div>
@@ -176,6 +176,15 @@ const emit = defineEmits(['success', 'failure', 'inputStart'])
 }
 .errorfield{
     border: 1px solid var(--color-candy-pink);
+}
+
+@media only screen and (max-width: 575px) {
+    .form-wrapper{
+
+    &__input{
+        font-size: 12px;
+    }
+}
 }
 
 </style>

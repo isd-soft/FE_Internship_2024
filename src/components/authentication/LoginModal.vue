@@ -1,5 +1,5 @@
 <script setup>
-import GenericToast from '../generics/GenericToast.vue'
+import {createToast} from '../generics/GenericToast.vue';
 import { VueFinalModal } from 'vue-final-modal'
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import LoginForm from './LoginForm.vue'
@@ -22,51 +22,25 @@ const changeModal = () => {
   modalFlag.value = !modalFlag.value
 }
 
-//Toast management
-const loginSuccess = ref(false)
-const registerSuccess = ref(false)
-const authFinished = ref(false)
-const toastType = computed(() => {
-  return (loginSuccess.value || registerSuccess.value)? 'success' : 'error'
-})
-const toastMessage = computed(() => {
-  if (loginSuccess.value) return 'Login Successful'
-  else if (registerSuccess.value)return `Welcome, ${userStore.user.firstName}`  
-  else return 'Authentication Failed'
-})
 
 const closeModal = () => vfm.closeAll(vfm.openedModals)
 
 const finishLoginSuccess = () => {
-  console.log('Login done')
-  loginSuccess.value = true
-  authFinished.value = true
-  //Needed to trigger Toast. The toast is not inside the Modal, but its appearance depends on loginFinished becoming true,
-  //So the modal closing is done 100 sec after finish of this function async
-  setTimeout(() => {
-    closeModal()
-  }, 100)
+  createToast(`Login successful`, 'success')
+  closeModal()
 }
 
 const finishRegisterSuccess = () =>{
-  registerSuccess.value = true
-  authFinished.value = true
-  //Needed to trigger Toast. The toast is not inside the Modal, but its appearance depends on loginFinished becoming true,
-  //So the modal closing is done 100 sec after finish of this function async
-  setTimeout(() => {
+  createToast(`Welcome, ${userStore.user.firstName}`, 'success')
     closeModal()
-  }, 100)
 }
 
 const finishLoginFail = () => {
-  authFinished.value = true
+  createToast(`Login failed`, 'error')
 }
 
 const finishRegisterFail = () => {
-  authFinished.value = true
-}
-const refreshAttempt = () => {
-  authFinished.value = false
+  createToast(`Register failed`, 'error')
 }
 
 onMounted(() => window.addEventListener('resize', updateMediaFlag))
@@ -81,21 +55,18 @@ onUnmounted(() => window.removeEventListener('resize', updateMediaFlag))
     content-transition="vfm-fade"
     @clickOutside="$emit('close')"
   >
-    <GenericToast v-if="authFinished" :message="toastMessage" :type="toastType" />
     <div class="auth-modal__toggle-container">
       <CrossIcon class="auth-modal__toggle" @click="closeModal" />
     </div>
     <LoginForm
       v-if="!modalFlag"
       @changeModal="changeModal"
-      @inputStart="refreshAttempt"
       @success="finishLoginSuccess"
       @failure="finishLoginFail"
     />
     <RegisterForm
       v-if="modalFlag"
       @changeModal="changeModal"
-      @inputStart="refreshAttempt"
       @success="finishRegisterSuccess"
       @failure="finishRegisterFail"
     />

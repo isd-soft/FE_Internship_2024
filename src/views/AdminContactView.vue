@@ -1,9 +1,9 @@
 <script setup>
 import { useContactStore } from "@/stores/contactStore";
-import { ref,computed } from "vue";
+import { ref} from "vue";
 import Plus from "@/assets/icons/PlusIcon.svg"
 import Loader from "@/assets/icons/LoaderIcon.svg"
-import GenericToast from '@/components/generics/GenericToast.vue'
+import {createToast} from '@/components/generics/GenericToast.vue'
 const store = useContactStore()
 
 const hourFriday1=ref("09:00")
@@ -11,52 +11,38 @@ const hourFriday2=ref("22:00")
 const hourSaturday1=ref("09:00")
 const hourSaturday2=ref("20:00")
 const edit=ref(true)
-const submitSuccess = ref(false)
-const submitFinished = ref(false)
 const plusFieldtel = ref(false)
 const plusFieldemail = ref(false)
 
-const onEdit=()=>{
+const onEdit=()=>
     edit.value=!edit.value
-    console.log(edit.value)
-}
 
-const onPlusFieldtel=()=>{
+const onPlusFieldtel=()=>
     plusFieldtel.value=!plusFieldtel.value
-}
-const onPlusFieldemail=()=>{
+
+const onPlusFieldemail=()=>
     plusFieldemail.value=!plusFieldemail.value
-}
+
 
 const onSubmit=()=>{
     store
     .postContactInfo([`Monday-Friday: ${hourFriday1.value} - ${hourFriday2.value}`,`Saturday-Sunday: ${hourSaturday1.value} - ${hourSaturday2.value}`])
     .then((res) => {if(res){
-        submitSuccess.value = true 
-        submitFinished.value = true
+        createToast('Submit Successful', 'success')
         edit.value=!edit.value
     }
     else{
-        submitFinished.value = true
-    }}).catch(() => {submitFinished.value = true
+        createToast('Submit Failed', 'error')
+    }}).catch((error) => {console.log(error)
 })} 
 
 const onCancel=()=>{
-    submitFinished.value = false
     edit.value=!edit.value
     store.fetchContactInformation()
-    console.log(edit.value)
     plusFieldtel.value=false
     plusFieldtel.value=false
 }
 
-const toastType = computed(() => {
-        return submitSuccess.value ? 'success' : 'error'
-    })
-
-const toastMessage = computed(() => {
-    return submitSuccess.value ? 'Submit Successful' : 'Submit Failed'
-})
 
 </script>
 <template>
@@ -65,7 +51,6 @@ const toastMessage = computed(() => {
             <div class="admin-contact__name">
                 <h3 class="admin-contact__name-text text-5xl">Contact Information</h3>
             </div>
-            <GenericToast v-if="submitFinished" :message="toastMessage" :type="toastType" />
                 <form class="admin-contact__form-wrapper">
                     <div class="admin-contact__field">
                         <label for="address" class="admin-contact__label text-sm">Address</label>
@@ -351,6 +336,9 @@ const toastMessage = computed(() => {
         &__container{
             padding: 5rem 5rem 0 10rem;
         }
+        &__name-text{
+            font-size: 32px;
+        }
         &__form-wrapper{
             width: 100%;
         }
@@ -363,6 +351,10 @@ const toastMessage = computed(() => {
         }
         &__button{
             width: 100%;
+        }
+        &__hours-wrapper{
+            flex-direction: column;
+            text-align: center;
         }
     }
 }

@@ -6,6 +6,5 @@ export const getUserRequest = async (userId, token) => {
       'X-Auth-Token': token
     }
   })
-  //Check for errors
   if (response.status === 200) return response.data
 }
