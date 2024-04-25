@@ -16,11 +16,11 @@ const props = defineProps({
     name: String,
     code: String,
     description: String,
-    price: String,
+    price: Number,
     imageUrl: String,
     stock: Number,
     id: String,
-    discount: String,
+    discount: Number,
     isNew: Boolean,
     createdAt: String,
     updatedAt: String,
@@ -80,7 +80,11 @@ const submit = handleSubmit(values => {
         })
 })
 
-const formatDate = (date) => new Date(date).toLocaleDateString('en-GB').replace(/\//g, '.')
+const formatDate = (date) => {
+    console.log(date)
+    console.log(new Date(date).toLocaleDateString('en-GB').replace(/\//g, '.'))
+    return new Date(date).toLocaleDateString('en-GB').replace(/\//g, '.')
+}
 
 </script>
 
