@@ -36,6 +36,7 @@
     justify-content: flex-end;
     align-items: flex-end;
     min-height: 100%;
+    max-width: 1600px;
   }
 
   &__content-wrapper {
