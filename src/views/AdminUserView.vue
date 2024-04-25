@@ -85,7 +85,7 @@ const handleRoleUpdate = (item) => {
 
 <style lang="scss" scoped>
 .admin-user-section {
-    padding: 1.5rem 3rem 3rem 3rem;
+    padding: 1.5rem 3rem 3rem 8.95rem;
     display: flex;
     flex-direction: column;
     row-gap: 2.5rem;

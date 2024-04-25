@@ -75,7 +75,7 @@ const goFirstPage = () => {
     display: flex;
     flex-direction: column;
     gap: 2.5rem;
-    padding: 1.5rem 3rem 5rem 3rem;
+    padding: 1.5rem 3rem 5rem 8.95rem;
 
     &__title-wrapper {
         display: flex;
