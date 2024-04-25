@@ -7,7 +7,6 @@ import CrossIcon from '../../assets/icons/CrossIcon.svg'
 import { useUserStore } from '../../stores/userStore'
 import { createToast } from '../generics/GenericToast.vue'
 import { useProductStore } from '../../stores/productStore'
-import ToggleButton from '../generics/ToggleButton.vue'
 
 
 const vfm = useVfm()
@@ -49,6 +48,7 @@ const inputPresetList = [
     { title: 'Price', placeholder: '...', name: 'price' },
     { title: 'Stock', placeholder: '...', name: 'stock' },
     { title: 'Discount', placeholder: '...', name: 'discount' },
+    { title: 'New', placeholder: '...', name: 'isNew', type: 'checkbox', checkboxValue: props.newProductFlag ? true : props.isNew },
 ]
 
 const { handleSubmit, isSubmitting, setValues } = useForm({
@@ -92,11 +92,6 @@ const formatDate = (date) => new Date(date).toLocaleDateString('en-GB').replace(
 
         <form v-if="!newProductFlag" class="admin-product-modal__form admin-product-form" @submit="submit"
             @reset="reset">
-            <div class="admin-product-modal__close-button-wrapper">
-                <button type="button" class="admin-product-modal__close-button" @click="closeModal">
-                    <CrossIcon />
-                </button>
-            </div>
             <div class=" admin-product-form__metadata-wrapper">
                 <h2 class="admin-product-form__title">
                     {{ name }}
@@ -115,16 +110,16 @@ const formatDate = (date) => new Date(date).toLocaleDateString('en-GB').replace(
 
             <div class="admin-product-form__input-wrapper">
                 <AdminProductInput v-for="(input, index) of inputPresetList" :key="`${name}_${index}`" v-bind="input" />
-                <ToggleButton :state="" title="New" />
             </div>
 
             <div class="admin-product-form__button-wrapper">
-                <button :disabled="isSubmitting" type="submit" class="admin-product-form__submit-button text-sm">
+                <button :disabled="isSubmitting" type="submit"
+                    class="primary-button admin-product-form__submit-button text-sm">
                     Apply
                 </button>
 
                 <button :disabled="isSubmitting" type="button" @click="reset"
-                    class="admin-product-form__reset-button text-sm">
+                    class="secondary-button admin-product-form__reset-button text-sm">
                     Reset
                 </button>
             </div>
@@ -132,7 +127,7 @@ const formatDate = (date) => new Date(date).toLocaleDateString('en-GB').replace(
 
         <form v-if="newProductFlag" class="admin-product-modal__form-new admin-product-form admin-product-form--new"
             @submit="submit">
-            <h2 class="admin-product-form__title admin-product-form__title--new text-3xl">
+            <h2 class="primary-button admin-product-form__title admin-product-form__title--new text-3xl">
                 New product
             </h2>
 
@@ -141,11 +136,15 @@ const formatDate = (date) => new Date(date).toLocaleDateString('en-GB').replace(
             </div>
 
             <button :disabled="isSubmitting" type="submit"
-                class="admin-product-form__submit-button admin-product-form__submit-button--new text-sm">
+                class="secondary-button admin-product-form__submit-button admin-product-form__submit-button--new text-sm">
                 Add
             </button>
 
         </form>
+
+        <button type="button" class="admin-product-modal__close-button" @click="closeModal">
+            <CrossIcon />
+        </button>
 
     </VueFinalModal>
 </template>
@@ -155,29 +154,29 @@ const formatDate = (date) => new Date(date).toLocaleDateString('en-GB').replace(
     background-color: var(--color-warm-ivory);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
 
     &__container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80%;
         background-color: var(--color-white);
         display: flex;
         border-radius: 10px;
     }
 
-    &__close-button-wrapper {
-        display: flex;
-        justify-content: flex-end;
-    }
-
     &__close-button {
-        width: 30px;
-        height: 30px;
+        position: relative;
+        top: 2rem;
+        right: 2rem;
+        width: 40px;
+        height: 40px;
     }
 
     &__form {
         width: 50%;
-        padding: 2rem;
+        padding: 4rem 1rem 4rem 4rem;
     }
 
     &__image {
@@ -216,9 +215,56 @@ const formatDate = (date) => new Date(date).toLocaleDateString('en-GB').replace(
     }
 
     &__button-wrapper {
-        display: flex;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        column-gap: 20px;
         width: 100%;
-        justify-content: center;
+    }
+
+    &__submit-button,
+    &__reset-button {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 991px) {
+    .admin-product-modal {
+        &__container {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        &__form {
+            width: 100%;
+            padding: 2rem;
+        }
+
+        &__image {
+            width: 100%;
+            border-radius: 10px 10px 0 0;
+        }
+
+        &__close-button {
+            position: absolute;
+
+            & svg {
+                fill: var(--color-white);
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 575px) {
+    .admin-product-modal {
+        &__container {
+            width: 100%;
+            height: 100%;
+            border-radius: 0;
+        }
+
+        &__image {
+            border-radius: 0;
+        }
     }
 }
 </style>

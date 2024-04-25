@@ -11,7 +11,33 @@ import PlusIcon from '@/assets/icons/PlusIcon.svg';
 
 const productStore = useProductStore()
 
-const productList = computed(() => Array.from(productStore.productMap).map(product => product[1]))
+// const productList = computed(() => Array.from(productStore.productMap).map(product => product[1]))
+
+const body = {
+    "name": "Summer sandals",
+    "description": "Nice summer sandals",
+    "imageUrl": "https://www.overlookboots.com/cdn/shop/articles/winter-boots-buying-guide.jpg?v=1636722912",
+    "price": 15.99,
+    "stock": 51,
+    "rating": 3,
+    "discount": 10,
+    "color": "",
+    "isNew": true
+}
+
+function makeid(length) {
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    const charactersLength = characters.length;
+    let counter = 0;
+    while (counter < length) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        counter += 1;
+    }
+    return result;
+}
+
+const productList = ref(Array.from({ length: 100 }, () => { return { ...body, id: makeid(12) } }))
 
 const { open } = useModal({
     component: AdminProductModal,
