@@ -75,7 +75,7 @@ const goFirstPage = () => {
     display: flex;
     flex-direction: column;
     gap: 2.5rem;
-    padding: 1.5rem 3rem 5rem 13rem;
+    padding: 1.5rem 3rem 5rem 3rem;
 
     &__title-wrapper {
         display: flex;
@@ -112,7 +112,7 @@ const goFirstPage = () => {
 }
 
 @media (max-width:575px) {
-    .admin-product-section{
+    .admin-product-section {
         padding: 1.5rem 3rem 5rem 3rem;
     }
 }
