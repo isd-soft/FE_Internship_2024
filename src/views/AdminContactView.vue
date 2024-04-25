@@ -54,7 +54,7 @@ const onCancel = () => {
     <section class="admin-contact" v-if="store.loader">
         <div class="admin-contact__container">
             <div class="admin-contact__name">
-                <h3 class="admin-contact__name-text text-5xl">Contact Information</h3>
+                <h3 class="admin-contact__name-text text-xl">Contact Information</h3>
             </div>
             <form class="admin-contact__form-wrapper">
                 <div class="admin-contact__field">
@@ -174,7 +174,7 @@ const onCancel = () => {
     &__container {
         display: flex;
         flex-direction: column;
-        padding: 5rem 10rem 0 15rem;
+        padding: 1.5rem 3rem 5rem 8.95rem;
         gap: 3rem;
     }
 
