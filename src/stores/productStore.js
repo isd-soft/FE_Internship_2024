@@ -28,7 +28,7 @@ export const useProductStore = defineStore('product', () => {
   }
 
   const normalizePrice = (price) => {
-    if (price.includes('$')) price = price.replace('$', '')
+    if (typeof(price) == 'string' && price.includes('$')) price = price.replace('$', '')
     return parseFloat(price)
   }
 

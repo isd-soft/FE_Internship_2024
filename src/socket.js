@@ -5,6 +5,7 @@ import { useAdminUserStore } from './stores/adminUserStore'
 import { useContactStore } from './stores/contactStore'
 
 const URL = 'http://172.17.40.64:3000'
+// const URL = 'http://furniro.inthergroup.com:3000/ws'
 
 const LIVE_UPDATE_EVENT = 'live:entity-hook'
 
