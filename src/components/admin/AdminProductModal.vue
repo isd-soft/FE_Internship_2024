@@ -16,11 +16,11 @@ const props = defineProps({
     name: String,
     code: String,
     description: String,
-    price: String,
+    price: Number,
     imageUrl: String,
     stock: Number,
     id: String,
-    discount: String,
+    discount: Number,
     isNew: Boolean,
     createdAt: String,
     updatedAt: String,
@@ -80,7 +80,11 @@ const submit = handleSubmit(values => {
         })
 })
 
-const formatDate = (date) => new Date(date).toLocaleDateString('en-GB').replace(/\//g, '.')
+const formatDate = (date) => {
+    console.log(date)
+    console.log(new Date(date).toLocaleDateString('en-GB').replace(/\//g, '.'))
+    return new Date(date).toLocaleDateString('en-GB').replace(/\//g, '.')
+}
 
 </script>
 
@@ -97,13 +101,15 @@ const formatDate = (date) => new Date(date).toLocaleDateString('en-GB').replace(
                     {{ name }}
                 </h2>
 
-                <span class="admin-product-form__info text-sm">
-                    Created at: {{ formatDate(createdAt) }}
-                </span>
+                <div class="admin-product-form__dates">
+                    <span class="admin-product-form__info text-xs">
+                        Created at: {{ formatDate(createdAt) }}
+                    </span>
 
-                <span class="admin-product-form__info text-sm">
-                    Last update: {{ formatDate(updatedAt) }}
-                </span>
+                    <span class="admin-product-form__info text-xs">
+                        Last update: {{ formatDate(updatedAt) }}
+                    </span>
+                </div>
             </div>
 
             <div class="admin-product-form__input-wrapper">
@@ -111,12 +117,13 @@ const formatDate = (date) => new Date(date).toLocaleDateString('en-GB').replace(
             </div>
 
             <div class="admin-product-form__button-wrapper">
-                <button :disabled="isSubmitting" type="submit" class="admin-product-form__submit-button text-sm">
+                <button :disabled="isSubmitting" type="submit"
+                    class="primary-button admin-product-form__submit-button text-sm">
                     Apply
                 </button>
 
                 <button :disabled="isSubmitting" type="button" @click="reset"
-                    class="admin-product-form__reset-button text-sm">
+                    class="secondary-button admin-product-form__reset-button text-sm">
                     Reset
                 </button>
             </div>
@@ -124,7 +131,7 @@ const formatDate = (date) => new Date(date).toLocaleDateString('en-GB').replace(
 
         <form v-if="newProductFlag" class="admin-product-modal__form-new admin-product-form admin-product-form--new"
             @submit="submit">
-            <h2 class="admin-product-form__title admin-product-form__title--new text-3xl">
+            <h2 class="primary-button admin-product-form__title admin-product-form__title--new text-3xl">
                 New product
             </h2>
 
@@ -133,16 +140,14 @@ const formatDate = (date) => new Date(date).toLocaleDateString('en-GB').replace(
             </div>
 
             <button :disabled="isSubmitting" type="submit"
-                class="admin-product-form__submit-button admin-product-form__submit-button--new text-sm">
+                class="secondary-button admin-product-form__submit-button admin-product-form__submit-button--new text-sm">
                 Add
             </button>
 
         </form>
 
-
-
-        <button class="admin-product-modal__close-button" @click="closeModal">
-            <CrossIcon width="2.86rem" height="2.86rem" />
+        <button type="button" class="admin-product-modal__close-button" @click="closeModal">
+            <CrossIcon />
         </button>
 
     </VueFinalModal>
@@ -155,97 +160,74 @@ const formatDate = (date) => new Date(date).toLocaleDateString('en-GB').replace(
     -webkit-backdrop-filter: blur(6px);
 
     &__container {
-        border-radius: 10px;
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+        width: 80%;
+        background-color: var(--color-white);
         display: flex;
-        background: var(--color-white);
-    }
-
-    &__image {
-        width: 55rem;
-        aspect-ratio: 1/1;
-        object-fit: cover;
+        border-radius: 10px;
     }
 
     &__close-button {
-        position: absolute;
-        top: 1.5rem;
-        right: 1.5rem;
-        z-index: 10;
+        position: relative;
+        top: 2rem;
+        right: 2rem;
+        width: 40px;
+        height: 40px;
+    }
+
+    &__form {
+        width: 50%;
+        padding: 4rem 1rem 4rem 4rem;
+    }
+
+    &__image {
+        width: 50%;
+        border-radius: 10px 0 0 10px;
     }
 }
 
 .admin-product-form {
     display: flex;
     flex-direction: column;
-    padding: 2rem;
-    justify-content: space-between;
-    width: 50%;
-
-    &--new {
-        padding: 4rem 8rem;
-    }
+    gap: 30px;
 
     &__metadata-wrapper {
         display: flex;
         flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5rem;
+    }
+
+    &__dates {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        color: var(--color-taupe-gray);
     }
 
     &__title {
-        font-size: 4rem;
-        font-weight: 400;
-
-        &--new {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-    }
-
-    &__info {
-        color: var(--color-taupe-gray);
+        font-size: 30px;
+        font-weight: 600;
     }
 
     &__input-wrapper {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        column-gap: 20px;
+        row-gap: 20px;
     }
 
     &__button-wrapper {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 2.5rem;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        column-gap: 20px;
+        width: 100%;
     }
 
     &__submit-button,
     &__reset-button {
-        padding: 0.75rem 2.5rem;
-        border-radius: 10px;
-        font-weight: 500;
-    }
-
-    &__submit-button {
-        background-color: var(--color-uc-gold);
-        color: var(--color-white);
-        justify-self: flex-end;
-
-        &--new {
-            width: fit-content;
-            padding: 0.75rem 5rem;
-            margin: 0 auto;
-        }
-    }
-
-    &__reset-button {
-        background-color: transparent;
-        color: var(--color-uc-gold);
-        border: 1px solid var(--color-uc-gold);
-        justify-self: flex-start;
+        width: 100%;
     }
 }
 
@@ -256,26 +238,22 @@ const formatDate = (date) => new Date(date).toLocaleDateString('en-GB').replace(
             align-items: center;
         }
 
+        &__form {
+            width: 100%;
+            padding: 2rem;
+        }
+
         &__image {
             width: 100%;
-            aspect-ratio: 2/1;
+            border-radius: 10px 10px 0 0;
         }
 
-        &__close-button svg {
-            fill: var(--color-white);
-        }
-    }
+        &__close-button {
+            position: absolute;
 
-    .admin-product-form {
-        width: 100%;
-
-        &__metadata-wrapper {
-            align-items: center;
-            margin-bottom: 2rem;
-        }
-
-        &__input-wrapper {
-            grid-template-columns: 1fr;
+            & svg {
+                fill: var(--color-white);
+            }
         }
     }
 }
@@ -283,29 +261,13 @@ const formatDate = (date) => new Date(date).toLocaleDateString('en-GB').replace(
 @media only screen and (max-width: 575px) {
     .admin-product-modal {
         &__container {
-            width: 90%
+            width: 100%;
+            height: 100%;
+            border-radius: 0;
         }
 
         &__image {
-            display: none;
-        }
-    }
-
-    .admin-product-form {
-        &__title {
-            max-width: 70%;
-            text-align: center;
-            font-size: 3.2rem;
-        }
-
-        &__button-wrapper {
-            flex-direction: column;
-            gap: 1.25rem;
-        }
-
-        &__submit-button,
-        &__reset-button {
-            width: 100%;
+            border-radius: 0;
         }
     }
 }

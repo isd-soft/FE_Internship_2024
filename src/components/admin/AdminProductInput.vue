@@ -33,33 +33,33 @@ const valueAttr = props.type === 'checkbox' ? { value: props.checkboxValue } : n
 <style scoped lang="scss">
 .admin-product-form {
     &__field-wrapper {
-        position: relative;
         display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding-bottom: 2rem;
+        flex-direction: column;
+        gap: 5px;
 
-        &:nth-child(1),
-        &:nth-child(2),
         &:nth-child(3),
         &:nth-child(4) {
             grid-column: span 2;
         }
+
+        &:nth-child(3) {
+            .admin-product-form__field {
+                height: 80px;
+            }
+        }
     }
 
     &__field-title {
-        font-size: 1.2rem;
+        font-size: 16px;
         font-weight: 500;
-        width: 8rem;
-        text-align: center;
+        width: fit-content;
     }
 
     &__field {
-        font-size: 1.2rem;
+        font-size: 14px;
         border: 1px solid var(--color-quick-silver);
         border-radius: 10px;
-        padding: 0.75rem 0.6rem;
-        flex-grow: 1;
+        padding: 12px;
 
         &::placeholder {
             color: var(--color-quick-silver);
@@ -77,8 +77,8 @@ const valueAttr = props.type === 'checkbox' ? { value: props.checkboxValue } : n
 
     &__checkbox-label {
         position: relative;
-        width: 3.5rem;
-        height: 3.5rem;
+        height: 100%;
+        width: 45px;
         border: 1px solid var(--color-quick-silver);
         border-radius: 10px;
     }
@@ -120,31 +120,5 @@ const valueAttr = props.type === 'checkbox' ? { value: props.checkboxValue } : n
         color: var(--color-candy-pink);
     }
 
-}
-
-@media only screen and (max-width: 575px) {
-    .admin-product-form__field-wrapper {
-        flex-direction: column;
-
-        &:nth-child(1),
-        &:nth-child(2),
-        &:nth-child(3),
-        &:nth-child(4) {
-            grid-column: span 1;
-        }
-    }
-
-    .admin-product-form {
-        &__field {
-            font-size: 1.6rem;
-            width: 100%;
-        }
-
-        &__error {
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100%;
-        }
-    }
 }
 </style>
