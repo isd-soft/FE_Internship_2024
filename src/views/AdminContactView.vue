@@ -3,6 +3,7 @@ import { useContactStore } from "@/stores/contactStore";
 import { ref} from "vue";
 import Plus from "@/assets/icons/PlusIcon.svg"
 import Loader from "@/assets/icons/LoaderIcon.svg"
+import Dash from "@/assets/icons/AdminContactDashIcon.svg"
 import {createToast} from '@/components/generics/GenericToast.vue'
 const store = useContactStore()
 
@@ -88,7 +89,7 @@ const onCancel=()=>{
                         <div class="admin-contact__time-wrapper">
                             <div class="admin-contact__hours-wrapper">
                                 <input type="time" class="admin-contact__input text-sm" v-model="hourFriday1" :disabled="edit">
-                                <p class="text-2xl">-</p>
+                                <Dash style="width: 15px; height: 10px;"/>
                                 <input type="time" class="admin-contact__input text-sm" v-model="hourFriday2" :disabled="edit">
                             </div>
                             <span class="admin-contact__time-text text-sm">Monday-Friday</span>
@@ -98,7 +99,7 @@ const onCancel=()=>{
                             
                             <div class="admin-contact__hours-wrapper">
                                 <input type="time" class="admin-contact__input text-sm" v-model="hourSaturday1" :disabled="edit">
-                                <p class="text-3xl">-</p>
+                                <Dash style="width: 15px; height: 10px;"/>
                                 <input type="time" class="admin-contact__input text-sm" v-model="hourSaturday2" :disabled="edit">
                             </div>
 
@@ -257,37 +258,35 @@ const onCancel=()=>{
             justify-content: space-between;
         }
         &__label{
-            font-weight: 500;
+            padding: 1rem;
+            width: 100%;
+            background-color: var(--color-old-lace);
         }
         &__input{
             padding: 12px 12px;
-            border: 1px solid var(--color-uc-gold);
+            border: 1px solid var(--color-quick-silver);
             border-radius: 10px;
             font-size: 14px;
             margin-bottom: 2px;
             resize: none;
-            &::placeholder {
-                color: var(--color-quick-silver);
-            }
             &:focus{
                 border: 1px solid var(--color-uc-gold);
             }
             &:disabled{
-                background-color: var(--color-old-lace);
+                background-color: var( --color-cultured);
+                color:var(--color-quick-silver);
             }
         }
         &__time-wrapper{
             display: grid;
             grid-template-columns: 2fr 1fr;
-        }
-        &__time-text{
-            display:flex;
             align-items: center;
         }
         &__hours-wrapper{
             display: flex;
+            align-items: center;
             gap: 1rem;
-            width: 100%;
+            
         }
         &__buttons-wrapper{
             display: flex;
@@ -345,6 +344,8 @@ const onCancel=()=>{
         &__time-wrapper{
             grid-template-columns: 1fr;
             gap: 2rem;
+
+        
         }
         &__buttons-wrapper{
             flex-direction: column;
@@ -353,8 +354,8 @@ const onCancel=()=>{
             width: 100%;
         }
         &__hours-wrapper{
-            flex-direction: column;
-            text-align: center;
+            gap:0.2rem;
+            grid-row: 2;
         }
     }
 }
