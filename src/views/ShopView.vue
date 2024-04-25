@@ -85,7 +85,7 @@ const goFirstPage = () => {
         display: grid;
         grid-template-columns: repeat(5, minmax(0, 1fr));
         grid-auto-rows: minmax(0, 1fr);
-        gap: 3rem;
+        gap: 20px;
         margin-bottom: 3rem;
     }
 

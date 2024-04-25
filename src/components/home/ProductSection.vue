@@ -31,7 +31,6 @@ watch(width, (newWidth) => {
 
 const productList = computed(() => Array.from(productStore.productMap.values()).slice(0, cardCount.value))
 
-
 </script>
 
 <template>
@@ -75,7 +74,7 @@ const productList = computed(() => Array.from(productStore.productMap.values()).
   &__list {
     display: grid;
     grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 32px;
+    gap: 20px;
     width: 100%;
     padding: 0;
     margin: 0;
@@ -117,13 +116,13 @@ const productList = computed(() => Array.from(productStore.productMap.values()).
   }
 }
 
-@media only screen and (max-width: 575px){
-  .product-section__button{
+@media only screen and (max-width: 575px) {
+  .product-section__button {
     padding: 2rem 0;
-    width: 80%; 
+    width: 80%;
 
   }
-  
+
 }
 </style>
 

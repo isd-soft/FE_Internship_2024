@@ -1,43 +1,38 @@
 <script setup>
-import { useRoute } from 'vue-router'
-import { reactive, computed } from 'vue'
+import { reactive } from 'vue'
 import ProductIcon from '../../assets/icons/ProductIcon.svg'
-import AdminContactIcon from '../../assets/icons/AdminContactIcon.svg'
-import AdminUserIcon from '../../assets/icons/AdminUserIcon.svg'
+import ContactMapPointIcon from '../../assets/icons/ContactMapPointIcon.svg'
+import UserIcon from '../../assets/icons/UserIcon.svg'
 import GenericList from '../generics/GenericList.vue'
 import GenericLink from '../generics/GenericLink.vue'
 
-const route = useRoute()
-
 const icons = {
   ProductIcon,
-  AdminUserIcon,
-  AdminContactIcon
+  UserIcon,
+  ContactMapPointIcon
 }
-
-const createPath = (pathname) => `${new URL(location.href).origin}/admin/${pathname}`
 
 const linkList = reactive([
   {
     href: 'products',
     textContent: 'Products',
-    textClass: 'navigation__link-text text-lg',
+    textClass: 'navigation__link-text text-sm',
     containerClass: 'navigation__link',
     icon: 'ProductIcon'
   },
   {
     href: 'users',
     textContent: 'Users',
-    textClass: 'navigation__link-text text-lg',
+    textClass: 'navigation__link-text text-sm',
     containerClass: 'navigation__link',
-    icon: 'AdminUserIcon'
+    icon: 'UserIcon'
   },
   {
     href: 'contact-settings',
     textContent: 'Contacts',
-    textClass: 'navigation__link-text text-lg',
+    textClass: 'navigation__link-text text-sm',
     containerClass: 'navigation__link',
-    icon: 'AdminContactIcon'
+    icon: 'ContactMapPointIcon'
   }
 ])
 </script>
@@ -67,7 +62,7 @@ const linkList = reactive([
   &__list {
     display: flex;
     flex-direction: column;
-    padding: 0 3.4rem 0 3.4rem;
+    padding: 0 1.75rem 0 1.75rem;
     row-gap: 4rem;
   }
 
@@ -76,24 +71,35 @@ const linkList = reactive([
     align-items: center;
     background-color: transparent;
     color: var(--color-black);
-    column-gap: 3rem;
-    font-weight: 500;
+    column-gap: 2rem;
+    font-weight: 400;
+    transition:color 0.25s ease-in-out, fill 0.25s ease-in-out;
+  }
+
+  &__link:hover{
+    color: var(--color-uc-gold);
+    fill: var(--color-uc-gold)
   }
 
   &__svg-icon-wrapper{
-    min-width: 2.25rem;
-    max-width: 2.25rem;
+    min-width: 1.9rem;
+    max-width: 1.9rem;
   }
 
-  &__list-item {
-    .icon {
-      width: 100%;
-      height: 100%;
-      fill: var(--color-uc-gold);
-    }
+  .router-link-exact-active{
+    color: var(--color-uc-gold);
+    font-weight: 600;
+    fill: var(--color-uc-gold)
+  }
+}
 
-    .active-icon {
-      fill: var(--color-white);
+@media (max-width:575px){
+  .navigation{
+    margin-top: 0;
+
+    &__list{
+      flex-direction: row;
+      column-gap: 7rem;
     }
   }
 }

@@ -22,6 +22,7 @@ const categoryList = ['Product', 'Price', 'Quantity', 'Subtotal']
 
     &__category {
         text-align: left;
+        font-weight: 600;
 
         &:nth-child(1) {
             grid-column: 2;

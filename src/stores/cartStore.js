@@ -74,6 +74,7 @@ export const useCartStore = defineStore('cart', () => {
     const cart = localStorage.getItem(userId.value)
     const userCart = cart ? mapFromJson(cart) : new Map()
     productMap.value = userCart
+    console.log(userCart)
   }
 
   //Called during logout

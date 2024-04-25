@@ -110,4 +110,10 @@ const goFirstPage = () => {
     flex-direction: column;
     row-gap: 2.5rem;
 }
+
+@media (max-width:575px) {
+    .admin-product-section{
+        padding: 1.5rem 3rem 5rem 3rem;
+    }
+}
 </style>

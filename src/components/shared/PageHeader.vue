@@ -43,7 +43,7 @@ const handleScroll = () => {
 }
 
 const changeUserMenuToggle = () => {
-  userMenuToggle.value = !userMenuToggle.value;
+  userMenuToggle.value = !userMenuToggle.value
 }
 
 const updateOverlayPosition = () => {
@@ -153,7 +153,15 @@ const { open: openLoginModal } = useModal({
       >
         Login
       </button>
-      <UserMenu v-show="userMenuToggle" ref="userMenuRef" :class="['header__user-options-menu', { 'header__user-options-menu--shrink': state.shrinkHeader }]" @logout = "changeUserMenuToggle" />
+      <UserMenu
+        v-show="userMenuToggle"
+        ref="userMenuRef"
+        :class="[
+          'header__user-options-menu',
+          { 'header__user-options-menu--shrink': state.shrinkHeader }
+        ]"
+        @logout="changeUserMenuToggle"
+      />
       <div class="header__overlay" v-if="!isMenuIconVisible" @click="toggleMenu" />
       <button v-if="isMenuIconVisible" class="header__container-toggle" @click="toggleMenu">
         <MenuIcon />
@@ -215,12 +223,11 @@ const { open: openLoginModal } = useModal({
     position: absolute;
     top: 100px;
     right: 0%;
-    transition:top 0.25s ease-in-out;
+    transition: top 0.25s ease-in-out;
 
-    &--shrink{
+    &--shrink {
       top: 50px;
     }
-
   }
 
   &__container-toggle {
@@ -257,6 +264,14 @@ const { open: openLoginModal } = useModal({
   height: 50px;
 }
 
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+  opacity: 0;
+}
+
+
 @media only screen and (max-width: 992px) {
   .header {
     &__container {
@@ -291,7 +306,6 @@ const { open: openLoginModal } = useModal({
       transform: translateX(0%);
       height: 100vh;
       width: 50%;
-      max-height: fit-content;
 
       &.menu-active {
         background-color: var(--color-old-lace);
@@ -359,12 +373,27 @@ const { open: openLoginModal } = useModal({
 }
 
 .menu {
-  height: 6.57rem;
+  height: 5.5rem;
   width: auto;
+}
+
+.toggle-open {
+  animation: transformCross ease-in-out 0.25s forwards;
+}
+
+.toggle-close {
+  animation: transformMenu ease-in-out 0.25s forwards;
+}
+
+:deep(.menu__bar) {
+  stroke: var(--color-black);
+  stroke-width: 2;
+  stroke-linecap: round;
 }
 
 .cross {
   height: 5rem;
   align-items: center;
+  stroke: var(--color-black);
 }
 </style>
