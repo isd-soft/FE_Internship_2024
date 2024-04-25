@@ -101,8 +101,8 @@ const handleProductDelete = () => cartStore.deleteProduct(props.id)
 
   &__image {
     grid-column: 1;
-    width: 10rem;
-    height: 10rem;
+    width: 100px;
+    height: 100px;
   }
 
   &__name {

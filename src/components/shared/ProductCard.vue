@@ -112,7 +112,7 @@ const { open: OpenProductModal } = useModal({
     <div :class="{ 'product-card__image--grayscale': stockFlag }" class="product-card__image"
       :style="{ backgroundImage: `url(${imageUrl})` }" />
 
-    <div class="product-card__overlay text-lg" @click="OpenProductModal">
+    <div class="product-card__overlay" @click="OpenProductModal">
       Click for Details
     </div>
 
@@ -268,6 +268,7 @@ const { open: OpenProductModal } = useModal({
     align-items: center;
     row-gap: 1.6rem;
     width: 100%;
+    font-size: 24px;
     aspect-ratio: 95/100;
     background-color: rgba(#898989, $alpha: 0.7);
     opacity: 0;
