@@ -131,7 +131,7 @@ const formatDate = (date) => {
 
         <form v-if="newProductFlag" class="admin-product-modal__form-new admin-product-form admin-product-form--new"
             @submit="submit">
-            <h2 class="primary-button admin-product-form__title admin-product-form__title--new text-3xl">
+            <h2 class="admin-product-form__title admin-product-form__title--new text-3xl">
                 New product
             </h2>
 
@@ -139,10 +139,12 @@ const formatDate = (date) => {
                 <AdminProductInput v-for="(input, index) of inputPresetList" :key="`${name}_${index}`" v-bind="input" />
             </div>
 
-            <button :disabled="isSubmitting" type="submit"
-                class="secondary-button admin-product-form__submit-button admin-product-form__submit-button--new text-sm">
-                Add
-            </button>
+            <div class="admin-product-form__button-wrapper--new">
+                <button :disabled="isSubmitting" type="submit"
+                    class="primary-button admin-product-form__submit-button admin-product-form__submit-button--new text-sm">
+                    Add
+                </button>
+            </div>
 
         </form>
 
@@ -164,7 +166,6 @@ const formatDate = (date) => {
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        width: 80%;
         max-width: 1440px;
         background-color: var(--color-white);
         display: flex;
@@ -174,10 +175,10 @@ const formatDate = (date) => {
 
     &__close-button {
         position: relative;
-        top: 2rem;
-        right: 2rem;
+        top: 20px;
+        right: 20px;
         width: 40px;
-        height: 40px;
+        height: min-content;
     }
 
     &__form {
@@ -197,6 +198,13 @@ const formatDate = (date) => {
     flex-direction: column;
     justify-content: space-between;
     gap: 30px;
+    width: 80vw;
+
+    &--new {
+        width: 100%;
+        padding: 40px;
+        margin-right: -30px;
+    }
 
     &__metadata-wrapper {
         display: flex;
@@ -212,7 +220,7 @@ const formatDate = (date) => {
 
     &__title {
         font-size: 30px;
-        font-weight: 600;
+        font-weight: 600px;
     }
 
     &__input-wrapper {
@@ -227,13 +235,21 @@ const formatDate = (date) => {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         column-gap: 20px;
         width: 100%;
-        margin-top: auto;
+
+        &--new {
+            display: flex;
+            justify-content: center;
+        }
     }
 
     &__submit-button,
     &__reset-button {
         width: 100%;
         padding: 2rem 4rem;
+    }
+
+    &__submit-button--new {
+        max-width: 250px;
     }
 }
 
@@ -275,6 +291,12 @@ const formatDate = (date) => {
             height: 100%;
             border-radius: 0;
         }
+    }
+
+    .admin-product-form {
+        margin-top: auto;
+        margin-bottom: auto;
+        height: min-content;
     }
 }
 </style>
