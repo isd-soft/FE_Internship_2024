@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
 import ProductLabel from './ProductLabel.vue'
 import { useModal } from 'vue-final-modal'
 import ProductModal from './ProductModal.vue'
@@ -7,14 +7,12 @@ import ProductModal from './ProductModal.vue'
 import LoginModal from '../authentication/LoginModal.vue'
 import { useUserStore } from '@/stores/userStore'
 import { useCartStore } from '@/stores/cartStore'
-import GenericToast from '../generics/GenericToast.vue'
+import { createToast } from '../generics/GenericToast.vue'
 
 import CartAddIcon from '../../assets/icons/CartAddIcon.svg';
 
 const userStore = useUserStore()
 const cartStore = useCartStore()
-
-const toastFlag = ref(false)
 
 const determineType = product => {
   if (!product.stock) return 'stock'
@@ -79,8 +77,8 @@ const addToCart = () => {
 const addProduct = () => {
   if (!userStore.isAuthenticated()) OpenLoginModal()
   else {
-    toastFlag.value = true
     addToCart()
+    createToast("Product added to cart", "success")
   }
 }
 
@@ -97,8 +95,7 @@ const { open: OpenProductModal } = useModal({
     name: props.name,
     code: props.code,
     description: props.description,
-    price: convertPrice(props.price - props.price * props.discount / 100),
-    oldPrice: convertPrice(props.price),
+    price: props.price,
     stock: props.stock,
     rating: props.rating,
     discount: props.discount,
@@ -112,11 +109,10 @@ const { open: OpenProductModal } = useModal({
 
 <template>
   <div class="product-list-section__card product-card">
-    <GenericToast v-if="toastFlag" message="Product added to cart" type="success" />
     <div :class="{ 'product-card__image--grayscale': stockFlag }" class="product-card__image"
       :style="{ backgroundImage: `url(${imageUrl})` }" />
 
-    <div class="product-card__overlay text-lg" @click="OpenProductModal">
+    <div class="product-card__overlay" @click="OpenProductModal">
       Click for Details
     </div>
 
@@ -181,7 +177,7 @@ const { open: OpenProductModal } = useModal({
   }
 
   &__text-wrapper {
-    height: 100%;
+    min-height: 160px;
     display: flex;
     flex-direction: column;
     row-gap: 0.8rem;
@@ -190,14 +186,14 @@ const { open: OpenProductModal } = useModal({
   }
 
   &__title {
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 600;
     color: var(--color-granite-gray);
     text-transform: uppercase;
   }
 
   &__code {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 500;
     color: var(--color-taupe-gray);
     margin-bottom: 1.6rem;
@@ -218,21 +214,21 @@ const { open: OpenProductModal } = useModal({
   }
 
   &__price {
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 600;
     color: var(--color-dark-charcoal);
   }
 
   &__old-price {
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 400;
     text-decoration-line: line-through;
     color: var(--color-silver-foil);
   }
 
   &__cart-button {
-    width: 36px;
-    height: 36px;
+    width: 30px;
+    height: 30px;
     padding: 0.2rem;
     padding-bottom: 0;
     margin-left: auto;
@@ -272,6 +268,7 @@ const { open: OpenProductModal } = useModal({
     align-items: center;
     row-gap: 1.6rem;
     width: 100%;
+    font-size: 24px;
     aspect-ratio: 95/100;
     background-color: rgba(#898989, $alpha: 0.7);
     opacity: 0;
@@ -285,6 +282,13 @@ const { open: OpenProductModal } = useModal({
     }
   }
 }
+
+@media only screen and (max-width: 1440px) {
+  .product-card {
+    min-height: auto;
+  }
+}
+
 
 @media only screen and (max-width: 575px) {
   .product-card:hover {

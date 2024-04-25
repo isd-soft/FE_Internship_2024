@@ -29,15 +29,12 @@ export const useCartStore = defineStore('cart', () => {
     if (product.quantity == undefined) product.quantity = 1
     if(!productStore.inStock(product.id)) return false
     productMap.value.set(product.id, product)
-    console.log('Product added!')
-    console.log(productMap.value)
     saveCart()
     return true
   }
 
   const deleteProduct = (productId) => {
     productMap.value.delete(productId)
-    console.log(productMap.value)
     saveCart()
   }
 
@@ -53,9 +50,15 @@ export const useCartStore = defineStore('cart', () => {
     return productMap.value.get(productId)
   }
 
+  const clean = () => {
+    for(let [k, v] of productMap.value){
+      if (!productStore.productExists(k)){
+        productMap.value.delete(k)
+      }
+    }
+  }
+
   const saveCart = () => {
-    console.log('Saving cart')
-    console.log(userId.value)
     const rawMap = toRaw(productMap.value)
     const jsonCart = mapToJson(rawMap)
     localStorage.setItem(userId.value, jsonCart)
@@ -69,10 +72,9 @@ export const useCartStore = defineStore('cart', () => {
 
     userId.value = usrId
     const cart = localStorage.getItem(userId.value)
-    console.log(cart)
-    productMap.value = cart ? mapFromJson(cart) : new Map()
-    console.log('Cart Retrieved')
-    console.log(productMap.value)
+    const userCart = cart ? mapFromJson(cart) : new Map()
+    productMap.value = userCart
+    console.log(userCart)
   }
 
   //Called during logout
@@ -101,6 +103,7 @@ export const useCartStore = defineStore('cart', () => {
     saveCart,
     getCart,
     stashCart,
-    removeCart
+    removeCart,
+    clean
   }
 })

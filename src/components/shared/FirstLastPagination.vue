@@ -20,18 +20,27 @@ const selfRef = ref(null)
 const currentPage = ref(props.currentPage)
 
 watch(() => props.currentPage, () => {
+    if (props.currentPage < 1) {
+        currentPage.value = 1
+    }
     currentPage.value = props.currentPage
 })
 
 const pageNumber = ref(props.pageNumber)
 
 watch(() => props.pageNumber, () => {
+    if (props.pageNumber < 1) {
+        pageNumber.value = 1
+    }
     pageNumber.value = props.pageNumber
 })
 
 const buttonNumber = ref(props.buttonNumber)
 
 watch(() => props.buttonNumber, () => {
+    if (props.buttonNumber < 1) {
+        buttonNumber.value = 0
+    }
     buttonNumber.value = props.buttonNumber
 })
 
@@ -46,6 +55,10 @@ const getButtonNumberList = () => {
 
     if (currentPage.value > pageNumber.value - distance) {
         value = pageNumber.value - buttonNumber.value + 1
+    }
+
+    if (pageNumber.value < buttonNumber.value) {
+        return Array.from({ length: pageNumber.value }, (_, index) => index + 1)
     }
 
     return Array.from({ length: props.buttonNumber }, (_, index) => value + index)

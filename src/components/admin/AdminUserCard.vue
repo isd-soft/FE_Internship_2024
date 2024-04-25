@@ -55,12 +55,12 @@ const checkRole = (item, role) => item.roles.find(i => i.role === role) ? true :
             <ToggleButton :state="checkRole(user, 'ADMIN')" @click="updateRole(user)" class="admin-user__role-toggle"
                 id="admin-user-toggle" />
         </div>
-        <div class="admin-user__delete" @click="deleteUser(user.id)">
+        <button class="admin-user__delete" @click="deleteUser(user.id)">
             <TrashIcon />
-        </div>
-        <div class="admin-user__edit">
+        </button>
+        <button class="admin-user__edit">
             <EditIcon @click="toggleModal()" />
-        </div>
+        </button>
     </div>
 </template>
 
@@ -90,28 +90,30 @@ const checkRole = (item, role) => item.roles.find(i => i.role === role) ? true :
 
     &__delete {
         height: 2.5rem;
-        display: flex;
-        justify-content: center;
+        aspect-ratio: 1 / 1;
 
         svg {
-            fill: var(--color-uc-gold);
-            cursor: pointer;
+            height: 100%;
+            stroke: var(--color-uc-gold);
+        }
 
-            &:hover {
-                fill: var(--color-dark-charcoal);
-            }
+        &:hover svg {
+            stroke: var(--color-dark-charcoal);
+        }
 
-            &:active {
-                fill: var(--color-uc-gold);
-            }
+        &:active svg {
+            stroke: var(--color-dark-charcoal);
         }
     }
 
     &__edit {
-        height: 2rem;
+        height: 20px;
         display: none;
-        justify-content: center;
-        cursor: pointer;
+
+        & svg {
+            height: 100%;
+            stroke: var(--color-uc-gold);
+        }
     }
 
     &__first-name,
@@ -182,7 +184,7 @@ const checkRole = (item, role) => item.roles.find(i => i.role === role) ? true :
         }
 
         &__edit {
-            display: flex;
+            display: block;
         }
     }
 }

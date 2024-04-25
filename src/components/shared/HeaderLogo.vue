@@ -1,14 +1,13 @@
 <script setup>
 import GenericLink from '../generics/GenericLink.vue';
-import { defineProps } from 'vue';
 
-const props = defineProps({
+defineProps({
   shrink: Boolean
 });
 </script>
 
 <template>
-    <GenericLink href="/home" :class="['header__logo', { 'header__logo--shrink': shrink }]" textContent="Furniro">
+    <GenericLink href="/" :class="['header__logo', { 'header__logo--shrink': shrink }]" textContent="Furniro">
         <img src="/logo_image.png" :class="['header__logo-image', { 'header__logo-image--shrink': shrink }]" alt="logo">
     </GenericLink>
 </template>
@@ -20,6 +19,7 @@ const props = defineProps({
     font-size: 36px;
     column-gap: 5px;
     font-weight: 700;
+    width: 188px;
     transition: font-size 0.25s linear;
     color: var(--color-black);
 
@@ -30,6 +30,7 @@ const props = defineProps({
 .header__logo-image{
     height: 50px;
     width: 50px;
+    transition: height 0.25s ease-in-out, width 0.25s ease-in-out;
 
     &--shrink{
         height: 40px;

@@ -36,6 +36,7 @@ defineProps({
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
+    margin-bottom: 80px;
 
     &__container {
         display: flex;
@@ -85,9 +86,9 @@ defineProps({
         }
     }
 }
-@media screen and (max-width: 1024px){
+@media screen and (max-width: 991px){
     .banner-section{
-        margin-bottom: 30px;
+        margin-bottom: 60px;
     }
 }
 @media screen and (max-width: 768px) {

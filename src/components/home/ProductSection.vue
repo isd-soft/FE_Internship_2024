@@ -18,11 +18,11 @@ const { width } = useWindowSize();
 const cardCount = ref(10)
 
 watch(width, (newWidth) => {
-  if (newWidth <= 992) {
+  if (newWidth <= 768) {
     cardCount.value = 10
-  } else if (newWidth <= 1100) {
+  } else if (newWidth <= 991) {
     cardCount.value = 9
-  } else if (newWidth <= 1440) {
+  } else if (newWidth <= 1300) {
     cardCount.value = 8
   } else {
     cardCount.value = 10
@@ -30,7 +30,6 @@ watch(width, (newWidth) => {
 }, { immediate: true })
 
 const productList = computed(() => Array.from(productStore.productMap.values()).slice(0, cardCount.value))
-
 
 </script>
 
@@ -65,8 +64,6 @@ const productList = computed(() => Array.from(productStore.productMap.values()).
     flex-direction: column;
     align-items: center;
     gap: 32px;
-    width: 85%;
-    margin: 0 auto;
   }
 
   &__title {
@@ -77,7 +74,7 @@ const productList = computed(() => Array.from(productStore.productMap.values()).
   &__list {
     display: grid;
     grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 32px;
+    gap: 20px;
     width: 100%;
     padding: 0;
     margin: 0;
@@ -101,22 +98,31 @@ const productList = computed(() => Array.from(productStore.productMap.values()).
   }
 }
 
-@media only screen and (max-width: 1440px) {
+@media only screen and (max-width: 1300px) {
   .product-section__list {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
 
-@media only screen and (max-width: 1100px) {
+@media only screen and (max-width: 991px) {
   .product-section__list {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
-@media only screen and (max-width: 991px) {
+@media only screen and (max-width: 768px) {
   .product-section__list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+}
+
+@media only screen and (max-width: 575px) {
+  .product-section__button {
+    padding: 2rem 0;
+    width: 80%;
+
+  }
+
 }
 </style>
 

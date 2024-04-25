@@ -2,8 +2,7 @@
 import TrashIcon from '../../assets/icons/TrashIcon.svg'
 import { useCartStore } from '@/stores/cartStore'
 import { useProductStore } from '@/stores/productStore'
-import GenericToast from '../generics/GenericToast.vue'
-import { ref, computed } from 'vue'
+import { createToast } from '../generics/GenericToast.vue'
 
 const cartStore = useCartStore()
 const productStore = useProductStore()
@@ -16,24 +15,10 @@ const props = defineProps({
   quantity: Number
 })
 
-const quantityChangeSuccessFlag = ref(false)
-const toastFlag = ref(false)
-
-const toastType = computed(() => {
-  return quantityChangeSuccessFlag.value ? 'info' : 'error'
-})
-const toastMessage = computed(() => {
-  return quantityChangeSuccessFlag.value ? 'Product quantity changed' : 'Could not add product'
-})
-
 const changeQuantity = (newQuantity) => {
-  setTimeout(() => {
-    toastFlag.value = false
-  }, 10)
-
   if (newQuantity >= 0 && newQuantity < 1000)
-    quantityChangeSuccessFlag.value = cartStore.changeProductQuantity(props.id, newQuantity)
-  toastFlag.value = true
+    if (!cartStore.changeProductQuantity(props.id, newQuantity))
+      createToast('Could not add product', 'error')
 }
 
 const handleInput = (event) =>
@@ -42,10 +27,6 @@ const handleInput = (event) =>
     : (event.preventDefault(), (event.target.value = event.target.value.replace(/\D/g, '')))
 
 const handleBlur = (event) => {
-  setTimeout(() => {
-    toastFlag.value = false
-  }, 10)
-
   const startsWithZero = event.target.value.startsWith('0')
 
   const nonZeroValue = event.target.value.replace(/^0+/, '')
@@ -60,24 +41,15 @@ const handleBlur = (event) => {
   if (startsWithZero) {
     event.target.value = nonZeroValue
   }
-  toastFlag.value = true
-  quantityChangeSuccessFlag.value = cartStore.changeProductQuantity(
-    props.id,
-    parseInt(nonZeroValue)
-  )
+  if (!cartStore.changeProductQuantity(props.id, parseInt(nonZeroValue)))
+    createToast('Could not add product', 'error')
 }
 
 const handleProductDelete = () => cartStore.deleteProduct(props.id)
 </script>
 
 <template>
-  <div class="cart-list__card cart-card">
-    <GenericToast
-      v-if="toastFlag && !quantityChangeSuccessFlag"
-      :message="toastMessage"
-      :type="toastType"
-    />
-
+  <div v-if="productStore.loader" class="cart-list__card cart-card">
     <img class="cart-card__image" :src="imageUrl" :alt="name" />
 
     <span class="cart-card__name text-sm">
@@ -121,32 +93,38 @@ const handleProductDelete = () => cartStore.deleteProduct(props.id)
 <style lang="scss" scoped>
 .cart-card {
   grid-column: 1 / span 6;
+  column-gap: 10px;
   display: grid;
   grid-template-columns: inherit;
-  text-align: center;
+  text-align: left;
   align-items: center;
 
   &__image {
     grid-column: 1;
-    width: 10rem;
-    height: 10rem;
+    max-width: 100px;
+    height: 100px;
+    width: 98%;
+
   }
 
   &__name {
     grid-column: 2;
+    font-size: 14px;
   }
 
   &__price {
     grid-column: 3;
+    font-size: 14px;
   }
 
   &__quantity {
     text-align: center;
     display: block;
-    width: 3.6rem;
-    height: 3.1rem;
+    width: 36px;
+    height: 30px;
     border: 1px solid var(--color-quick-silver);
-    border-radius: 1rem;
+    border-radius: 10px;
+    font-size: 12px;
 
     &:focus {
       outline: none;
@@ -155,20 +133,26 @@ const handleProductDelete = () => cartStore.deleteProduct(props.id)
 
   &__subtotal {
     grid-column: 5;
+    text-align: right;
+    font-size: 14px;
+
   }
 }
 
 .delete-button {
   grid-column: 6;
+  height: 100%;
 
   &__icon {
-    fill: var(--color-uc-gold);
+    stroke: var(--color-uc-gold);   
+    height: 35px;
+
 
     &:hover {
-      fill: var(--color-dark-charcoal);
+      stroke: var(--color-dark-charcoal);
     }
     &:active {
-      fill: var(--color-uc-gold);
+      stroke: var(--color-uc-gold);
     }
   }
 }
@@ -176,11 +160,15 @@ const handleProductDelete = () => cartStore.deleteProduct(props.id)
 .counter {
   grid-column: 4;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
+  column-gap: 15px;
   margin: 0 auto;
   width: 100%;
+  font-size: 12px;
 
   &__button-action {
+    width: 30px;
+    font-size: 18px;
     &:hover {
       color: var(--color-uc-gold);
     }
@@ -191,12 +179,66 @@ const handleProductDelete = () => cartStore.deleteProduct(props.id)
   }
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 991px) {
   .cart-card {
     &__image {
       width: 7.5rem;
       height: 7.5rem;
     }
+
+    &__name, &__price, &__subtotal{
+      font-size: 12px;
+    }
+
+    &__quantity{
+      font-size: 10px;
+    }
   }
+
+  .counter{
+
+    &__button-action {
+      font-size: 14px;
+    }
+  }
+}
+
+@media only screen and (max-width: 575px){
+  .cart-card {
+    grid-column: 1 / span 6;
+    &__image{
+      justify-self: left;
+    }
+
+    &__name {
+      display: none;
+    }
+
+    &__price{
+      display: none;
+    }
+
+    &__subtotal{
+      text-align: left;
+      padding-left: 5px;
+    }
+
+    &__quantity {
+      width: min(40px, 25%);
+      height: 30px;
+      font-size: 10px;
+    }
+
+  }
+
+  .counter{
+    grid-column: span 3;
+    column-gap: min(10px, 1%);
+    font-size: 10px;
+    &__button-action {
+      width: min(35px, 20%);
+    }
+  }
+
 }
 </style>

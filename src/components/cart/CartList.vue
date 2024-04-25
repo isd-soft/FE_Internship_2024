@@ -4,17 +4,17 @@ import GenericList from '../generics/GenericList.vue'
 import CartCard from './CartCard.vue'
 import { useCartStore } from '@/stores/cartStore';
 import { computed } from 'vue';
+import { useProductStore } from '@/stores/productStore';
 
 const cartStore = useCartStore()
+const productStore = useProductStore()
 
 const cartItemList = computed(() => {
-    return Array.from(cartStore.productMap.values())
+    cartStore.clean()
+    const fullCart = Array.from(cartStore.productMap.values())
+    return fullCart.filter((product) => productStore.productExists(product.id))
 })
 
-// const mockCartData = [
-//     { imageSrc: 'https://via.placeholder.com/100x100/CCCCCC/FFFFFF?text=Placeholder+Image', name: 'Asgaard sofa', price: 250000, quantity: 2 },
-//     { imageSrc: 'https://via.placeholder.com/100x100/CCCCCC/FFFFFF?text=Placeholder+Image', name: 'Asgaard sofa', price: 250000, quantity: 2 },
-// ]
 </script>
 
 <template>
@@ -33,7 +33,7 @@ const cartItemList = computed(() => {
     width: 66%;
     display: grid;
     grid-template-columns: repeat(6, minmax(0, 1fr));
-    row-gap: 5rem;
+    row-gap: 40px;
 
     .cart-section__list {
         grid-column: 1 /span 6;
@@ -49,9 +49,18 @@ const cartItemList = computed(() => {
     }
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 991px) {
     .cart-section__list-wrapper {
         width: 100%;
+        row-gap: 20px;
+    }
+}
+
+@media only screen and (max-width: 575px) {
+    .cart-section__list-wrapper {
+        .cart-section__list {
+            column-gap: 10px;
+    }
     }
 }
 </style>

@@ -5,9 +5,8 @@ import { useForm } from 'vee-validate'
 import * as Yup from 'yup'
 import CrossIcon from '../../assets/icons/CrossIcon.svg'
 import { useUserStore } from '../../stores/userStore'
-import GenericToast from '../generics/GenericToast.vue'
+import { createToast } from '../generics/GenericToast.vue'
 import { useProductStore } from '../../stores/productStore'
-import { ref } from 'vue'
 
 
 const vfm = useVfm()
@@ -17,11 +16,11 @@ const props = defineProps({
     name: String,
     code: String,
     description: String,
-    price: String,
+    price: Number,
     imageUrl: String,
     stock: Number,
     id: String,
-    discount: String,
+    discount: Number,
     isNew: Boolean,
     createdAt: String,
     updatedAt: String,
@@ -29,7 +28,7 @@ const props = defineProps({
     newProductFlag: Boolean
 })
 
-const { createdAt, updatedAt, headingFlag, ...initialValues } = props
+const { createdAt, updatedAt, ...initialValues } = props
 
 const validationSchema = Yup.object().shape({
     name: Yup.string().required('Name is required'),
@@ -60,13 +59,9 @@ const { handleSubmit, isSubmitting, setValues } = useForm({
 const productStore = useProductStore()
 const token = useUserStore().token.key
 
-const toastPreset = ref({})
-const submitCompletionFlag = ref(false)
-
 const reset = () => setValues(initialValues)
 
 const submit = handleSubmit(values => {
-    if (submitCompletionFlag.value) submitCompletionFlag.value = false
 
     const { updateProductToServer, addProductToServer } = productStore;
 
@@ -75,18 +70,21 @@ const submit = handleSubmit(values => {
     action(values, token)
         .then(response =>
             response
-                ? toastPreset.value = { message: `Product ${props.newProductFlag ? 'added' : 'modified'} successfully!`, type: 'success' }
-                : toastPreset.value = { message: `Failed to ${props.newProductFlag ? 'add' : 'modify'} the product!`, type: 'error' }
+                ? createToast(`Product ${props.newProductFlag ? 'added' : 'modified'} successfully!`, 'success')
+                : createToast(`Failed to ${props.newProductFlag ? 'add' : 'modify'} the product!`, 'error')
         )
-        .catch(error => toastPreset.value = { message: `Failed to ${props.newProductFlag ? 'add' : 'modify'} the product: ${error}`, type: 'error' }
+        .catch(error => createToast(`Failed to ${props.newProductFlag ? 'add' : 'modify'} the product: ${error}`, 'error')
         )
         .finally(() => {
-            submitCompletionFlag.value = true
-            if (props.newProductFlag) setTimeout(() => vfm.closeAll(vfm.openedModals), 100)
+            if (props.newProductFlag) vfm.closeAll(vfm.openedModals)
         })
 })
 
-const formatDate = (date) => new Date(date).toLocaleDateString('en-GB').replace(/\//g, '.')
+const formatDate = (date) => {
+    console.log(date)
+    console.log(new Date(date).toLocaleDateString('en-GB').replace(/\//g, '.'))
+    return new Date(date).toLocaleDateString('en-GB').replace(/\//g, '.')
+}
 
 </script>
 
@@ -103,13 +101,15 @@ const formatDate = (date) => new Date(date).toLocaleDateString('en-GB').replace(
                     {{ name }}
                 </h2>
 
-                <span class="admin-product-form__info text-sm">
-                    Created at: {{ formatDate(createdAt) }}
-                </span>
+                <div class="admin-product-form__dates">
+                    <span class="admin-product-form__info text-xs">
+                        Created at: {{ formatDate(createdAt) }}
+                    </span>
 
-                <span class="admin-product-form__info text-sm">
-                    Last update: {{ formatDate(updatedAt) }}
-                </span>
+                    <span class="admin-product-form__info text-xs">
+                        Last update: {{ formatDate(updatedAt) }}
+                    </span>
+                </div>
             </div>
 
             <div class="admin-product-form__input-wrapper">
@@ -117,12 +117,13 @@ const formatDate = (date) => new Date(date).toLocaleDateString('en-GB').replace(
             </div>
 
             <div class="admin-product-form__button-wrapper">
-                <button :disabled="isSubmitting" type="submit" class="admin-product-form__submit-button text-sm">
+                <button :disabled="isSubmitting" type="submit"
+                    class="primary-button admin-product-form__submit-button text-sm">
                     Apply
                 </button>
 
                 <button :disabled="isSubmitting" type="button" @click="reset"
-                    class="admin-product-form__reset-button text-sm">
+                    class="secondary-button admin-product-form__reset-button text-sm">
                     Reset
                 </button>
             </div>
@@ -138,120 +139,117 @@ const formatDate = (date) => new Date(date).toLocaleDateString('en-GB').replace(
                 <AdminProductInput v-for="(input, index) of inputPresetList" :key="`${name}_${index}`" v-bind="input" />
             </div>
 
-            <button :disabled="isSubmitting" type="submit"
-                class="admin-product-form__submit-button admin-product-form__submit-button--new text-sm">
-                Add
-            </button>
+            <div class="admin-product-form__button-wrapper--new">
+                <button :disabled="isSubmitting" type="submit"
+                    class="primary-button admin-product-form__submit-button admin-product-form__submit-button--new text-sm">
+                    Add
+                </button>
+            </div>
 
         </form>
 
-
-
-        <button class="admin-product-modal__close-button" @click="closeModal">
-            <CrossIcon width="2.86rem" height="2.86rem" />
+        <button type="button" class="admin-product-modal__close-button" @click="closeModal">
+            <CrossIcon />
         </button>
 
-        <GenericToast v-if="submitCompletionFlag" v-bind="toastPreset" />
     </VueFinalModal>
 </template>
 
 <style lang="scss">
 .admin-product-modal {
     background-color: var(--color-warm-ivory);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
 
     &__container {
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+        max-width: 1440px;
+        background-color: var(--color-white);
         display: flex;
-        background: var(--color-white);
-    }
-
-    &__image {
-        width: 55rem;
-        aspect-ratio: 1/1;
-        object-fit: cover;
+        border-radius: 10px;
+        overflow: auto;
     }
 
     &__close-button {
-        position: absolute;
-        top: 1.5rem;
-        right: 1.5rem;
-        z-index: 10;
+        position: relative;
+        top: 20px;
+        right: 20px;
+        width: 40px;
+        height: min-content;
+    }
+
+    &__form {
+        width: 50%;
+        padding: 4rem 1rem 4rem 4rem;
+        height: 100%;
+    }
+
+    &__image {
+        width: 50%;
+        border-radius: 10px 0 0 10px;
     }
 }
 
 .admin-product-form {
     display: flex;
     flex-direction: column;
-    padding: 2rem;
     justify-content: space-between;
-    width: 50%;
+    gap: 30px;
+    width: 80vw;
 
     &--new {
-        padding: 4rem 8rem;
+        width: 100%;
+        padding: 40px;
+        margin-right: -30px;
     }
 
     &__metadata-wrapper {
         display: flex;
         flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5rem;
+    }
+
+    &__dates {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        color: var(--color-taupe-gray);
     }
 
     &__title {
-        font-size: 4rem;
-        font-weight: 400;
-
-        &--new {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-    }
-
-    &__info {
-        color: var(--color-taupe-gray);
+        font-size: 30px;
+        font-weight: 600px;
     }
 
     &__input-wrapper {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        column-gap: 20px;
+        row-gap: 20px;
     }
 
     &__button-wrapper {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 2.5rem;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        column-gap: 20px;
+        width: 100%;
+
+        &--new {
+            display: flex;
+            justify-content: center;
+        }
     }
 
     &__submit-button,
     &__reset-button {
-        padding: 0.75rem 2.5rem;
-        border-radius: 10px;
-        font-weight: 500;
+        width: 100%;
+        padding: 2rem 4rem;
     }
 
-    &__submit-button {
-        background-color: var(--color-uc-gold);
-        color: var(--color-white);
-        justify-self: flex-end;
-
-        &--new {
-            width: fit-content;
-            padding: 0.75rem 5rem;
-            margin: 0 auto;
-        }
-    }
-
-    &__reset-button {
-        background-color: transparent;
-        color: var(--color-uc-gold);
-        border: 1px solid var(--color-uc-gold);
-        justify-self: flex-start;
+    &__submit-button--new {
+        max-width: 250px;
     }
 }
 
@@ -262,53 +260,43 @@ const formatDate = (date) => new Date(date).toLocaleDateString('en-GB').replace(
             align-items: center;
         }
 
-        &__image {
+        &__form {
             width: 100%;
-            aspect-ratio: 2/1;
+            padding: 2rem;
+        }
+
+        &__image {
+            display: none;
+        }
+
+        &__close-button {
+            position: absolute;
+
+            & svg {
+                fill: var(--color-white);
+            }
         }
     }
 
-    .admin-product-form {
-        width: 100%;
-
-        &__metadata-wrapper {
-            align-items: center;
-            margin-bottom: 2rem;
-        }
-
-        &__input-wrapper {
-            grid-template-columns: 1fr;
-        }
+    .admin-product-form__dates {
+        justify-content: flex-start;
+        gap: 15px;
     }
 }
 
 @media only screen and (max-width: 575px) {
     .admin-product-modal {
         &__container {
-            width: 80%
-        }
-
-        &__image {
-            display: none;
+            width: 100%;
+            height: 100%;
+            border-radius: 0;
         }
     }
 
     .admin-product-form {
-        &__title {
-            max-width: 70%;
-            text-align: center;
-            font-size: 3.2rem;
-        }
-
-        &__button-wrapper {
-            flex-direction: column;
-            gap: 1.25rem;
-        }
-
-        &__submit-button,
-        &__reset-button {
-            width: 100%;
-        }
+        margin-top: auto;
+        margin-bottom: auto;
+        height: min-content;
     }
 }
 </style>

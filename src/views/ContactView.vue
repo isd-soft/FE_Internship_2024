@@ -8,34 +8,17 @@
     import PhoneIcon from "@/assets/icons/ContactPhoneIcon.svg"
     import EmailIcon from "@/assets/icons/ContactEmailIcon.svg"
     import Loader from "@/assets/icons/LoaderIcon.svg"
-    import GenericToast from '@/components/generics/GenericToast.vue'
+    import {createToast} from '@/components/generics/GenericToast.vue'
     import { useContactStore } from "@/stores/contactStore";
-    import { ref, computed } from 'vue'
 
     const store = useContactStore()
-    const submitSuccess = ref(false)
-    const submitFinished = ref(false)
-
-    
-    const toastType = computed(() => {
-        return submitSuccess.value ? 'success' : 'error'
-    })
-    const toastMessage = computed(() => {
-        return submitSuccess.value ? 'Submit Successful' : 'Submit Failed'
-    })
 
     const finishSubmitSuccess = () => {
-        console.log("It's Submited")
-        submitSuccess.value = true
-        submitFinished.value = true
-        //Needed to trigger Toast. The toast is not inside the Modal, but its appearance depends on submitFinished becoming true,
+        createToast('Submit Successful', 'success')
         }
 
         const finishSubmitFail = () => {
-            submitFinished.value = true
-        }
-        const refreshAttempt = () => {
-            submitFinished.value = false
+            createToast('Submit Failed', 'error')
         }
         
 </script>
@@ -43,23 +26,21 @@
 <template>
     <div class="contact" v-if="store.loader">
         <BannerSection title="Contact"/>
-        <div class="contact__container">
+        <div class="contact__container container">
             <div class="contact__text-wrapper">
-                <h3 class="contact__tagline text-2xl">Get In Touch With Us</h3>
-                <p class="contact__recommendation text-sm">For More Information About Our Product & Services. Please Feel Free To Drop Us <br>
+                <h3 class="contact__tagline">Get In Touch With Us</h3>
+                <p class="contact__recommendation">For More Information About Our Product & Services. Please Feel Free To Drop Us
                     An Email. Our Staff Always Be There To Help You Out. Do Not Hesitate!</p>
             </div>
-            <div class="contact__section">
+            <div class="contact__section section">
                 <div class="contact__info-wrapper"> 
                     <ContactInfoCard  :icon="MapPointIcon" infoTitle="Address" :infoText="store.getFormatAddress" href="#" styles="pointer-events: none; cursor: default;"/>
                     <ContactInfoCard  :icon="PhoneIcon" infoTitle="Phone"   :infoText="store.getFormatPhones" href="tel:"/>
                     <ContactInfoCard  :icon="EmailIcon" infoTitle="Email" :infoText="store.contactInformation.email" href="mailto:"/>
                     <ContactInfoCard  :icon="ClockIcon" infoTitle="Working Time" :infoText="store.contactInformation.workTime" href="#" styles="pointer-events: none; cursor: default;"/>
                 </div>
-                <GenericToast v-if="submitFinished" :message="toastMessage" :type="toastType" />
                 <ContactForm 
                     class="contact__form"
-                    @inputStart="refreshAttempt"
                     @success="finishSubmitSuccess"
                     @failure="finishSubmitFail"/>
             </div>
@@ -75,26 +56,32 @@
 <style lang="scss" scoped>
     .contact{
         &__container{
-        padding: 38px 191px 63px 191px;
+        padding: 0px 130px;
         display: flex;
         flex-direction: column;
-        gap: 7rem;
+        gap: 70px;
+        margin-bottom: 80px;
         }
         &__text-wrapper{
             text-align: center;
+            display: flex ;
+            flex-direction: column;
         }
         &__tagline{
             font-weight: 600;
             margin-bottom: 7px;
+            font-size: 36px;
         }
         &__recommendation{
             color: var(--color-quick-silver);
+            font-size: 14px;
+            width: 60%;
+            align-self: center;
         }
         &__section{
             display: flex;
             flex-direction: column;
-            gap: 7rem;
-            
+            gap: 70px;    
         }
         &__info-wrapper{
             display: grid;
@@ -112,22 +99,34 @@
             width: 100%;
             height: 520px;
             filter: grayscale(40%);
-            margin-top: 50px;
             margin-bottom: -5px;
         }
     }
     @media screen and (max-width: 991px) {
         .contact{
             &__container{
-                padding: 4rem 5rem;
+                max-width: 878px;
+                padding: 0;
+                margin-bottom: 60px;
+                gap: 50px;
             }
+
+            &__section{
+                gap: 50px;
+            }
+
+            &__tagline{
+                font-size: 24px;
+            }
+
+            &__recommendation{
+            width: 70%;
+        }
         }
     }
     @media only screen and (max-width: 768px) {
         .contact{
-            &__container{
-                padding: 4rem;
-            }
+
             &__section{
                 width: 100%;
                 display: flex;
@@ -141,7 +140,7 @@
             }
         }
     }
-    @media only screen and (max-width: 425px) {
+    @media only screen and (max-width: 575px) {
         .contact{
             &__section{
                 width: 100%;
@@ -159,6 +158,16 @@
             grid-template-columns: repeat(1, minmax(0, 1fr));
             gap: 4.2rem;
             }
+
+            &__tagline{
+                font-size: 24px;
+            }
+
+            &__recommendation{
+                width: 80%;
+                // text-align: justify;
+                font-size: 12px;
+        }
         }
     }
 </style>

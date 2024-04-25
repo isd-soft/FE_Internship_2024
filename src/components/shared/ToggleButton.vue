@@ -36,7 +36,7 @@ const getButtonState = () => active.value ? '--on' : '--off';
 </script>
 
 <template>
-    <button :style="{ outline: outline, '--initial-color': onColor, '--final-color': offColor }"
+    <button type="button" :style="{ outline: outline, '--initial-color': onColor, '--final-color': offColor }"
         :class="['toggle-button', 'toggle-button' + getButtonState()]">
         <div :class="['toggle-button__wrapper', 'toggle-button__wrapper' + getButtonState()]">
             <div class="toggle-button__toggler" :style="{ backgroundColor: toggleColor, color: 'white' }"></div>

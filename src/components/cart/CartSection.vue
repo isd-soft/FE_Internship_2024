@@ -23,10 +23,10 @@ import CartTotal from './CartTotal.vue'
     }
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 991px) {
     .cart-section__container {
         flex-direction: column;
-        gap: 5rem;
+        gap: 40px;
     }
 }
 </style>

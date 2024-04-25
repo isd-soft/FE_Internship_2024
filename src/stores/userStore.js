@@ -44,12 +44,10 @@ export const useUserStore = defineStore(
         loader.value = true
         return true
       }
-      console.log('Something went wrong')
       return false
     }
 
     const isAuthenticated = () => {
-      console.log('Checking auth')
       return token.value.key
     }
 
@@ -69,10 +67,10 @@ export const useUserStore = defineStore(
   {
     persist: {
       afterRestore: (ctx) => {
-        // setTimeout(() => {
-        const cart = useCartStore()
-        cart.getCart()
-        // }, 100)
+        setTimeout(() => {
+          const cart = useCartStore()
+          cart.getCart()
+        }, 1000)
       }
     }
   }

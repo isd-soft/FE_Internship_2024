@@ -1,10 +1,13 @@
 <script setup>
 import { useProductStore } from '@/stores/productStore';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { useModal } from 'vue-final-modal'
 import GenericList from '../components/generics/GenericList.vue';
 import AdminProduct from '../components/admin/AdminProduct.vue';
 import AdminProductModal from '../components/admin/AdminProductModal.vue';
+import FirstLastPagination from '@/components/shared/FirstLastPagination.vue';
+import { useWindowSize } from '@vueuse/core';
+import PlusIcon from '@/assets/icons/PlusIcon.svg';
 
 const productStore = useProductStore()
 
@@ -17,24 +20,53 @@ const { open } = useModal({
     }
 })
 
+const currentPage = ref(1)
+
+const { width } = useWindowSize()
+
+const getPageElements = (pageNumber) => {
+    const lowerBound = 20 * (pageNumber - 1)
+    const upperBound = productList.value.length > 20 * pageNumber ? 20 * pageNumber : productList.value.length
+    return productList.value.slice(lowerBound, upperBound)
+}
+
+const getNumberOfPages = () => Math.ceil(productList.value.length / 20)
+
+const goToPage = (number) => {
+    currentPage.value = number
+}
+
+const goLastPage = () => {
+    currentPage.value = getNumberOfPages()
+}
+
+const goFirstPage = () => {
+    currentPage.value = 1
+}
+
 </script>
 
 <template>
     <section class="main__section admin-product-section">
-        <h1 class="admin-product-section__title text-5xl">
-            Products
-        </h1>
+        <div class="admin-product-section__title-wrapper">
+            <h1 class="admin-product-section__title text-xl">
+                Products
+            </h1>
+            <button class="primary-button admin-product-section__add-button" @click="open">
+                <PlusIcon /> Add
+            </button>
+        </div>
 
-        <GenericList :items="[{ headingFlag: true }, ...productList]"
+        <GenericList :items="[{ headingFlag: true }, ...getPageElements(currentPage)]" key="id"
             customClass="admin-product-section__list admin-product-list" itemClass="admin-product-list__item">
             <template v-slot="{ item }">
                 <AdminProduct v-bind="item" />
             </template>
         </GenericList>
 
-        <button class="admin-product-section__add-button text-lg" @click="open">
-            Add Product
-        </button>
+        <FirstLastPagination v-if="getNumberOfPages() > 1" :pageNumber="getNumberOfPages()" :currentPage="currentPage"
+            :buttonNumber="width > 575 ? 5 : 3" :goToPage="goToPage" :goToLastPage="goLastPage"
+            :goToFirstPage="goFirstPage" />
     </section>
 </template>
 
@@ -43,56 +75,45 @@ const { open } = useModal({
     display: flex;
     flex-direction: column;
     gap: 2.5rem;
-    padding: 5rem 3rem 5rem 13rem;
+    padding: 1.5rem 3rem 5rem 8.95rem;
+
+    &__title-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 2.5rem;
+
+        &__title {
+            font-weight: 700;
+            color: var(--color-uc-gold);
+        }
+    }
 
     &__add-button {
-        font-weight: 700;
-        color: var(--color-white);
-        align-self: center;
-        width: fit-content;
-        padding: 0.75rem 5rem;
-        background-color: var(--color-uc-gold);
-        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem;
+        border-radius: 5px;
+        font-weight: 500;
+        width: min-content;
+
+        & svg {
+            height: 1.2rem;
+            fill: var(--color-white);
+        }
     }
 }
 
 .admin-product-list {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 2.5rem;
-
-    & :deep(.admin-product-list__item) {
-        grid-column: span 8;
-        display: inherit;
-        grid-template-columns: inherit;
-    }
+    display: flex;
+    flex-direction: column;
+    row-gap: 2.5rem;
 }
 
-@media only screen and (max-width: 991px) {
-    .admin-product-list {
-        grid-template-columns: repeat(5, 1fr);
-
-        & :deep(.admin-product-list__item) {
-            grid-column: span 6;
-        }
-    }
-}
-
-@media only screen and (max-width: 575px) {
+@media (max-width:575px) {
     .admin-product-section {
-        align-items: stretch;
-    }
-
-    .admin-product-list {
-        grid-template-columns: repeat(3, 1fr);
-
-        & :deep(.admin-product-list__item) {
-            grid-column: span 4;
-        }
-    }
-
-    .admin-product-section__add-button {
-        width: 100%;
+        padding: 1.5rem 3rem 5rem 3rem;
     }
 }
 </style>
