@@ -165,9 +165,11 @@ const formatDate = (date) => {
         left: 50%;
         transform: translate(-50%, -50%);
         width: 80%;
+        max-width: 1440px;
         background-color: var(--color-white);
         display: flex;
         border-radius: 10px;
+        overflow: auto;
     }
 
     &__close-button {
@@ -181,6 +183,7 @@ const formatDate = (date) => {
     &__form {
         width: 50%;
         padding: 4rem 1rem 4rem 4rem;
+        height: 100%;
     }
 
     &__image {
@@ -192,6 +195,7 @@ const formatDate = (date) => {
 .admin-product-form {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     gap: 30px;
 
     &__metadata-wrapper {
@@ -223,11 +227,13 @@ const formatDate = (date) => {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         column-gap: 20px;
         width: 100%;
+        margin-top: auto;
     }
 
     &__submit-button,
     &__reset-button {
         width: 100%;
+        padding: 2rem 4rem;
     }
 }
 
@@ -244,8 +250,7 @@ const formatDate = (date) => {
         }
 
         &__image {
-            width: 100%;
-            border-radius: 10px 10px 0 0;
+            display: none;
         }
 
         &__close-button {
@@ -256,6 +261,11 @@ const formatDate = (date) => {
             }
         }
     }
+
+    .admin-product-form__dates {
+        justify-content: flex-start;
+        gap: 15px;
+    }
 }
 
 @media only screen and (max-width: 575px) {
@@ -263,10 +273,6 @@ const formatDate = (date) => {
         &__container {
             width: 100%;
             height: 100%;
-            border-radius: 0;
-        }
-
-        &__image {
             border-radius: 0;
         }
     }

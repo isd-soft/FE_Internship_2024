@@ -50,7 +50,7 @@ const checkRole = (item, role) => item.roles.find(i => i.role === role) ? true :
             <h3 class="admin-user-modal__field-name">Role:</h3>
             <p class="admin-user-modal__field-content">{{ checkRole(item, 'ADMIN') ? 'ADMIN' : 'USER' }}</p>
             <button class="primary-button admin-user-modal__update-button" @click="updateRole(item)">{{ checkRole(item,
-            'ADMIN') ? 'Remove priveleges' : 'Make ADMIN' }}</button>
+            'ADMIN') ? 'Remove privileges' : 'Make ADMIN' }}</button>
             <button class="primary-button admin-user-modal__delete-button" @click="deleteUser(item.id)">Delete
                 user</button>
         </section>
